@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GreenLake Home — Lo-fi</title>
+<style>
+  :root {
+    --ink: #2b2b2b;
+    --ink-soft: #6b6b6b;
+    --ink-faint: #9a9a9a;
+    --contained: #f2f2f2;      /* grey = contained */
+    --contained-line: #e4e4e4;
+    --page: #ffffff;           /* white = page body */
+    --line: #dcdcdc;
+    --pill: #e9e9e9;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--page);
+    color: var(--ink);
+  }
+
+  /* ---------- Global header ---------- */
+  .header {
+    height: 64px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 24px;
+    position: sticky; top: 0; background: var(--page); z-index: 10;
+  }
+  .logo { width: 110px; height: 28px; background: var(--pill); border-radius: 4px;
+          display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--ink-soft); }
+  .workspace { font-size: 14px; color: var(--ink-soft); }
+  .search {
+    flex: 0 1 460px; height: 38px; border: 1px solid var(--line); border-radius: 20px;
+    display:flex; align-items:center; padding: 0 16px; font-size: 13px; color: var(--ink-faint);
+  }
+  .header-icons { margin-left: auto; display: flex; gap: 14px; }
+  .hicon { width: 30px; height: 30px; border-radius: 50%; background: var(--pill); }
+
+  /* ---------- Layout: nav rail + page ---------- */
+  .shell { display: flex; }
+  .rail {
+    width: 72px; padding: 16px 12px;
+    border-right: 1px solid var(--line);
+    min-height: calc(100vh - 64px);
+    display: flex; flex-direction: column; gap: 16px; align-items: center;
+    position: sticky; top: 64px; align-self: flex-start;
+  }
+  .ricon { width: 36px; height: 36px; border-radius: 8px; background: var(--pill); }
+  .ricon.active { outline: 2px solid var(--ink-soft); }
+
+  .page { flex: 1; padding: 32px 40px 80px; max-width: 1600px; }
+
+  /* Page grid: body + right rail */
+  .page-grid { display: grid; grid-template-columns: 1fr 300px; gap: 40px; }
+  @media (max-width: 1200px) { .page-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- Page title ---------- */
+  .page-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+  h1 { font-size: 32px; font-weight: 700; }
+  .btn {
+    border: 1px solid var(--line); border-radius: 18px; padding: 8px 18px;
+    font-size: 13px; color: var(--ink-soft); background: var(--page);
+  }
+
+  /* ---------- Zone label (lo-fi annotation) ---------- */
+  .zone-label {
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 8px;
+  }
+  .annotate { outline: 1px dashed #c9c9c9; outline-offset: 6px; border-radius: 4px; }
+
+  /* ---------- ZONE 1: KPI strip (uncontained) ---------- */
+  .kpi-strip {
+    display: grid; grid-template-columns: 200px repeat(3, 1fr);
+    gap: 0; margin-bottom: 40px;
+  }
+  .kpi-intro { padding-right: 24px; }
+  .kpi-intro .eyebrow { font-size: 12px; color: var(--ink-soft); margin-bottom: 4px; }
+  .kpi-intro .title { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+  .chip { display:inline-block; background: var(--pill); border-radius: 14px; padding: 5px 12px; font-size: 12px; color: var(--ink-soft); }
+  .kpi { padding: 0 24px; border-left: 1px solid var(--line); }
+  .kpi .cat { font-size: 12px; color: var(--ink-soft); }
+  .kpi .name { font-size: 15px; font-weight: 600; margin: 2px 0 6px; }
+  .kpi .value-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+  .kpi .value { font-size: 30px; font-weight: 700; }
+  .delta { font-size: 11px; background: var(--pill); border-radius: 10px; padding: 2px 8px; color: var(--ink-soft); }
+  .kpi .desc { font-size: 12px; color: var(--ink-soft); line-height: 1.45; margin-bottom: 10px; }
+  .kpi .link { font-size: 13px; font-weight: 600; text-decoration: underline; color: var(--ink); }
+
+  /* ---------- ZONE 2: contained cards ---------- */
+  .card-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 48px; }
+  @media (max-width: 1000px) { .card-row { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--contained); border-radius: 12px; padding: 24px;
+  }
+  .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .card-head h2 { font-size: 19px; font-weight: 700; }
+  .arrow { width: 22px; height: 22px; border-radius: 50%; background: var(--pill);
+           display:flex; align-items:center; justify-content:center; font-size: 12px; color: var(--ink-soft); }
+
+  .list-item { display: flex; justify-content: space-between; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--contained-line); }
+  .list-item:last-child { border-bottom: 0; }
+  .li-main { display: flex; gap: 10px; }
+  .sev { width: 14px; height: 14px; border-radius: 3px; background: #bdbdbd; flex: none; margin-top: 2px; }
+  .li-title { font-size: 14px; font-weight: 600; }
+  .li-sub { font-size: 12px; color: var(--ink-soft); }
+  .li-meta { font-size: 12px; color: var(--ink-faint); white-space: nowrap; }
+
+  .big-number { font-size: 44px; font-weight: 700; }
+  .big-number-sub { font-size: 13px; color: var(--ink-soft); }
+  .bar { display: flex; gap: 4px; height: 8px; margin: 14px 0 16px; }
+  .bar span { border-radius: 3px; background: #c9c9c9; }
+  .bar span:nth-child(2) { background: #b3b3b3; }
+  .bar span:nth-child(3) { background: #9c9c9c; }
+  .bar span:nth-child(4) { background: #858585; }
+  .legend-row { display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; }
+  .legend-row .dot { display:inline-block; width: 10px; height: 10px; border-radius: 3px; background: #b3b3b3; margin-right: 8px; }
+  .legend-row .pct { color: var(--ink-soft); }
+
+  /* ---------- ZONE 3: full-width table (uncontained) ---------- */
+  .table-section { margin-bottom: 48px; }
+  .table-section h2 { font-size: 24px; font-weight: 700; margin-bottom: 18px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; font-size: 13px; font-weight: 700; padding: 12px 14px; border-bottom: 1px solid var(--ink-soft); }
+  td { padding: 14px; border-bottom: 1px solid var(--line); }
+  td.num, th.num { text-align: right; }
+  .cb { width: 16px; height: 16px; border: 1.5px solid var(--ink-faint); border-radius: 4px; display: inline-block; }
+  .tlink { text-decoration: underline; font-weight: 600; }
+  .status-pill { background: var(--pill); border-radius: 12px; padding: 3px 10px; font-size: 12px; color: var(--ink-soft); }
+  .progress { width: 120px; height: 6px; background: var(--pill); border-radius: 3px; overflow: hidden; }
+  .progress i { display: block; height: 100%; background: #9c9c9c; }
+
+  /* ---------- Right rail ---------- */
+  .rrail { display: flex; flex-direction: column; gap: 28px; }
+  .rrail .card { padding: 20px; }
+  .rrail h3 { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+  .status-banner { background: var(--pill); border-radius: 8px; padding: 12px 14px; font-size: 13px; font-weight: 600;
+                   display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .status-dot { width: 10px; height: 10px; border-radius: 50%; background: #8a8a8a; }
+  .rrail .fine { font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
+  .prompt-box { border: 1px solid var(--line); background: var(--page); border-radius: 8px; padding: 10px 12px;
+                font-size: 13px; color: var(--ink-faint); margin: 12px 0; }
+  .qa-list { list-style: none; }
+  .qa-list li { padding: 8px 0; font-size: 14px; text-decoration: underline; font-weight: 600; }
+  .learn-item { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .learn-item:last-child { border-bottom: 0; }
+  .learn-item .lt { font-size: 14px; font-weight: 700; }
+  .learn-item .ls { font-size: 12px; color: var(--ink-soft); margin-top: 3px; }
+</style>
+</head>
+<body>
+
+<div style="display:flex; gap:8px; align-items:center; padding:8px 24px; border-bottom:1px dashed var(--line); font-size:12px; color:var(--ink-soft); background:#fafafa;">
+  Variants:
+  <a href="dashboard-lofi.html" style="padding:4px 12px; border-radius:12px; border:1px solid var(--ink); background:var(--ink); color:#fff; text-decoration:none;">Original</a>
+  <a href="dashboard-alt-a.html" style="padding:4px 12px; border-radius:12px; border:1px solid var(--line); color:var(--ink-soft); text-decoration:none;">A · KPI tiles</a>
+  <a href="dashboard-alt-b.html" style="padding:4px 12px; border-radius:12px; border:1px solid var(--line); color:var(--ink-soft); text-decoration:none;">B · Split primary</a>
+  <a href="dashboard-alt-c.html" style="padding:4px 12px; border-radius:12px; border:1px solid var(--line); color:var(--ink-soft); text-decoration:none;">C · Triage first</a>
+  <a href="dashboard-alt-d.html" style="padding:4px 12px; border-radius:12px; border:1px solid var(--line); color:var(--ink-soft); text-decoration:none;">D · Bento</a>
+</div>
+
+<!-- Global header -->
+<header class="header">
+  <div class="hicon" title="menu"></div>
+  <div class="logo">greenlake</div>
+  <div class="workspace">North America IT Ops ▾</div>
+  <div class="search">Search</div>
+  <div class="header-icons">
+    <div class="hicon"></div><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div>
+  </div>
+</header>
+
+<div class="shell">
+  <!-- Nav rail -->
+  <nav class="rail">
+    <div class="ricon active"></div><div class="ricon"></div><div class="ricon"></div>
+    <div class="ricon"></div><div class="ricon"></div><div class="ricon"></div>
+    <div class="ricon"></div><div class="ricon"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Home</h1>
+      <button class="btn">Customize 🔧</button>
+    </div>
+
+    <div class="page-grid">
+      <!-- ============ BODY COLUMN ============ -->
+      <div>
+
+        <!-- ZONE 1: uncontained KPI strip — "Is anything wrong / how are we trending?" -->
+        <div class="zone-label">Zone 1 · KPI strip · uncontained (page-level content)</div>
+        <section class="kpi-strip annotate">
+          <div class="kpi-intro">
+            <div class="eyebrow">GreenLake Copilot</div>
+            <div class="title">Insights</div>
+            <span class="chip">✦ See more insights</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Risk &amp; Compliance</div>
+            <div class="name">Overall Score</div>
+            <div class="value-row"><span class="value">96%</span><span class="delta">↑ 18%</span></div>
+            <div class="desc">Improved from 91% last quarter after 3 new encryption policies were applied.</div>
+            <span class="link">View compliance report →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Cost</div>
+            <div class="name">Savings</div>
+            <div class="value-row"><span class="value">$12.4K</span><span class="delta">↑ 18%</span></div>
+            <div class="desc">Saved this month from 6 rightsizing actions and 2 reserved-capacity renewals.</div>
+            <span class="link">View savings breakdown →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Efficiency</div>
+            <div class="name">Resource Utilization</div>
+            <div class="value-row"><span class="value">68%</span><span class="delta">↓ 4%</span></div>
+            <div class="desc">Average utilization across compute fleet. 12 idle instances identified for rightsizing.</div>
+            <span class="link">Optimize resources →</span>
+          </div>
+        </section>
+
+        <div style="height:40px"></div>
+
+        <!-- ZONE 2: contained operational cards — "What needs action?" -->
+        <div class="zone-label">Zone 2 · Operational state · grey contained cards</div>
+        <section class="card-row annotate">
+          <div class="card">
+            <div class="card-head"><h2>Alerts</h2><div class="arrow">→</div></div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev"></div>
+                <div><div class="li-title">DHCP time out</div><div class="li-sub">18 devices affected</div></div>
+              </div>
+              <div class="li-meta">2 hours ago</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev"></div>
+                <div><div class="li-title">VLAN mismatch</div><div class="li-sub">15 switches</div></div>
+              </div>
+              <div class="li-meta">Yesterday</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev"></div>
+                <div><div class="li-title">802.1X auth failure</div><div class="li-sub">10 users denied</div></div>
+              </div>
+              <div class="li-meta">3 days ago</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Devices</h2><div class="arrow">→</div></div>
+            <span class="big-number">204</span> <span class="big-number-sub">Total devices</span>
+            <div class="bar">
+              <span style="flex:41"></span><span style="flex:31"></span><span style="flex:31"></span><span style="flex:20"></span>
+            </div>
+            <div class="legend-row"><span><span class="dot"></span>ProLiant DL380 Gen11</span><span class="pct">20% (41)</span></div>
+            <div class="legend-row"><span><span class="dot"></span>ProLiant DL385 Gen10 Plus</span><span class="pct">15% (31)</span></div>
+            <div class="legend-row"><span><span class="dot"></span>ProLiant DL360 Gen10 Plus</span><span class="pct">15% (31)</span></div>
+            <div class="legend-row"><span><span class="dot"></span>ProLiant DL180 Gen10</span><span class="pct">10% (20)</span></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Subscriptions</h2><div class="arrow">→</div></div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev"></div>
+                <div><div class="li-title">Expiring within 30 days</div></div>
+              </div>
+              <div class="li-meta" style="font-size:16px;font-weight:700;color:var(--ink)">4</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev"></div>
+                <div><div class="li-title">Expiring within 90 days</div></div>
+              </div>
+              <div class="li-meta" style="font-size:16px;font-weight:700;color:var(--ink)">26</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev"></div>
+                <div><div class="li-title">Expiring evaluations</div><div class="li-sub">within 30 days</div></div>
+              </div>
+              <div class="li-meta" style="font-size:16px;font-weight:700;color:var(--ink)">88</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main">
+                <div><div class="li-sub">Total subscriptions</div></div>
+              </div>
+              <div class="li-meta" style="font-size:16px;font-weight:700;color:var(--ink)">197</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ZONE 3: full-width uncontained table — "What's in flight?" -->
+        <div class="zone-label">Zone 3 · In-flight work · uncontained full-width table</div>
+        <section class="table-section annotate">
+          <h2>Migrations</h2>
+          <table>
+            <thead>
+              <tr>
+                <th><span class="cb"></span></th>
+                <th>Migration</th>
+                <th>Source</th>
+                <th>Target</th>
+                <th>Status</th>
+                <th>Progress</th>
+                <th class="num">Workloads</th>
+                <th>Owner</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cb"></span></td>
+                <td><span class="tlink">MIG-2024-0871</span></td>
+                <td>On-prem DC · Austin</td>
+                <td>GreenLake Private Cloud</td>
+                <td><span class="status-pill">In progress</span></td>
+                <td><div class="progress"><i style="width:72%"></i></div></td>
+                <td class="num">128</td>
+                <td>J. Alvarez</td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td>
+                <td><span class="tlink">MIG-2024-0864</span></td>
+                <td>VMware Cluster B</td>
+                <td>HPE Morpheus VME</td>
+                <td><span class="status-pill">Validating</span></td>
+                <td><div class="progress"><i style="width:45%"></i></div></td>
+                <td class="num">64</td>
+                <td>S. Chen</td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td>
+                <td><span class="tlink">MIG-2024-0859</span></td>
+                <td>AWS us-east-1</td>
+                <td>GreenLake Compute</td>
+                <td><span class="status-pill">Scheduled</span></td>
+                <td><div class="progress"><i style="width:5%"></i></div></td>
+                <td class="num">212</td>
+                <td>M. Okafor</td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td>
+                <td><span class="tlink">MIG-2024-0851</span></td>
+                <td>On-prem DC · Geneva</td>
+                <td>GreenLake Private Cloud</td>
+                <td><span class="status-pill">Complete</span></td>
+                <td><div class="progress"><i style="width:100%"></i></div></td>
+                <td class="num">96</td>
+                <td>J. Alvarez</td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td>
+                <td><span class="tlink">MIG-2024-0847</span></td>
+                <td>Azure West Europe</td>
+                <td>GreenLake Compute</td>
+                <td><span class="status-pill">Blocked</span></td>
+                <td><div class="progress"><i style="width:33%"></i></div></td>
+                <td class="num">40</td>
+                <td>R. Patel</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <!-- ============ SECONDARY / RIGHT RAIL ============ -->
+      <aside class="rrail">
+        <div class="zone-label" style="margin-bottom:-16px">Zone 4 · Platform layer · right rail</div>
+
+        <div class="card">
+          <h3>GreenLake Status</h3>
+          <div class="status-banner"><span class="status-dot"></span> Operational</div>
+          <div class="fine">No scheduled maintenance. Use <u>GreenLake Service Health</u> to view other issues.</div>
+        </div>
+
+        <div class="card">
+          <h3>GreenLake Intelligence</h3>
+          <div class="fine">Your copilot for AI-ready operations.</div>
+          <div class="prompt-box">✦ Ask GreenLake how to…</div>
+          <span class="chip">Try it now</span>
+        </div>
+
+        <div>
+          <h3 style="font-size:18px; margin-bottom:6px;">Quick actions</h3>
+          <ul class="qa-list">
+            <li>Add devices</li>
+            <li>Add service subscription</li>
+            <li>Add users</li>
+            <li>Assign roles</li>
+            <li>Add location</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 style="font-size:18px; margin-bottom:6px;">Learn</h3>
+          <div class="learn-item">
+            <div class="lt">Explore GreenLake →</div>
+            <div class="ls">Learn more about what the GreenLake platform has to offer.</div>
+          </div>
+          <div class="learn-item">
+            <div class="lt">What's New on HPE GreenLake →</div>
+            <div class="ls">See the latest release information and announcements.</div>
+          </div>
+          <div class="learn-item">
+            <div class="lt">Test Drive HPE GreenLake ↗</div>
+            <div class="ls">Experience the edge-to-cloud. Try before you buy.</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

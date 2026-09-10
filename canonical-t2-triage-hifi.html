@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T2 · Triage — Hi-fi</title>
+<link rel="stylesheet" href="hifi-shared.css">
+</head>
+<body>
+
+<div class="switcher">
+  Canonical templates:
+  <a href="canonical-t1-overview-hifi.html">T1 · Overview</a>
+  <a href="canonical-t2-triage-hifi.html" class="on">T2 · Triage</a>
+  <a href="canonical-t3-analytics-hifi.html">T3 · Analytics</a>
+  <a href="canonical-t4-detail-hifi.html">T4 · Object detail</a>
+  <span class="view-toggle">View: <a href="canonical-t2-triage.html">Lo-fi</a> <a href="canonical-t2-triage-hifi.html" class="hifi-on">Hi-fi</a></span>
+</div>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><span class="gl">green</span>lake<span class="by">by HPE</span></div>
+  <div class="workspace">North America IT Ops</div>
+  <div class="search">⌕ Search</div>
+  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon">⌂</div><div class="ricon active">◳</div><div class="ricon">▦</div>
+    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon">≋</div>
+    <div class="ricon">🖴</div><div class="ricon">((•))</div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Alerts</h1>
+      <button class="btn">Create rule +</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Attention banner -->
+        <section>
+          <div class="attn">
+            <div>
+              <div class="txt"><span class="n">7 items</span> need your attention</div>
+              <div class="sub">3 critical alerts · 4 subscriptions expiring within 30 days</div>
+            </div>
+            <button class="btn primary">Review all →</button>
+          </div>
+        </section>
+
+        <!-- Filter bar + queue -->
+        <section>
+          <div class="toolbar">
+            <div class="search-sm">⌕ Search alerts</div>
+            <span class="fchip on">All (7)</span>
+            <span class="fchip">Critical (3)</span>
+            <span class="fchip">Warning (4)</span>
+            <span class="fchip">Filters ▾</span>
+            <span class="spacer"></span>
+            <span class="fchip">Bulk actions ▾</span>
+          </div>
+          <div class="count-note">7 items · sorted by severity, then age</div>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Severity</th><th>Item</th><th>Type</th><th>Scope</th><th>Detected</th><th>Assignee</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev crit" style="margin:0 auto 0 6px"></div></td>
+                <td><span class="tlink">DHCP time out</span></td><td>Network</td><td>18 devices</td><td>2 hours ago</td><td>Unassigned</td>
+                <td><button class="btn" style="padding:5px 14px; font-size:12px;">Investigate</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev crit" style="margin:0 auto 0 6px"></div></td>
+                <td><span class="tlink">VLAN mismatch</span></td><td>Network</td><td>15 switches</td><td>Yesterday</td><td>S. Chen</td>
+                <td><button class="btn" style="padding:5px 14px; font-size:12px;">Investigate</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev crit" style="margin:0 auto 0 6px"></div></td>
+                <td><span class="tlink">Storage array controller fault</span></td><td>Storage</td><td>Alletra MP · rack 4</td><td>Yesterday</td><td>M. Okafor</td>
+                <td><button class="btn" style="padding:5px 14px; font-size:12px;">Investigate</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
+                <td><span class="tlink">802.1X auth failure</span></td><td>Access</td><td>10 users denied</td><td>3 days ago</td><td>Unassigned</td>
+                <td><button class="btn" style="padding:5px 14px; font-size:12px;">Investigate</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
+                <td><span class="tlink">Firmware below baseline</span></td><td>Compute</td><td>6 servers</td><td>4 days ago</td><td>J. Alvarez</td>
+                <td><button class="btn" style="padding:5px 14px; font-size:12px;">Schedule</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
+                <td><span class="tlink">4 subscriptions expiring</span></td><td>Subscription</td><td>Compute fleet</td><td>Within 30 days</td><td>Unassigned</td>
+                <td><button class="btn" style="padding:5px 14px; font-size:12px;">Renew</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
+                <td><span class="tlink">94 devices with no location</span></td><td>Inventory</td><td>Asset explorer</td><td>Ongoing</td><td>Unassigned</td>
+                <td><button class="btn" style="padding:5px 14px; font-size:12px;">Assign</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Supporting summaries -->
+        <section class="grid-3">
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">Alert volume · 7 days</h2></div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 220 70">
+                <polyline points="0,42 31,38 62,48 93,30 124,34 155,22 186,28 220,18" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+                <polyline points="0,55 31,52 62,56 93,50 124,53 155,48 186,50 220,46" fill="none" stroke="var(--c-grey)" stroke-width="2" stroke-dasharray="4 4"/>
+              </svg>
+            </div>
+            <div class="chart-legend">
+              <span class="lg"><span class="sw" style="background:var(--c-blue)"></span>This week</span>
+              <span class="lg"><span class="sw" style="background:var(--c-grey)"></span>Prior week</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">By source</h2></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Network</span><span class="pct">3</span></div>
+            <div class="stack-bar" style="margin:4px 0 10px;"><span style="flex:3; background:var(--c-blue)"></span><span style="flex:4; background:var(--grey-bg)"></span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Compute</span><span class="pct">1</span></div>
+            <div class="stack-bar" style="margin:4px 0 10px;"><span style="flex:1; background:var(--c-purple)"></span><span style="flex:6; background:var(--grey-bg)"></span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-magenta)"></span>Storage</span><span class="pct">1</span></div>
+            <div class="stack-bar" style="margin:4px 0 0;"><span style="flex:1; background:var(--c-magenta)"></span><span style="flex:6; background:var(--grey-bg)"></span></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">Oldest unresolved</h2></div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">94 devices, no location</div><div class="li-sub">Open 12 days</div></div></div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Firmware below baseline</div><div class="li-sub">Open 4 days</div></div></div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">VLAN mismatch</div><div class="li-sub">Open 1 day</div></div></div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Response targets</h3>
+          <div class="kv"><span class="k">Critical · respond in</span><span class="v">1 hr</span></div>
+          <div class="kv"><span class="k">Avg this week</span><span class="v" style="color:var(--gl-green-deep)">42 min ✓</span></div>
+          <div class="kv"><span class="k">Warning · respond in</span><span class="v">24 hr</span></div>
+          <div class="kv"><span class="k">Avg this week</span><span class="v" style="color:#a33236">31 hr ✗</span></div>
+        </div>
+        <div class="card">
+          <h3>Runbooks</h3>
+          <div class="learn-item"><div class="lt">DHCP failures →</div><div class="ls">Diagnose scope exhaustion and relay issues.</div></div>
+          <div class="learn-item"><div class="lt">VLAN configuration →</div><div class="ls">Trunk and access port mismatch checks.</div></div>
+          <div class="learn-item"><div class="lt">802.1X troubleshooting →</div><div class="ls">RADIUS and certificate validation steps.</div></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Quick actions</h3>
+          <ul class="qa-list">
+            <li><a href="#">Create alert rule</a></li>
+            <li><a href="#">Mute a source</a></li>
+            <li><a href="#">Escalate to HPE support</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

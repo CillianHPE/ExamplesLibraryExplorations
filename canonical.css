@@ -1,0 +1,43 @@
+/* Canonical template diagram styles — used with lofi-shared.css */
+
+.tpl-purpose {
+  border-left: 3px solid var(--ink);
+  padding: 10px 16px;
+  margin-bottom: var(--gap-section);
+  font-size: 13px; color: var(--ink-soft); line-height: 1.55;
+  max-width: 900px;
+}
+.tpl-purpose b { color: var(--ink); }
+
+/* Region blocks */
+.region {
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.region.contained { background: var(--contained); }
+.region.uncontained { border: 1.5px dashed #bdbdbd; background: var(--page); }
+
+.r-head { display: flex; align-items: center; gap: 10px; }
+.r-code {
+  width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: #fff;
+  font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none;
+}
+.r-name { font-size: 15px; font-weight: 700; }
+.r-tag { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint);
+         border: 1px solid var(--line); border-radius: 10px; padding: 2px 8px; margin-left: auto; white-space: nowrap; }
+.r-purpose { font-size: 13px; color: var(--ink); }
+.r-contains { font-size: 12px; color: var(--ink-soft); }
+.r-rules { font-size: 12px; color: var(--ink-faint); font-style: italic; }
+
+/* height hints so diagrams read like a page */
+.h-sm { min-height: 90px; }
+.h-md { min-height: 170px; }
+.h-lg { min-height: 260px; }
+.h-xl { min-height: 340px; }
+
+/* spacing callout chips */
+.gap-note {
+  align-self: center; font-size: 10px; color: var(--ink-faint);
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
