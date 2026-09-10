@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T1 · Overview — Var B · Compute fleet</title>
+<link rel="stylesheet" href="hifi-shared.css">
+</head>
+<body>
+
+<div class="switcher">
+  Canonical templates:
+  <a href="canonical-t1-overview-hifi.html" class="on">T1 · Overview</a>
+  <a href="canonical-t2-triage-hifi.html">T2 · Triage</a>
+  <a href="canonical-t3-analytics-hifi.html">T3 · Analytics</a>
+  <a href="canonical-t4-detail-hifi.html">T4 · Object detail</a>
+  <a href="canonical-t5-custom-hifi.html">T5 · Custom board</a>
+  <span class="view-toggle">View: <a href="canonical-t1-overview.html">Lo-fi</a> <a href="canonical-t1-overview-hifi-b.html" class="hifi-on">Hi-fi</a></span>
+</div>
+<div class="switcher">
+  T1 variations:
+  <a href="canonical-t1-overview-hifi.html">A · Home</a>
+  <a href="canonical-t1-overview-hifi-b.html" class="on">B · Compute fleet</a>
+  <a href="canonical-t1-overview-hifi-c.html">C · Cost &amp; usage</a>
+  <a href="canonical-t1-overview-hifi-d.html">D · Networking</a>
+</div>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><span class="gl">green</span>lake<span class="by">by HPE</span></div>
+  <div class="workspace">North America IT Ops</div>
+  <div class="search">⌕ Search</div>
+  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon">⌂</div><div class="ricon active">◳</div><div class="ricon">▦</div>
+    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon">≋</div>
+    <div class="ricon">🖴</div><div class="ricon">((•))</div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Compute Ops Management</h1>
+      <button class="btn">Add servers ＋</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- KPI strip -->
+        <section class="kpi-strip">
+          <div class="kpi-intro">
+            <div class="eyebrow">Fleet</div>
+            <div class="title">Health</div>
+            <span class="chip">✦ Ask about my fleet</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Availability</div>
+            <div class="name">Servers online</div>
+            <div class="value-row"><span class="value">1,412</span><span class="delta neutral">of 1,428</span></div>
+            <div class="desc">16 servers offline — 9 in planned maintenance, 7 unreachable and need investigation.</div>
+            <span class="glink">View offline servers →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Lifecycle</div>
+            <div class="name">Firmware compliance</div>
+            <div class="value-row"><span class="value">87%</span><span class="delta down">↓ 6%</span></div>
+            <div class="desc">182 servers below the Gen11 2026.04 baseline after last month's advisory.</div>
+            <span class="glink">Schedule updates →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Efficiency</div>
+            <div class="name">Avg utilization</div>
+            <div class="value-row"><span class="value">61%</span><span class="delta up">↑ 3%</span></div>
+            <div class="desc">CPU across fleet, trailing 7 days. Peak window 14:00–17:00 CT.</div>
+            <span class="glink">View utilization →</span>
+          </div>
+        </section>
+
+        <!-- Module cards -->
+        <section class="grid-3">
+          <div class="card">
+            <div class="card-head"><h2>Server health</h2><span class="arrow">→</span></div>
+            <div class="donut-wrap">
+              <div class="donut" style="background: conic-gradient(var(--c-green) 0 88%, var(--amber) 88% 96%, var(--red) 96% 100%);" data-center="1,428"></div>
+              <div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>Healthy</span><span class="pct">1,256</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">114</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">58</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Firmware baseline</h2><span class="arrow">→</span></div>
+            <div class="li-title" style="margin-bottom:2px;">Gen11 · 2026.04 baseline</div>
+            <div class="fine">1,043 of 1,180 compliant</div>
+            <div class="meter"><i style="width:88%"></i></div>
+            <div class="li-title" style="margin:14px 0 2px;">Gen10 Plus · 2025.10 baseline</div>
+            <div class="fine">201 of 248 compliant</div>
+            <div class="meter"><i class="warn" style="width:81%"></i></div>
+            <div style="margin-top:16px;"><span class="glink">Review 182 pending updates →</span></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Active jobs</h2><span class="arrow">→</span></div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Firmware update · wave 3</div><div class="li-sub">64 servers · Austin DC</div></div></div>
+              <div class="li-meta">Running</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">iLO security patch</div><div class="li-sub">210 servers · all regions</div></div></div>
+              <div class="li-meta">Queued</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">BIOS config apply</div><div class="li-sub">12 servers · Geneva DC</div></div></div>
+              <div class="li-meta">2 failed</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Uncontained table -->
+        <section>
+          <h2 class="table-title">Servers needing attention</h2>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Server</th><th>Model</th><th>Location</th><th>Health</th><th>Firmware</th><th class="num">Power (W)</th><th>Last seen</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">esx-prod-014</span></td><td>ProLiant DL380 Gen11</td><td>Austin DC · Rack A4</td><td><span class="pill red">Critical</span></td><td><span class="pill amber">Behind</span></td><td class="num">412</td><td>2 min ago</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">db-core-002</span></td><td>ProLiant DL385 Gen10 Plus</td><td>Geneva DC · Rack C1</td><td><span class="pill red">Critical</span></td><td><span class="pill green">Current</span></td><td class="num">388</td><td>5 min ago</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">vdi-edge-031</span></td><td>ProLiant DL360 Gen10 Plus</td><td>Chicago Edge · Rack 2</td><td><span class="pill amber">Warning</span></td><td><span class="pill amber">Behind</span></td><td class="num">265</td><td>1 min ago</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">ai-train-006</span></td><td>ProLiant DL380a Gen11</td><td>Austin DC · Rack B2</td><td><span class="pill amber">Warning</span></td><td><span class="pill green">Current</span></td><td class="num">1,240</td><td>Just now</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">file-arch-009</span></td><td>ProLiant DL180 Gen10</td><td>Geneva DC · Rack D3</td><td><span class="pill grey">Unreachable</span></td><td>—</td><td class="num">—</td><td>3 days ago</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Sustainability</h3>
+          <div style="display:flex; align-items:baseline; gap:8px;">
+            <span class="big-number" style="font-size:26px;">38.2</span><span class="fine">kW avg draw</span>
+          </div>
+          <div class="fine" style="margin-top:6px;">Fleet power draw ↓ 4% vs last week after wave-2 rightsizing.</div>
+          <div style="margin-top:10px;"><span class="glink">View emissions →</span></div>
+        </div>
+        <div class="card">
+          <h3>GreenLake Intelligence</h3>
+          <div class="fine">"7 unreachable servers share the same TOR switch in Geneva Rack D — likely a network issue, not server failures."</div>
+          <div class="prompt-box"><span class="sp">✦</span> Ask about my fleet…</div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Quick actions</h3>
+          <ul class="qa-list">
+            <li><a href="#">Add servers</a></li>
+            <li><a href="#">Create firmware baseline</a></li>
+            <li><a href="#">Schedule update window</a></li>
+            <li><a href="#">Run carbon report</a></li>
+            <li><a href="#">Configure alert rules</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Announcements</h3>
+          <div class="learn-item"><div class="lt">iLO 7 security advisory →</div><div class="ls">Patch available for CVE-2026-1182. 210 servers affected.</div></div>
+          <div class="learn-item"><div class="lt">Gen12 onboarding guide →</div><div class="ls">Prepare your workspace for ProLiant Gen12 arrivals.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

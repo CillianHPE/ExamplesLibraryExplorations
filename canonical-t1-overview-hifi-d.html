@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T1 · Overview — Var D · Networking</title>
+<link rel="stylesheet" href="hifi-shared.css">
+</head>
+<body>
+
+<div class="switcher">
+  Canonical templates:
+  <a href="canonical-t1-overview-hifi.html" class="on">T1 · Overview</a>
+  <a href="canonical-t2-triage-hifi.html">T2 · Triage</a>
+  <a href="canonical-t3-analytics-hifi.html">T3 · Analytics</a>
+  <a href="canonical-t4-detail-hifi.html">T4 · Object detail</a>
+  <a href="canonical-t5-custom-hifi.html">T5 · Custom board</a>
+  <span class="view-toggle">View: <a href="canonical-t1-overview.html">Lo-fi</a> <a href="canonical-t1-overview-hifi-d.html" class="hifi-on">Hi-fi</a></span>
+</div>
+<div class="switcher">
+  T1 variations:
+  <a href="canonical-t1-overview-hifi.html">A · Home</a>
+  <a href="canonical-t1-overview-hifi-b.html">B · Compute fleet</a>
+  <a href="canonical-t1-overview-hifi-c.html">C · Cost &amp; usage</a>
+  <a href="canonical-t1-overview-hifi-d.html" class="on">D · Networking</a>
+</div>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><span class="gl">green</span>lake<span class="by">by HPE</span></div>
+  <div class="workspace">North America IT Ops</div>
+  <div class="search">⌕ Search</div>
+  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon">⌂</div><div class="ricon">◳</div><div class="ricon">▦</div>
+    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon active">≋</div>
+    <div class="ricon">🖴</div><div class="ricon">((•))</div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Aruba Networking</h1>
+      <button class="btn">Add site ＋</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- KPI strip -->
+        <section class="kpi-strip">
+          <div class="kpi-intro">
+            <div class="eyebrow">Network</div>
+            <div class="title">Health</div>
+            <span class="chip">✦ Diagnose an issue</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Sites</div>
+            <div class="name">Sites online</div>
+            <div class="value-row"><span class="value">84</span><span class="delta neutral">of 86</span></div>
+            <div class="desc">2 sites degraded — Chicago Edge (WAN failover) and Reno Branch (AP outage).</div>
+            <span class="glink">View site map →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Experience</div>
+            <div class="name">Client health score</div>
+            <div class="value-row"><span class="value">92</span><span class="delta up">↑ 4</span></div>
+            <div class="desc">Wi-Fi experience across 11,240 connected clients. Roaming issues resolved at HQ.</div>
+            <span class="glink">View client insights →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">WAN</div>
+            <div class="name">Uplink availability</div>
+            <div class="value-row"><span class="value">99.96%</span><span class="delta neutral">30 days</span></div>
+            <div class="desc">SD-WAN fabric across 86 sites. One failover event this week, self-healed in 40s.</div>
+            <span class="glink">View WAN topology →</span>
+          </div>
+        </section>
+
+        <!-- Module cards -->
+        <section class="grid-3">
+          <div class="card">
+            <div class="card-head"><h2>Open network alerts</h2><span class="arrow">→</span></div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">WAN uplink down</div><div class="li-sub">Chicago Edge · on LTE failover</div></div></div>
+              <div class="li-meta">36 min ago</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">6 APs offline</div><div class="li-sub">Reno Branch · Floor 2</div></div></div>
+              <div class="li-meta">2 hours ago</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">High channel utilization</div><div class="li-sub">Austin HQ · 5 GHz band</div></div></div>
+              <div class="li-meta">Today</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Connected clients</h2><span class="arrow">→</span></div>
+            <div class="donut-wrap">
+              <div class="donut" style="background: conic-gradient(var(--c-blue) 0 58%, var(--c-green) 58% 86%, var(--c-purple) 86% 100%);" data-center="11,240"></div>
+              <div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Wireless</span><span class="pct">6,519</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>Wired</span><span class="pct">3,147</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>IoT</span><span class="pct">1,574</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Inventory</h2><span class="arrow">→</span></div>
+            <div class="list-item" style="padding:9px 0;"><span class="li-title">Access points</span><span class="li-meta">1,148 · <b style="color:var(--red)">6 down</b></span></div>
+            <div class="list-item" style="padding:9px 0;"><span class="li-title">Switches</span><span class="li-meta">312 · all up</span></div>
+            <div class="list-item" style="padding:9px 0;"><span class="li-title">Gateways</span><span class="li-meta">92 · 1 failover</span></div>
+            <div class="list-item" style="padding:9px 0;"><span class="li-title">Firmware pending</span><span class="pill amber">38</span></div>
+          </div>
+        </section>
+
+        <!-- Uncontained table -->
+        <section>
+          <h2 class="table-title">Sites</h2>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Site</th><th>Region</th><th>Health</th><th class="num">Devices</th><th class="num">Clients</th><th>WAN</th><th>Uptime (30d)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">Chicago Edge</span></td><td>US Central</td><td><span class="pill red">Degraded</span></td><td class="num">44</td><td class="num">380</td><td><span class="pill amber">LTE failover</span></td><td>99.71%</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">Reno Branch</span></td><td>US West</td><td><span class="pill red">Degraded</span></td><td class="num">18</td><td class="num">122</td><td><span class="pill green">Primary</span></td><td>99.89%</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">Austin HQ</span></td><td>US Central</td><td><span class="pill amber">Warning</span></td><td class="num">312</td><td class="num">4,860</td><td><span class="pill green">Primary</span></td><td>99.99%</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">Geneva Campus</span></td><td>EMEA</td><td><span class="pill green">Healthy</span></td><td class="num">204</td><td class="num">2,410</td><td><span class="pill green">Primary</span></td><td>100%</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">Singapore Hub</span></td><td>APAC</td><td><span class="pill green">Healthy</span></td><td class="num">126</td><td class="num">1,842</td><td><span class="pill green">Primary</span></td><td>99.98%</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Aruba Central status</h3>
+          <div class="status-banner"><span class="status-dot"></span> Operational</div>
+          <div class="fine">All Central services healthy. Next maintenance window Sep 21, 02:00 UTC.</div>
+        </div>
+        <div class="card">
+          <h3>GreenLake Intelligence</h3>
+          <div class="fine">"The 6 offline APs in Reno share one PoE switch — power cycle SW-RENO-02 port group 3 to likely restore them."</div>
+          <div class="prompt-box"><span class="sp">✦</span> Diagnose network issue…</div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Quick actions</h3>
+          <ul class="qa-list">
+            <li><a href="#">Add site</a></li>
+            <li><a href="#">Onboard devices</a></li>
+            <li><a href="#">Create WLAN</a></li>
+            <li><a href="#">Schedule firmware update</a></li>
+            <li><a href="#">Run connectivity test</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Learn</h3>
+          <div class="learn-item"><div class="lt">AI-powered RF optimization →</div><div class="ls">Let AirMatch tune channels and power automatically.</div></div>
+          <div class="learn-item"><div class="lt">SD-WAN failover explained →</div><div class="ls">How gateways self-heal when uplinks drop.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T1 · Overview — Var C · Cost &amp; usage</title>
+<link rel="stylesheet" href="hifi-shared.css">
+</head>
+<body>
+
+<div class="switcher">
+  Canonical templates:
+  <a href="canonical-t1-overview-hifi.html" class="on">T1 · Overview</a>
+  <a href="canonical-t2-triage-hifi.html">T2 · Triage</a>
+  <a href="canonical-t3-analytics-hifi.html">T3 · Analytics</a>
+  <a href="canonical-t4-detail-hifi.html">T4 · Object detail</a>
+  <a href="canonical-t5-custom-hifi.html">T5 · Custom board</a>
+  <span class="view-toggle">View: <a href="canonical-t1-overview.html">Lo-fi</a> <a href="canonical-t1-overview-hifi-c.html" class="hifi-on">Hi-fi</a></span>
+</div>
+<div class="switcher">
+  T1 variations:
+  <a href="canonical-t1-overview-hifi.html">A · Home</a>
+  <a href="canonical-t1-overview-hifi-b.html">B · Compute fleet</a>
+  <a href="canonical-t1-overview-hifi-c.html" class="on">C · Cost &amp; usage</a>
+  <a href="canonical-t1-overview-hifi-d.html">D · Networking</a>
+</div>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><span class="gl">green</span>lake<span class="by">by HPE</span></div>
+  <div class="workspace">North America IT Ops</div>
+  <div class="search">⌕ Search</div>
+  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon">⌂</div><div class="ricon">◳</div><div class="ricon active">▦</div>
+    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon">≋</div>
+    <div class="ricon">🖴</div><div class="ricon">((•))</div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Cost &amp; Usage</h1>
+      <button class="btn">Export report ↓</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- KPI strip -->
+        <section class="kpi-strip">
+          <div class="kpi-intro">
+            <div class="eyebrow">September</div>
+            <div class="title">Spend</div>
+            <span class="chip">✦ Explain my bill</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Month to date</div>
+            <div class="name">Total spend</div>
+            <div class="value-row"><span class="value">$248K</span><span class="delta neutral">Day 10 of 30</span></div>
+            <div class="desc">Tracking to $744K for the month — 2% under your $760K budget.</div>
+            <span class="glink">View invoice detail →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Forecast</div>
+            <div class="name">End of month</div>
+            <div class="value-row"><span class="value">$744K</span><span class="delta up">↓ 3%</span></div>
+            <div class="desc">Down from $767K in August after decommissioning 2 dev clusters.</div>
+            <span class="glink">View forecast model →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Commit</div>
+            <div class="name">Committed vs on-demand</div>
+            <div class="value-row"><span class="value">82%</span><span class="delta down">↓ 5%</span></div>
+            <div class="desc">Share of usage covered by committed capacity. $41K running on-demand.</div>
+            <span class="glink">Review commit levels →</span>
+          </div>
+        </section>
+
+        <!-- Spend trend — uncontained hero -->
+        <section>
+          <h2 class="table-title">Daily spend · last 30 days</h2>
+          <div class="chart-wrap">
+            <svg viewBox="0 0 720 150">
+              <line x1="0" y1="30" x2="720" y2="30" stroke="#e4e7e9" stroke-width="1"/>
+              <line x1="0" y1="70" x2="720" y2="70" stroke="#e4e7e9" stroke-width="1"/>
+              <line x1="0" y1="110" x2="720" y2="110" stroke="#e4e7e9" stroke-width="1"/>
+              <line x1="0" y1="149" x2="720" y2="149" stroke="#c9ced1" stroke-width="1"/>
+              <polygon points="0,92 48,90 96,96 144,88 192,84 240,86 288,78 336,82 384,74 432,78 480,70 528,74 576,64 624,68 672,60 720,62 720,149 0,149" fill="rgba(61,127,242,0.10)"/>
+              <polyline points="0,92 48,90 96,96 144,88 192,84 240,86 288,78 336,82 384,74 432,78 480,70 528,74 576,64 624,68 672,60 720,62" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="0" y1="46" x2="720" y2="46" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="6 5"/>
+              <text x="6" y="40" font-size="11" fill="var(--red)" font-weight="600">Budget threshold · $26K/day</text>
+            </svg>
+          </div>
+          <div class="chart-legend">
+            <span class="lg"><span class="sw" style="background:var(--c-blue)"></span>Daily spend</span>
+            <span class="lg"><span class="sw" style="background:var(--red)"></span>Budget threshold</span>
+          </div>
+        </section>
+
+        <!-- Module cards -->
+        <section class="grid-3">
+          <div class="card">
+            <div class="card-head"><h2>Spend by service</h2><span class="arrow">→</span></div>
+            <span class="big-number">$248K</span> <span class="big-number-sub">MTD</span>
+            <div class="stack-bar">
+              <span style="flex:38; background:var(--c-blue)"></span>
+              <span style="flex:24; background:var(--c-green)"></span>
+              <span style="flex:16; background:var(--c-purple)"></span>
+              <span style="flex:12; background:var(--c-navy)"></span>
+              <span style="flex:10; background:var(--c-grey)"></span>
+            </div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Private Cloud Enterprise</span><span class="pct">38% ($94K)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>Compute Ops Mgmt</span><span class="pct">24% ($60K)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Alletra Storage</span><span class="pct">16% ($40K)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-navy)"></span>Aruba Networking</span><span class="pct">12% ($30K)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-grey)"></span>Other</span><span class="pct">10% ($24K)</span></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Budgets</h2><span class="arrow">→</span></div>
+            <div class="li-title" style="margin-bottom:2px;">Production · $520K</div>
+            <div class="fine">$412K used · 79%</div>
+            <div class="meter"><i style="width:79%"></i></div>
+            <div class="li-title" style="margin:14px 0 2px;">Dev &amp; test · $140K</div>
+            <div class="fine">$128K used · 91%</div>
+            <div class="meter"><i class="warn" style="width:91%"></i></div>
+            <div class="li-title" style="margin:14px 0 2px;">AI workloads · $100K</div>
+            <div class="fine">$104K used · 104%</div>
+            <div class="meter"><i class="crit" style="width:100%"></i></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Savings opportunities</h2><span class="arrow">→</span></div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">12 idle instances</div><div class="li-sub">No traffic in 14 days</div></div></div>
+              <div class="li-meta">$4.2K/mo</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Oversized storage tier</div><div class="li-sub">Alletra vol-group-7</div></div></div>
+              <div class="li-meta">$2.8K/mo</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Commit renewal discount</div><div class="li-sub">Renew before Oct 1</div></div></div>
+              <div class="li-meta">$5.5K/mo</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Uncontained table -->
+        <section>
+          <h2 class="table-title">Subscriptions</h2>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Subscription</th><th>Service</th><th>Tier</th><th>Status</th><th class="num">Monthly</th><th class="num">Usage</th><th>Renews</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-88214-PCE</span></td><td>Private Cloud Enterprise</td><td>Enhanced</td><td><span class="pill green">Active</span></td><td class="num">$94,000</td><td class="num">96%</td><td>Mar 2027</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-77302-COM</span></td><td>Compute Ops Management</td><td>Advanced</td><td><span class="pill green">Active</span></td><td class="num">$60,000</td><td class="num">88%</td><td>Jan 2027</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-65118-ALT</span></td><td>Alletra Storage MP</td><td>Business Critical</td><td><span class="pill amber">Renews soon</span></td><td class="num">$40,000</td><td class="num">72%</td><td>Oct 2026</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-59904-ARU</span></td><td>Aruba Central</td><td>Foundation</td><td><span class="pill green">Active</span></td><td class="num">$30,000</td><td class="num">64%</td><td>Jun 2027</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-41276-OPS</span></td><td>OpsRamp</td><td>Standard</td><td><span class="pill red">Expiring</span></td><td class="num">$12,000</td><td class="num">51%</td><td>Sep 30, 2026</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Billing status</h3>
+          <div class="status-banner"><span class="status-dot"></span> Invoice current</div>
+          <div class="fine">August invoice of $767,214 paid Sep 3. Next invoice Oct 1.</div>
+        </div>
+        <div class="card">
+          <h3>GreenLake Intelligence</h3>
+          <div class="fine">"AI workloads budget is at 104% with 20 days left — the training cluster in Austin drives 82% of the overage."</div>
+          <div class="prompt-box"><span class="sp">✦</span> Ask why costs changed…</div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Quick actions</h3>
+          <ul class="qa-list">
+            <li><a href="#">Create budget</a></li>
+            <li><a href="#">Set spend alert</a></li>
+            <li><a href="#">Download invoice (PDF)</a></li>
+            <li><a href="#">Compare months</a></li>
+            <li><a href="#">Manage commit levels</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Learn</h3>
+          <div class="learn-item"><div class="lt">Understanding your GreenLake bill →</div><div class="ls">How committed capacity, buffer, and on-demand charges work.</div></div>
+          <div class="learn-item"><div class="lt">FinOps best practices →</div><div class="ls">Set budgets and alerts your team will actually use.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
