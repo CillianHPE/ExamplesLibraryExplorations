@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T4 · Object detail — Var D · Subscription</title>
+<link rel="stylesheet" href="hifi-shared.css">
+</head>
+<body>
+
+<div class="switcher">
+  Canonical templates:
+  <a href="canonical-t1-overview-hifi.html">T1 · Overview</a>
+  <a href="canonical-t2-triage-hifi.html">T2 · Triage</a>
+  <a href="canonical-t3-analytics-hifi.html">T3 · Analytics</a>
+  <a href="canonical-t4-detail-hifi.html" class="on">T4 · Object detail</a>
+  <a href="canonical-t5-custom-hifi.html">T5 · Custom board</a>
+  <span class="view-toggle">View: <a href="canonical-t4-detail.html">Lo-fi</a> <a href="canonical-t4-detail-hifi-d.html" class="hifi-on">Hi-fi</a></span>
+</div>
+<div class="switcher">
+  T4 variations:
+  <a href="canonical-t4-detail-hifi.html">A · Server</a>
+  <a href="canonical-t4-detail-hifi-b.html">B · Storage array</a>
+  <a href="canonical-t4-detail-hifi-c.html">C · Network site</a>
+  <a href="canonical-t4-detail-hifi-d.html" class="on">D · Subscription</a>
+</div>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><span class="gl">green</span>lake<span class="by">by HPE</span></div>
+  <div class="workspace">North America IT Ops</div>
+  <div class="search">⌕ Search</div>
+  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon">⌂</div><div class="ricon">◳</div><div class="ricon">▦</div>
+    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon active">≋</div>
+    <div class="ricon">🖴</div><div class="ricon">((•))</div>
+  </nav>
+
+  <main class="page">
+
+    <!-- Object header -->
+    <section style="margin-bottom: var(--gap-section);">
+      <div class="crumb"><a href="#">Billing</a> › <a href="#">Subscriptions</a> › SUB-88214-PCE</div>
+      <div class="obj-head">
+        <h1>GreenLake subscription · SUB-88214-PCE</h1>
+        <span class="pill green">● Active</span>
+        <div class="obj-actions">
+          <button class="btn green">View invoices</button>
+          <button class="btn">Adjust commit</button>
+          <button class="btn" style="padding:9px 14px;">···</button>
+        </div>
+      </div>
+      <div class="tabs">
+        <span class="tab on">Overview</span>
+        <span class="tab">Usage</span>
+        <span class="tab">Invoices</span>
+        <span class="tab">Terms</span>
+      </div>
+    </section>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Vitals -->
+        <section class="grid-4">
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Monthly cost</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">$482K</div>
+            <div class="meter"><i style="width:72%"></i></div>
+            <div class="fine" style="margin-top:8px;">Projected September 2026</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Usage vs commit</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">96%</div>
+            <div class="meter"><i class="warn" style="width:96%"></i></div>
+            <div class="fine" style="margin-top:8px;">$462K of $480K committed</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">On-demand overage</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">$18.6K</div>
+            <div class="meter"><i class="warn" style="width:38%"></i></div>
+            <div class="fine" style="margin-top:8px;">Compute burst since Sep 4th</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Renewal countdown</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">203 days</div>
+            <div class="meter"><i style="width:44%"></i></div>
+            <div class="fine" style="margin-top:8px;">Renews Mar 31st, 2027</div>
+          </div>
+        </section>
+
+        <!-- Activity chart -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Usage vs commit · last 6 months</h2>
+          <div class="chart-wrap">
+            <svg viewBox="0 0 900 200">
+              <g stroke="#eceff0" stroke-width="1">
+                <line x1="0" y1="40" x2="900" y2="40"/><line x1="0" y1="90" x2="900" y2="90"/><line x1="0" y1="140" x2="900" y2="140"/>
+              </g>
+              <polyline points="0,95 150,95 300,95 450,95 600,95 750,95 900,95"
+                fill="none" stroke="var(--c-grey)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 7"/>
+              <polygon points="0,128 150,116 300,108 450,100 600,92 750,86 900,82 900,200 0,200" fill="rgba(132,96,245,0.08)"/>
+              <polyline points="0,128 150,116 300,108 450,100 600,92 750,86 900,82"
+                fill="none" stroke="var(--c-purple)" stroke-width="2.5" stroke-linecap="round"/>
+              <polyline points="0,146 150,132 300,126 450,114 600,104 750,98 900,92"
+                fill="none" stroke="var(--c-green)" stroke-width="2.5" stroke-linecap="round"/>
+              <text x="0" y="196" font-size="11" fill="#8fa0a8">Apr</text>
+              <text x="286" y="196" font-size="11" fill="#8fa0a8">Jun</text>
+              <text x="584" y="196" font-size="11" fill="#8fa0a8">Aug</text>
+              <text x="862" y="196" font-size="11" fill="#8fa0a8">Sep</text>
+            </svg>
+          </div>
+          <div class="chart-legend">
+            <span class="lg"><span class="sw" style="background:var(--c-purple)"></span>Actual usage</span>
+            <span class="lg"><span class="sw" style="background:var(--c-green)"></span>Forecast</span>
+            <span class="lg"><span class="sw" style="background:var(--c-grey)"></span>Commit level</span>
+          </div>
+        </section>
+
+        <!-- Related invoices -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Invoices</h2>
+          <table>
+            <thead>
+              <tr><th>Invoice ID</th><th>Period</th><th class="num">Amount</th><th>Status</th><th>Due date</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="tlink">INV-2026-0917</span></td><td>Sep 1–30, 2026</td><td class="num">$482,610</td><td><span class="pill grey">Draft</span></td><td>Oct 15th, 2026</td></tr>
+              <tr><td><span class="tlink">INV-2026-0816</span></td><td>Aug 1–31, 2026</td><td class="num">$468,220</td><td><span class="pill green">Paid</span></td><td>Sep 15th, 2026</td></tr>
+              <tr><td><span class="tlink">INV-2026-0715</span></td><td>Jul 1–31, 2026</td><td class="num">$451,880</td><td><span class="pill green">Paid</span></td><td>Aug 15th, 2026</td></tr>
+              <tr><td><span class="tlink">INV-2026-0614</span></td><td>Jun 1–30, 2026</td><td class="num">$438,940</td><td><span class="pill green">Paid</span></td><td>Jul 15th, 2026</td></tr>
+              <tr><td><span class="tlink">INV-2026-0513</span></td><td>May 1–31, 2026</td><td class="num">$421,360</td><td><span class="pill green">Paid</span></td><td>Jun 15th, 2026</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Key facts</h3>
+          <div class="kv"><span class="k">Tier</span><span class="v">Private Cloud Enterprise · Enhanced</span></div>
+          <div class="kv"><span class="k">Start date</span><span class="v">Apr 1st, 2024</span></div>
+          <div class="kv"><span class="k">End date</span><span class="v">Mar 31st, 2027</span></div>
+          <div class="kv"><span class="k">Commit level</span><span class="v">$480K / month</span></div>
+          <div class="kv"><span class="k">Billing account</span><span class="v">GL-ACCT-400218</span></div>
+          <div class="kv"><span class="k">Account manager</span><span class="v">Maya Chen</span></div>
+          <div class="kv"><span class="k">Cost center</span><span class="v">NA-IT-CloudOps</span></div>
+          <div class="kv"><span class="k">Renewal owner</span><span class="v">Jordan Reyes</span></div>
+          <div class="kv"><span class="k">Tags</span><span class="v"><span class="pill grey">pce</span> <span class="pill grey">enhanced</span></span></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Related</h3>
+          <div class="learn-item"><div class="lt">Usage drivers →</div><div class="ls">Private cloud compute accounts for 71% of September spend.</div></div>
+          <div class="learn-item"><div class="lt">Commit optimization →</div><div class="ls">Recommended uplift to $505K/month before renewal planning.</div></div>
+          <div class="learn-item"><div class="lt">Contact account team →</div><div class="ls">Share forecast and renewal targets with HPE account management.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

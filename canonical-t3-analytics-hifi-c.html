@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T3 · Analytics — Var C · Utilization &amp; performance</title>
+<link rel="stylesheet" href="hifi-shared.css">
+</head>
+<body>
+
+<div class="switcher">
+  Canonical templates:
+  <a href="canonical-t1-overview-hifi.html">T1 · Overview</a>
+  <a href="canonical-t2-triage-hifi.html">T2 · Triage</a>
+  <a href="canonical-t3-analytics-hifi.html" class="on">T3 · Analytics</a>
+  <a href="canonical-t4-detail-hifi.html">T4 · Object detail</a>
+  <a href="canonical-t5-custom-hifi.html">T5 · Custom board</a>
+  <span class="view-toggle">View: <a href="canonical-t3-analytics.html">Lo-fi</a> <a href="canonical-t3-analytics-hifi-c.html" class="hifi-on">Hi-fi</a></span>
+</div>
+<div class="switcher">
+  T3 variations:
+  <a href="canonical-t3-analytics-hifi.html">A · Sustainability</a>
+  <a href="canonical-t3-analytics-hifi-b.html">B · Capacity planning</a>
+  <a href="canonical-t3-analytics-hifi-c.html" class="on">C · Utilization</a>
+  <a href="canonical-t3-analytics-hifi-d.html">D · Wireless experience</a>
+</div>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><span class="gl">green</span>lake<span class="by">by HPE</span></div>
+  <div class="workspace">North America IT Ops</div>
+  <div class="search">⌕ Search</div>
+  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon">⌂</div><div class="ricon">◳</div><div class="ricon active">▦</div>
+    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon">≋</div>
+    <div class="ricon">🖴</div><div class="ricon">((•))</div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Utilization &amp; performance</h1>
+      <button class="btn">Export ▾</button>
+    </div>
+
+    <!-- single column: analytics gets full width -->
+    <div class="primary">
+
+      <!-- Scope bar -->
+      <section>
+        <div class="toolbar" style="margin-bottom:0;">
+          <span class="fchip on">Last 30 days ▾</span>
+          <span class="fchip">Fleet: Production clusters ▾</span>
+          <span class="fchip">Metric: p95 peak ▾</span>
+          <span class="fchip">Filters ▾</span>
+          <span class="spacer"></span>
+          <span style="font-size:12.5px; color:var(--gl-ink-soft);">Updated 8 minutes ago</span>
+        </div>
+      </section>
+
+      <!-- Headline metrics -->
+      <section class="kpi-strip" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="kpi" style="border-left:0; padding-left:0;">
+          <div class="cat">Compute</div>
+          <div class="name">Avg CPU utilization</div>
+          <div class="value-row"><span class="value">67%</span><span class="delta up">↑ 4 pts</span></div>
+          <div class="desc">Balanced uplift from VDI and analytics workloads; peak is weekday 14:00–18:00 CT.</div>
+        </div>
+        <div class="kpi">
+          <div class="cat">Memory</div>
+          <div class="name">Avg memory utilization</div>
+          <div class="value-row"><span class="value">72%</span><span class="delta neutral">↑ 1 pt</span></div>
+          <div class="desc">Memory remains the tighter resource across Geneva and Austin ProLiant clusters.</div>
+        </div>
+        <div class="kpi">
+          <div class="cat">Experience</div>
+          <div class="name">p95 latency</div>
+          <div class="value-row"><span class="value">18</span><span style="font-size:14px; color:var(--gl-ink-soft); font-weight:600;">ms</span><span class="delta down">↑ 5 ms</span></div>
+          <div class="desc">Higher storage wait in CHI-PROD-02 during backup overlap is driving the increase.</div>
+        </div>
+      </section>
+
+      <!-- Hero chart -->
+      <section>
+        <h2 class="table-title" style="font-size:20px;">CPU and memory utilization</h2>
+        <div class="chart-wrap">
+          <svg viewBox="0 0 900 240">
+            <g stroke="#eceff0" stroke-width="1">
+              <line x1="0" y1="40" x2="900" y2="40"/><line x1="0" y1="90" x2="900" y2="90"/>
+              <line x1="0" y1="140" x2="900" y2="140"/><line x1="0" y1="190" x2="900" y2="190"/>
+            </g>
+            <text x="0" y="28" font-size="11" fill="#8fa0a8">90%</text>
+            <text x="0" y="78" font-size="11" fill="#8fa0a8">75%</text>
+            <text x="0" y="128" font-size="11" fill="#8fa0a8">60%</text>
+            <text x="0" y="178" font-size="11" fill="#8fa0a8">45%</text>
+            <polyline points="38,158 68,146 98,151 128,132 158,126 188,137 218,118 248,111 278,105 308,116 338,102 368,94 398,99 428,86 458,92 488,82 518,88 548,76 578,81 608,68 638,74 668,62 698,70 728,64 758,58 788,66 818,52 848,60 878,48"
+              fill="none" stroke="var(--c-blue)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="38,132 68,124 98,128 128,118 158,109 188,115 218,102 248,96 278,90 308,98 338,88 368,82 398,85 428,78 458,74 488,72 518,75 548,68 578,70 608,63 638,66 668,60 698,62 728,57 758,55 788,58 818,52 848,54 878,50"
+              fill="none" stroke="var(--c-purple)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="608" y1="24" x2="608" y2="210" stroke="var(--amber)" stroke-width="1.3" stroke-dasharray="3 4"/>
+            <text x="618" y="36" font-size="12" fill="#8a5c00" font-weight="600">Backup window shifted</text>
+            <text x="38" y="236" font-size="11" fill="#8fa0a8">Aug 11</text>
+            <text x="438" y="236" font-size="11" fill="#8fa0a8">Aug 26</text>
+            <text x="838" y="236" font-size="11" fill="#8fa0a8">Sep 10</text>
+          </svg>
+        </div>
+        <div class="chart-legend">
+          <span class="lg"><span class="sw" style="background:var(--c-blue)"></span>CPU utilization · avg 67%</span>
+          <span class="lg"><span class="sw" style="background:var(--c-purple)"></span>Memory utilization · avg 72%</span>
+        </div>
+      </section>
+
+      <!-- Breakdown cards -->
+      <section class="grid-2">
+        <div class="card">
+          <div class="card-head"><h2>Top 5 busiest clusters</h2><span class="arrow">→</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>AUS-AI-02</span><span class="pct">88% CPU</span></div>
+          <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:88; background:var(--c-blue)"></span><span style="flex:12; background:var(--grey-bg)"></span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>GVA-DB-01</span><span class="pct">82% CPU</span></div>
+          <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:82; background:var(--c-green)"></span><span style="flex:18; background:var(--grey-bg)"></span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>CHI-VDI-03</span><span class="pct">79% CPU</span></div>
+          <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:79; background:var(--c-purple)"></span><span style="flex:21; background:var(--grey-bg)"></span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-magenta)"></span>DEN-EDGE-01</span><span class="pct">73% CPU</span></div>
+          <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:73; background:var(--c-magenta)"></span><span style="flex:27; background:var(--grey-bg)"></span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-navy)"></span>AUS-API-04</span><span class="pct">70% CPU</span></div>
+          <div class="stack-bar" style="margin:4px 0 0;"><span style="flex:70; background:var(--c-navy)"></span><span style="flex:30; background:var(--grey-bg)"></span></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Idle resources</h2><span class="arrow">→</span></div>
+          <div class="donut-wrap">
+            <div class="donut" data-center="214&#10;idle VMs"
+              style="background: conic-gradient(var(--amber) 0 42%, var(--c-blue) 42% 68%, var(--c-purple) 68% 86%, var(--c-grey) 86% 100%);"></div>
+            <div style="flex:1; min-width:0;">
+              <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>CPU &lt; 10%</span><span class="pct">90 VMs</span></div>
+              <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Memory &lt; 20%</span><span class="pct">56 VMs</span></div>
+              <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Low I/O</span><span class="pct">38 VMs</span></div>
+              <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-grey)"></span>Powered on stale</span><span class="pct">30 VMs</span></div>
+              <div style="margin-top:12px;"><span class="glink">Review rightsizing recommendations →</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detail table -->
+      <section>
+        <h2 class="table-title" style="font-size:20px;">Cluster performance detail</h2>
+        <table>
+          <thead>
+            <tr><th>Cluster</th><th>Location</th><th class="num">CPU</th><th class="num">Memory</th><th class="num">IOPS</th><th class="num">p95 latency</th><th>Trend</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="tlink">AUS-AI-02</span></td><td>Austin DC</td><td class="num">88%</td><td class="num">76%</td><td class="num">418K</td><td class="num">24 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,18 15,14 30,16 45,11 60,9 75,7 90,5" fill="none" stroke="var(--red)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">GVA-DB-01</span></td><td>Geneva DC</td><td class="num">82%</td><td class="num">84%</td><td class="num">302K</td><td class="num">17 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,13 15,12 30,10 45,11 60,8 75,9 90,7" fill="none" stroke="var(--amber)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">CHI-VDI-03</span></td><td>Chicago Edge</td><td class="num">79%</td><td class="num">88%</td><td class="num">196K</td><td class="num">21 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,16 15,13 30,15 45,12 60,10 75,11 90,8" fill="none" stroke="var(--amber)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">DEN-EDGE-01</span></td><td>Denver Edge</td><td class="num">73%</td><td class="num">69%</td><td class="num">121K</td><td class="num">12 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,10 15,11 30,10 45,12 60,11 75,12 90,11" fill="none" stroke="var(--c-grey)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">AUS-API-04</span></td><td>Austin DC</td><td class="num">70%</td><td class="num">63%</td><td class="num">164K</td><td class="num">9 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,14 15,13 30,12 45,11 60,10 75,10 90,9" fill="none" stroke="var(--gl-green)" stroke-width="2"/></svg></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

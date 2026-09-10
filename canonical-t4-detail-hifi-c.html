@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T4 · Object detail — Var C · Network site</title>
+<link rel="stylesheet" href="hifi-shared.css">
+</head>
+<body>
+
+<div class="switcher">
+  Canonical templates:
+  <a href="canonical-t1-overview-hifi.html">T1 · Overview</a>
+  <a href="canonical-t2-triage-hifi.html">T2 · Triage</a>
+  <a href="canonical-t3-analytics-hifi.html">T3 · Analytics</a>
+  <a href="canonical-t4-detail-hifi.html" class="on">T4 · Object detail</a>
+  <a href="canonical-t5-custom-hifi.html">T5 · Custom board</a>
+  <span class="view-toggle">View: <a href="canonical-t4-detail.html">Lo-fi</a> <a href="canonical-t4-detail-hifi-c.html" class="hifi-on">Hi-fi</a></span>
+</div>
+<div class="switcher">
+  T4 variations:
+  <a href="canonical-t4-detail-hifi.html">A · Server</a>
+  <a href="canonical-t4-detail-hifi-b.html">B · Storage array</a>
+  <a href="canonical-t4-detail-hifi-c.html" class="on">C · Network site</a>
+  <a href="canonical-t4-detail-hifi-d.html">D · Subscription</a>
+</div>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><span class="gl">green</span>lake<span class="by">by HPE</span></div>
+  <div class="workspace">North America IT Ops</div>
+  <div class="search">⌕ Search</div>
+  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon">⌂</div><div class="ricon">◳</div><div class="ricon">▦</div>
+    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon">≋</div>
+    <div class="ricon">🖴</div><div class="ricon active">((•))</div>
+  </nav>
+
+  <main class="page">
+
+    <!-- Object header -->
+    <section style="margin-bottom: var(--gap-section);">
+      <div class="crumb"><a href="#">Networking</a> › <a href="#">Sites</a> › Austin HQ</div>
+      <div class="obj-head">
+        <h1>Aruba site · Austin HQ</h1>
+        <span class="pill amber">● Warning · high channel utilization</span>
+        <div class="obj-actions">
+          <button class="btn green">Optimize RF</button>
+          <button class="btn">Add device</button>
+          <button class="btn" style="padding:9px 14px;">···</button>
+        </div>
+      </div>
+      <div class="tabs">
+        <span class="tab on">Overview</span>
+        <span class="tab">Devices</span>
+        <span class="tab">Clients</span>
+        <span class="tab">WLANs</span>
+        <span class="tab">Config</span>
+      </div>
+    </section>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Vitals -->
+        <section class="grid-4">
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Client health score</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">82</div>
+            <div class="meter"><i class="warn" style="width:82%"></i></div>
+            <div class="fine" style="margin-top:8px;">Down 6 pts since 08:00 CT</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Connected clients</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">3,842</div>
+            <div class="meter"><i style="width:64%"></i></div>
+            <div class="fine" style="margin-top:8px;">Peak 4,126 at 11:15 CT</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">WAN status</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">2 / 2</div>
+            <div class="meter"><i style="width:100%"></i></div>
+            <div class="fine" style="margin-top:8px;">Primary 4.8 Gbps, backup ready</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">APs up</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">118 / 124</div>
+            <div class="meter"><i class="warn" style="width:95%"></i></div>
+            <div class="fine" style="margin-top:8px;">6 APs in maintenance mode</div>
+          </div>
+        </section>
+
+        <!-- Activity chart -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Client count · last 24 hours</h2>
+          <div class="chart-wrap">
+            <svg viewBox="0 0 900 200">
+              <g stroke="#eceff0" stroke-width="1">
+                <line x1="0" y1="40" x2="900" y2="40"/><line x1="0" y1="90" x2="900" y2="90"/><line x1="0" y1="140" x2="900" y2="140"/>
+              </g>
+              <polygon points="0,160 75,154 150,146 225,136 300,104 375,88 450,66 525,58 600,62 675,76 750,90 825,110 900,98 900,200 0,200" fill="rgba(61,127,242,0.08)"/>
+              <polyline points="0,160 75,154 150,146 225,136 300,104 375,88 450,66 525,58 600,62 675,76 750,90 825,110 900,98"
+                fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+              <polyline points="0,138 75,140 150,134 225,130 300,118 375,112 450,102 525,96 600,88 675,86 750,92 825,98 900,104"
+                fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round"/>
+              <text x="0" y="196" font-size="11" fill="#8fa0a8">00:00</text>
+              <text x="430" y="196" font-size="11" fill="#8fa0a8">12:00</text>
+              <text x="862" y="196" font-size="11" fill="#8fa0a8">Now</text>
+            </svg>
+          </div>
+          <div class="chart-legend">
+            <span class="lg"><span class="sw" style="background:var(--c-blue)"></span>Connected clients</span>
+            <span class="lg"><span class="sw" style="background:var(--amber)"></span>Channel utilization</span>
+          </div>
+        </section>
+
+        <!-- Related devices -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Devices at this site</h2>
+          <table>
+            <thead>
+              <tr><th>Device</th><th>Type</th><th>Model</th><th>Status</th><th class="num">Clients</th><th>Firmware</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="tlink">aushq-ap-04-118</span></td><td>Access point</td><td>Aruba AP-635</td><td><span class="pill amber">High channel</span></td><td class="num">48</td><td>AOS 10.7.1.1</td></tr>
+              <tr><td><span class="tlink">aushq-gw-01</span></td><td>Gateway</td><td>Aruba 9240</td><td><span class="pill green">Online</span></td><td class="num">1,982</td><td>AOS 10.7.1.1</td></tr>
+              <tr><td><span class="tlink">aushq-gw-02</span></td><td>Gateway</td><td>Aruba 9240</td><td><span class="pill green">Online</span></td><td class="num">1,860</td><td>AOS 10.7.1.1</td></tr>
+              <tr><td><span class="tlink">aushq-sw-core-02</span></td><td>Switch</td><td>Aruba CX 8325</td><td><span class="pill green">Online</span></td><td class="num">—</td><td>10.14.0008</td></tr>
+              <tr><td><span class="tlink">aushq-ap-02-044</span></td><td>Access point</td><td>Aruba AP-535</td><td><span class="pill grey">Maintenance</span></td><td class="num">0</td><td>AOS 10.6.2.3</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Key facts</h3>
+          <div class="kv"><span class="k">Address</span><span class="v">11400 Burnet Rd, Austin, TX</span></div>
+          <div class="kv"><span class="k">Region</span><span class="v">US Central</span></div>
+          <div class="kv"><span class="k">Gateway cluster</span><span class="v">aushq-gw-cluster-01</span></div>
+          <div class="kv"><span class="k">Uplinks</span><span class="v">AT&amp;T 5G · Lumen 2G</span></div>
+          <div class="kv"><span class="k">Installed date</span><span class="v">Nov 7th, 2025</span></div>
+          <div class="kv"><span class="k">Site group</span><span class="v">Corporate campuses</span></div>
+          <div class="kv"><span class="k">WLANs</span><span class="v">Corp, Guest, IoT</span></div>
+          <div class="kv"><span class="k">Subscription</span><span class="v"><span class="tlink" style="font-size:13px;">SUB-66291-NET</span></span></div>
+          <div class="kv"><span class="k">Tags</span><span class="v"><span class="pill grey">campus</span> <span class="pill grey">wifi6e</span></span></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Related</h3>
+          <div class="learn-item"><div class="lt">RF optimization history →</div><div class="ls">Last automatic channel plan completed Sep 9th, 2026.</div></div>
+          <div class="learn-item"><div class="lt">Client experience report →</div><div class="ls">Authentication, roaming, DNS, and application quality trends.</div></div>
+          <div class="learn-item"><div class="lt">Open Aruba support case ↗</div><div class="ls">Site telemetry and current RF plan are attached automatically.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
