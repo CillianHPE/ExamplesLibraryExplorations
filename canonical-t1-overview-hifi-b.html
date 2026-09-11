@@ -4,6 +4,76 @@
 <meta charset="UTF-8">
 <title>T1 · Overview — Var B · Compute fleet</title>
 <link rel="stylesheet" href="hifi-shared.css">
+<style>
+  /* ---- Page-local restyle to match GreenLake mock (T1-B only) ---- */
+
+  /* Global header: taller, squared centered search */
+  .header { height: 76px; gap: 26px; padding: 0 28px; border-bottom: 1px solid #D4D8DB; }
+  .logo { font-size: 24px; }
+  .search { flex: 0 1 500px; height: 46px; border-radius: 10px; border: 1px solid #606A70; font-size: 15px; margin: 0 auto; }
+  .header-icons { margin-left: 0; gap: 24px; font-size: 17px; }
+
+  /* Floating side rail with background */
+  .shell { padding: 20px 8px 0 20px; gap: 12px; }
+  .rail { background: #F7F7F7; border-right: 0; border-radius: 14px; width: 88px; padding: 22px 0;
+    gap: 16px; min-height: 0; height: calc(100vh - 116px); position: sticky; top: 96px; }
+  .ricon { font-size: 18px; color: #3c4a52; }
+  .ricon:hover { background: #D4D8DB; }
+  .ricon.active { background: transparent; color: var(--gl-ink); }
+
+  .page { padding: 26px 28px 80px 32px; }
+
+  /* Page head */
+  h1 { font-size: 42px; letter-spacing: -0.6px; }
+  .page-head { margin-bottom: 44px; }
+  .btn { background: #f1f1f1; border: 0; padding: 12px 24px; font-size: 15px; border-radius: 24px; }
+  .iconbtn { width: 44px; height: 44px; border: 1.5px solid var(--gl-green-deep); border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 17px; color: var(--gl-green-deep); cursor: pointer; }
+
+  /* KPI strip */
+  .kpi-intro .eyebrow { font-size: 14px; }
+  .kpi-intro .title { font-size: 30px; }
+  .kpi .cat { font-size: 14px; }
+  .kpi .name { font-size: 17px; }
+  .kpi .value { font-size: 40px; }
+  .kpi .desc { font-size: 13.5px; }
+  .delta { font-size: 13px; }
+  .delta.down { background: var(--grey-bg); color: var(--gl-ink-soft); }
+  .glink { font-size: 15px; }
+  .chip { background: #efefef; font-size: 13.5px; padding: 8px 16px; }
+
+  /* Cards */
+  .card { border-radius: 16px; padding: 28px; }
+  .card-head { margin-bottom: 22px; }
+  .card-head h2 { font-size: 26px; letter-spacing: -0.3px; }
+  .card-head .arrow { font-size: 22px; }
+  .list-item { padding: 15px 0; }
+  .li-title { font-size: 16px; }
+  .li-sub { font-size: 13.5px; }
+  .li-meta { font-size: 13px; }
+  .big-number { font-size: 56px; }
+  .big-number-sub { font-size: 14px; }
+  .legend-row { font-size: 14px; padding: 7px 0; }
+  .dot { width: 13px; height: 13px; border-radius: 4px; }
+  .meter { height: 8px; }
+
+  /* Table */
+  .table-title { font-size: 30px; letter-spacing: -0.3px; }
+  th { font-size: 14px; border-bottom: 1px solid var(--line); }
+  td { padding: 16px 14px; font-size: 15px; }
+
+  /* Right rail — no cards, plain sections */
+  .rrail { gap: 44px; }
+  .rrail .sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .rrail .sec-head h3 { font-size: 26px; font-weight: 700; letter-spacing: -0.3px; }
+  .rrail .sec-head .edit { color: var(--gl-ink); font-size: 16px; cursor: pointer; }
+  .qa-list li { padding: 11px 0; }
+  .qa-list a { font-size: 16px; text-decoration: underline; }
+  .rrail .learn-item { display: flex; justify-content: space-between; gap: 12px; padding: 15px 0; }
+  .rrail .learn-item .lt { font-size: 16px; }
+  .rrail .learn-item .ls { font-size: 13.5px; margin-top: 3px; }
+  .rrail .learn-item .more { color: var(--gl-ink-soft); font-size: 18px; cursor: pointer; flex: none; }
+</style>
 </head>
 <body>
 
@@ -26,7 +96,7 @@
 
 <header class="header">
   <div class="burger"><span></span><span></span><span></span></div>
-  <div class="logo"><span class="gl">green</span>lake<span class="by">by HPE</span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
   <div class="workspace">North America IT Ops</div>
   <div class="search">⌕ Search</div>
   <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
@@ -42,7 +112,10 @@
   <main class="page">
     <div class="page-head">
       <h1>Compute Ops Management</h1>
-      <button class="btn">Add servers ＋</button>
+      <div style="display:flex; gap:14px; align-items:center;">
+        <button class="btn">Customize 🔧</button>
+        <span class="iconbtn">◫</span>
+      </div>
     </div>
 
     <div class="page-grid">
@@ -140,21 +213,8 @@
       </div>
 
       <aside class="rrail">
-        <div class="card">
-          <h3>Sustainability</h3>
-          <div style="display:flex; align-items:baseline; gap:8px;">
-            <span class="big-number" style="font-size:26px;">38.2</span><span class="fine">kW avg draw</span>
-          </div>
-          <div class="fine" style="margin-top:6px;">Fleet power draw ↓ 4% vs last week after wave-2 rightsizing.</div>
-          <div style="margin-top:10px;"><span class="glink">View emissions →</span></div>
-        </div>
-        <div class="card">
-          <h3>GreenLake Intelligence</h3>
-          <div class="fine">"7 unreachable servers share the same TOR switch in Geneva Rack D — likely a network issue, not server failures."</div>
-          <div class="prompt-box"><span class="sp">✦</span> Ask about my fleet…</div>
-        </div>
         <div>
-          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Quick actions</h3>
+          <div class="sec-head"><h3>Quick actions</h3><span class="edit">✎</span></div>
           <ul class="qa-list">
             <li><a href="#">Add servers</a></li>
             <li><a href="#">Create firmware baseline</a></li>
@@ -164,9 +224,13 @@
           </ul>
         </div>
         <div>
-          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Announcements</h3>
-          <div class="learn-item"><div class="lt">iLO 7 security advisory →</div><div class="ls">Patch available for CVE-2026-1182. 210 servers affected.</div></div>
-          <div class="learn-item"><div class="lt">Gen12 onboarding guide →</div><div class="ls">Prepare your workspace for ProLiant Gen12 arrivals.</div></div>
+          <div class="sec-head"><h3>Activity</h3></div>
+          <div class="learn-item"><div><div class="lt">Firmware update · wave 3 started</div><div class="ls">64 servers · Austin DC — started by J. Alvarez · 24 min ago</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">Server esx-prod-014 went critical</div><div class="ls">Memory DIMM fault detected on P2 slot 4 · 2 hours ago</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">12 servers added to workspace</div><div class="ls">ProLiant DL380 Gen11 · onboarded via activation key · 5 hours ago</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">BIOS config apply failed</div><div class="ls">2 of 12 servers · Geneva DC · retry scheduled · Yesterday</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">Baseline Gen11 2026.04 published</div><div class="ls">Applied to 3 server groups by S. Chen · Yesterday</div></div><span class="more">⋯</span></div>
+          <button class="btn" style="margin-top:14px; padding:10px 20px;">Show more</button>
         </div>
       </aside>
     </div>
