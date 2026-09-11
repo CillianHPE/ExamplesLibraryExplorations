@@ -6,17 +6,13 @@
 <link rel="stylesheet" href="hifi-shared.css">
 <style>
   /* posture cards: headline answer + compact stacked bar */
-  .posture .lead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .posture .lead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; }
   .posture .lead .n { font-size: 36px; font-weight: 700; letter-spacing: -0.5px; color: var(--gl-heading); }
   .posture .lead .of { font-size: 13px; color: var(--gl-ink-soft); }
-  .posture .verdict { font-size: 13.5px; font-weight: 600; margin-bottom: 14px; }
-  .posture .verdict.bad { color: var(--red); }
-  .posture .verdict.warn { color: var(--amber); }
-  .posture .verdict.quiet { color: var(--gl-ink-soft); }
   .posture .stack-bar { margin: 0 0 12px; height: 10px; }
-  .mini-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; color: var(--gl-ink); }
-  .mini-legend .lg { display: flex; align-items: center; gap: 6px; }
-  .mini-legend .lg b { font-weight: 700; }
+  .mini-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .mini-legend .lg { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .mini-legend .lg b { font-weight: 700; color: var(--gl-heading); }
   .mini-legend .dot { width: 9px; height: 9px; }
 
   /* needs attention: ranked action list, uncontained rows */
@@ -95,7 +91,6 @@
             <div class="card posture">
               <div class="card-head"><h2>Health</h2><span class="arrow">→</span></div>
               <div class="lead"><span class="n">1</span><span class="of">of 91 servers degraded</span></div>
-              <div class="verdict quiet">86 servers not reporting health yet</div>
               <div class="stack-bar">
                 <span style="flex:1; background:var(--amber)"></span>
                 <span style="flex:4; background:var(--ok)"></span>
@@ -103,44 +98,38 @@
                 <span style="flex:21; background:#C9CFD2"></span>
               </div>
               <div class="mini-legend">
-                <span class="lg"><span class="dot" style="background:var(--red)"></span>Critical <b>0</b></span>
-                <span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning <b>1</b></span>
-                <span class="lg"><span class="dot" style="background:var(--ok)"></span>OK <b>4</b></span>
-                <span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown <b>65</b></span>
-                <span class="lg"><span class="dot" style="background:#C9CFD2"></span>Disabled <b>21</b></span>
+                <span class="lg"><span class="dot" style="background:var(--amber)"></span><b>1</b> Warning</span>
+                <span class="lg"><span class="dot" style="background:var(--ok)"></span><b>4</b> OK</span>
+                <span class="lg"><span class="dot" style="background:var(--unknown)"></span><b>65</b> Unknown</span>
+                <span class="lg"><span class="dot" style="background:#C9CFD2"></span><b>21</b> Disabled</span>
               </div>
             </div>
 
             <div class="card posture">
               <div class="card-head"><h2>Security</h2><span class="arrow">→</span></div>
               <div class="lead"><span class="n">17</span><span class="of">of 91 servers at risk</span></div>
-              <div class="verdict bad">Action needed on iLO security settings</div>
               <div class="stack-bar">
                 <span style="flex:17; background:var(--red)"></span>
                 <span style="flex:1; background:var(--amber)"></span>
                 <span style="flex:73; background:var(--unknown)"></span>
               </div>
               <div class="mini-legend">
-                <span class="lg"><span class="dot" style="background:var(--red)"></span>At risk <b>17</b></span>
-                <span class="lg"><span class="dot" style="background:var(--amber)"></span>Ignored <b>1</b></span>
-                <span class="lg"><span class="dot" style="background:var(--ok)"></span>OK <b>0</b></span>
-                <span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown <b>73</b></span>
+                <span class="lg"><span class="dot" style="background:var(--red)"></span><b>17</b> At risk</span>
+                <span class="lg"><span class="dot" style="background:var(--amber)"></span><b>1</b> Ignored</span>
+                <span class="lg"><span class="dot" style="background:var(--unknown)"></span><b>73</b> Unknown</span>
               </div>
             </div>
 
             <div class="card posture">
               <div class="card-head"><h2>Compliance</h2><span class="arrow">→</span></div>
               <div class="lead"><span class="n">0</span><span class="of">of 24 groups non-compliant</span></div>
-              <div class="verdict quiet">23 groups have no baseline assigned</div>
               <div class="stack-bar">
                 <span style="flex:1; background:var(--unknown)"></span>
                 <span style="flex:23; background:#C9CFD2"></span>
               </div>
               <div class="mini-legend">
-                <span class="lg"><span class="dot" style="background:var(--red)"></span>Not compliant <b>0</b></span>
-                <span class="lg"><span class="dot" style="background:var(--ok)"></span>Compliant <b>0</b></span>
-                <span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown <b>1</b></span>
-                <span class="lg"><span class="dot" style="background:#C9CFD2"></span>Not applicable <b>23</b></span>
+                <span class="lg"><span class="dot" style="background:var(--unknown)"></span><b>1</b> Unknown</span>
+                <span class="lg"><span class="dot" style="background:#C9CFD2"></span><b>23</b> No baseline</span>
               </div>
             </div>
           </div>
