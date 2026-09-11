@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>COM · Overview · remap v2 (purpose-led)</title>
 <link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
 <style>
   /* posture cards: headline answer + compact stacked bar */
   .posture .lead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; }
@@ -26,22 +27,27 @@
 
   .info-banner { display: flex; gap: 10px; align-items: flex-start; background: var(--info-bg); color: var(--gl-ink);
     border-radius: 8px; padding: 12px 16px; font-size: 13.5px; line-height: 1.5; margin-bottom: var(--gap-container); }
-  .info-banner .ic { color: var(--info); font-weight: 700; }
+  .info-banner .ic { color: var(--info); line-height: 0; margin-top: 1px; }
+  .info-banner .ic svg { width: 18px; height: 18px; }
   .map-frame { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; position: relative; }
   .map-frame svg { display: block; width: 100%; height: auto; }
   .map-tools { position: absolute; top: 14px; right: 14px; display: flex; gap: 8px; }
   .map-tools .tool { width: 34px; height: 34px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; }
+    display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; color: var(--gl-heading); line-height: 0; }
+  .map-tools .tool svg { width: 17px; height: 17px; }
 
   /* data-view toolbar: search · filter · select view · table/map toggle · actions */
   .dv-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
   .dv-search { display: flex; align-items: center; gap: 8px; border: 1px solid var(--gl-ink-soft); border-radius: 6px;
     padding: 9px 12px; width: 300px; color: var(--gl-ink-weak); font-size: 14px; background: #fff; }
+  .dv-search .sic { line-height: 0; color: var(--gl-ink); }
+  .dv-search .sic svg { width: 17px; height: 17px; }
   .dv-search input { border: 0; outline: 0; flex: 1; font-size: 14px; color: var(--gl-ink); background: transparent; min-width: 0; }
   .dv-select { display: flex; align-items: center; gap: 24px; border: 1px solid var(--gl-ink-soft); border-radius: 6px;
     padding: 9px 14px; font-size: 14px; color: var(--gl-ink); background: #fff; cursor: pointer; }
   .dv-icon { width: 38px; height: 38px; border-radius: 6px; border: 1px solid transparent; background: transparent;
-    display: flex; align-items: center; justify-content: center; font-size: 17px; color: var(--gl-ink); cursor: pointer; }
+    display: flex; align-items: center; justify-content: center; color: var(--gl-heading); cursor: pointer; line-height: 0; }
+  .dv-icon svg { width: 19px; height: 19px; }
   .dv-icon:hover { background: rgba(0,0,0,0.04); }
   .dv-icon.active { background: #EDF6F2; border-color: var(--gl-green); color: var(--gl-green); }
   .dv-count { font-size: 13.5px; color: var(--gl-ink); margin-bottom: 12px; }
@@ -66,7 +72,8 @@
   /* rail visibility toggle */
   .page-grid.rail-hidden { grid-template-columns: 1fr; }
   .page-grid.rail-hidden .rrail-flat { display: none; }
-  #rail-toggle { font-size: 18px; }
+  #rail-toggle { line-height: 0; }
+  #rail-toggle svg { width: 19px; height: 19px; }
   #rail-toggle.off { color: var(--gl-ink-weak); }
   .rrail-flat section h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
   /* leading/trailing list row: message leads, action trails */
@@ -95,22 +102,27 @@
   <div class="burger"><span></span><span></span><span></span></div>
   <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
   <div class="workspace">DemoComp Industries</div>
-  <div class="search">⌕ Search</div>
-  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
 </header>
 
 <div class="shell">
   <nav class="rail">
-    <div class="ricon">⌂</div><div class="ricon active">◳</div><div class="ricon">▦</div>
-    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon">≋</div>
-    <div class="ricon">🖴</div><div class="ricon">((•))</div>
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon active" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
   </nav>
 
   <main class="page">
     <div class="crumb">Compute Ops Management · US East</div>
     <div class="page-head">
       <h1>Overview</h1>
-      <button class="btn icon" id="rail-toggle" title="Hide side panel" aria-pressed="true" onclick="toggleRail()">◨</button>
+      <button class="btn icon" id="rail-toggle" title="Hide side panel" aria-pressed="true" onclick="toggleRail()"><span data-i="panel"></span></button>
     </div>
 
     <div class="page-grid" id="page-grid">
@@ -200,13 +212,13 @@
         <!-- SECTION 3 · Server locations: uncontained data view (map/table toggle) -->
         <section>
           <div class="sec-title">Server locations</div>
-          <div class="info-banner"><span class="ic">ⓘ</span><span><b>90 servers</b> have no assigned location. Location is required for auto HPE support case creation. <span class="tlink">Assign locations</span></span></div>
+          <div class="info-banner"><span class="ic" data-i="info"></span><span><b>90 servers</b> have no assigned location. Location is required for auto HPE support case creation. <span class="tlink">Assign locations</span></span></div>
           <div class="dv-toolbar">
-            <label class="dv-search">🔍<input type="text" placeholder="Search servers"></label>
-            <button class="dv-icon" title="Filter">⧩</button>
+            <label class="dv-search"><span class="sic" data-i="search"></span><input type="text" placeholder="Search servers"></label>
+            <button class="dv-icon" title="Filter"><span data-i="filter"></span></button>
             <div class="dv-select">Select view <span>▾</span></div>
-            <button class="dv-icon" id="dv-btn-table" title="Table view" onclick="setDataView('table')">▦</button>
-            <button class="dv-icon active" id="dv-btn-map" title="Map view" onclick="setDataView('map')">🗺</button>
+            <button class="dv-icon" id="dv-btn-table" title="Table view" onclick="setDataView('table')"><span data-i="table"></span></button>
+            <button class="dv-icon active" id="dv-btn-map" title="Map view" onclick="setDataView('map')"><span data-i="map"></span></button>
             <div class="dv-spacer"></div>
             <button class="btn">Actions ▾</button>
           </div>
@@ -328,7 +340,6 @@ function toggleRail() {
   const btn = document.getElementById('rail-toggle');
   const hidden = grid.classList.toggle('rail-hidden');
   btn.classList.toggle('off', hidden);
-  btn.textContent = hidden ? '◧' : '◨';
   btn.title = hidden ? 'Show side panel' : 'Hide side panel';
   btn.setAttribute('aria-pressed', String(!hidden));
 }

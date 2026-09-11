@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>T1 · Overview · Hi-fi</title>
 <link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
 </head>
 <body>
 
@@ -28,15 +29,20 @@
   <div class="burger"><span></span><span></span><span></span></div>
   <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
   <div class="workspace">DemoComp Industries</div>
-  <div class="search">⌕ Search</div>
-  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
 </header>
 
 <div class="shell">
   <nav class="rail">
-    <div class="ricon active">⌂</div><div class="ricon">◳</div><div class="ricon">▦</div>
-    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon">≋</div>
-    <div class="ricon">🖴</div><div class="ricon">((•))</div>
+    <div class="ricon active" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
   </nav>
 
   <main class="page">
@@ -147,7 +153,7 @@
       <aside class="rrail">
         <div class="card">
           <h3>GreenLake Status</h3>
-          <div class="status-banner"><span class="status-dot"></span> Operational <span style="margin-left:auto; color:var(--gl-ink-soft); font-weight:400;">ⓘ</span></div>
+          <div class="status-banner"><span class="status-dot"></span> Operational <span style="margin-left:auto; color:var(--gl-ink-soft); line-height:0;" data-i="info"></span></div>
           <div class="fine">No scheduled maintenance. Use <a href="#">GreenLake Service Health</a> to view other issues.</div>
         </div>
         <div class="card">

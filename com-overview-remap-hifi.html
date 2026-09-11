@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>COM · Overview · remapped into layout system</title>
 <link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
 <style>
   /* page-local helpers for this exercise */
   .status-card .donut { width: 132px; height: 132px; }
@@ -15,12 +16,14 @@
   .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap-container); }
   .info-banner { display: flex; gap: 10px; align-items: flex-start; background: var(--info-bg); color: var(--gl-ink);
     border-radius: 8px; padding: 12px 16px; font-size: 13.5px; line-height: 1.5; margin-bottom: var(--gap-container); }
-  .info-banner .ic { color: var(--info); font-weight: 700; }
+  .info-banner .ic { color: var(--info); line-height: 0; margin-top: 1px; }
+  .info-banner .ic svg { width: 18px; height: 18px; }
   .map-frame { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; position: relative; }
   .map-frame svg { display: block; width: 100%; height: auto; }
   .map-tools { position: absolute; top: 14px; right: 14px; display: flex; gap: 8px; }
   .map-tools .tool { width: 34px; height: 34px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; }
+    display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; color: var(--gl-heading); line-height: 0; }
+  .map-tools .tool svg { width: 17px; height: 17px; }
   .sec-title { font-size: 24px; font-weight: 700; margin-bottom: var(--gap-container); }
   .rec-item { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; line-height: 1.5; }
   .rec-item:last-child { border-bottom: 0; }
@@ -43,15 +46,20 @@
   <div class="burger"><span></span><span></span><span></span></div>
   <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
   <div class="workspace">DemoComp Industries</div>
-  <div class="search">⌕ Search</div>
-  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
 </header>
 
 <div class="shell">
   <nav class="rail">
-    <div class="ricon">⌂</div><div class="ricon active">◳</div><div class="ricon">▦</div>
-    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon">≋</div>
-    <div class="ricon">🖴</div><div class="ricon">((•))</div>
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon active" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
   </nav>
 
   <main class="page">
@@ -145,9 +153,9 @@
         <!-- SECTION 3 · Server locations (uncontained, full width of primary) -->
         <section>
           <div class="sec-title">Server locations</div>
-          <div class="info-banner"><span class="ic">ⓘ</span><span><b>90 servers</b> do not have an assigned location or have a location that cannot be correctly mapped. Location is required for auto HPE support case creation. <span class="tlink">Learn more</span></span></div>
+          <div class="info-banner"><span class="ic" data-i="info"></span><span><b>90 servers</b> do not have an assigned location or have a location that cannot be correctly mapped. Location is required for auto HPE support case creation. <span class="tlink">Learn more</span></span></div>
           <div class="map-frame">
-            <div class="map-tools"><span class="tool">🔍</span><span class="tool">▦</span><span class="tool">＋</span><span class="tool">－</span></div>
+            <div class="map-tools"><span class="tool" data-i="search"></span><span class="tool" data-i="table"></span><span class="tool">＋</span><span class="tool">－</span></div>
             <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg">
               <rect width="900" height="340" fill="#fcfdfd"/>
               <g stroke="#e8ecee" stroke-width="14" fill="none">
