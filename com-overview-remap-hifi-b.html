@@ -32,6 +32,32 @@
   .map-tools { position: absolute; top: 14px; right: 14px; display: flex; gap: 8px; }
   .map-tools .tool { width: 34px; height: 34px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
     display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; }
+
+  /* data-view toolbar: search · filter · select view · table/map toggle · actions */
+  .dv-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .dv-search { display: flex; align-items: center; gap: 8px; border: 1px solid var(--gl-ink-soft); border-radius: 6px;
+    padding: 9px 12px; width: 300px; color: var(--gl-ink-weak); font-size: 14px; background: #fff; }
+  .dv-search input { border: 0; outline: 0; flex: 1; font-size: 14px; color: var(--gl-ink); background: transparent; min-width: 0; }
+  .dv-select { display: flex; align-items: center; gap: 24px; border: 1px solid var(--gl-ink-soft); border-radius: 6px;
+    padding: 9px 14px; font-size: 14px; color: var(--gl-ink); background: #fff; cursor: pointer; }
+  .dv-icon { width: 38px; height: 38px; border-radius: 6px; border: 1px solid transparent; background: transparent;
+    display: flex; align-items: center; justify-content: center; font-size: 17px; color: var(--gl-ink); cursor: pointer; }
+  .dv-icon:hover { background: rgba(0,0,0,0.04); }
+  .dv-icon.active { background: #EDF6F2; border-color: var(--gl-green); color: var(--gl-green); }
+  .dv-count { font-size: 13.5px; color: var(--gl-ink); margin-bottom: 12px; }
+  .dv-spacer { flex: 1; }
+
+  /* location table view */
+  .loc-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .loc-table th { text-align: left; font-size: 12.5px; font-weight: 600; color: var(--gl-ink-soft);
+    padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .loc-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); color: var(--gl-ink); }
+  .loc-table td.unset { color: var(--gl-ink-weak); }
+  .loc-table tr:last-child td { border-bottom: 0; }
+  .st { display: inline-flex; align-items: center; gap: 7px; }
+  .st::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--unknown); }
+  .st.ok::before { background: var(--ok); }
+  .st.warn::before { background: var(--amber); }
   .sec-title { font-size: 24px; font-weight: 700; margin-bottom: var(--gap-container); }
   .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: -10px 0 var(--gap-container); }
 
@@ -166,12 +192,22 @@
           </div>
         </section>
 
-        <!-- SECTION 3 · Server locations: uncontained map -->
+        <!-- SECTION 3 · Server locations: uncontained data view (map/table toggle) -->
         <section>
           <div class="sec-title">Server locations</div>
           <div class="info-banner"><span class="ic">ⓘ</span><span><b>90 servers</b> have no assigned location. Location is required for auto HPE support case creation. <span class="tlink">Assign locations</span></span></div>
-          <div class="map-frame">
-            <div class="map-tools"><span class="tool">🔍</span><span class="tool">▦</span><span class="tool">＋</span><span class="tool">－</span></div>
+          <div class="dv-toolbar">
+            <label class="dv-search">🔍<input type="text" placeholder="Search servers"></label>
+            <button class="dv-icon" title="Filter">⧩</button>
+            <div class="dv-select">Select view <span>▾</span></div>
+            <button class="dv-icon" id="dv-btn-table" title="Table view" onclick="setDataView('table')">▦</button>
+            <button class="dv-icon active" id="dv-btn-map" title="Map view" onclick="setDataView('map')">🗺</button>
+            <div class="dv-spacer"></div>
+            <button class="btn">Actions ▾</button>
+          </div>
+          <div class="dv-count">91 items</div>
+          <div class="map-frame" id="dv-map">
+            <div class="map-tools"><span class="tool">＋</span><span class="tool">－</span></div>
             <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg">
               <rect width="900" height="300" fill="#fcfdfd"/>
               <g stroke="#e8ecee" stroke-width="14" fill="none">
@@ -189,6 +225,21 @@
               </g>
               <text x="870" y="286" font-size="10" fill="#8fa0a8" text-anchor="end">© OpenStreetMap contributors</text>
             </svg>
+          </div>
+          <div id="dv-table" style="display:none">
+            <table class="loc-table">
+              <thead><tr><th>Server</th><th>Serial number</th><th>Location</th><th>Health</th></tr></thead>
+              <tbody>
+                <tr><td>COM-DUB-PROD-01</td><td>2XK4521ABC</td><td>Dublin HQ</td><td><span class="st ok">OK</span></td></tr>
+                <tr><td>COM-DUB-PROD-02</td><td>2XK4522BCD</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st warn">Warning</span></td></tr>
+                <tr><td>COM-DUB-PROD-03</td><td>2XK4523CDE</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st ok">OK</span></td></tr>
+                <tr><td>COM-EDGE-NORTH-01</td><td>2XK4524DEF</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st">Unknown</span></td></tr>
+                <tr><td>COM-EDGE-NORTH-02</td><td>2XK4525EFG</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st">Unknown</span></td></tr>
+                <tr><td>COM-WH-IOT-01</td><td>2XK4526FGH</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st">Unknown</span></td></tr>
+                <tr><td>COM-WH-IOT-02</td><td>2XK4527GHI</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st">Unknown</span></td></tr>
+              </tbody>
+            </table>
+            <div class="dv-count" style="margin-top:12px">Showing 7 of 91 servers</div>
           </div>
         </section>
 
@@ -239,5 +290,13 @@
   </main>
 </div>
 
+<script>
+function setDataView(v) {
+  document.getElementById('dv-map').style.display = v === 'map' ? '' : 'none';
+  document.getElementById('dv-table').style.display = v === 'table' ? '' : 'none';
+  document.getElementById('dv-btn-map').classList.toggle('active', v === 'map');
+  document.getElementById('dv-btn-table').classList.toggle('active', v === 'table');
+}
+</script>
 </body>
 </html>
