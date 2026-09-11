@@ -73,6 +73,8 @@
   .st::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--unknown); }
   .st.ok::before { background: var(--ok); }
   .st.warn::before { background: var(--amber); }
+  .st.crit::before { background: var(--red); }
+  .loc-table th.sorted { background: var(--contained); color: var(--gl-heading); }
   .sec-title { font-size: 24px; font-weight: 700; margin-bottom: var(--gap-container); }
   .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: -10px 0 var(--gap-container); }
 
@@ -266,18 +268,21 @@
           </div>
           <div id="dv-table" style="display:none">
             <table class="loc-table">
-              <thead><tr><th>Server</th><th>Serial number</th><th>Location</th><th>Health</th></tr></thead>
+              <thead><tr><th class="sorted">Health ↓</th><th>Name</th><th>Serial number</th><th>Location</th><th>Group</th><th>Security</th></tr></thead>
               <tbody>
-                <tr><td>COM-DUB-PROD-01</td><td>2XK4521ABC</td><td>Dublin HQ</td><td><span class="st ok">OK</span></td></tr>
-                <tr><td>COM-DUB-PROD-02</td><td>2XK4522BCD</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st warn">Warning</span></td></tr>
-                <tr><td>COM-DUB-PROD-03</td><td>2XK4523CDE</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st ok">OK</span></td></tr>
-                <tr><td>COM-EDGE-NORTH-01</td><td>2XK4524DEF</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st">Unknown</span></td></tr>
-                <tr><td>COM-EDGE-NORTH-02</td><td>2XK4525EFG</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st">Unknown</span></td></tr>
-                <tr><td>COM-WH-IOT-01</td><td>2XK4526FGH</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st">Unknown</span></td></tr>
-                <tr><td>COM-WH-IOT-02</td><td>2XK4527GHI</td><td class="unset">— <span class="tlink">Assign</span></td><td><span class="st">Unknown</span></td></tr>
+                <tr><td><span class="st crit">Critical</span></td><td>COM-DUB-PROD-04</td><td>CN7734042S</td><td>Dublin HQ</td><td>Democomp-Global-Ops</td><td>At risk</td></tr>
+                <tr><td><span class="st crit">Critical</span></td><td>COM-FRA-DB-02</td><td>SGH850T8LK</td><td>Frankfurt, Germany</td><td>Democomp-Retail-EU</td><td>OK</td></tr>
+                <tr><td><span class="st warn">Warning</span></td><td>COM-DUB-PROD-02</td><td>7CE701P22R</td><td>Dublin HQ</td><td>Democomp-Global-Ops</td><td>At risk</td></tr>
+                <tr><td><span class="st warn">Warning</span></td><td>EDGE-NORTH-STK-03</td><td>CNXD1L0261</td><td>Stockholm, Sweden</td><td>Nordic-Edge-Stockholm</td><td>OK</td></tr>
+                <tr><td><span class="st ok">OK</span></td><td>COM-DUB-PROD-01</td><td>D449RP0155</td><td>Dublin HQ</td><td>Democomp-Global-Ops</td><td>OK</td></tr>
+                <tr><td><span class="st ok">OK</span></td><td>WH-IOT-CHI-12</td><td>SGH925AUDV</td><td>Chicago, Illinois</td><td>Warehouse-IoT-07</td><td>OK</td></tr>
+                <tr><td><span class="st ok">OK</span></td><td>RETAIL-EDGE-MAN-05</td><td>MXQ1300C2G</td><td>Manchester, United Kingdom</td><td>Retail-Edge-UK</td><td>Ignored</td></tr>
+                <tr><td><span class="st">Unknown</span></td><td class="unset">--</td><td>SGH938SJKY</td><td class="unset">--</td><td class="unset">--</td><td>Unknown</td></tr>
+                <tr><td><span class="st">Unknown</span></td><td class="unset">--</td><td>CN7010051P</td><td class="unset">--</td><td class="unset">--</td><td>Unknown</td></tr>
+                <tr><td><span class="st">Unknown</span></td><td class="unset">--</td><td>B821PP0103</td><td class="unset">--</td><td class="unset">--</td><td>Unknown</td></tr>
               </tbody>
             </table>
-            <div class="dv-count" style="margin-top:12px">Showing 7 of 91 servers</div>
+            <div class="dv-count" style="margin-top:12px">Showing 10 of 91 servers</div>
           </div>
         </section>
 
