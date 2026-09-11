@@ -19,11 +19,23 @@
   --amber-bg: #fdf3dd;
   --grey-bg: #eeeeee;
 
-  --c-blue: #3d7ff2;
-  --c-green: #01a982;
-  --c-purple: #8460f5;
-  --c-navy: #1f3a8a;
-  --c-magenta: #cf4fbe;
+  /* Data-viz palette (in order of use) */
+  --viz-1: #0070F8;
+  --viz-2: #009A71;
+  --viz-3: #7764FC;
+  --viz-4: #003CAE;
+  --viz-5: #CC54A4;
+  --viz-6: #04909D;
+  --viz-7: #6C2B7C;
+  --viz-8: #D25F4B;
+  --c-blue: var(--viz-1);
+  --c-green: var(--viz-2);
+  --c-purple: var(--viz-3);
+  --c-navy: var(--viz-4);
+  --c-magenta: var(--viz-5);
+  --c-teal: var(--viz-6);
+  --c-plum: var(--viz-7);
+  --c-terra: var(--viz-8);
   --c-grey: #9aa7ad;
 
   --gap-primary-secondary: 64px;
