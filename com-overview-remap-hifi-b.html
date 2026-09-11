@@ -25,16 +25,25 @@
   .act-row .what .s { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 2px; }
   .act-row .go { flex: none; }
 
-  .info-banner { display: flex; gap: 10px; align-items: flex-start; background: var(--info-bg); color: var(--gl-ink);
-    border-radius: 8px; padding: 12px 16px; font-size: 13.5px; line-height: 1.5; margin-bottom: var(--gap-container); }
-  .info-banner .ic { color: var(--info); line-height: 0; margin-top: 1px; }
-  .info-banner .ic svg { width: 18px; height: 18px; }
   .map-frame { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; position: relative; }
   .map-frame svg { display: block; width: 100%; height: auto; }
-  .map-tools { position: absolute; top: 14px; right: 14px; display: flex; gap: 8px; }
-  .map-tools .tool { width: 34px; height: 34px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; color: var(--gl-heading); line-height: 0; }
-  .map-tools .tool svg { width: 17px; height: 17px; }
+  /* floating warning banner over the map */
+  .map-banner { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 2; display: flex; gap: 10px;
+    align-items: center; background: #FBF3DE; border-radius: 8px; padding: 10px 14px; font-size: 13.5px;
+    color: var(--gl-ink); box-shadow: 0 1px 4px rgba(0,0,0,0.10); }
+  .map-banner .wic { color: var(--amber); line-height: 0; flex: none; }
+  .map-banner .wic svg { width: 17px; height: 17px; }
+  .map-banner .x { margin-left: auto; flex: none; border: 0; background: transparent; font-size: 16px;
+    color: var(--gl-ink); cursor: pointer; padding: 2px 6px; line-height: 1; border-radius: 6px; }
+  .map-banner .x:hover { background: rgba(0,0,0,0.06); }
+  /* right-edge control stack */
+  .map-ctrl { position: absolute; right: 12px; bottom: 16px; z-index: 2; display: flex; flex-direction: column; gap: 8px; }
+  .map-ctrl .box { background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.14); display: flex; flex-direction: column; overflow: hidden; }
+  .map-ctrl button { width: 34px; height: 34px; border: 0; background: transparent; display: flex; align-items: center;
+    justify-content: center; font-size: 17px; color: var(--gl-heading); cursor: pointer; line-height: 0; }
+  .map-ctrl button:hover { background: rgba(0,0,0,0.04); }
+  .map-ctrl .box button + button { border-top: 1px solid var(--line); }
+  .map-ctrl button svg { width: 17px; height: 17px; }
 
   /* data-view toolbar: search · filter · select view · table/map toggle · actions */
   .dv-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
@@ -218,7 +227,6 @@
         <!-- SECTION 3 · Server locations: uncontained data view (map/table toggle) -->
         <section>
           <div class="sec-title">Server locations</div>
-          <div class="info-banner"><span class="ic" data-i="info"></span><span><b>90 servers</b> have no assigned location. Location is required for auto HPE support case creation. <span class="tlink">Assign locations</span></span></div>
           <div class="dv-toolbar">
             <label class="dv-search"><span class="sic" data-i="search"></span><input type="text" placeholder="Search servers"></label>
             <button class="dv-icon" title="Filter"><span data-i="filter"></span></button>
@@ -230,7 +238,15 @@
           </div>
           <div class="dv-count">91 items</div>
           <div class="map-frame" id="dv-map">
-            <div class="map-tools"><span class="tool">＋</span><span class="tool">－</span></div>
+            <div class="map-banner" id="map-banner">
+              <span class="wic" data-i="warning"></span>
+              <span><b>90 servers</b> have no location assigned. <span class="tlink">Assign locations</span></span>
+              <button class="x" aria-label="Dismiss" onclick="document.getElementById('map-banner').remove()">✕</button>
+            </div>
+            <div class="map-ctrl">
+              <div class="box"><button title="Zoom in">＋</button><button title="Zoom out">－</button></div>
+              <div class="box"><button title="Map layers"><span data-i="globe"></span></button></div>
+            </div>
             <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg">
               <rect width="900" height="300" fill="#fcfdfd"/>
               <g stroke="#e8ecee" stroke-width="14" fill="none">
@@ -242,9 +258,8 @@
                 <rect x="760" y="55" width="70" height="65" rx="4"/>
               </g>
               <g>
-                <circle cx="452" cy="165" r="16" fill="var(--gl-green)" opacity="0.18"/>
-                <circle cx="452" cy="165" r="7" fill="var(--gl-green)"/>
-                <text x="468" y="170" font-size="13" font-weight="600" fill="#3E4550">Dublin HQ · 1 mapped server</text>
+                <circle cx="452" cy="165" r="16" fill="#fff" stroke="#E0E4E6"/>
+                <text x="452" y="170" font-size="13" font-weight="700" fill="#292D3A" text-anchor="middle">1</text>
               </g>
               <text x="870" y="286" font-size="10" fill="#8fa0a8" text-anchor="end">© OpenStreetMap contributors</text>
             </svg>

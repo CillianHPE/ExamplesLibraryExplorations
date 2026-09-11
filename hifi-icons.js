@@ -25,6 +25,8 @@
     info:      `<circle cx="12" cy="12" r="8.4"/><path d="M12 11v5"/><path d="M12 7.8h.01"/>`,
     filter:    `<path d="M4 5h16l-6.2 7.2v5.4l-3.6-2v-3.4L4 5z"/>`,
     map:       `<path d="M9 4.4l6 2 5.4-2v13.2l-5.4 2-6-2-5.4 2V6.4l5.4-2z"/><path d="M9 4.4v13.2M15 6.4v13.2"/>`,
+    globe:     `<circle cx="12" cy="12" r="8.4"/><path d="M3.6 12h16.8M12 3.6c-2.4 2.2-3.6 5.1-3.6 8.4s1.2 6.2 3.6 8.4c2.4-2.2 3.6-5.1 3.6-8.4S14.4 5.8 12 3.6z"/>`,
+    warning:   `<path d="M12 4.6L21 19.4H3L12 4.6z" fill="currentColor" stroke="none"/>`,
     table:     `<rect x="3.4" y="4.4" width="17.2" height="15.2" rx="2.6"/><path d="M3.4 9.6h17.2M9.6 9.6v10"/>`,
     chevron:   `<path d="M7 10l5 5 5-5"/>`,
   };
