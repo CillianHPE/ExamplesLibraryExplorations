@@ -63,6 +63,11 @@
 
   /* secondary: uncontained sections, headings do the structure */
   .rrail-flat { display: flex; flex-direction: column; gap: var(--gap-section); min-width: 0; }
+  /* rail visibility toggle */
+  .page-grid.rail-hidden { grid-template-columns: 1fr; }
+  .page-grid.rail-hidden .rrail-flat { display: none; }
+  #rail-toggle { font-size: 18px; }
+  #rail-toggle.off { color: var(--gl-ink-weak); }
   .rrail-flat section h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
   /* leading/trailing list row: message leads, action trails */
   .row-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
@@ -105,10 +110,10 @@
     <div class="crumb">Compute Ops Management · US East</div>
     <div class="page-head">
       <h1>Overview</h1>
-      <button class="btn">What's new</button>
+      <button class="btn icon" id="rail-toggle" title="Hide side panel" aria-pressed="true" onclick="toggleRail()">◨</button>
     </div>
 
-    <div class="page-grid">
+    <div class="page-grid" id="page-grid">
       <div class="primary">
 
         <!-- SECTION 1 · Posture: lead with the answer, bar as evidence -->
@@ -317,6 +322,15 @@ function setDataView(v) {
   document.getElementById('dv-table').style.display = v === 'table' ? '' : 'none';
   document.getElementById('dv-btn-map').classList.toggle('active', v === 'map');
   document.getElementById('dv-btn-table').classList.toggle('active', v === 'table');
+}
+function toggleRail() {
+  const grid = document.getElementById('page-grid');
+  const btn = document.getElementById('rail-toggle');
+  const hidden = grid.classList.toggle('rail-hidden');
+  btn.classList.toggle('off', hidden);
+  btn.textContent = hidden ? '◧' : '◨';
+  btn.title = hidden ? 'Show side panel' : 'Hide side panel';
+  btn.setAttribute('aria-pressed', String(!hidden));
 }
 </script>
 </body>
