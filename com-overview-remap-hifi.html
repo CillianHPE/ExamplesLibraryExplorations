@@ -2,31 +2,109 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>COM · Overview · remapped into layout system</title>
+<title>COM · Overview · remap A (attention cards)</title>
 <link rel="stylesheet" href="hifi-shared.css">
 <script src="hifi-icons.js" defer></script>
 <style>
-  /* page-local helpers for this exercise */
-  .status-card .donut { width: 132px; height: 132px; }
-  .status-card .donut::after { inset: 20px; }
-  .attn-tile { background: var(--contained); border-radius: var(--radius); padding: 20px 22px; min-width: 0; }
-  .attn-tile .n { font-size: 34px; font-weight: 700; letter-spacing: -0.5px; color: var(--gl-heading); }
-  .attn-tile .lbl { font-size: 13.5px; font-weight: 600; margin-top: 4px; }
-  .attn-tile .glink { display: inline-block; margin-top: 10px; }
-  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap-container); }
-  .info-banner { display: flex; gap: 10px; align-items: flex-start; background: var(--info-bg); color: var(--gl-ink);
-    border-radius: 8px; padding: 12px 16px; font-size: 13.5px; line-height: 1.5; margin-bottom: var(--gap-container); }
-  .info-banner .ic { color: var(--info); line-height: 0; margin-top: 1px; }
-  .info-banner .ic svg { width: 18px; height: 18px; }
+  /* posture cards: headline answer + compact stacked bar */
+  .posture .lead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; }
+  .posture .lead .n { font-size: 36px; font-weight: 700; letter-spacing: -0.5px; color: var(--gl-heading); }
+  .posture .lead .of { font-size: 13px; color: var(--gl-ink-soft); }
+  .posture .stack-bar { margin: 0 0 12px; height: 10px; }
+  .mini-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .mini-legend .lg { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .mini-legend .lg b { font-weight: 700; color: var(--gl-heading); }
+  .mini-legend .dot { width: 9px; height: 9px; }
+
+  /* needs attention: hero card + compact cards (1 + 4) */
+  .att-hero { background: var(--contained); border-radius: var(--radius); padding: 20px 24px;
+    display: flex; align-items: center; gap: 20px; margin-bottom: var(--gap-container); }
+  .att-hero .n { font-size: 40px; font-weight: 700; letter-spacing: -0.5px; color: var(--gl-heading); flex: none; }
+  .att-hero .what { flex: 1; min-width: 0; }
+  .att-hero .what .t { font-size: 16px; font-weight: 600; color: var(--gl-heading); }
+  .att-hero .what .s { font-size: 13px; color: var(--gl-ink-soft); margin-top: 2px; }
+  .att-hero .go { flex: none; }
+  .att-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap-container); }
+  @media (max-width: 1400px) { .att-grid { grid-template-columns: repeat(2, 1fr); } }
+  .att-card { background: var(--contained); border-radius: var(--radius); padding: 16px 20px;
+    display: flex; flex-direction: column; gap: 2px; }
+  .att-card .n { font-size: 28px; font-weight: 700; color: var(--gl-heading); }
+  .att-card .t { font-size: 14px; font-weight: 600; color: var(--gl-heading); }
+  .att-card .go { margin-top: 10px; }
+  .att-card .go .btn.toolbar { padding-left: 0; }
+
   .map-frame { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; position: relative; }
   .map-frame svg { display: block; width: 100%; height: auto; }
-  .map-tools { position: absolute; top: 14px; right: 14px; display: flex; gap: 8px; }
-  .map-tools .tool { width: 34px; height: 34px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; color: var(--gl-heading); line-height: 0; }
-  .map-tools .tool svg { width: 17px; height: 17px; }
+  /* floating warning banner over the map */
+  .map-banner { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 2; display: flex; gap: 10px;
+    align-items: center; background: #FBF3DE; border-radius: 8px; padding: 10px 14px; font-size: 13.5px;
+    color: var(--gl-ink); box-shadow: 0 1px 4px rgba(0,0,0,0.10); }
+  .map-banner .wic { color: var(--amber); line-height: 0; flex: none; }
+  .map-banner .wic svg { width: 17px; height: 17px; }
+  .map-banner .x { margin-left: auto; flex: none; border: 0; background: transparent; font-size: 16px;
+    color: var(--gl-ink); cursor: pointer; padding: 2px 6px; line-height: 1; border-radius: 6px; }
+  .map-banner .x:hover { background: rgba(0,0,0,0.06); }
+  /* right-edge control stack */
+  .map-ctrl { position: absolute; right: 12px; bottom: 16px; z-index: 2; display: flex; flex-direction: column; gap: 8px; }
+  .map-ctrl .box { background: #fff; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.14); display: flex; flex-direction: column; overflow: hidden; }
+  .map-ctrl button { width: 34px; height: 34px; border: 0; background: transparent; display: flex; align-items: center;
+    justify-content: center; font-size: 17px; color: var(--gl-heading); cursor: pointer; line-height: 0; }
+  .map-ctrl button:hover { background: rgba(0,0,0,0.04); }
+  .map-ctrl .box button + button { border-top: 1px solid var(--line); }
+  .map-ctrl button svg { width: 17px; height: 17px; }
+
+  /* data-view toolbar: search · filter · select view · table/map toggle · actions */
+  .dv-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .dv-search { display: flex; align-items: center; gap: 8px; border: 1px solid var(--gl-ink-soft); border-radius: 6px;
+    padding: 9px 12px; width: 300px; color: var(--gl-ink-weak); font-size: 14px; background: #fff; }
+  .dv-search .sic { line-height: 0; color: var(--gl-ink); }
+  .dv-search .sic svg { width: 17px; height: 17px; }
+  .dv-search input { border: 0; outline: 0; flex: 1; font-size: 14px; color: var(--gl-ink); background: transparent; min-width: 0; }
+  .dv-select { display: flex; align-items: center; gap: 24px; border: 1px solid var(--gl-ink-soft); border-radius: 6px;
+    padding: 9px 14px; font-size: 14px; color: var(--gl-ink); background: #fff; cursor: pointer; }
+  .dv-icon { width: 38px; height: 38px; border-radius: 6px; border: 1px solid transparent; background: transparent;
+    display: flex; align-items: center; justify-content: center; color: var(--gl-heading); cursor: pointer; line-height: 0; }
+  .dv-icon svg { width: 19px; height: 19px; }
+  .dv-icon:hover { background: rgba(0,0,0,0.04); }
+  .dv-icon.active { background: #EDF6F2; border-color: var(--gl-green); color: var(--gl-green); }
+  .dv-count { font-size: 13.5px; color: var(--gl-ink); margin-bottom: 12px; }
+  .dv-spacer { flex: 1; }
+
+  /* location table view */
+  .loc-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .loc-table th { text-align: left; font-size: 12.5px; font-weight: 600; color: var(--gl-ink-soft);
+    padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .loc-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); color: var(--gl-ink); }
+  .loc-table td.unset { color: var(--gl-ink-weak); }
+  .loc-table tr:last-child td { border-bottom: 0; }
+  .st { display: inline-flex; align-items: center; gap: 7px; }
+  .st::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--unknown); }
+  .st.ok::before { background: var(--ok); }
+  .st.warn::before { background: var(--amber); }
+  .st.crit::before { background: var(--red); }
+  .loc-table th.sorted { background: var(--contained); color: var(--gl-heading); }
   .sec-title { font-size: 24px; font-weight: 700; margin-bottom: var(--gap-container); }
-  .rec-item { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; line-height: 1.5; }
-  .rec-item:last-child { border-bottom: 0; }
+  .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: -10px 0 var(--gap-container); }
+
+  /* secondary: uncontained sections, headings do the structure */
+  .rrail-flat { display: flex; flex-direction: column; gap: var(--gap-section); min-width: 0; }
+  /* rail visibility toggle */
+  .page-grid.rail-hidden { grid-template-columns: 1fr; }
+  .page-grid.rail-hidden .rrail-flat { display: none; }
+  #rail-toggle { line-height: 0; }
+  #rail-toggle svg { width: 19px; height: 19px; }
+  #rail-toggle.off { color: var(--gl-ink-weak); }
+  .rrail-flat section h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+  /* leading/trailing list row: message leads, action trails */
+  .row-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .row-item:last-child { border-bottom: 0; }
+  .row-item .lead-txt { flex: 1; min-width: 0; }
+  .row-item .lead-txt .lt { font-size: 14px; font-weight: 600; color: var(--gl-heading); }
+  .row-item .lead-txt .ls { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 2px; line-height: 1.45; }
+  .row-item .trail { flex: none; }
+  .rrail-flat .qa-list li { padding: 7px 0; }
+  .rrail-flat .qa-list a { text-decoration: underline; }
+  .rec-item { padding: 10px 0; font-size: 13.5px; line-height: 1.5; }
   .rec-item b { color: var(--gl-heading); }
 </style>
 </head>
@@ -34,12 +112,9 @@
 
 <div class="switcher">
   Exercise: real COM Overview remapped ·
-  <a href="com-overview-remap-hifi.html" class="on">A · First pass</a>
-  <a href="com-overview-remap-hifi-b.html">B · Purpose-led revision</a>
-  <a href="canonical-t1-overview-hifi.html">T1 · Overview</a>
-  <a href="canonical-t2-triage-hifi.html">T2 · Triage</a>
-  <a href="canonical-t4-detail-hifi.html">T4 · Object detail</a>
-  <span class="view-toggle">Layout: <a href="com-overview-remap-hifi.html" class="hifi-on">T1 Overview (primary + secondary)</a></span>
+  <a href="com-overview-remap-hifi.html" class="on">A · Attention cards</a>
+  <a href="com-overview-remap-hifi-b.html">B · Ranked list</a>
+  <span class="view-toggle"><a href="canonical-t1-overview-hifi.html">Back to T1 canonical</a></span>
 </div>
 
 <header class="header">
@@ -66,149 +141,247 @@
     <div class="crumb">Compute Ops Management · US East</div>
     <div class="page-head">
       <h1>Overview</h1>
-      <button class="btn">What's new</button>
+      <button class="btn icon" id="rail-toggle" title="Hide side panel" aria-pressed="true" onclick="toggleRail()"><span data-i="panel"></span></button>
     </div>
 
-    <div class="page-grid">
+    <div class="page-grid" id="page-grid">
       <div class="primary">
 
-        <!-- SECTION 1 · Server posture (contained, 16px between cards) -->
+        <!-- SECTION 1 · Posture: lead with the answer, bar as evidence -->
         <section>
           <div class="grid-3">
-            <div class="card status-card">
-              <div class="card-head"><h2>Servers health</h2><span class="arrow">→</span></div>
-              <div class="donut-wrap">
-                <div class="donut" data-center="91 servers" style="background: conic-gradient(var(--amber) 0 4deg, var(--ok) 4deg 20deg, var(--unknown) 20deg 277deg, #C9CFD2 277deg 360deg)"></div>
-                <div style="flex:1">
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">0</span></div>
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">1</span></div>
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>OK</span><span class="pct">4</span></div>
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown</span><span class="pct">65</span></div>
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:#C9CFD2"></span>Disabled</span><span class="pct">21</span></div>
-                </div>
+            <div class="card posture">
+              <div class="card-head"><h2>Health</h2><span class="arrow">→</span></div>
+              <div class="lead"><span class="n">11</span><span class="of">of 91 servers degraded</span></div>
+              <div class="stack-bar">
+                <span style="flex:3; background:var(--red)"></span>
+                <span style="flex:8; background:var(--amber)"></span>
+                <span style="flex:61; background:var(--ok)"></span>
+                <span style="flex:12; background:var(--unknown)"></span>
+                <span style="flex:7; background:#C9CFD2"></span>
+              </div>
+              <div class="mini-legend">
+                <span class="lg"><span class="dot" style="background:var(--red)"></span><b>3</b> Critical</span>
+                <span class="lg"><span class="dot" style="background:var(--amber)"></span><b>8</b> Warning</span>
+                <span class="lg"><span class="dot" style="background:var(--ok)"></span><b>61</b> OK</span>
+                <span class="lg"><span class="dot" style="background:var(--unknown)"></span><b>12</b> Unknown</span>
+                <span class="lg"><span class="dot" style="background:#C9CFD2"></span><b>7</b> Disabled</span>
               </div>
             </div>
 
-            <div class="card status-card">
-              <div class="card-head"><h2>Servers security</h2><span class="arrow">→</span></div>
-              <div class="donut-wrap">
-                <div class="donut" data-center="91 servers" style="background: conic-gradient(var(--red) 0 67deg, var(--amber) 67deg 71deg, var(--unknown) 71deg 360deg)"></div>
-                <div style="flex:1">
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>At risk</span><span class="pct">17</span></div>
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Ignore risk</span><span class="pct">1</span></div>
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>OK</span><span class="pct">0</span></div>
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown</span><span class="pct">73</span></div>
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:#C9CFD2"></span>Unsupported</span><span class="pct">0</span></div>
-                </div>
+            <div class="card posture">
+              <div class="card-head"><h2>Security</h2><span class="arrow">→</span></div>
+              <div class="lead"><span class="n">12</span><span class="of">of 91 servers at risk</span></div>
+              <div class="stack-bar">
+                <span style="flex:12; background:var(--red)"></span>
+                <span style="flex:3; background:var(--amber)"></span>
+                <span style="flex:64; background:var(--ok)"></span>
+                <span style="flex:12; background:var(--unknown)"></span>
+              </div>
+              <div class="mini-legend">
+                <span class="lg"><span class="dot" style="background:var(--red)"></span><b>12</b> At risk</span>
+                <span class="lg"><span class="dot" style="background:var(--amber)"></span><b>3</b> Ignored</span>
+                <span class="lg"><span class="dot" style="background:var(--ok)"></span><b>64</b> OK</span>
+                <span class="lg"><span class="dot" style="background:var(--unknown)"></span><b>12</b> Unknown</span>
               </div>
             </div>
 
-            <div class="card status-card">
-              <div class="card-head"><h2>Groups compliance</h2><span class="arrow">→</span></div>
-              <div class="donut-wrap">
-                <div class="donut" data-center="24 groups" style="background: conic-gradient(var(--unknown) 0 15deg, #C9CFD2 15deg 360deg)"></div>
-                <div style="flex:1">
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Not compliant</span><span class="pct">0</span></div>
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Compliant</span><span class="pct">0</span></div>
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown</span><span class="pct">1</span></div>
-                  <div class="legend-row"><span class="lg"><span class="dot" style="background:#C9CFD2"></span>Not applicable</span><span class="pct">23</span></div>
-                </div>
+            <div class="card posture">
+              <div class="card-head"><h2>Compliance</h2><span class="arrow">→</span></div>
+              <div class="lead"><span class="n">0</span><span class="of">of 24 groups non-compliant</span></div>
+              <div class="stack-bar">
+                <span style="flex:18; background:var(--ok)"></span>
+                <span style="flex:2; background:var(--unknown)"></span>
+                <span style="flex:4; background:#C9CFD2"></span>
+              </div>
+              <div class="mini-legend">
+                <span class="lg"><span class="dot" style="background:var(--ok)"></span><b>18</b> Compliant</span>
+                <span class="lg"><span class="dot" style="background:var(--unknown)"></span><b>2</b> Unknown</span>
+                <span class="lg"><span class="dot" style="background:#C9CFD2"></span><b>4</b> No baseline</span>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- SECTION 2 · Needs attention (contained tiles, 16px gaps) -->
+        <!-- SECTION 2 · Needs attention: hero + compact cards -->
         <section>
           <div class="sec-title">Needs attention</div>
-          <div class="grid-5">
-            <div class="attn-tile">
-              <div class="n">73</div>
-              <div class="lbl">Servers not connected</div>
-              <span class="glink">Review →</span>
+          <div class="sec-sub">Ranked by impact. Expired support affects the most servers right now.</div>
+          <div class="att-hero">
+            <div class="n">29</div>
+            <div class="what">
+              <div class="t">Expired support</div>
+              <div class="s">Auto support case creation is disabled for these servers.</div>
             </div>
-            <div class="attn-tile">
-              <div class="n">29</div>
-              <div class="lbl">Expired support</div>
-              <span class="glink">Review →</span>
-            </div>
-            <div class="attn-tile">
+            <div class="go"><button class="btn primary">Review</button></div>
+          </div>
+          <div class="att-grid">
+            <div class="att-card">
               <div class="n">12</div>
-              <div class="lbl">Servers not activated</div>
-              <span class="glink">Review →</span>
+              <div class="t">Not connected</div>
+              <div class="go"><button class="btn toolbar">Connect →</button></div>
             </div>
-            <div class="attn-tile">
+            <div class="att-card">
               <div class="n">12</div>
-              <div class="lbl">Subscription required</div>
-              <span class="glink">Review →</span>
+              <div class="t">Not activated</div>
+              <div class="go"><button class="btn toolbar">Activate →</button></div>
             </div>
-            <div class="attn-tile">
+            <div class="att-card">
+              <div class="n">12</div>
+              <div class="t">Subscription required</div>
+              <div class="go"><button class="btn toolbar">Assign →</button></div>
+            </div>
+            <div class="att-card">
               <div class="n">8</div>
-              <div class="lbl">Servers with alerts</div>
-              <span class="glink">Review →</span>
+              <div class="t">Active alerts</div>
+              <div class="go"><button class="btn toolbar">Triage →</button></div>
             </div>
           </div>
         </section>
 
-        <!-- SECTION 3 · Server locations (uncontained, full width of primary) -->
+        <!-- SECTION 3 · Server locations: uncontained data view (map/table toggle) -->
         <section>
           <div class="sec-title">Server locations</div>
-          <div class="info-banner"><span class="ic" data-i="info"></span><span><b>90 servers</b> do not have an assigned location or have a location that cannot be correctly mapped. Location is required for auto HPE support case creation. <span class="tlink">Learn more</span></span></div>
-          <div class="map-frame">
-            <div class="map-tools"><span class="tool" data-i="search"></span><span class="tool" data-i="table"></span><span class="tool">＋</span><span class="tool">－</span></div>
-            <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg">
-              <rect width="900" height="340" fill="#fcfdfd"/>
+          <div class="dv-toolbar">
+            <label class="dv-search"><span class="sic" data-i="search"></span><input type="text" placeholder="Search servers"></label>
+            <button class="dv-icon" title="Filter"><span data-i="filter"></span></button>
+            <div class="dv-select">Select view <span>▾</span></div>
+            <button class="dv-icon" id="dv-btn-table" title="Table view" onclick="setDataView('table')"><span data-i="table"></span></button>
+            <button class="dv-icon active" id="dv-btn-map" title="Map view" onclick="setDataView('map')"><span data-i="map"></span></button>
+            <div class="dv-spacer"></div>
+            <button class="btn">Actions ▾</button>
+          </div>
+          <div class="dv-count">91 items</div>
+          <div class="map-frame" id="dv-map">
+            <div class="map-banner" id="map-banner">
+              <span class="wic" data-i="warning"></span>
+              <span><b>90 servers</b> have no location assigned. <span class="tlink">Assign locations</span></span>
+              <button class="x" aria-label="Dismiss" onclick="document.getElementById('map-banner').remove()">✕</button>
+            </div>
+            <div class="map-ctrl">
+              <div class="box"><button title="Zoom in">＋</button><button title="Zoom out">－</button></div>
+              <div class="box"><button title="Map layers"><span data-i="globe"></span></button></div>
+            </div>
+            <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg">
+              <rect width="900" height="300" fill="#fcfdfd"/>
               <g stroke="#e8ecee" stroke-width="14" fill="none">
-                <path d="M-20 60 L920 200"/><path d="M120 -20 L340 360"/><path d="M480 -20 L700 360"/><path d="M-20 260 L920 120"/>
+                <path d="M-20 50 L920 180"/><path d="M120 -20 L340 320"/><path d="M480 -20 L700 320"/><path d="M-20 240 L920 100"/>
               </g>
               <g fill="#eef1f2">
-                <rect x="80" y="90" width="90" height="60" rx="4"/><rect x="240" y="200" width="120" height="70" rx="4"/>
-                <rect x="430" y="60" width="80" height="90" rx="4"/><rect x="620" y="180" width="110" height="60" rx="4"/>
-                <rect x="760" y="60" width="70" height="70" rx="4"/>
+                <rect x="80" y="80" width="90" height="55" rx="4"/><rect x="240" y="180" width="120" height="65" rx="4"/>
+                <rect x="430" y="55" width="80" height="80" rx="4"/><rect x="620" y="160" width="110" height="55" rx="4"/>
+                <rect x="760" y="55" width="70" height="65" rx="4"/>
               </g>
               <g>
-                <circle cx="452" cy="182" r="16" fill="var(--gl-green)" opacity="0.18"/>
-                <circle cx="452" cy="182" r="7" fill="var(--gl-green)"/>
-                <text x="468" y="187" font-size="13" font-weight="600" fill="#3E4550">Dublin HQ · 1 mapped server</text>
+                <circle cx="452" cy="165" r="16" fill="#fff" stroke="#E0E4E6"/>
+                <text x="452" y="170" font-size="13" font-weight="700" fill="#292D3A" text-anchor="middle">1</text>
               </g>
-              <text x="870" y="326" font-size="10" fill="#8fa0a8" text-anchor="end">© OpenStreetMap contributors</text>
+              <text x="870" y="286" font-size="10" fill="#8fa0a8" text-anchor="end">© OpenStreetMap contributors</text>
             </svg>
+          </div>
+          <div id="dv-table" style="display:none">
+            <table class="loc-table">
+              <thead><tr><th class="sorted">Health ↓</th><th>Name</th><th>Serial number</th><th>Location</th><th>Group</th><th>Security</th></tr></thead>
+              <tbody>
+                <tr><td><span class="st crit">Critical</span></td><td>COM-DUB-PROD-04</td><td>CN7734042S</td><td>Dublin HQ</td><td>Democomp-Global-Ops</td><td>At risk</td></tr>
+                <tr><td><span class="st crit">Critical</span></td><td>COM-FRA-DB-02</td><td>SGH850T8LK</td><td>Frankfurt, Germany</td><td>Democomp-Retail-EU</td><td>OK</td></tr>
+                <tr><td><span class="st warn">Warning</span></td><td>COM-DUB-PROD-02</td><td>7CE701P22R</td><td>Dublin HQ</td><td>Democomp-Global-Ops</td><td>At risk</td></tr>
+                <tr><td><span class="st warn">Warning</span></td><td>EDGE-NORTH-STK-03</td><td>CNXD1L0261</td><td>Stockholm, Sweden</td><td>Nordic-Edge-Stockholm</td><td>OK</td></tr>
+                <tr><td><span class="st ok">OK</span></td><td>COM-DUB-PROD-01</td><td>D449RP0155</td><td>Dublin HQ</td><td>Democomp-Global-Ops</td><td>OK</td></tr>
+                <tr><td><span class="st ok">OK</span></td><td>WH-IOT-CHI-12</td><td>SGH925AUDV</td><td>Chicago, Illinois</td><td>Warehouse-IoT-07</td><td>OK</td></tr>
+                <tr><td><span class="st ok">OK</span></td><td>RETAIL-EDGE-MAN-05</td><td>MXQ1300C2G</td><td>Manchester, United Kingdom</td><td>Retail-Edge-UK</td><td>Ignored</td></tr>
+                <tr><td><span class="st">Unknown</span></td><td class="unset">--</td><td>SGH938SJKY</td><td class="unset">--</td><td class="unset">--</td><td>Unknown</td></tr>
+                <tr><td><span class="st">Unknown</span></td><td class="unset">--</td><td>CN7010051P</td><td class="unset">--</td><td class="unset">--</td><td>Unknown</td></tr>
+                <tr><td><span class="st">Unknown</span></td><td class="unset">--</td><td>B821PP0103</td><td class="unset">--</td><td class="unset">--</td><td>Unknown</td></tr>
+              </tbody>
+            </table>
+            <div class="dv-count" style="margin-top:12px">Showing 10 of 91 servers</div>
           </div>
         </section>
 
       </div>
 
-      <!-- SECONDARY (64px from primary) -->
-      <aside class="rrail">
-        <div class="card">
-          <h3>Recommended actions</h3>
-          <div class="rec-item"><b>2026.09.00.00 (04 Sep 2026)</b> is available for <b>1</b> Gen11 server. <span class="tlink">Update firmware</span></div>
-          <div class="rec-item"><b>2026.09.00.00 (03 Sep 2026)</b> is available for <b>4</b> Gen10/+ servers. <span class="tlink">Update firmware</span></div>
-        </div>
-
-        <div class="card">
-          <h3>Sustainability insights</h3>
-          <div class="big-number-sub">Estimated carbon emissions</div>
-          <div style="display:flex; align-items:baseline; gap:10px; margin:6px 0 4px">
-            <span class="big-number" style="font-size:38px">1.95</span>
-            <span class="big-number-sub">kgCO2e</span>
-            <span class="pill red">↑ 25%</span>
-          </div>
-          <div class="fine">avg last 7 days · week over week</div>
-        </div>
-
-        <div class="card">
-          <h3>Data quality</h3>
-          <div class="fine" style="margin-bottom:10px"><b style="color:var(--gl-heading)">65 servers</b> report Unknown health and <b style="color:var(--gl-heading)">90</b> have no mapped location. Connect and assign locations to make this page meaningful.</div>
+      <!-- SECONDARY · uncontained, headings structure it -->
+      <aside class="rrail-flat">
+        <section>
+          <h3>Quick links</h3>
           <ul class="qa-list">
-            <li><a href="#">Connect servers →</a></li>
-            <li><a href="#">Assign locations →</a></li>
+            <li><a href="#">Add servers</a></li>
+            <li><a href="#">Assign locations</a></li>
+            <li><a href="#">Create firmware baseline</a></li>
+            <li><a href="#">Configure alert rules</a></li>
           </ul>
-        </div>
+        </section>
+
+        <section>
+          <h3>Recommended actions</h3>
+          <div class="row-item">
+            <div class="lead-txt">
+              <div class="lt">Gen11 firmware available</div>
+              <div class="ls">2026.09.00.00 · 1 server · 04 Sep</div>
+            </div>
+            <div class="trail"><button class="btn toolbar">Update</button></div>
+          </div>
+          <div class="row-item">
+            <div class="lead-txt">
+              <div class="lt">Gen10 firmware available</div>
+              <div class="ls">2026.09.00.00 · 4 servers · 03 Sep</div>
+            </div>
+            <div class="trail"><button class="btn toolbar">Update</button></div>
+          </div>
+          <div class="row-item">
+            <div class="lead-txt">
+              <div class="lt">Harden iLO security</div>
+              <div class="ls">12 servers have risky settings</div>
+            </div>
+            <div class="trail"><button class="btn toolbar">Review</button></div>
+          </div>
+          <div class="row-item">
+            <div class="lead-txt">
+              <div class="lt">Set firmware baselines</div>
+              <div class="ls">23 groups can't be compliance-checked</div>
+            </div>
+            <div class="trail"><button class="btn toolbar">Set up</button></div>
+          </div>
+          <div class="row-item">
+            <div class="lead-txt">
+              <div class="lt">Automate support cases</div>
+              <div class="ls">Open HPE cases on hardware faults</div>
+            </div>
+            <div class="trail"><button class="btn toolbar">Enable</button></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Sustainability</h3>
+          <div class="big-number-sub">Estimated carbon emissions · avg last 7 days</div>
+          <div style="display:flex; align-items:baseline; gap:10px; margin:6px 0 4px">
+            <span class="big-number" style="font-size:34px">1.95</span>
+            <span class="big-number-sub">kgCO2e</span>
+            <span class="pill red">↑ 25% WoW</span>
+          </div>
+          <span class="glink">View sustainability insights →</span>
+        </section>
       </aside>
     </div>
   </main>
 </div>
 
+<script>
+function setDataView(v) {
+  document.getElementById('dv-map').style.display = v === 'map' ? '' : 'none';
+  document.getElementById('dv-table').style.display = v === 'table' ? '' : 'none';
+  document.getElementById('dv-btn-map').classList.toggle('active', v === 'map');
+  document.getElementById('dv-btn-table').classList.toggle('active', v === 'table');
+}
+function toggleRail() {
+  const grid = document.getElementById('page-grid');
+  const btn = document.getElementById('rail-toggle');
+  const hidden = grid.classList.toggle('rail-hidden');
+  btn.classList.toggle('off', hidden);
+  btn.title = hidden ? 'Show side panel' : 'Hide side panel';
+  btn.setAttribute('aria-pressed', String(!hidden));
+}
+</script>
 </body>
 </html>
