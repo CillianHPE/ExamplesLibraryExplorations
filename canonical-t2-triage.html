@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>T2 · Triage — Canonical layout</title>
+<title>T2 · Triage · Canonical layout</title>
 <link rel="stylesheet" href="lofi-shared.css">
 <link rel="stylesheet" href="canonical.css">
 </head>
@@ -44,7 +44,7 @@
     <div class="tpl-purpose">
       <b>Job of the page:</b> get a queue of items to zero. The table IS the page; everything else supports it.
       <b>Use for:</b> Alerts, approvals, expiring subscriptions, tasks, incidents.
-      <b>Secondary rail:</b> yes — context that helps you act (SLAs, runbooks, quick actions). No learn/marketing content here.
+      <b>Secondary rail:</b> yes: context that helps you act (SLAs, runbooks, quick actions). No learn/marketing content here.
     </div>
 
     <div class="page-grid">
@@ -57,7 +57,7 @@
               <div class="r-code">A</div><div class="r-name">Attention banner</div>
               <div class="r-tag">Contained · single strip</div>
             </div>
-            <div class="r-purpose">"N items need attention" — the queue's headline, with severity split.</div>
+            <div class="r-purpose">"N items need attention": the queue's headline, with severity split.</div>
             <div class="r-rules">Rules: one line + one CTA · doubles as the empty state ("Queue clear ✓") when N = 0.</div>
           </div>
         </section>
@@ -81,7 +81,7 @@
               </div>
               <div class="r-purpose">Every row = one decision. Sorted by severity, then age.</div>
               <div class="r-contains">Contains: severity, item, scope, age, inline action per row. Checkbox column for bulk ops.</div>
-              <div class="r-rules">Rules: no grey container — full-width on the body · pagination over scroll beyond ~25 rows · row click opens T4 (detail).</div>
+              <div class="r-rules">Rules: no grey container, full-width on the body · pagination over scroll beyond ~25 rows · row click opens T4 (detail).</div>
             </div>
           </div>
         </section>
@@ -93,15 +93,15 @@
           <div class="grid-3">
             <div class="region contained h-md">
               <div class="r-head"><div class="r-code">D</div><div class="r-name">Trend card</div><div class="r-tag">Contained</div></div>
-              <div class="r-purpose">Queue volume over time — are we winning?</div>
+              <div class="r-purpose">Queue volume over time: are we winning?</div>
             </div>
             <div class="region contained h-md">
               <div class="r-head"><div class="r-code">D</div><div class="r-name">Breakdown card</div><div class="r-tag">Contained</div></div>
-              <div class="r-purpose">By category / source — where is it coming from?</div>
+              <div class="r-purpose">By category / source: where is it coming from?</div>
             </div>
             <div class="region contained h-md">
               <div class="r-head"><div class="r-code">D</div><div class="r-name">Aging card</div><div class="r-tag">Contained</div></div>
-              <div class="r-purpose">Oldest unresolved — what's rotting?</div>
+              <div class="r-purpose">Oldest unresolved: what's rotting?</div>
               <div class="r-rules">Rules: max 3 cards · below the queue, never above it.</div>
             </div>
           </div>
