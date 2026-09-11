@@ -41,7 +41,7 @@
 
   /* secondary: uncontained sections, headings do the structure */
   .rrail-flat { display: flex; flex-direction: column; gap: var(--gap-section); min-width: 0; }
-  .rrail-flat section h3 { font-size: 17px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .rrail-flat section h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
   /* leading/trailing list row: message leads, action trails */
   .row-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
   .row-item:last-child { border-bottom: 0; }
@@ -49,6 +49,8 @@
   .row-item .lead-txt .lt { font-size: 14px; font-weight: 600; color: var(--gl-heading); }
   .row-item .lead-txt .ls { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 2px; line-height: 1.45; }
   .row-item .trail { flex: none; }
+  .rrail-flat .qa-list li { padding: 7px 0; }
+  .rrail-flat .qa-list a { text-decoration: underline; }
   .rec-item { padding: 10px 0; font-size: 13.5px; line-height: 1.5; }
   .rec-item b { color: var(--gl-heading); }
   .setup-callout { background: var(--contained); border-radius: var(--radius); padding: 20px; }
@@ -215,6 +217,16 @@
         </div>
 
         <section>
+          <h3>Quick links</h3>
+          <ul class="qa-list">
+            <li><a href="#">Add servers</a></li>
+            <li><a href="#">Assign locations</a></li>
+            <li><a href="#">Create firmware baseline</a></li>
+            <li><a href="#">Configure alert rules</a></li>
+          </ul>
+        </section>
+
+        <section>
           <h3>Recommended actions</h3>
           <div class="row-item">
             <div class="lead-txt">
@@ -241,15 +253,6 @@
             <span class="pill red">↑ 25% WoW</span>
           </div>
           <span class="glink">View sustainability insights →</span>
-        </section>
-
-        <section>
-          <h3>Quick links</h3>
-          <ul class="qa-list">
-            <li><a href="#">Firmware baselines →</a></li>
-            <li><a href="#">Server groups →</a></li>
-            <li><a href="#">Activity log →</a></li>
-          </ul>
         </section>
       </aside>
     </div>
