@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>COM · Overview — remap v2 (purpose-led)</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<style>
+  /* posture cards: headline answer + compact stacked bar */
+  .posture .lead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .posture .lead .n { font-size: 36px; font-weight: 700; letter-spacing: -0.5px; color: var(--gl-heading); }
+  .posture .lead .of { font-size: 13px; color: var(--gl-ink-soft); }
+  .posture .verdict { font-size: 13.5px; font-weight: 600; margin-bottom: 14px; }
+  .posture .verdict.bad { color: var(--red); }
+  .posture .verdict.warn { color: var(--amber); }
+  .posture .verdict.quiet { color: var(--gl-ink-soft); }
+  .posture .stack-bar { margin: 0 0 12px; height: 10px; }
+  .mini-legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 12.5px; color: var(--gl-ink); }
+  .mini-legend .lg { display: flex; align-items: center; gap: 6px; }
+  .mini-legend .lg b { font-weight: 700; }
+  .mini-legend .dot { width: 9px; height: 9px; }
+
+  /* needs attention: ranked action list, uncontained rows */
+  .act-row { display: flex; align-items: center; gap: 18px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .act-row:last-child { border-bottom: 0; }
+  .act-row .n { font-size: 24px; font-weight: 700; color: var(--gl-heading); width: 52px; text-align: right; flex: none; }
+  .act-row .what { flex: 1; min-width: 0; }
+  .act-row .what .t { font-size: 15px; font-weight: 600; }
+  .act-row .what .s { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 2px; }
+  .act-row .go { flex: none; }
+
+  .info-banner { display: flex; gap: 10px; align-items: flex-start; background: var(--info-bg); color: var(--gl-ink);
+    border-radius: 8px; padding: 12px 16px; font-size: 13.5px; line-height: 1.5; margin-bottom: var(--gap-container); }
+  .info-banner .ic { color: var(--info); font-weight: 700; }
+  .map-frame { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; position: relative; }
+  .map-frame svg { display: block; width: 100%; height: auto; }
+  .map-tools { position: absolute; top: 14px; right: 14px; display: flex; gap: 8px; }
+  .map-tools .tool { width: 34px; height: 34px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; }
+  .sec-title { font-size: 24px; font-weight: 700; margin-bottom: var(--gap-container); }
+  .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: -10px 0 var(--gap-container); }
+
+  /* secondary: uncontained sections, headings do the structure */
+  .rrail-flat { display: flex; flex-direction: column; gap: var(--gap-section); min-width: 0; }
+  .rrail-flat section h3 { font-size: 17px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .rec-item { padding: 10px 0; font-size: 13.5px; line-height: 1.5; }
+  .rec-item b { color: var(--gl-heading); }
+  .setup-callout { background: var(--contained); border-radius: var(--radius); padding: 20px; }
+  .setup-callout .t { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .setup-callout .fine { margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<div class="switcher">
+  Exercise: real COM Overview remapped ·
+  <a href="com-overview-remap-hifi.html">A · First pass</a>
+  <a href="com-overview-remap-hifi-b.html" class="on">B · Purpose-led revision</a>
+  <span class="view-toggle"><a href="canonical-t1-overview-hifi.html">Back to T1 canonical</a></span>
+</div>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search">⌕ Search</div>
+  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon">⌂</div><div class="ricon active">◳</div><div class="ricon">▦</div>
+    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon">≋</div>
+    <div class="ricon">🖴</div><div class="ricon">((•))</div>
+  </nav>
+
+  <main class="page">
+    <div class="crumb">Compute Ops Management · US East</div>
+    <div class="page-head">
+      <h1>Overview</h1>
+      <button class="btn">★ What's new</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- SECTION 1 · Posture: lead with the answer, bar as evidence -->
+        <section>
+          <div class="grid-3">
+            <div class="card posture">
+              <div class="card-head"><h2>Health</h2><span class="arrow">→</span></div>
+              <div class="lead"><span class="n">1</span><span class="of">of 91 servers degraded</span></div>
+              <div class="verdict quiet">86 servers not reporting health yet</div>
+              <div class="stack-bar">
+                <span style="flex:1; background:var(--amber)"></span>
+                <span style="flex:4; background:var(--ok)"></span>
+                <span style="flex:65; background:var(--unknown)"></span>
+                <span style="flex:21; background:#C9CFD2"></span>
+              </div>
+              <div class="mini-legend">
+                <span class="lg"><span class="dot" style="background:var(--red)"></span>Critical <b>0</b></span>
+                <span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning <b>1</b></span>
+                <span class="lg"><span class="dot" style="background:var(--ok)"></span>OK <b>4</b></span>
+                <span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown <b>65</b></span>
+                <span class="lg"><span class="dot" style="background:#C9CFD2"></span>Disabled <b>21</b></span>
+              </div>
+            </div>
+
+            <div class="card posture">
+              <div class="card-head"><h2>Security</h2><span class="arrow">→</span></div>
+              <div class="lead"><span class="n">17</span><span class="of">of 91 servers at risk</span></div>
+              <div class="verdict bad">Action needed on iLO security settings</div>
+              <div class="stack-bar">
+                <span style="flex:17; background:var(--red)"></span>
+                <span style="flex:1; background:var(--amber)"></span>
+                <span style="flex:73; background:var(--unknown)"></span>
+              </div>
+              <div class="mini-legend">
+                <span class="lg"><span class="dot" style="background:var(--red)"></span>At risk <b>17</b></span>
+                <span class="lg"><span class="dot" style="background:var(--amber)"></span>Ignored <b>1</b></span>
+                <span class="lg"><span class="dot" style="background:var(--ok)"></span>OK <b>0</b></span>
+                <span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown <b>73</b></span>
+              </div>
+            </div>
+
+            <div class="card posture">
+              <div class="card-head"><h2>Compliance</h2><span class="arrow">→</span></div>
+              <div class="lead"><span class="n">0</span><span class="of">of 24 groups non-compliant</span></div>
+              <div class="verdict quiet">23 groups have no baseline assigned</div>
+              <div class="stack-bar">
+                <span style="flex:1; background:var(--unknown)"></span>
+                <span style="flex:23; background:#C9CFD2"></span>
+              </div>
+              <div class="mini-legend">
+                <span class="lg"><span class="dot" style="background:var(--red)"></span>Not compliant <b>0</b></span>
+                <span class="lg"><span class="dot" style="background:var(--ok)"></span>Compliant <b>0</b></span>
+                <span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown <b>1</b></span>
+                <span class="lg"><span class="dot" style="background:#C9CFD2"></span>Not applicable <b>23</b></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2 · Needs attention: ranked action queue, uncontained -->
+        <section>
+          <div class="sec-title">Needs attention</div>
+          <div class="sec-sub">Ranked by impact — resolving connectivity restores visibility for most of the fleet.</div>
+          <div class="act-row">
+            <div class="n">73</div>
+            <div class="what"><div class="t">Servers not connected</div><div class="s">No health, security or firmware data until connected — the source of most Unknown states above.</div></div>
+            <div class="go"><button class="btn green">Connect servers</button></div>
+          </div>
+          <div class="act-row">
+            <div class="n">29</div>
+            <div class="what"><div class="t">Expired support</div><div class="s">Auto support case creation is disabled for these servers.</div></div>
+            <div class="go"><button class="btn">Review</button></div>
+          </div>
+          <div class="act-row">
+            <div class="n">12</div>
+            <div class="what"><div class="t">Servers not activated</div><div class="s">Added to inventory but activation is incomplete.</div></div>
+            <div class="go"><button class="btn">Activate</button></div>
+          </div>
+          <div class="act-row">
+            <div class="n">12</div>
+            <div class="what"><div class="t">Subscription required</div><div class="s">These servers need a Compute Ops Management subscription assigned.</div></div>
+            <div class="go"><button class="btn">Assign</button></div>
+          </div>
+          <div class="act-row">
+            <div class="n">8</div>
+            <div class="what"><div class="t">Servers with alerts</div><div class="s">Active hardware or management alerts to triage.</div></div>
+            <div class="go"><button class="btn">Triage</button></div>
+          </div>
+        </section>
+
+        <!-- SECTION 3 · Fleet locations: uncontained map -->
+        <section>
+          <div class="sec-title">Fleet locations</div>
+          <div class="info-banner"><span class="ic">ⓘ</span><span><b>90 servers</b> have no assigned location. Location is required for auto HPE support case creation. <span class="tlink">Assign locations</span></span></div>
+          <div class="map-frame">
+            <div class="map-tools"><span class="tool">🔍</span><span class="tool">▦</span><span class="tool">＋</span><span class="tool">－</span></div>
+            <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg">
+              <rect width="900" height="300" fill="#fcfdfd"/>
+              <g stroke="#e8ecee" stroke-width="14" fill="none">
+                <path d="M-20 50 L920 180"/><path d="M120 -20 L340 320"/><path d="M480 -20 L700 320"/><path d="M-20 240 L920 100"/>
+              </g>
+              <g fill="#eef1f2">
+                <rect x="80" y="80" width="90" height="55" rx="4"/><rect x="240" y="180" width="120" height="65" rx="4"/>
+                <rect x="430" y="55" width="80" height="80" rx="4"/><rect x="620" y="160" width="110" height="55" rx="4"/>
+                <rect x="760" y="55" width="70" height="65" rx="4"/>
+              </g>
+              <g>
+                <circle cx="452" cy="165" r="16" fill="var(--gl-green)" opacity="0.18"/>
+                <circle cx="452" cy="165" r="7" fill="var(--gl-green)"/>
+                <text x="468" y="170" font-size="13" font-weight="600" fill="#3E4550">Dublin HQ · 1 mapped server</text>
+              </g>
+              <text x="870" y="286" font-size="10" fill="#8fa0a8" text-anchor="end">© OpenStreetMap contributors</text>
+            </svg>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- SECONDARY · uncontained, headings structure it; grey reserved for the one true callout -->
+      <aside class="rrail-flat">
+        <div class="setup-callout">
+          <div class="t">Finish fleet setup</div>
+          <div class="fine">80% of this fleet isn't reporting yet. Connect servers and assign locations to make this page meaningful.</div>
+          <button class="btn green">Resume setup</button>
+        </div>
+
+        <section>
+          <h3>Recommended actions</h3>
+          <div class="rec-item"><b>2026.09.00.00 (04 Sep)</b> firmware is available for <b>1</b> Gen11 server. <span class="tlink">Update</span></div>
+          <div class="rec-item"><b>2026.09.00.00 (03 Sep)</b> firmware is available for <b>4</b> Gen10/+ servers. <span class="tlink">Update</span></div>
+        </section>
+
+        <section>
+          <h3>Sustainability</h3>
+          <div class="big-number-sub">Estimated carbon emissions · avg last 7 days</div>
+          <div style="display:flex; align-items:baseline; gap:10px; margin:6px 0 4px">
+            <span class="big-number" style="font-size:34px">1.95</span>
+            <span class="big-number-sub">kgCO2e</span>
+            <span class="pill red">↑ 25% WoW</span>
+          </div>
+          <span class="glink">View sustainability insights →</span>
+        </section>
+
+        <section>
+          <h3>Quick links</h3>
+          <ul class="qa-list">
+            <li><a href="#">Firmware baselines →</a></li>
+            <li><a href="#">Server groups →</a></li>
+            <li><a href="#">Activity log →</a></li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
