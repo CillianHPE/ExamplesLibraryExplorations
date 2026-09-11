@@ -42,6 +42,13 @@
   /* secondary: uncontained sections, headings do the structure */
   .rrail-flat { display: flex; flex-direction: column; gap: var(--gap-section); min-width: 0; }
   .rrail-flat section h3 { font-size: 17px; font-weight: 700; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  /* leading/trailing list row: message leads, action trails */
+  .row-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .row-item:last-child { border-bottom: 0; }
+  .row-item .lead-txt { flex: 1; min-width: 0; }
+  .row-item .lead-txt .lt { font-size: 14px; font-weight: 600; color: var(--gl-heading); }
+  .row-item .lead-txt .ls { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 2px; line-height: 1.45; }
+  .row-item .trail { flex: none; }
   .rec-item { padding: 10px 0; font-size: 13.5px; line-height: 1.5; }
   .rec-item b { color: var(--gl-heading); }
   .setup-callout { background: var(--contained); border-radius: var(--radius); padding: 20px; }
@@ -209,8 +216,20 @@
 
         <section>
           <h3>Recommended actions</h3>
-          <div class="rec-item"><b>2026.09.00.00 (04 Sep)</b> firmware is available for <b>1</b> Gen11 server. <span class="tlink">Update</span></div>
-          <div class="rec-item"><b>2026.09.00.00 (03 Sep)</b> firmware is available for <b>4</b> Gen10/+ servers. <span class="tlink">Update</span></div>
+          <div class="row-item">
+            <div class="lead-txt">
+              <div class="lt">Firmware 2026.09.00.00</div>
+              <div class="ls">Available for 1 Gen11 server · released 04 Sep</div>
+            </div>
+            <div class="trail"><button class="btn toolbar">Update</button></div>
+          </div>
+          <div class="row-item">
+            <div class="lead-txt">
+              <div class="lt">Firmware 2026.09.00.00</div>
+              <div class="ls">Available for 4 Gen10/+ servers · released 03 Sep</div>
+            </div>
+            <div class="trail"><button class="btn toolbar">Update</button></div>
+          </div>
         </section>
 
         <section>
