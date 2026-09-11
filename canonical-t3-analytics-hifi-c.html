@@ -27,7 +27,7 @@
 <header class="header">
   <div class="burger"><span></span><span></span><span></span></div>
   <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
-  <div class="workspace">North America IT Ops</div>
+  <div class="workspace">DemoComp Industries</div>
   <div class="search">⌕ Search</div>
   <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
 </header>
@@ -52,7 +52,7 @@
       <section>
         <div class="toolbar" style="margin-bottom:0;">
           <span class="fchip on">Last 30 days ▾</span>
-          <span class="fchip">Fleet: Production clusters ▾</span>
+          <span class="fchip">Fleet: Compute Ops Management clusters ▾</span>
           <span class="fchip">Metric: p95 peak ▾</span>
           <span class="fchip">Filters ▾</span>
           <span class="spacer"></span>
@@ -66,19 +66,19 @@
           <div class="cat">Compute</div>
           <div class="name">Avg CPU utilization</div>
           <div class="value-row"><span class="value">67%</span><span class="delta up">↑ 4 pts</span></div>
-          <div class="desc">Balanced uplift from VDI and analytics workloads; peak is weekday 14:00–18:00 CT.</div>
+          <div class="desc">Balanced uplift from Private Cloud AI and analytics workloads; peak is weekday 14:00–18:00 UTC.</div>
         </div>
         <div class="kpi">
           <div class="cat">Memory</div>
           <div class="name">Avg memory utilization</div>
           <div class="value-row"><span class="value">72%</span><span class="delta neutral">↑ 1 pt</span></div>
-          <div class="desc">Memory remains the tighter resource across Geneva and Austin ProLiant clusters.</div>
+          <div class="desc">Memory remains the tighter resource across Zurich Research and Fort Collins DC clusters.</div>
         </div>
         <div class="kpi">
           <div class="cat">Experience</div>
           <div class="name">p95 latency</div>
           <div class="value-row"><span class="value">18</span><span style="font-size:14px; color:var(--gl-ink-soft); font-weight:600;">ms</span><span class="delta down">↑ 5 ms</span></div>
-          <div class="desc">Higher storage wait in CHI-PROD-02 during backup overlap is driving the increase.</div>
+          <div class="desc">Higher storage wait in COM-Cluster-Prod-C during Backup and Recovery overlap is driving the increase.</div>
         </div>
       </section>
 
@@ -100,7 +100,7 @@
             <polyline points="38,132 68,124 98,128 128,118 158,109 188,115 218,102 248,96 278,90 308,98 338,88 368,82 398,85 428,78 458,74 488,72 518,75 548,68 578,70 608,63 638,66 668,60 698,62 728,57 758,55 788,58 818,52 848,54 878,50"
               fill="none" stroke="var(--c-purple)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
             <line x1="608" y1="24" x2="608" y2="210" stroke="var(--amber)" stroke-width="1.3" stroke-dasharray="3 4"/>
-            <text x="618" y="36" font-size="12" fill="var(--amber)" font-weight="600">Backup window shifted</text>
+            <text x="618" y="36" font-size="12" fill="var(--amber)" font-weight="600">Backup and Recovery window shifted</text>
             <text x="38" y="236" font-size="11" fill="#8fa0a8">Aug 11</text>
             <text x="438" y="236" font-size="11" fill="#8fa0a8">Aug 26</text>
             <text x="838" y="236" font-size="11" fill="#8fa0a8">Sep 10</text>
@@ -116,15 +116,15 @@
       <section class="grid-2">
         <div class="card">
           <div class="card-head"><h2>Top 5 busiest clusters</h2><span class="arrow">→</span></div>
-          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>AUS-AI-02</span><span class="pct">88% CPU</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>COM-Cluster-HPC-01 · 40 nodes</span><span class="pct">88% CPU</span></div>
           <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:88; background:var(--c-blue)"></span><span style="flex:12; background:var(--grey-bg)"></span></div>
-          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>GVA-DB-01</span><span class="pct">82% CPU</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>COM-Cluster-Analytics-B · 18 nodes</span><span class="pct">82% CPU</span></div>
           <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:82; background:var(--c-green)"></span><span style="flex:18; background:var(--grey-bg)"></span></div>
-          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>CHI-VDI-03</span><span class="pct">79% CPU</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>COM-Cluster-Prod-C · 29 nodes</span><span class="pct">79% CPU</span></div>
           <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:79; background:var(--c-purple)"></span><span style="flex:21; background:var(--grey-bg)"></span></div>
-          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-magenta)"></span>DEN-EDGE-01</span><span class="pct">73% CPU</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-magenta)"></span>COM-Cluster-US-West-01 · 30 nodes</span><span class="pct">73% CPU</span></div>
           <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:73; background:var(--c-magenta)"></span><span style="flex:27; background:var(--grey-bg)"></span></div>
-          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-navy)"></span>AUS-API-04</span><span class="pct">70% CPU</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-navy)"></span>COM-Cluster-Prod-A · 32 nodes</span><span class="pct">70% CPU</span></div>
           <div class="stack-bar" style="margin:4px 0 0;"><span style="flex:70; background:var(--c-navy)"></span><span style="flex:30; background:var(--grey-bg)"></span></div>
         </div>
         <div class="card">
@@ -137,7 +137,7 @@
               <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Memory &lt; 20%</span><span class="pct">56 VMs</span></div>
               <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Low I/O</span><span class="pct">38 VMs</span></div>
               <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-grey)"></span>Powered on stale</span><span class="pct">30 VMs</span></div>
-              <div style="margin-top:12px;"><span class="glink">Review rightsizing recommendations →</span></div>
+              <div style="margin-top:12px;"><span class="glink">Review Compute Ops Management recommendations →</span></div>
             </div>
           </div>
         </div>
@@ -151,11 +151,11 @@
             <tr><th>Cluster</th><th>Location</th><th class="num">CPU</th><th class="num">Memory</th><th class="num">IOPS</th><th class="num">p95 latency</th><th>Trend</th></tr>
           </thead>
           <tbody>
-            <tr><td><span class="tlink">AUS-AI-02</span></td><td>Austin DC</td><td class="num">88%</td><td class="num">76%</td><td class="num">418K</td><td class="num">24 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,18 15,14 30,16 45,11 60,9 75,7 90,5" fill="none" stroke="var(--red)" stroke-width="2"/></svg></td></tr>
-            <tr><td><span class="tlink">GVA-DB-01</span></td><td>Geneva DC</td><td class="num">82%</td><td class="num">84%</td><td class="num">302K</td><td class="num">17 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,13 15,12 30,10 45,11 60,8 75,9 90,7" fill="none" stroke="var(--amber)" stroke-width="2"/></svg></td></tr>
-            <tr><td><span class="tlink">CHI-VDI-03</span></td><td>Chicago Edge</td><td class="num">79%</td><td class="num">88%</td><td class="num">196K</td><td class="num">21 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,16 15,13 30,15 45,12 60,10 75,11 90,8" fill="none" stroke="var(--amber)" stroke-width="2"/></svg></td></tr>
-            <tr><td><span class="tlink">DEN-EDGE-01</span></td><td>Denver Edge</td><td class="num">73%</td><td class="num">69%</td><td class="num">121K</td><td class="num">12 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,10 15,11 30,10 45,12 60,11 75,12 90,11" fill="none" stroke="var(--c-grey)" stroke-width="2"/></svg></td></tr>
-            <tr><td><span class="tlink">AUS-API-04</span></td><td>Austin DC</td><td class="num">70%</td><td class="num">63%</td><td class="num">164K</td><td class="num">9 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,14 15,13 30,12 45,11 60,10 75,10 90,9" fill="none" stroke="var(--gl-green)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">COM-Cluster-HPC-01 · 40 nodes</span></td><td>Zurich Research · Zurich, Switzerland</td><td class="num">88%</td><td class="num">76%</td><td class="num">418K</td><td class="num">24 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,18 15,14 30,16 45,11 60,9 75,7 90,5" fill="none" stroke="var(--red)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">COM-Cluster-Analytics-B · 18 nodes</span></td><td>Fort Collins DC · Fort Collins, Colorado</td><td class="num">82%</td><td class="num">84%</td><td class="num">302K</td><td class="num">17 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,13 15,12 30,10 45,11 60,8 75,9 90,7" fill="none" stroke="var(--amber)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">COM-Cluster-Prod-C · 29 nodes</span></td><td>Chicago Warehouse · Chicago, Illinois</td><td class="num">79%</td><td class="num">88%</td><td class="num">196K</td><td class="num">21 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,16 15,13 30,15 45,12 60,10 75,11 90,8" fill="none" stroke="var(--amber)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">COM-Cluster-US-West-01 · 30 nodes</span></td><td>San Jose DC · San Jose, California</td><td class="num">73%</td><td class="num">69%</td><td class="num">121K</td><td class="num">12 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,10 15,11 30,10 45,12 60,11 75,12 90,11" fill="none" stroke="var(--c-grey)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">COM-Cluster-Prod-A · 32 nodes</span></td><td>Dublin HQ · Dublin, Ireland</td><td class="num">70%</td><td class="num">63%</td><td class="num">164K</td><td class="num">9 ms</td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,14 15,13 30,12 45,11 60,10 75,10 90,9" fill="none" stroke="var(--gl-green)" stroke-width="2"/></svg></td></tr>
           </tbody>
         </table>
       </section>

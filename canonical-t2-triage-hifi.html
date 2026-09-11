@@ -27,7 +27,7 @@
 <header class="header">
   <div class="burger"><span></span><span></span><span></span></div>
   <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
-  <div class="workspace">North America IT Ops</div>
+  <div class="workspace">DemoComp Industries</div>
   <div class="search">⌕ Search</div>
   <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
 </header>
@@ -53,7 +53,7 @@
           <div class="attn">
             <div>
               <div class="txt"><span class="n">7 items</span> need your attention</div>
-              <div class="sub">3 critical alerts · 4 subscriptions expiring within 30 days</div>
+              <div class="sub">3 critical alerts · 4 service subscriptions expiring within 30 days</div>
             </div>
             <button class="btn primary">Review all →</button>
           </div>
@@ -78,37 +78,37 @@
             <tbody>
               <tr>
                 <td><span class="cb"></span></td><td><div class="sev crit" style="margin:0 auto 0 6px"></div></td>
-                <td><span class="tlink">DHCP time out</span></td><td>Network</td><td>18 devices</td><td>2 hours ago</td><td>Unassigned</td>
+                <td><span class="tlink">DHCP scope exhaustion at Warehouse-IoT-07</span></td><td>Aruba Central</td><td>Warehouse-IoT-07 · 120 devices</td><td>2 hours ago</td><td>William Taylor</td>
                 <td><button class="btn" style="padding:5px 14px; font-size:12px;">Investigate</button></td>
               </tr>
               <tr>
                 <td><span class="cb"></span></td><td><div class="sev crit" style="margin:0 auto 0 6px"></div></td>
-                <td><span class="tlink">VLAN mismatch</span></td><td>Network</td><td>15 switches</td><td>Yesterday</td><td>S. Chen</td>
+                <td><span class="tlink">Network-Change-Review policy mismatch</span></td><td>Aruba Central</td><td>Edge-North-Fleet · 45 devices</td><td>Yesterday</td><td>Grace Thompson</td>
                 <td><button class="btn" style="padding:5px 14px; font-size:12px;">Investigate</button></td>
               </tr>
               <tr>
                 <td><span class="cb"></span></td><td><div class="sev crit" style="margin:0 auto 0 6px"></div></td>
-                <td><span class="tlink">Storage array controller fault</span></td><td>Storage</td><td>Alletra MP · rack 4</td><td>Yesterday</td><td>M. Okafor</td>
+                <td><span class="tlink">Block Storage replication pair fault</span></td><td>Block Storage</td><td>Block-Resource-034 · São Paulo DC</td><td>Yesterday</td><td>Sophie Anderson</td>
                 <td><button class="btn" style="padding:5px 14px; font-size:12px;">Investigate</button></td>
               </tr>
               <tr>
                 <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
-                <td><span class="tlink">802.1X auth failure</span></td><td>Access</td><td>10 users denied</td><td>3 days ago</td><td>Unassigned</td>
+                <td><span class="tlink">Retail-Edge-ViewOnly access failures</span></td><td>Authorization</td><td>Retail-Edge-UK · 36 devices</td><td>3 days ago</td><td>Riley Chen</td>
                 <td><button class="btn" style="padding:5px 14px; font-size:12px;">Investigate</button></td>
               </tr>
               <tr>
                 <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
-                <td><span class="tlink">Firmware below baseline</span></td><td>Compute</td><td>6 servers</td><td>4 days ago</td><td>J. Alvarez</td>
+                <td><span class="tlink">Firmware below baseline on COM-Cluster-EU-Central-01</span></td><td>Compute Ops Management</td><td>26 nodes</td><td>4 days ago</td><td>Mason Clark</td>
                 <td><button class="btn" style="padding:5px 14px; font-size:12px;">Schedule</button></td>
               </tr>
               <tr>
                 <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
-                <td><span class="tlink">4 subscriptions expiring</span></td><td>Subscription</td><td>Compute fleet</td><td>Within 30 days</td><td>Unassigned</td>
+                <td><span class="tlink">4 service subscriptions expiring</span></td><td>Subscription management</td><td>Compute Ops Management, Aruba Central</td><td>Within 30 days</td><td>Emma Johansson</td>
                 <td><button class="btn" style="padding:5px 14px; font-size:12px;">Renew</button></td>
               </tr>
               <tr>
                 <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
-                <td><span class="tlink">94 devices with no location</span></td><td>Inventory</td><td>Asset explorer</td><td>Ongoing</td><td>Unassigned</td>
+                <td><span class="tlink">Iberia-Edge-Madrid missing site tags</span></td><td>Inventory</td><td>Iberia-Edge-Madrid · 31 devices</td><td>Ongoing</td><td>Sofia Rossi</td>
                 <td><button class="btn" style="padding:5px 14px; font-size:12px;">Assign</button></td>
               </tr>
             </tbody>
@@ -131,24 +131,24 @@
             </div>
           </div>
           <div class="card">
-            <div class="card-head"><h2 style="font-size:16px;">By source</h2></div>
-            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Network</span><span class="pct">3</span></div>
+            <div class="card-head"><h2 style="font-size:16px;">By service</h2></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Aruba Central</span><span class="pct">3</span></div>
             <div class="stack-bar" style="margin:4px 0 10px;"><span style="flex:3; background:var(--c-blue)"></span><span style="flex:4; background:var(--grey-bg)"></span></div>
-            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Compute</span><span class="pct">1</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Compute Ops Management</span><span class="pct">1</span></div>
             <div class="stack-bar" style="margin:4px 0 10px;"><span style="flex:1; background:var(--c-purple)"></span><span style="flex:6; background:var(--grey-bg)"></span></div>
-            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-magenta)"></span>Storage</span><span class="pct">1</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-magenta)"></span>Block Storage</span><span class="pct">1</span></div>
             <div class="stack-bar" style="margin:4px 0 0;"><span style="flex:1; background:var(--c-magenta)"></span><span style="flex:6; background:var(--grey-bg)"></span></div>
           </div>
           <div class="card">
             <div class="card-head"><h2 style="font-size:16px;">Oldest unresolved</h2></div>
             <div class="list-item">
-              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">94 devices, no location</div><div class="li-sub">Open 12 days</div></div></div>
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Iberia-Edge-Madrid missing site tags</div><div class="li-sub">Open 12 days</div></div></div>
             </div>
             <div class="list-item">
-              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Firmware below baseline</div><div class="li-sub">Open 4 days</div></div></div>
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">COM-Cluster-EU-Central-01 below baseline</div><div class="li-sub">Open 4 days</div></div></div>
             </div>
             <div class="list-item">
-              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">VLAN mismatch</div><div class="li-sub">Open 1 day</div></div></div>
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">Edge-North-Fleet policy mismatch</div><div class="li-sub">Open 1 day</div></div></div>
             </div>
           </div>
         </section>
@@ -165,9 +165,9 @@
         </div>
         <div class="card">
           <h3>Runbooks</h3>
-          <div class="learn-item"><div class="lt">DHCP failures →</div><div class="ls">Diagnose scope exhaustion and relay issues.</div></div>
-          <div class="learn-item"><div class="lt">VLAN configuration →</div><div class="ls">Trunk and access port mismatch checks.</div></div>
-          <div class="learn-item"><div class="lt">802.1X troubleshooting →</div><div class="ls">RADIUS and certificate validation steps.</div></div>
+          <div class="learn-item"><div class="lt">Warehouse-IoT-07 DHCP failures →</div><div class="ls">Diagnose scope exhaustion and relay issues at Chicago Warehouse.</div></div>
+          <div class="learn-item"><div class="lt">Network-Change-Review →</div><div class="ls">Review Aruba change scopes before production rollout.</div></div>
+          <div class="learn-item"><div class="lt">Retail-Edge-ViewOnly access →</div><div class="ls">Validate policy scope, RADIUS, and certificate steps.</div></div>
         </div>
         <div>
           <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Quick actions</h3>

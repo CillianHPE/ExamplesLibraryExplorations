@@ -52,7 +52,7 @@
 <header class="header">
   <div class="burger"><span></span><span></span><span></span></div>
   <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
-  <div class="workspace">North America IT Ops</div>
+  <div class="workspace">DemoComp Industries</div>
   <div class="search">⌕ Search</div>
   <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
 </header>
@@ -67,8 +67,8 @@
   <main class="page">
     <div class="page-head" style="margin-bottom: 20px;">
       <div>
-        <div class="greet">NOC · North America</div>
-        <div class="greet-sub">Auto-refresh 60s · Sep 10, 15:40 CT</div>
+        <div class="greet">NOC · DemoComp Industries</div>
+        <div class="greet-sub">Auto-refresh 60s · Sep 11, 11:41 IST · Liam Oconnor monitoring</div>
       </div>
       <div style="display:flex; gap:10px;">
         <button class="btn">＋ Add widget</button>
@@ -92,7 +92,7 @@
         <div style="display:flex; align-items:center; gap:10px;">
           <span style="font-size:30px; font-weight:700; color:var(--red);">7</span><span class="delta down">↑ 3</span>
         </div>
-        <div class="fine" style="margin-top:8px;">P1/P2 incidents across NA production sites.</div>
+        <div class="fine" style="margin-top:8px;">P1/P2 incidents across DemoComp production and edge sites.</div>
       </div>
 
       <!-- KPI: open majors -->
@@ -102,7 +102,7 @@
         <div style="display:flex; align-items:center; gap:10px;">
           <span style="font-size:30px; font-weight:700; color:var(--amber);">18</span><span class="delta neutral">− 2/hr</span>
         </div>
-        <div class="fine" style="margin-top:8px;">Major alerts under active triage.</div>
+        <div class="fine" style="margin-top:8px;">Major alerts under OpsRamp and Aruba Central triage.</div>
       </div>
 
       <!-- Live alerts feed: 2x2 -->
@@ -110,19 +110,19 @@
         <span class="grip">⠿</span>
         <div class="card-head"><h2>Live alerts feed</h2><span class="arrow">→</span></div>
         <div class="list-item">
-          <div class="li-main"><div class="sev crit"></div><div><div class="li-title">BOS-EDGE-04 WAN circuit down</div><div class="li-sub">Boston edge · carrier handoff</div></div></div>
+          <div class="li-main"><div class="sev crit"></div><div><div class="li-title">Warehouse-IoT-07 gateway offline</div><div class="li-sub">Chicago Warehouse · 120 devices · Aruba Central</div></div></div>
           <div class="li-meta">15:39 CT</div>
         </div>
         <div class="list-item">
-          <div class="li-main"><div class="sev crit"></div><div><div class="li-title">AUS-DC2 storage latency breach</div><div class="li-sub">vSAN cluster prod-analytics</div></div></div>
+          <div class="li-main"><div class="sev crit"></div><div><div class="li-title">COM-Cluster-Prod-B node quorum risk</div><div class="li-sub">New York Office · 34 nodes · Compute Ops Management</div></div></div>
           <div class="li-meta">15:36 CT</div>
         </div>
         <div class="list-item">
-          <div class="li-main"><div class="sev warn"></div><div><div class="li-title">CHI campus AP adoption flapping</div><div class="li-sub">47 clients affected</div></div></div>
+          <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Edge-North-Fleet DHCP lease failures</div><div class="li-sub">Frankfurt DC · 45 devices · Edge-Restricted</div></div></div>
           <div class="li-meta">15:31 CT</div>
         </div>
         <div class="list-item">
-          <div class="li-main"><div class="sev warn"></div><div><div class="li-title">TOR backup window overrun</div><div class="li-sub">ERP archive job delayed</div></div></div>
+          <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Block-Resource-034 replication lag</div><div class="li-sub">São Paulo DC · Block Storage · Disaster-Recovery-Operators</div></div></div>
           <div class="li-meta">15:24 CT</div>
         </div>
         <div style="margin-top:10px;"><span class="glink">Open incident console →</span></div>
@@ -131,43 +131,43 @@
       <!-- Sites health strip: 2x1 -->
       <div class="card widget span-2">
         <span class="grip">⠿</span>
-        <div class="card-head" style="margin-bottom:8px;"><h2 style="font-size:15px;">Sites health · North America</h2><span class="arrow">→</span></div>
+        <div class="card-head" style="margin-bottom:8px;"><h2 style="font-size:15px;">Sites health · DemoComp global</h2><span class="arrow">→</span></div>
         <div class="stack-bar">
           <span style="width:10%; background:var(--red)"></span>
           <span style="width:18%; background:var(--amber)"></span>
           <span style="width:72%; background:var(--ok)"></span>
         </div>
-        <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">4 sites</span></div>
-        <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Degraded</span><span class="pct">8 sites</span></div>
-        <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy</span><span class="pct">31 sites</span></div>
+        <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">3 sites</span></div>
+        <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Degraded</span><span class="pct">6 sites</span></div>
+        <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy</span><span class="pct">26 sites</span></div>
       </div>
 
       <!-- WAN failovers -->
       <div class="card widget">
         <span class="grip">⠿</span>
-        <div class="card-head" style="margin-bottom:10px;"><h2 style="font-size:15px;">WAN failovers</h2><span class="arrow">→</span></div>
+        <div class="card-head" style="margin-bottom:10px;"><h2 style="font-size:15px;">SD-WAN failovers</h2><span class="arrow">→</span></div>
         <div style="display:flex; align-items:center; gap:10px;">
           <span style="font-size:30px; font-weight:700;">5</span><span class="delta down">2 active</span>
         </div>
-        <div class="fine" style="margin-top:8px;">Last 60 minutes; Dallas and Boston still on LTE backup.</div>
+        <div class="fine" style="margin-top:8px;">Last 60 minutes; Dallas Edge and San Jose DC still on LTE backup.</div>
       </div>
 
       <!-- Active jobs -->
       <div class="card widget">
         <span class="grip">⠿</span>
         <div class="card-head" style="margin-bottom:8px;"><h2 style="font-size:15px;">Active jobs</h2><span class="arrow">→</span></div>
-        <div class="list-item" style="padding:9px 0;"><span class="li-title">Remediation running</span><span class="pill green">14</span></div>
-        <div class="list-item" style="padding:9px 0;"><span class="li-title">Awaiting approval</span><span class="pill amber">6</span></div>
-        <div class="fine" style="margin-top:8px;">Next maintenance wave starts 16:00 CT.</div>
+        <div class="list-item" style="padding:9px 0;"><span class="li-title">OpsRamp remediation</span><span class="pill green">14</span></div>
+        <div class="list-item" style="padding:9px 0;"><span class="li-title">Network-Change-Review</span><span class="pill amber">6</span></div>
+        <div class="fine" style="margin-top:8px;">Next Edge-Maintenance-Window wave starts 12:00 IST.</div>
       </div>
 
       <!-- Fleet utilization: 2x1 -->
       <div class="card widget span-2">
         <span class="grip">⠿</span>
-        <div class="card-head" style="margin-bottom:8px;"><h2 style="font-size:15px;">Fleet utilization · 6 hours</h2><span class="arrow">→</span></div>
+        <div class="card-head" style="margin-bottom:8px;"><h2 style="font-size:15px;">COM fleet utilization · 6 hours</h2><span class="arrow">→</span></div>
         <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:6px;">
           <span style="font-size:24px; font-weight:700;">74%</span>
-          <span class="fine">CPU peak</span>
+          <span class="fine">CPU peak across 385 nodes</span>
           <span class="delta up">stable</span>
         </div>
         <div class="chart-wrap">
@@ -182,8 +182,8 @@
       <div class="card widget">
         <span class="grip">⠿</span>
         <div class="card-head" style="margin-bottom:8px;"><h2 style="font-size:15px;">On-call</h2><span class="arrow">→</span></div>
-        <div class="list-item" style="padding:9px 0;"><div><div class="li-title">Ava Chen</div><div class="li-sub">Primary · until 18:00 CT</div></div><span class="pill green">Online</span></div>
-        <div class="list-item" style="padding:9px 0;"><div><div class="li-title">Luis Ortega</div><div class="li-sub">Escalation · network</div></div><span class="pill amber">Paged</span></div>
+        <div class="list-item" style="padding:9px 0;"><div><div class="li-title">Mason Clark</div><div class="li-sub">Primary SRE · mason.clark@democomp.com</div></div><span class="pill green">Online</span></div>
+        <div class="list-item" style="padding:9px 0;"><div><div class="li-title">Liam Oconnor</div><div class="li-sub">Security analyst · liam.oconnor@democomp.com</div></div><span class="pill amber">Paged</span></div>
       </div>
 
       <!-- Ghost add slot -->

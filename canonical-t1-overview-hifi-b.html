@@ -97,7 +97,7 @@
 <header class="header">
   <div class="burger"><span></span><span></span><span></span></div>
   <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
-  <div class="workspace">North America IT Ops</div>
+  <div class="workspace">DemoComp Industries</div>
   <div class="search">⌕ Search</div>
   <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
 </header>
@@ -131,22 +131,22 @@
           <div class="kpi">
             <div class="cat">Availability</div>
             <div class="name">Servers online</div>
-            <div class="value-row"><span class="value">1,412</span><span class="delta neutral">of 1,428</span></div>
-            <div class="desc">16 servers offline — 9 in planned maintenance, 7 unreachable and need investigation.</div>
+            <div class="value-row"><span class="value">378</span><span class="delta neutral">of 385</span></div>
+            <div class="desc">7 nodes offline — 4 in planned maintenance, 3 unreachable and need investigation.</div>
             <span class="glink">View offline servers →</span>
           </div>
           <div class="kpi">
             <div class="cat">Lifecycle</div>
             <div class="name">Firmware compliance</div>
             <div class="value-row"><span class="value">87%</span><span class="delta down">↓ 6%</span></div>
-            <div class="desc">182 servers below the Gen11 2026.04 baseline after last month's advisory.</div>
+            <div class="desc">50 nodes below the P55276-B21 2026.04 baseline after last month's advisory.</div>
             <span class="glink">Schedule updates →</span>
           </div>
           <div class="kpi">
             <div class="cat">Efficiency</div>
             <div class="name">Avg utilization</div>
             <div class="value-row"><span class="value">61%</span><span class="delta up">↑ 3%</span></div>
-            <div class="desc">CPU across fleet, trailing 7 days. Peak window 14:00–17:00 CT.</div>
+            <div class="desc">CPU across 17 clusters, trailing 7 days. Peak window 14:00–17:00 UTC.</div>
             <span class="glink">View utilization →</span>
           </div>
         </section>
@@ -156,39 +156,39 @@
           <div class="card">
             <div class="card-head"><h2>Server health</h2><span class="arrow">→</span></div>
             <div class="donut-wrap">
-              <div class="donut" style="background: conic-gradient(var(--red) 0 4%, var(--amber) 4% 12%, var(--ok) 12% 100%);" data-center="1,428"></div>
+              <div class="donut" style="background: conic-gradient(var(--red) 0 4%, var(--amber) 4% 12%, var(--ok) 12% 100%);" data-center="385"></div>
               <div>
-                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">58</span></div>
-                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">114</span></div>
-                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy</span><span class="pct">1,256</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">15</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">31</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy</span><span class="pct">339</span></div>
               </div>
             </div>
           </div>
 
           <div class="card">
             <div class="card-head"><h2>Firmware baseline</h2><span class="arrow">→</span></div>
-            <div class="li-title" style="margin-bottom:2px;">Gen11 · 2026.04 baseline</div>
-            <div class="fine">1,043 of 1,180 compliant</div>
+            <div class="li-title" style="margin-bottom:2px;">P55276-B21 · 2026.04 baseline</div>
+            <div class="fine">136 of 144 compliant</div>
             <div class="meter"><i style="width:88%"></i></div>
-            <div class="li-title" style="margin:14px 0 2px;">Gen10 Plus · 2025.10 baseline</div>
-            <div class="fine">201 of 248 compliant</div>
+            <div class="li-title" style="margin:14px 0 2px;">P28948-B21 · 2025.10 baseline</div>
+            <div class="fine">91 of 109 compliant</div>
             <div class="meter"><i class="warn" style="width:81%"></i></div>
-            <div style="margin-top:16px;"><span class="glink">Review 182 pending updates →</span></div>
+            <div style="margin-top:16px;"><span class="glink">Review 50 pending updates →</span></div>
           </div>
 
           <div class="card">
             <div class="card-head"><h2>Active jobs</h2><span class="arrow">→</span></div>
             <div class="list-item">
-              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Firmware update · wave 3</div><div class="li-sub">64 servers · Austin DC</div></div></div>
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">BIOS config apply · COM-Cluster-Edge-UK-01</div><div class="li-sub">12 nodes · London Office</div></div></div>
+              <div class="li-meta">2 failed</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Firmware update · COM-Cluster-Prod-A</div><div class="li-sub">32 nodes · Dublin HQ</div></div></div>
               <div class="li-meta">Running</div>
             </div>
             <div class="list-item">
-              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">iLO security patch</div><div class="li-sub">210 servers · all regions</div></div></div>
+              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">iLO security patch · P55276-B21</div><div class="li-sub">58 nodes · Dublin HQ and Frankfurt DC</div></div></div>
               <div class="li-meta">Queued</div>
-            </div>
-            <div class="list-item">
-              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">BIOS config apply</div><div class="li-sub">12 servers · Geneva DC</div></div></div>
-              <div class="li-meta">2 failed</div>
             </div>
           </div>
         </section>
@@ -201,11 +201,11 @@
               <tr><th><span class="cb"></span></th><th>Server</th><th>Model</th><th>Location</th><th>Health</th><th>Firmware</th><th class="num">Power (W)</th><th>Last seen</th></tr>
             </thead>
             <tbody>
-              <tr><td><span class="cb"></span></td><td><span class="tlink">esx-prod-014</span></td><td>ProLiant DL380 Gen11</td><td>Austin DC · Rack A4</td><td><span class="pill red">Critical</span></td><td><span class="pill amber">Behind</span></td><td class="num">412</td><td>2 min ago</td></tr>
-              <tr><td><span class="cb"></span></td><td><span class="tlink">db-core-002</span></td><td>ProLiant DL385 Gen10 Plus</td><td>Geneva DC · Rack C1</td><td><span class="pill red">Critical</span></td><td><span class="pill green">Current</span></td><td class="num">388</td><td>5 min ago</td></tr>
-              <tr><td><span class="cb"></span></td><td><span class="tlink">vdi-edge-031</span></td><td>ProLiant DL360 Gen10 Plus</td><td>Chicago Edge · Rack 2</td><td><span class="pill amber">Warning</span></td><td><span class="pill amber">Behind</span></td><td class="num">265</td><td>1 min ago</td></tr>
-              <tr><td><span class="cb"></span></td><td><span class="tlink">ai-train-006</span></td><td>ProLiant DL380a Gen11</td><td>Austin DC · Rack B2</td><td><span class="pill amber">Warning</span></td><td><span class="pill green">Current</span></td><td class="num">1,240</td><td>Just now</td></tr>
-              <tr><td><span class="cb"></span></td><td><span class="tlink">file-arch-009</span></td><td>ProLiant DL180 Gen10</td><td>Geneva DC · Rack D3</td><td><span class="pill grey">Unreachable</span></td><td>—</td><td class="num">—</td><td>3 days ago</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">2XK4521ABC</span></td><td>P55276-B21 · prod tier1</td><td>Dublin HQ · COM-Cluster-Prod-A</td><td><span class="pill red">Critical</span></td><td><span class="pill amber">Behind</span></td><td class="num">412</td><td>2 min ago</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">5RQ2456STU</span></td><td>P55276-B21 · prod tier2</td><td>Frankfurt DC · COM-Cluster-EU-Central-01</td><td><span class="pill red">Critical</span></td><td><span class="pill green">Current</span></td><td class="num">388</td><td>5 min ago</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">4NP9123MNO</span></td><td>P43358-B21 · dev</td><td>London Office · COM-Cluster-Edge-UK-01</td><td><span class="pill amber">Warning</span></td><td><span class="pill amber">Behind</span></td><td class="num">265</td><td>1 min ago</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">3MJ7834GHI</span></td><td>P28948-B21 · analytics gpu-enabled</td><td>Fort Collins DC · COM-Cluster-Analytics-B</td><td><span class="pill amber">Warning</span></td><td><span class="pill green">Current</span></td><td class="num">1,240</td><td>Just now</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">9YP1012NOP</span></td><td>P28948-B21 · research hpc</td><td>Zurich Research · COM-Cluster-HPC-01</td><td><span class="pill grey">Unreachable</span></td><td>—</td><td class="num">—</td><td>3 days ago</td></tr>
             </tbody>
           </table>
         </section>
@@ -225,11 +225,11 @@
         </div>
         <div>
           <div class="sec-head"><h3>Activity</h3></div>
-          <div class="learn-item"><div><div class="lt">Firmware update · wave 3 started</div><div class="ls">64 servers · Austin DC — started by J. Alvarez · 24 min ago</div></div><span class="more">⋯</span></div>
-          <div class="learn-item"><div><div class="lt">Server esx-prod-014 went critical</div><div class="ls">Memory DIMM fault detected on P2 slot 4 · 2 hours ago</div></div><span class="more">⋯</span></div>
-          <div class="learn-item"><div><div class="lt">12 servers added to workspace</div><div class="ls">ProLiant DL380 Gen11 · onboarded via activation key · 5 hours ago</div></div><span class="more">⋯</span></div>
-          <div class="learn-item"><div><div class="lt">BIOS config apply failed</div><div class="ls">2 of 12 servers · Geneva DC · retry scheduled · Yesterday</div></div><span class="more">⋯</span></div>
-          <div class="learn-item"><div><div class="lt">Baseline Gen11 2026.04 published</div><div class="ls">Applied to 3 server groups by S. Chen · Yesterday</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">Firmware update · COM-Cluster-Prod-A started</div><div class="ls">32 nodes · Dublin HQ — started by Mason Clark · 24 min ago</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">Server 2XK4521ABC went critical</div><div class="ls">Memory DIMM fault on P55276-B21 at Dublin HQ · 2 hours ago</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">COM-Cluster-Edge-UK-01 added to workspace</div><div class="ls">12 nodes · London Office · onboarded by Ava Williams · 5 hours ago</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">BIOS config apply · COM-Cluster-Edge-UK-01 failed</div><div class="ls">2 of 12 nodes · London Office · retry scheduled · Yesterday</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">Baseline P55276-B21 2026.04 published</div><div class="ls">Applied to 3 server groups by Amelia Foster · Yesterday</div></div><span class="more">⋯</span></div>
           <button class="btn" style="margin-top:14px; padding:10px 20px;">Show more</button>
         </div>
       </aside>

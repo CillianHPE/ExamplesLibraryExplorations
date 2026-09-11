@@ -27,7 +27,7 @@
 <header class="header">
   <div class="burger"><span></span><span></span><span></span></div>
   <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
-  <div class="workspace">North America IT Ops</div>
+  <div class="workspace">DemoComp Industries</div>
   <div class="search">⌕ Search</div>
   <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
 </header>
@@ -52,7 +52,7 @@
       <section>
         <div class="toolbar" style="margin-bottom:0;">
           <span class="fchip on">Next 90 days ▾</span>
-          <span class="fchip">Scope: Storage + compute ▾</span>
+          <span class="fchip">Scope: Block Storage + Compute Ops Management ▾</span>
           <span class="fchip">Model: Linear forecast ▾</span>
           <span class="fchip">Filters ▾</span>
           <span class="spacer"></span>
@@ -66,19 +66,19 @@
           <div class="cat">Fleet capacity</div>
           <div class="name">Total capacity</div>
           <div class="value-row"><span class="value">18.6</span><span style="font-size:14px; color:var(--gl-ink-soft); font-weight:600;">PB</span><span class="delta neutral">+1.2 PB planned</span></div>
-          <div class="desc">Usable storage and compute-local capacity across Alletra MP and ProLiant clusters.</div>
+          <div class="desc">Usable capacity across Block Storage, File Storage, and Compute Ops Management clusters.</div>
         </div>
         <div class="kpi">
           <div class="cat">Utilized</div>
           <div class="name">Used capacity</div>
           <div class="value-row"><span class="value">78%</span><span class="delta down">↑ 6 pts</span></div>
-          <div class="desc">Five systems are above the 85% warning threshold and two are projected critical this quarter.</div>
+          <div class="desc">Two systems are above the 85% warning threshold and COM-Cluster-Analytics-B is projected critical this quarter.</div>
         </div>
         <div class="kpi">
           <div class="cat">Forecast</div>
           <div class="name">Days-to-full</div>
           <div class="value-row"><span class="value">54</span><span style="font-size:14px; color:var(--gl-ink-soft); font-weight:600;">days</span><span class="delta down">Oct 24</span></div>
-          <div class="desc">Earliest predicted exhaustion is Alletra MP A900 · Austin analytics tier.</div>
+          <div class="desc">Earliest predicted exhaustion is Block Storage · COM-Cluster-Analytics-B at Fort Collins DC.</div>
         </div>
       </section>
 
@@ -115,7 +115,7 @@
         <div class="chart-legend">
           <span class="lg"><span class="sw" style="background:var(--c-green)"></span>Used capacity · 14.5 PB today</span>
           <span class="lg"><span class="sw" style="background:var(--c-blue)"></span>Total capacity · 18.6 PB</span>
-          <span class="lg"><span class="sw" style="background:var(--c-green)"></span>Dashed forecast · +286 TB/week</span>
+          <span class="lg"><span class="sw" style="background:var(--c-green)"></span>Dashed forecast · +307 TB/week</span>
         </div>
       </section>
 
@@ -123,24 +123,24 @@
       <section class="grid-2">
         <div class="card">
           <div class="card-head"><h2>Capacity by system</h2><span class="arrow">→</span></div>
-          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Alletra MP A900 · Austin analytics</span><span class="pct">91%</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>COM-Cluster-Analytics-B · Fort Collins DC · 18 nodes</span><span class="pct">91%</span></div>
           <div class="meter"><i class="crit" style="width:91%"></i></div>
-          <div class="legend-row" style="margin-top:12px;"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Alletra MP B10000 · Chicago prod</span><span class="pct">86%</span></div>
+          <div class="legend-row" style="margin-top:12px;"><span class="lg"><span class="dot" style="background:var(--amber)"></span>COM-Cluster-Prod-C · Chicago Warehouse · 29 nodes</span><span class="pct">86%</span></div>
           <div class="meter"><i class="warn" style="width:86%"></i></div>
-          <div class="legend-row" style="margin-top:12px;"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>ProLiant DL380 vSAN · Geneva</span><span class="pct">73%</span></div>
+          <div class="legend-row" style="margin-top:12px;"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>COM-Cluster-HPC-01 · Zurich Research · 40 nodes</span><span class="pct">73%</span></div>
           <div class="meter"><i style="width:73%"></i></div>
-          <div class="legend-row" style="margin-top:12px;"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>Alletra MP C5000 · Denver edge</span><span class="pct">62%</span></div>
+          <div class="legend-row" style="margin-top:12px;"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>COM-Cluster-US-West-01 · San Jose DC · 30 nodes</span><span class="pct">62%</span></div>
           <div class="meter"><i style="width:62%"></i></div>
         </div>
         <div class="card">
           <div class="card-head"><h2>Growth rate by workload</h2><span class="arrow">→</span></div>
-          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>AI training datasets</span><span class="pct">+18.4 TB/day</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Private Cloud AI datasets</span><span class="pct">+18.4 TB/day</span></div>
           <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:92; background:var(--c-blue)"></span><span style="flex:8; background:var(--grey-bg)"></span></div>
-          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Backup retention</span><span class="pct">+12.7 TB/day</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Backup and Recovery retention</span><span class="pct">+12.7 TB/day</span></div>
           <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:64; background:var(--c-purple)"></span><span style="flex:36; background:var(--grey-bg)"></span></div>
-          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>Database logs</span><span class="pct">+8.2 TB/day</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>Data Ops Manager logs</span><span class="pct">+8.2 TB/day</span></div>
           <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:41; background:var(--c-green)"></span><span style="flex:59; background:var(--grey-bg)"></span></div>
-          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-grey)"></span>VDI profiles</span><span class="pct">+4.6 TB/day</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-grey)"></span>File Storage shares</span><span class="pct">+4.6 TB/day</span></div>
           <div class="stack-bar" style="margin:4px 0 0;"><span style="flex:23; background:var(--c-grey)"></span><span style="flex:77; background:var(--grey-bg)"></span></div>
         </div>
       </section>
@@ -153,11 +153,11 @@
             <tr><th>Array / cluster</th><th>Platform</th><th class="num">Used</th><th class="num">Total</th><th class="num">Growth</th><th class="num">Days to full</th><th>Status</th></tr>
           </thead>
           <tbody>
-            <tr><td><span class="tlink">Alletra MP A900 · AUS-ANL-01</span></td><td>Alletra Storage MP</td><td class="num">3.28 PB</td><td class="num">3.60 PB</td><td class="num">18.4 TB/day</td><td class="num">18</td><td><span class="pill red">Critical</span></td></tr>
-            <tr><td><span class="tlink">Alletra MP B10000 · CHI-PROD-02</span></td><td>Alletra Storage MP</td><td class="num">2.15 PB</td><td class="num">2.50 PB</td><td class="num">9.1 TB/day</td><td class="num">39</td><td><span class="pill amber">Warning</span></td></tr>
-            <tr><td><span class="tlink">ProLiant vSAN · GVA-CMP-04</span></td><td>ProLiant DL380 Gen11</td><td class="num">1.46 PB</td><td class="num">2.00 PB</td><td class="num">6.5 TB/day</td><td class="num">83</td><td><span class="pill amber">Watch</span></td></tr>
-            <tr><td><span class="tlink">Alletra MP C5000 · DEN-EDGE-01</span></td><td>Alletra Storage MP</td><td class="num">0.74 PB</td><td class="num">1.20 PB</td><td class="num">2.8 TB/day</td><td class="num">164</td><td><span class="pill green">Healthy</span></td></tr>
-            <tr><td><span class="tlink">ProLiant GPU · AUS-AI-02</span></td><td>ProLiant DL380a Gen12</td><td class="num">1.88 PB</td><td class="num">2.80 PB</td><td class="num">12.7 TB/day</td><td class="num">72</td><td><span class="pill amber">Watch</span></td></tr>
+            <tr><td><span class="tlink">Block Storage · COM-Cluster-Analytics-B · Fort Collins DC · 18 nodes</span></td><td>Block Storage</td><td class="num">3.28 PB</td><td class="num">3.60 PB</td><td class="num">18.4 TB/day</td><td class="num">18</td><td><span class="pill red">Critical</span></td></tr>
+            <tr><td><span class="tlink">File Storage · COM-Cluster-Prod-C · Chicago Warehouse · 29 nodes</span></td><td>File Storage</td><td class="num">2.15 PB</td><td class="num">2.50 PB</td><td class="num">9.1 TB/day</td><td class="num">39</td><td><span class="pill amber">Warning</span></td></tr>
+            <tr><td><span class="tlink">Compute Ops Management · COM-Cluster-HPC-01 · Zurich Research · 40 nodes</span></td><td>Compute Ops Management</td><td class="num">1.46 PB</td><td class="num">2.00 PB</td><td class="num">6.5 TB/day</td><td class="num">83</td><td><span class="pill amber">Watch</span></td></tr>
+            <tr><td><span class="tlink">Private Cloud Enterprise · COM-Cluster-US-West-01 · San Jose DC · 30 nodes</span></td><td>Private Cloud Enterprise</td><td class="num">0.74 PB</td><td class="num">1.20 PB</td><td class="num">2.8 TB/day</td><td class="num">164</td><td><span class="pill green">Healthy</span></td></tr>
+            <tr><td><span class="tlink">Private Cloud AI · COM-Cluster-Prod-A · Dublin HQ · 32 nodes</span></td><td>Private Cloud AI</td><td class="num">1.88 PB</td><td class="num">2.80 PB</td><td class="num">12.7 TB/day</td><td class="num">72</td><td><span class="pill amber">Watch</span></td></tr>
           </tbody>
         </table>
       </section>

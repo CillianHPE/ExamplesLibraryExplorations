@@ -27,7 +27,7 @@
 <header class="header">
   <div class="burger"><span></span><span></span><span></span></div>
   <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
-  <div class="workspace">North America IT Ops</div>
+  <div class="workspace">DemoComp Industries</div>
   <div class="search">⌕ Search</div>
   <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
 </header>
@@ -59,21 +59,21 @@
             <div class="cat">Month to date</div>
             <div class="name">Total spend</div>
             <div class="value-row"><span class="value">$248K</span><span class="delta neutral">Day 10 of 30</span></div>
-            <div class="desc">Tracking to $744K for the month — 2% under your $760K budget.</div>
+            <div class="desc">Tracking to $744K for DemoComp Industries — 2% under the $760K budget.</div>
             <span class="glink">View invoice detail →</span>
           </div>
           <div class="kpi">
             <div class="cat">Forecast</div>
             <div class="name">End of month</div>
             <div class="value-row"><span class="value">$744K</span><span class="delta up">↓ 3%</span></div>
-            <div class="desc">Down from $767K in August after decommissioning 2 dev clusters.</div>
+            <div class="desc">Down from $767K in August after resizing COM-Cluster-Edge-UK-02 and COM-Cluster-EU-South-01.</div>
             <span class="glink">View forecast model →</span>
           </div>
           <div class="kpi">
             <div class="cat">Commit</div>
             <div class="name">Committed vs on-demand</div>
             <div class="value-row"><span class="value">82%</span><span class="delta down">↓ 5%</span></div>
-            <div class="desc">Share of usage covered by committed capacity. $41K running on-demand.</div>
+            <div class="desc">Share of usage covered by committed capacity. $41K running on-demand across Compute Ops Management.</div>
             <span class="glink">Review commit levels →</span>
           </div>
         </section>
@@ -112,21 +112,21 @@
               <span style="flex:10; background:var(--c-grey)"></span>
             </div>
             <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Private Cloud Enterprise</span><span class="pct">38% ($94K)</span></div>
-            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>Compute Ops Mgmt</span><span class="pct">24% ($60K)</span></div>
-            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Alletra Storage</span><span class="pct">16% ($40K)</span></div>
-            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-navy)"></span>Aruba Networking</span><span class="pct">12% ($30K)</span></div>
-            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-grey)"></span>Other</span><span class="pct">10% ($24K)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>Compute Ops Management</span><span class="pct">24% ($60K)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Block Storage</span><span class="pct">16% ($40K)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-navy)"></span>Aruba Central</span><span class="pct">12% ($30K)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-grey)"></span>Backup and Recovery</span><span class="pct">10% ($24K)</span></div>
           </div>
 
           <div class="card">
             <div class="card-head"><h2>Budgets</h2><span class="arrow">→</span></div>
-            <div class="li-title" style="margin-bottom:2px;">Production · $520K</div>
+            <div class="li-title" style="margin-bottom:2px;">EU-West-Prod-Compute · $520K</div>
             <div class="fine">$412K used · 79%</div>
             <div class="meter"><i style="width:79%"></i></div>
-            <div class="li-title" style="margin:14px 0 2px;">Dev &amp; test · $140K</div>
+            <div class="li-title" style="margin:14px 0 2px;">PCE-Namespaces-Dev · $140K</div>
             <div class="fine">$128K used · 91%</div>
             <div class="meter"><i class="warn" style="width:91%"></i></div>
-            <div class="li-title" style="margin:14px 0 2px;">AI workloads · $100K</div>
+            <div class="li-title" style="margin:14px 0 2px;">COM-Cluster-Analytics-B · $100K</div>
             <div class="fine">$104K used · 104%</div>
             <div class="meter"><i class="crit" style="width:100%"></i></div>
           </div>
@@ -134,15 +134,15 @@
           <div class="card">
             <div class="card-head"><h2>Savings opportunities</h2><span class="arrow">→</span></div>
             <div class="list-item">
-              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">12 idle instances</div><div class="li-sub">No traffic in 14 days</div></div></div>
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">12 idle nodes</div><div class="li-sub">COM-Cluster-EU-South-01 · no traffic in 14 days</div></div></div>
               <div class="li-meta">$4.2K/mo</div>
             </div>
             <div class="list-item">
-              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Oversized storage tier</div><div class="li-sub">Alletra vol-group-7</div></div></div>
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Oversized Block Storage tier</div><div class="li-sub">Block-Resource-032 · Dublin HQ</div></div></div>
               <div class="li-meta">$2.8K/mo</div>
             </div>
             <div class="list-item">
-              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Commit renewal discount</div><div class="li-sub">Renew before Oct 1</div></div></div>
+              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Compute Ops Management renewal</div><div class="li-sub">Renew P55276-B21 capacity before Oct 1</div></div></div>
               <div class="li-meta">$5.5K/mo</div>
             </div>
           </div>
@@ -156,11 +156,11 @@
               <tr><th><span class="cb"></span></th><th>Subscription</th><th>Service</th><th>Tier</th><th>Status</th><th class="num">Monthly</th><th class="num">Usage</th><th>Renews</th></tr>
             </thead>
             <tbody>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-41276-BAR</span></td><td>Backup and Recovery</td><td>Standard</td><td><span class="pill red">Expiring</span></td><td class="num">$24,000</td><td class="num">51%</td><td>Sep 30, 2026</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-65118-BLS</span></td><td>Block Storage</td><td>Production</td><td><span class="pill amber">Renews soon</span></td><td class="num">$40,000</td><td class="num">72%</td><td>Oct 2026</td></tr>
               <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-88214-PCE</span></td><td>Private Cloud Enterprise</td><td>Enhanced</td><td><span class="pill green">Active</span></td><td class="num">$94,000</td><td class="num">96%</td><td>Mar 2027</td></tr>
               <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-77302-COM</span></td><td>Compute Ops Management</td><td>Advanced</td><td><span class="pill green">Active</span></td><td class="num">$60,000</td><td class="num">88%</td><td>Jan 2027</td></tr>
-              <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-65118-ALT</span></td><td>Alletra Storage MP</td><td>Business Critical</td><td><span class="pill amber">Renews soon</span></td><td class="num">$40,000</td><td class="num">72%</td><td>Oct 2026</td></tr>
               <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-59904-ARU</span></td><td>Aruba Central</td><td>Foundation</td><td><span class="pill green">Active</span></td><td class="num">$30,000</td><td class="num">64%</td><td>Jun 2027</td></tr>
-              <tr><td><span class="cb"></span></td><td><span class="tlink">SUB-41276-OPS</span></td><td>OpsRamp</td><td>Standard</td><td><span class="pill red">Expiring</span></td><td class="num">$12,000</td><td class="num">51%</td><td>Sep 30, 2026</td></tr>
             </tbody>
           </table>
         </section>
@@ -175,7 +175,7 @@
         </div>
         <div class="card">
           <h3>GreenLake Intelligence</h3>
-          <div class="fine">"AI workloads budget is at 104% with 20 days left — the training cluster in Austin drives 82% of the overage."</div>
+          <div class="fine">"COM-Cluster-Analytics-B budget is at 104% with 20 days left — Fort Collins DC drives 82% of the overage."</div>
           <div class="prompt-box"><span class="sp">✦</span> Ask why costs changed…</div>
         </div>
         <div>
