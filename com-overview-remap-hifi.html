@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>COM · Overview — remapped into layout system</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<style>
+  /* page-local helpers for this exercise */
+  .status-card .donut { width: 132px; height: 132px; }
+  .status-card .donut::after { inset: 20px; }
+  .attn-tile { background: var(--contained); border-radius: var(--radius); padding: 20px 22px; min-width: 0; }
+  .attn-tile .n { font-size: 34px; font-weight: 700; letter-spacing: -0.5px; color: var(--gl-heading); }
+  .attn-tile .lbl { font-size: 13.5px; font-weight: 600; margin-top: 4px; }
+  .attn-tile .glink { display: inline-block; margin-top: 10px; }
+  .grid-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--gap-container); }
+  .info-banner { display: flex; gap: 10px; align-items: flex-start; background: var(--info-bg); color: var(--gl-ink);
+    border-radius: 8px; padding: 12px 16px; font-size: 13.5px; line-height: 1.5; margin-bottom: var(--gap-container); }
+  .info-banner .ic { color: var(--info); font-weight: 700; }
+  .map-frame { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; position: relative; }
+  .map-frame svg { display: block; width: 100%; height: auto; }
+  .map-tools { position: absolute; top: 14px; right: 14px; display: flex; gap: 8px; }
+  .map-tools .tool { width: 34px; height: 34px; border-radius: 8px; background: #fff; border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; }
+  .sec-title { font-size: 24px; font-weight: 700; margin-bottom: var(--gap-container); }
+  .rec-item { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; line-height: 1.5; }
+  .rec-item:last-child { border-bottom: 0; }
+  .rec-item b { color: var(--gl-heading); }
+</style>
+</head>
+<body>
+
+<div class="switcher">
+  Exercise: real COM Overview remapped ·
+  <a href="canonical-t1-overview-hifi.html">T1 · Overview</a>
+  <a href="canonical-t2-triage-hifi.html">T2 · Triage</a>
+  <a href="canonical-t4-detail-hifi.html">T4 · Object detail</a>
+  <span class="view-toggle">Layout: <a href="com-overview-remap-hifi.html" class="hifi-on">T1 Overview (primary + secondary)</a></span>
+</div>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search">⌕ Search</div>
+  <div class="header-icons"><span class="hicon spark">✦</span><span class="hicon">🔔</span><span class="hicon">?</span><span class="hicon">▤</span><span class="hicon">👤</span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon">⌂</div><div class="ricon active">◳</div><div class="ricon">▦</div>
+    <div class="ricon">☷</div><div class="ricon">◈</div><div class="ricon">≋</div>
+    <div class="ricon">🖴</div><div class="ricon">((•))</div>
+  </nav>
+
+  <main class="page">
+    <div class="crumb">Compute Ops Management · US East</div>
+    <div class="page-head">
+      <h1>Overview</h1>
+      <button class="btn">★ What's new</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- SECTION 1 · Fleet posture (contained, 16px between cards) -->
+        <section>
+          <div class="grid-3">
+            <div class="card status-card">
+              <div class="card-head"><h2>Servers health</h2><span class="arrow">→</span></div>
+              <div class="donut-wrap">
+                <div class="donut" data-center="91 servers" style="background: conic-gradient(var(--amber) 0 4deg, var(--ok) 4deg 20deg, var(--unknown) 20deg 277deg, #C9CFD2 277deg 360deg)"></div>
+                <div style="flex:1">
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">0</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">1</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>OK</span><span class="pct">4</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown</span><span class="pct">65</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:#C9CFD2"></span>Disabled</span><span class="pct">21</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card status-card">
+              <div class="card-head"><h2>Servers security</h2><span class="arrow">→</span></div>
+              <div class="donut-wrap">
+                <div class="donut" data-center="91 servers" style="background: conic-gradient(var(--red) 0 67deg, var(--amber) 67deg 71deg, var(--unknown) 71deg 360deg)"></div>
+                <div style="flex:1">
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>At risk</span><span class="pct">17</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Ignore risk</span><span class="pct">1</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>OK</span><span class="pct">0</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown</span><span class="pct">73</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:#C9CFD2"></span>Unsupported</span><span class="pct">0</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card status-card">
+              <div class="card-head"><h2>Groups compliance</h2><span class="arrow">→</span></div>
+              <div class="donut-wrap">
+                <div class="donut" data-center="24 groups" style="background: conic-gradient(var(--unknown) 0 15deg, #C9CFD2 15deg 360deg)"></div>
+                <div style="flex:1">
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Not compliant</span><span class="pct">0</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Compliant</span><span class="pct">0</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown</span><span class="pct">1</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:#C9CFD2"></span>Not applicable</span><span class="pct">23</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 2 · Needs attention (contained tiles, 16px gaps) -->
+        <section>
+          <div class="sec-title">Needs attention</div>
+          <div class="grid-5">
+            <div class="attn-tile">
+              <div class="n">73</div>
+              <div class="lbl">Servers not connected</div>
+              <span class="glink">Review →</span>
+            </div>
+            <div class="attn-tile">
+              <div class="n">29</div>
+              <div class="lbl">Expired support</div>
+              <span class="glink">Review →</span>
+            </div>
+            <div class="attn-tile">
+              <div class="n">12</div>
+              <div class="lbl">Servers not activated</div>
+              <span class="glink">Review →</span>
+            </div>
+            <div class="attn-tile">
+              <div class="n">12</div>
+              <div class="lbl">Subscription required</div>
+              <span class="glink">Review →</span>
+            </div>
+            <div class="attn-tile">
+              <div class="n">8</div>
+              <div class="lbl">Servers with alerts</div>
+              <span class="glink">Review →</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- SECTION 3 · Fleet locations (uncontained, full width of primary) -->
+        <section>
+          <div class="sec-title">Fleet locations</div>
+          <div class="info-banner"><span class="ic">ⓘ</span><span><b>90 servers</b> do not have an assigned location or have a location that cannot be correctly mapped. Location is required for auto HPE support case creation. <span class="tlink">Learn more</span></span></div>
+          <div class="map-frame">
+            <div class="map-tools"><span class="tool">🔍</span><span class="tool">▦</span><span class="tool">＋</span><span class="tool">－</span></div>
+            <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg">
+              <rect width="900" height="340" fill="#fcfdfd"/>
+              <g stroke="#e8ecee" stroke-width="14" fill="none">
+                <path d="M-20 60 L920 200"/><path d="M120 -20 L340 360"/><path d="M480 -20 L700 360"/><path d="M-20 260 L920 120"/>
+              </g>
+              <g fill="#eef1f2">
+                <rect x="80" y="90" width="90" height="60" rx="4"/><rect x="240" y="200" width="120" height="70" rx="4"/>
+                <rect x="430" y="60" width="80" height="90" rx="4"/><rect x="620" y="180" width="110" height="60" rx="4"/>
+                <rect x="760" y="60" width="70" height="70" rx="4"/>
+              </g>
+              <g>
+                <circle cx="452" cy="182" r="16" fill="var(--gl-green)" opacity="0.18"/>
+                <circle cx="452" cy="182" r="7" fill="var(--gl-green)"/>
+                <text x="468" y="187" font-size="13" font-weight="600" fill="#3E4550">Dublin HQ · 1 mapped server</text>
+              </g>
+              <text x="870" y="326" font-size="10" fill="#8fa0a8" text-anchor="end">© OpenStreetMap contributors</text>
+            </svg>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- SECONDARY (64px from primary) -->
+      <aside class="rrail">
+        <div class="card">
+          <h3>Recommended actions</h3>
+          <div class="rec-item"><b>2026.09.00.00 (04 Sep 2026)</b> is available for <b>1</b> Gen11 server. <span class="tlink">Update firmware</span></div>
+          <div class="rec-item"><b>2026.09.00.00 (03 Sep 2026)</b> is available for <b>4</b> Gen10/+ servers. <span class="tlink">Update firmware</span></div>
+        </div>
+
+        <div class="card">
+          <h3>Sustainability insights</h3>
+          <div class="big-number-sub">Estimated carbon emissions</div>
+          <div style="display:flex; align-items:baseline; gap:10px; margin:6px 0 4px">
+            <span class="big-number" style="font-size:38px">1.95</span>
+            <span class="big-number-sub">kgCO2e</span>
+            <span class="pill red">↑ 25%</span>
+          </div>
+          <div class="fine">avg last 7 days · week over week</div>
+        </div>
+
+        <div class="card">
+          <h3>Data quality</h3>
+          <div class="fine" style="margin-bottom:10px"><b style="color:var(--gl-heading)">65 servers</b> report Unknown health and <b style="color:var(--gl-heading)">90</b> have no mapped location — connect and assign locations to make this page meaningful.</div>
+          <ul class="qa-list">
+            <li><a href="#">Connect servers →</a></li>
+            <li><a href="#">Assign locations →</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
