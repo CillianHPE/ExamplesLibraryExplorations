@@ -54,13 +54,33 @@
     <div class="page-grid">
       <div class="primary">
 
-        <!-- Queue KPI strip: each tile filters the table -->
-        <section>
-          <div class="tq-strip">
-            <button class="tq on" onclick="setQueueFilter(this)"><span class="num">91</span><span class="lbl">All open</span><span class="sub">Across 6 services</span></button>
-            <button class="tq" onclick="setQueueFilter(this)"><span class="num warn">23</span><span class="lbl">Awaiting customer</span><span class="sub">Needs DemoComp action</span></button>
-            <button class="tq" onclick="setQueueFilter(this)"><span class="num crit">7</span><span class="lbl">Severity 1–2</span><span class="sub">Response targets apply</span></button>
-            <button class="tq" onclick="setQueueFilter(this)"><span class="num warn">2</span><span class="lbl">Escalated</span><span class="sub">With HPE duty manager</span></button>
+        <!-- Queue insights strip -->
+        <section class="kpi-strip">
+          <div class="kpi-intro">
+            <div class="eyebrow">HPE GreenLake Intelligence</div>
+            <div class="title">Insights</div>
+            <span class="chip">✦ Ask about my cases</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Queue</div>
+            <div class="name">Open cases</div>
+            <div class="value-row"><span class="value">91</span><span class="delta down">↑ 12 WoW</span></div>
+            <div class="desc">23 await customer response, 19 of them on logs or approvals from DemoComp owners.</div>
+            <span class="glink">View awaiting customer →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Urgency</div>
+            <div class="name">Severity 1–2</div>
+            <div class="value-row"><span class="value">7</span><span class="delta neutral">2 escalated</span></div>
+            <div class="desc">Response targets apply. 2 cases are with the HPE duty manager.</div>
+            <span class="glink">View critical cases →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Flow</div>
+            <div class="name">Closed this week</div>
+            <div class="value-row"><span class="value">18</span><span class="delta up">↑ 4 WoW</span></div>
+            <div class="desc">14 opened in the same period. The queue is shrinking for the first time this month.</div>
+            <span class="glink">View case trends →</span>
           </div>
         </section>
 
@@ -222,19 +242,6 @@
     </div>
   </main>
 </div>
-
-<script>
-function setQueueFilter(el) {
-  document.querySelectorAll('.tq').forEach(t => t.classList.remove('on'));
-  el.classList.add('on');
-  const n = el.querySelector('.num').textContent;
-  const lbl = el.querySelector('.lbl').textContent.toLowerCase();
-  document.querySelector('.dv-count').textContent =
-    lbl === 'all open'
-      ? n + ' open cases · sorted by severity, then SLA target'
-      : n + ' cases · ' + lbl + ' · sorted by severity, then SLA target';
-}
-</script>
 
 </body>
 </html>
