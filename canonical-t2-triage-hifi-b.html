@@ -89,10 +89,13 @@
           <div class="dv-toolbar">
             <label class="dv-search"><span class="sic" data-i="search"></span><input type="text" placeholder="Search cases"></label>
             <button class="dv-icon" title="Filter"><span data-i="filter"></span></button>
+            <button class="dv-icon active" id="cv-btn-table" title="Table view" onclick="setCaseView('table')"><span data-i="table"></span></button>
+            <button class="dv-icon" id="cv-btn-list" title="List view" onclick="setCaseView('list')"><span data-i="list"></span></button>
             <div class="dv-spacer"></div>
             <button class="btn">Actions ▾</button>
           </div>
-          <div class="dv-count">91 open cases · sorted by severity, then SLA target</div>
+          <div class="dv-count">91 items</div>
+          <div id="cv-table">
           <table>
             <thead>
               <tr><th><span class="cb"></span></th><th>Case ID</th><th>Product</th><th>Severity</th><th>Status</th><th>Opened</th><th>Owner</th><th>Action</th></tr>
@@ -140,12 +143,58 @@
               </tr>
             </tbody>
           </table>
+          </div>
+          <div id="cv-list" style="display:none;">
+            <div class="list-item">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title"><span class="tlink">53694182</span> · Volume latency spike on Block-Resource-032</div><div class="li-sub">Sev 1 · Awaiting logs · Opened Sep 9, 2026 · Sophie Anderson</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Upload logs</button>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title"><span class="tlink">53692841</span> · Cluster nodes unreachable after firmware update</div><div class="li-sub">Sev 1 · Escalated · Opened Sep 8, 2026 · Mason Clark</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Join bridge</button>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title"><span class="tlink">53690377</span> · Access points dropping clients in Edge-North-Fleet</div><div class="li-sub">Sev 2 · Customer response · Opened Sep 7, 2026 · William Taylor</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Respond</button>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title"><span class="tlink">53688710</span> · Backup jobs failing overnight on Backup-Resource-041</div><div class="li-sub">Sev 2 · HPE investigating · Opened Sep 6, 2026 · Thomas Jackson</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">View</button>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title"><span class="tlink">53685299</span> · Maintenance window needed for P28948-B21</div><div class="li-sub">Sev 3 · Schedule needed · Opened Sep 4, 2026 · Ethan Brown</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Schedule</button>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53682745</span> · Config drift on Retail-Edge-UK controllers</div><div class="li-sub">Sev 3 · Fix provided · Opened Sep 3, 2026 · Riley Chen</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Validate</button>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53679126</span> · Reporting discrepancy in DSCC-Resource-051</div><div class="li-sub">Sev 4 · Customer response · Opened Aug 31, 2026 · Jamie Patel</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Assign</button>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53676804</span> · Intermittent path failover on Block-Resource-017</div><div class="li-sub">Sev 3 · HPE investigating · Opened Aug 29, 2026 · Olivia Martin</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">View</button>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53673392</span> · License count mismatch on P44231-B21</div><div class="li-sub">Sev 4 · Customer response · Opened Aug 27, 2026 · Lucas Weber</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Respond</button>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53670915</span> · Guest portal certificate expiring on Campus-West</div><div class="li-sub">Sev 4 · Fix provided · Opened Aug 24, 2026 · Ava Thompson</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Validate</button>
+            </div>
+          </div>
           <div class="pager">
-            <span class="pg-info">1–10 of 91 items</span>
+            <span class="pg-info">Showing 1–10 of 91 items</span>
+            <span class="pg-pp">Items per page <span class="sel">10 <span style="font-size:11px;">▾</span></span></span>
             <button class="pg-btn" disabled>‹</button>
             <button class="pg-btn on">1</button>
             <button class="pg-btn">2</button>
             <button class="pg-btn">3</button>
+            <button class="pg-btn">4</button>
+            <button class="pg-btn">5</button>
             <span class="pg-ellip">…</span>
             <button class="pg-btn">10</button>
             <button class="pg-btn">›</button>
@@ -242,6 +291,15 @@
     </div>
   </main>
 </div>
+
+<script>
+function setCaseView(v) {
+  document.getElementById('cv-table').style.display = v === 'table' ? '' : 'none';
+  document.getElementById('cv-list').style.display = v === 'list' ? '' : 'none';
+  document.getElementById('cv-btn-table').classList.toggle('active', v === 'table');
+  document.getElementById('cv-btn-list').classList.toggle('active', v === 'list');
+}
+</script>
 
 </body>
 </html>

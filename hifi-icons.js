@@ -28,6 +28,7 @@
     globe:     `<circle cx="12" cy="12" r="8.4"/><path d="M3.6 12h16.8M12 3.6c-2.4 2.2-3.6 5.1-3.6 8.4s1.2 6.2 3.6 8.4c2.4-2.2 3.6-5.1 3.6-8.4S14.4 5.8 12 3.6z"/>`,
     warning:   `<path d="M12 4.6L21 19.4H3L12 4.6z" fill="currentColor" stroke="none"/>`,
     table:     `<rect x="3.4" y="4.4" width="17.2" height="15.2" rx="2.6"/><path d="M3.4 9.6h17.2M9.6 9.6v10"/>`,
+    list:      `<path d="M4 6.2h2.4M4 12h2.4M4 17.8h2.4M10 6.2h10M10 12h10M10 17.8h10"/>`,
     chevron:   `<path d="M7 10l5 5 5-5"/>`,
   };
   function render() {
