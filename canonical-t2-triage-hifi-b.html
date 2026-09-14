@@ -161,21 +161,41 @@
       </div>
 
       <aside class="rrail">
+        <div class="rail-callout">
+          <div class="rc-head"><span class="wic" data-i="warning"></span>SLA breach in 42 min</div>
+          <div class="rc-sub">Sev 2 case 53690377 reaches its response target at 4:52 PM. Owner: William Taylor.</div>
+          <button class="btn toolbar">Open case</button>
+        </div>
         <div class="card">
-          <h3>SLA targets</h3>
-          <div class="kv"><span class="k">Sev 1 response</span><span class="v" style="color:var(--gl-green-deep)">14 min ✓</span></div>
-          <div class="kv"><span class="k">Sev 2 response</span><span class="v">1 hr 42 min</span></div>
-          <div class="kv"><span class="k">Next breach risk</span><span class="v" style="color:var(--red)">42 min</span></div>
-          <div class="kv"><span class="k">Escalated cases</span><span class="v">2</span></div>
+          <h3>SLA performance</h3>
+          <div class="mrow">
+            <div><div class="mk"><span class="dot-st ok"></span>Sev 1 first response</div><div class="ms">Target 15 min</div></div>
+            <div class="mv">14 min</div>
+          </div>
+          <div class="mrow">
+            <div><div class="mk"><span class="dot-st ok"></span>Sev 2 first response</div><div class="ms">Target 4 hr</div></div>
+            <div class="mv">1 hr 42 min</div>
+          </div>
+          <div class="mrow">
+            <div><div class="mk"><span class="dot-st warn"></span>Resolved within SLA</div><div class="ms">Target 95% · last 30 days</div></div>
+            <div class="mv">91%</div>
+          </div>
+          <div class="mrow">
+            <div><div class="mk"><span class="dot-st warn"></span>Escalated</div><div class="ms">With HPE duty manager</div></div>
+            <div class="mv">2 cases</div>
+          </div>
+          <div style="margin-top:12px;"><span class="glink">View SLA report →</span></div>
         </div>
         <div class="card">
           <h3>Entitlement status</h3>
           <div class="li-title" style="margin-bottom:2px;">Compute Ops Management</div>
-          <div class="fine">385 cluster nodes covered through Mar 2028</div>
+          <div class="fine">385 cluster nodes · Enhanced support</div>
           <div class="meter"><i style="width:94%"></i></div>
-          <div class="li-title" style="margin:14px 0 2px;">Aruba Central</div>
+          <div class="fine" style="margin-top:6px;">Covered through Mar 2028 · auto-renews</div>
+          <div class="li-title" style="margin:18px 0 2px;">Aruba Central</div>
           <div class="fine">542 edge and IoT devices · 24x7 access</div>
-          <div class="meter"><i class="warn" style="width:76%"></i></div>
+          <div class="meter"><i class="warn" style="width:18%"></i></div>
+          <div class="fine" style="margin-top:6px;">Expires Dec 2026 · renewal not confirmed</div>
           <div style="margin-top:14px;"><span class="glink">Review entitlements →</span></div>
         </div>
       </aside>
