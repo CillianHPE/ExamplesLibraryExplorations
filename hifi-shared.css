@@ -192,6 +192,24 @@ tr:hover td { background: #fafcfb; }
 .toolbar .spacer { margin-left: auto; }
 .count-note { font-size: 12.5px; color: var(--gl-ink-soft); margin-bottom: 8px; }
 
+/* data-view toolbar (search + filter + view controls + actions) */
+.dv-toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.dv-search { display: flex; align-items: center; gap: 8px; border: 1px solid var(--gl-ink-soft); border-radius: 6px;
+  padding: 9px 12px; width: 300px; color: var(--gl-ink-weak); font-size: 14px; background: #fff; }
+.dv-search .sic { line-height: 0; color: var(--gl-ink); }
+.dv-search .sic svg { width: 17px; height: 17px; }
+.dv-search input { border: 0; outline: 0; flex: 1; font-size: 14px; color: var(--gl-ink); background: transparent; min-width: 0; }
+.dv-select { display: flex; align-items: center; gap: 24px; border: 1px solid var(--gl-ink-soft); border-radius: 6px;
+  padding: 9px 14px; font-size: 14px; color: var(--gl-ink); background: #fff; cursor: pointer; }
+.dv-icon { width: 38px; height: 38px; border-radius: 6px; border: 1px solid transparent; background: transparent;
+  display: flex; align-items: center; justify-content: center; color: var(--gl-heading); cursor: pointer; line-height: 0; }
+.dv-icon svg { width: 19px; height: 19px; }
+.dv-icon:hover { background: rgba(0,0,0,0.04); }
+.dv-icon.active { background: #EDF6F2; border-color: var(--gl-green); color: var(--gl-green); }
+.dv-spacer { flex: 1; }
+.dv-count { font-size: 13.5px; color: var(--gl-ink); margin-bottom: 12px; }
+.chip-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+
 /* ---------- Secondary rail ---------- */
 .rrail { display: flex; flex-direction: column; gap: var(--gap-section); min-width: 0; }
 .rrail .card { padding: 20px; }

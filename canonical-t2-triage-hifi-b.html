@@ -67,17 +67,19 @@
 
         <!-- Filter bar + queue -->
         <section>
-          <div class="toolbar">
-            <div class="search-sm"><span class="sic" data-i="search"></span>Search cases</div>
+          <div class="dv-toolbar">
+            <label class="dv-search"><span class="sic" data-i="search"></span><input type="text" placeholder="Search cases"></label>
+            <button class="dv-icon" title="Filter"><span data-i="filter"></span></button>
+            <div class="dv-spacer"></div>
+            <button class="btn">Actions ▾</button>
+          </div>
+          <div class="chip-row">
             <span class="fchip on">All open (11)</span>
             <span class="fchip">Sev 1–2 (4)</span>
             <span class="fchip">Awaiting customer (7)</span>
             <span class="fchip">Escalated (2)</span>
-            <span class="fchip">Filters ▾</span>
-            <span class="spacer"></span>
-            <span class="fchip">Bulk actions ▾</span>
           </div>
-          <div class="count-note">11 open cases · sorted by severity, then SLA target</div>
+          <div class="dv-count">11 open cases · sorted by severity, then SLA target</div>
           <table>
             <thead>
               <tr><th><span class="cb"></span></th><th>Case ID</th><th>Product</th><th>Severity</th><th>Status</th><th>Opened</th><th>Owner</th><th>Action</th></tr>
