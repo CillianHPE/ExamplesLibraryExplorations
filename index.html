@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard archetypes · Examples library</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 48px 40px 96px; }
+  .wrap h1 { margin-bottom: 8px; }
+  .intro { font-size: 15px; color: var(--gl-ink-soft); max-width: 640px; line-height: 1.6; margin-bottom: 40px; }
+  .arch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 1100px) { .arch-grid { grid-template-columns: repeat(2, 1fr); } }
+  .arch-card { background: var(--contained); border-radius: var(--radius); padding: 24px;
+    display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: inherit; }
+  .arch-card:hover { background: #F0F1F2; }
+  .arch-card .tag { font-size: 11.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    color: var(--gl-ink-weak); }
+  .arch-card h2 { font-size: 19px; font-weight: 700; color: var(--gl-heading); }
+  .arch-card p { font-size: 13.5px; color: var(--gl-ink-soft); line-height: 1.55; flex: 1; }
+  .arch-card .open { font-size: 13.5px; font-weight: 600; color: var(--gl-green-dark); text-decoration: underline; }
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 14px; }
+  .ex-list a { display: block; font-size: 14px; color: var(--gl-green-dark); text-decoration: underline; padding: 6px 0; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
+  <div class="workspace">Examples library</div>
+</header>
+
+<div class="wrap">
+  <h1>Dashboard archetypes</h1>
+  <p class="intro">Five canonical page types for the GreenLake dashboard system. Open an archetype to see its
+    low-fidelity spec and high-fidelity build side by side, and toggle between them.</p>
+
+  <div class="arch-grid">
+    <a class="arch-card" href="viewer.html?t=t1">
+      <span class="tag">T1</span>
+      <h2>Overview</h2>
+      <p>Answer "Is anything wrong? How are we trending? What next?" in under 5 seconds. Every module is a summary plus one link deeper.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="viewer.html?t=t2">
+      <span class="tag">T2</span>
+      <h2>Triage / Work queue</h2>
+      <p>Get a queue of items to zero. The table is the page: full width, uncontained, everything else supports it.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="viewer.html?t=t3">
+      <span class="tag">T3</span>
+      <h2>Analytics / Report</h2>
+      <p>Answer "how are we trending, and why?" One question per page, told top-down, no secondary rail.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="viewer.html?t=t4">
+      <span class="tag">T4</span>
+      <h2>Object detail</h2>
+      <p>Everything about one thing: vitals up top, one chart or timeline, immutable key facts in the rail.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="viewer.html?t=t5">
+      <span class="tag">T5</span>
+      <h2>Custom board</h2>
+      <p>The user's own cockpit. Contained, movable widgets in fixed sizes, each mapping to a canonical source page.</p>
+      <span class="open">Open archetype</span>
+    </a>
+  </div>
+
+  <div class="sec-h">Applied exercises</div>
+  <div class="ex-list">
+    <a href="com-overview-remap-hifi.html">COM Overview remap · A (attention cards)</a>
+    <a href="com-overview-remap-hifi-b.html">COM Overview remap · B (ranked list)</a>
+    <a href="dashboard-lofi.html">Original dashboard lo-fi exploration</a>
+  </div>
+</div>
+
+</body>
+</html>
