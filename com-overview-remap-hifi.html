@@ -17,19 +17,23 @@
   .mini-legend .dot { width: 9px; height: 9px; }
 
   /* needs attention: hero card + compact cards (1 + 4) */
-  .att-hero { background: var(--contained); border-radius: var(--radius); padding: 20px 24px;
+  .att-hero { background: #FBF3DE; border-radius: var(--radius); padding: 20px 24px;
     display: flex; align-items: center; gap: 20px; margin-bottom: var(--gap-container); }
   .att-hero .n { font-size: 40px; font-weight: 700; letter-spacing: -0.5px; color: var(--gl-heading); flex: none; }
   .att-hero .what { flex: 1; min-width: 0; }
   .att-hero .what .t { font-size: 16px; font-weight: 600; color: var(--gl-heading); }
-  .att-hero .what .s { font-size: 13px; color: var(--gl-ink-soft); margin-top: 2px; }
+  .att-hero .what .s { font-size: 13px; color: var(--gl-ink); margin-top: 2px; line-height: 1.5; }
   .att-hero .go { flex: none; }
+  .att-hero .flag { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700;
+    letter-spacing: 0.4px; text-transform: uppercase; color: var(--amber); margin-bottom: 4px; }
+  .att-hero .flag svg { width: 13px; height: 13px; }
   .att-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap-container); }
   @media (max-width: 1400px) { .att-grid { grid-template-columns: repeat(2, 1fr); } }
   .att-card { background: var(--contained); border-radius: var(--radius); padding: 16px 20px;
     display: flex; flex-direction: column; gap: 2px; }
   .att-card .n { font-size: 28px; font-weight: 700; color: var(--gl-heading); }
   .att-card .t { font-size: 14px; font-weight: 600; color: var(--gl-heading); }
+  .att-card .s { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 3px; line-height: 1.45; flex: 1; }
   .att-card .go { margin-top: 10px; }
   .att-card .go .btn.toolbar { padding-left: 0; }
 
@@ -210,8 +214,9 @@
           <div class="att-hero">
             <div class="n">29</div>
             <div class="what">
+              <div class="flag"><span data-i="warning"></span>Highest impact</div>
               <div class="t">Expired support</div>
-              <div class="s">Auto support case creation is disabled for these servers.</div>
+              <div class="s">29 servers have no active support contract: hardware faults won't open HPE cases automatically, and firmware access is limited. Renew or update contracts to restore coverage.</div>
             </div>
             <div class="go"><button class="btn primary">Review</button></div>
           </div>
@@ -219,21 +224,25 @@
             <div class="att-card">
               <div class="n">12</div>
               <div class="t">Not connected</div>
+              <div class="s">Added but not yet sending data. Connect iLO to see health, security and firmware.</div>
               <div class="go"><button class="btn toolbar">Connect →</button></div>
             </div>
             <div class="att-card">
               <div class="n">12</div>
               <div class="t">Not activated</div>
+              <div class="s">Onboarding incomplete. Finish activation so these servers can be managed.</div>
               <div class="go"><button class="btn toolbar">Activate →</button></div>
             </div>
             <div class="att-card">
               <div class="n">12</div>
               <div class="t">Subscription required</div>
+              <div class="s">No COM subscription assigned. Management features are paused until one is applied.</div>
               <div class="go"><button class="btn toolbar">Assign →</button></div>
             </div>
             <div class="att-card">
               <div class="n">8</div>
               <div class="t">Active alerts</div>
+              <div class="s">Hardware or management alerts awaiting triage, including 3 on critical servers.</div>
               <div class="go"><button class="btn toolbar">Triage →</button></div>
             </div>
           </div>
