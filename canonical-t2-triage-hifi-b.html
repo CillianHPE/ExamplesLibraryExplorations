@@ -54,14 +54,13 @@
     <div class="page-grid">
       <div class="primary">
 
-        <!-- Attention banner -->
+        <!-- Queue KPI strip: each tile filters the table -->
         <section>
-          <div class="attn">
-            <div>
-              <div class="txt"><span class="n">23 cases</span> await customer response</div>
-              <div class="sub">4 severity 1 or 2 cases · 19 waiting on logs, approvals, or maintenance confirmation from DemoComp owners</div>
-            </div>
-            <button class="btn primary">Respond</button>
+          <div class="tq-strip">
+            <button class="tq on" onclick="setQueueFilter(this)"><span class="num">91</span><span class="lbl">All open</span><span class="sub">Across 6 services</span></button>
+            <button class="tq" onclick="setQueueFilter(this)"><span class="num warn">23</span><span class="lbl">Awaiting customer</span><span class="sub">Needs DemoComp action</span></button>
+            <button class="tq" onclick="setQueueFilter(this)"><span class="num crit">7</span><span class="lbl">Severity 1–2</span><span class="sub">Response targets apply</span></button>
+            <button class="tq" onclick="setQueueFilter(this)"><span class="num warn">2</span><span class="lbl">Escalated</span><span class="sub">With HPE duty manager</span></button>
           </div>
         </section>
 
@@ -72,12 +71,6 @@
             <button class="dv-icon" title="Filter"><span data-i="filter"></span></button>
             <div class="dv-spacer"></div>
             <button class="btn">Actions ▾</button>
-          </div>
-          <div class="chip-row">
-            <span class="fchip on">All open (91)</span>
-            <span class="fchip">Sev 1–2 (7)</span>
-            <span class="fchip">Awaiting customer (23)</span>
-            <span class="fchip">Escalated (2)</span>
           </div>
           <div class="dv-count">91 open cases · sorted by severity, then SLA target</div>
           <table>
@@ -229,6 +222,19 @@
     </div>
   </main>
 </div>
+
+<script>
+function setQueueFilter(el) {
+  document.querySelectorAll('.tq').forEach(t => t.classList.remove('on'));
+  el.classList.add('on');
+  const n = el.querySelector('.num').textContent;
+  const lbl = el.querySelector('.lbl').textContent.toLowerCase();
+  document.querySelector('.dv-count').textContent =
+    lbl === 'all open'
+      ? n + ' open cases · sorted by severity, then SLA target'
+      : n + ' cases · ' + lbl + ' · sorted by severity, then SLA target';
+}
+</script>
 
 </body>
 </html>
