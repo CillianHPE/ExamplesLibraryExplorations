@@ -205,7 +205,7 @@
         <section class="grid-3">
           <div class="card">
             <div class="card-head"><h2 style="font-size:16px;">Opened vs closed · 30 days</h2></div>
-            <div style="display:flex; gap:28px; margin-bottom:8px;">
+            <div style="display:flex; align-items:flex-start; gap:28px; margin-bottom:12px;">
               <div>
                 <span style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--gl-ink-soft);"><span class="sw" style="background:var(--c-blue)"></span>Opened</span>
                 <div style="font-size:22px; font-weight:700; color:var(--gl-heading); margin-top:2px;">65</div>
@@ -214,14 +214,22 @@
                 <span style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--gl-ink-soft);"><span class="sw" style="background:var(--gl-green)"></span>Closed</span>
                 <div style="font-size:22px; font-weight:700; color:var(--gl-heading); margin-top:2px;">72</div>
               </div>
+              <div>
+                <span style="font-size:12.5px; color:var(--gl-ink-soft);">Net</span>
+                <div style="margin-top:5px;"><span class="delta up">↓ 7 open</span></div>
+              </div>
             </div>
             <div class="chart-wrap">
-              <svg viewBox="0 0 220 70">
-                <polyline points="0,48 31,42 62,46 93,32 124,36 155,26 186,30 220,24" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
-                <polyline points="0,55 31,50 62,43 93,44 124,38 155,34 186,31 220,28" fill="none" stroke="var(--gl-green)" stroke-width="2.5" stroke-linecap="round"/>
+              <svg viewBox="0 0 220 84">
+                <path d="M0 14h220M0 42h220M0 70h220" stroke="var(--contained-line)" stroke-width="1"/>
+                <polyline points="0,30 31,34 62,28 93,38 124,36 155,44 186,42 214,46" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+                <polyline points="0,54 31,50 62,52 93,44 124,38 155,32 186,28 214,22" fill="none" stroke="var(--gl-green)" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="214" cy="46" r="3.5" fill="var(--c-blue)"/>
+                <circle cx="214" cy="22" r="3.5" fill="var(--gl-green)"/>
               </svg>
             </div>
-            <div class="fine" style="margin-top:8px;">7 more closed than opened. First net reduction in 4 weeks.</div>
+            <div style="display:flex; justify-content:space-between; margin-top:4px;" class="fine"><span>Aug 16</span><span>Today</span></div>
+            <div class="fine" style="margin-top:10px;">Closures are outpacing new cases for the first time in 4 weeks.</div>
           </div>
           <div class="card">
             <div class="card-head"><h2 style="font-size:16px;">Open cases by service</h2></div>
