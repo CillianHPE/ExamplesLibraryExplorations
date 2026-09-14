@@ -13,3 +13,6 @@
 - One action, one home per view: never duplicate a CTA between the primary area and the rail.
 - Status ordering: critical → warning → ok → unknown.
 - Max one `.btn.primary` per view.
+
+## Colour rules
+- **Never use colour in typography.** All text renders in the ink palette (`--gl-heading`, `--gl-ink`, `--gl-ink-soft`); this includes status words ("Expires soon"), severity labels, metric values, and up/down deltas. Semantic colour is carried only by tinted pill/badge backgrounds, status dots, meter fills, chart marks, and icons. Green anchor links are the one exception.

@@ -121,9 +121,9 @@ h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.3px; }
 .kpi .value { font-size: 32px; font-weight: 700; letter-spacing: -0.5px; }
 .kpi .desc { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-bottom: 10px; }
 .delta { font-size: 12px; font-weight: 600; border-radius: 12px; padding: 3px 9px; }
-.delta.up { background: var(--mint-bg); color: var(--gl-green-deep); }
-.delta.down { background: var(--red-bg); color: var(--red); }
-.delta.neutral { background: var(--grey-bg); color: var(--gl-ink-soft); }
+.delta.up { background: var(--mint-bg); color: var(--gl-ink); }
+.delta.down { background: var(--red-bg); color: var(--gl-ink); }
+.delta.neutral { background: var(--grey-bg); color: var(--gl-ink); }
 .glink { font-size: 13.5px; font-weight: 700; color: var(--gl-green-dark); text-decoration: underline; cursor: pointer; }
 .chip { display: inline-flex; align-items: center; gap: 6px; background: var(--contained); border-radius: 16px;
   padding: 6px 14px; font-size: 12.5px; font-weight: 600; color: var(--gl-ink); cursor: pointer; border: 1px solid var(--contained-line); }
@@ -154,11 +154,11 @@ h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.3px; }
 
 /* status pills */
 .pill { display: inline-block; border-radius: 12px; padding: 3px 11px; font-size: 12px; font-weight: 600; }
-.pill.red { background: var(--red-bg); color: var(--red); }
-.pill.amber { background: var(--amber-bg); color: var(--amber); }
-.pill.green { background: var(--ok-bg); color: var(--ok); }
-.pill.grey { background: var(--unknown-bg); color: var(--unknown); }
-.pill.blue { background: var(--info-bg); color: var(--info); }
+.pill.red { background: var(--red-bg); color: var(--gl-ink); }
+.pill.amber { background: var(--amber-bg); color: var(--gl-ink); }
+.pill.green { background: var(--ok-bg); color: var(--gl-ink); }
+.pill.grey { background: var(--unknown-bg); color: var(--gl-ink); }
+.pill.blue { background: var(--info-bg); color: var(--gl-ink); }
 
 /* stacked bar + legend */
 .big-number { font-size: 46px; font-weight: 700; letter-spacing: -1px; }
@@ -249,8 +249,6 @@ tr:hover td { background: #fafcfb; }
 .tq:hover { border-color: var(--gl-ink-faint); }
 .tq.on { border-color: var(--gl-green); background: #EDF6F2; }
 .tq .num { display: block; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; color: var(--gl-heading); }
-.tq .num.warn { color: var(--amber); }
-.tq .num.crit { color: var(--red); }
 .tq .lbl { display: block; font-size: 13.5px; font-weight: 600; color: var(--gl-ink); margin-top: 2px; }
 .tq .sub { display: block; font-size: 12px; color: var(--gl-ink-soft); margin-top: 2px; }
 .status-banner { background: var(--mint-bg); border-radius: 8px; padding: 12px 14px; font-size: 14px; font-weight: 700;
@@ -293,7 +291,7 @@ tr:hover td { background: #fafcfb; }
   background: var(--contained); border-radius: var(--radius); padding: 18px 24px; }
 .attn .txt { font-size: 16px; font-weight: 700; }
 .attn .sub { font-size: 13px; color: var(--gl-ink-soft); font-weight: 400; margin-top: 3px; }
-.attn .n { color: var(--red); }
+.attn .n { color: var(--gl-heading); }
 
 /* ---------- Object header (T4) ---------- */
 .crumb { font-size: 13px; color: var(--gl-ink-soft); margin-bottom: 10px; }
