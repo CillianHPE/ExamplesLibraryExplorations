@@ -95,13 +95,13 @@
           </div>
           <div class="dv-toolbar">
             <label class="dv-search"><span class="sic" data-i="search"></span><input type="text" placeholder="Search cases"></label>
-            <button class="dv-icon active" id="cv-btn-table" title="Table view" onclick="setCaseView('table')"><span data-i="table"></span></button>
-            <button class="dv-icon" id="cv-btn-list" title="List view" onclick="setCaseView('list')"><span data-i="list"></span></button>
+            <button class="dv-icon" id="cv-btn-table" title="Table view" onclick="setCaseView('table')"><span data-i="table"></span></button>
+            <button class="dv-icon active" id="cv-btn-list" title="List view" onclick="setCaseView('list')"><span data-i="list"></span></button>
             <div class="dv-spacer"></div>
             <button class="btn">Actions ▾</button>
           </div>
           <div class="dv-count">91 items</div>
-          <div id="cv-table">
+          <div id="cv-table" style="display:none;">
           <table>
             <thead>
               <tr><th><span class="cb"></span></th><th>Case ID</th><th>Product</th><th>Severity</th><th>Status</th><th>Opened</th><th>Owner</th><th>Action</th></tr>
@@ -150,7 +150,7 @@
             </tbody>
           </table>
           </div>
-          <div id="cv-list" style="display:none;">
+          <div id="cv-list">
             <div class="list-item" data-q="customer">
               <div class="li-main"><div class="sev crit"></div><div><div class="li-title"><span class="tlink">53694182</span> · Volume latency spike on Block-Resource-032</div><div class="li-sub">Sev 1 · Awaiting logs · Opened Sep 9, 2026 · Sophie Anderson</div></div></div>
               <button class="btn toolbar" style="font-size:12px;">Upload logs</button>
