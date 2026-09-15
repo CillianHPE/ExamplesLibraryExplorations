@@ -410,5 +410,50 @@
   </div>
 
 </div>
+
+<h2 style="font-size:17px; color:var(--gl-heading); margin:64px 0 8px;">G · Industry pattern: area fill + previous period</h2>
+<p style="font-size:14px; color:var(--gl-ink); margin:0 0 32px; max-width:640px;">The convention used by Cloudflare, Vercel, and similar analytics cards: one solid metric line with a gradient area fill (height reads as magnitude), the comparison as a dotted grey previous-period line, and the current value labelled at the endpoint.</p>
+<div class="opts">
+  <div>
+    <div class="opt-label">G · Open cases, area + prior period</div>
+    <div class="opt-note">Plots the backlog itself. The fill anchors the line to zero-context; dotted grey = same metric 30 days earlier, so "we're below where we were" is one glance.</div>
+    <div class="card">
+      <div style="margin-bottom:14px;">
+        <h2 style="font-size:16px; margin:0;">Open cases</h2>
+        <div class="fine" style="margin-top:3px;">Last 30 days vs prior 30</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+        <div class="stat-num" style="font-size:30px;">91</div>
+        <span class="delta up" style="white-space:nowrap;">↓ 7 vs prior period</span>
+      </div>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 220 80">
+          <defs>
+            <linearGradient id="fillblue" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
+              <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 30 C 30 34, 55 26, 85 30 S 140 22, 170 28 S 195 34, 212 30" fill="none" stroke="var(--gl-ink-soft)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.6"/>
+          <path d="M0 22 C 25 20, 45 26, 70 24 S 115 32, 140 38 S 185 52, 210 56 L 210 78 L 0 78 Z" fill="url(#fillblue)"/>
+          <path d="M0 22 C 25 20, 45 26, 70 24 S 115 32, 140 38 S 185 52, 210 56" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="210" cy="56" r="3.5" fill="var(--c-blue)"/>
+          <text x="202" y="48" font-size="10.5" font-weight="600" fill="var(--gl-ink)" text-anchor="end">91</text>
+        </svg>
+      </div>
+      <div class="axis-row fine"><span>Aug 16</span><span style="font-weight:600; color:var(--gl-ink);">Today</span></div>
+      <div style="margin-top:12px; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="width:16px; height:3px; border-radius:2px; background:var(--c-blue);"></span>
+          <span style="font-size:12.5px; color:var(--gl-ink);">This period</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="width:16px; border-top:2px dashed var(--gl-ink-soft);"></span>
+          <span style="font-size:12.5px; color:var(--gl-ink);">Prior 30 days</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
