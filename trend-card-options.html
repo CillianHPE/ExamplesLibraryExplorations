@@ -132,5 +132,42 @@
   </div>
 
 </div>
+
+<!-- Option 4: recommended redesign -->
+<div style="margin-top:64px; max-width:420px;">
+  <div class="opt-label">4 · Recommended: verdict first</div>
+  <div class="opt-note" style="min-height:0; max-width:420px;">Verdict pill anchored top-right of the head so it never fights the number baselines. Two equal stat columns, swatches on the labels (the stats are the legend). One line per series, endpoint dots, no dashed averages. Takeaway gets a full-width row so it can wrap without pushing anything.</div>
+  <div class="card">
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:18px;">
+      <div>
+        <h2 style="font-size:16px; margin:0;">Case flow</h2>
+        <div class="fine" style="margin-top:3px;">Last 30 days</div>
+      </div>
+      <span class="delta up" style="white-space:nowrap; flex-shrink:0;">↓ Backlog down 7</span>
+    </div>
+    <div style="display:flex; align-items:stretch; gap:24px; margin-bottom:16px;">
+      <div style="flex:1;">
+        <div class="stat-num">65</div>
+        <div class="stat-lbl" style="display:inline-flex; align-items:center; gap:6px;"><span class="sw" style="background:var(--c-blue)"></span>Opened</div>
+      </div>
+      <div class="stat-div"></div>
+      <div style="flex:1;">
+        <div class="stat-num">72</div>
+        <div class="stat-lbl" style="display:inline-flex; align-items:center; gap:6px;"><span class="sw" style="background:var(--gl-green)"></span>Closed</div>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <svg viewBox="0 0 220 74">
+        <path d="M0 37h220" stroke="var(--contained-line)" stroke-width="1"/>
+        <path d="M0 14 C 40 16, 70 22, 105 27 S 175 34, 214 32" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M0 48 C 45 49, 90 51, 130 55 S 175 66, 214 57" fill="none" stroke="var(--gl-green)" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="214" cy="32" r="3.5" fill="var(--c-blue)"/>
+        <circle cx="214" cy="57" r="3.5" fill="var(--gl-green)"/>
+      </svg>
+    </div>
+    <div class="axis-row fine"><span>Aug 16</span><span style="font-weight:600; color:var(--gl-ink);">Today</span></div>
+    <div class="fine" style="margin-top:12px; line-height:1.5;">Closed cases outpaced new ones for the first time in 4 weeks.</div>
+  </div>
+</div>
 </body>
 </html>
