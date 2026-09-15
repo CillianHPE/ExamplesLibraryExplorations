@@ -232,24 +232,31 @@
             <div class="fine" style="margin-top:12px; line-height:1.5;">65 opened, 72 closed. Backlog fell for the first time in 4 weeks.</div>
           </div>
           <div class="card">
-            <div class="card-head"><h2 style="font-size:16px;">Open cases by service</h2></div>
-            <div class="fine" style="margin-bottom:14px;">91 open across 6 services</div>
+            <div style="margin-bottom:14px;">
+              <h2 style="font-size:16px; margin:0;">Open cases by service</h2>
+              <div class="fine" style="margin-top:3px;">6 services · last 30 days</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+              <div style="font-size:30px; font-weight:700; color:var(--gl-heading); line-height:1.1;">91</div>
+              <span class="delta down" style="white-space:nowrap;">↑ COM up 6 vs prior period</span>
+            </div>
             <div class="bar-group">
-              <div class="stack-bar"><span style="flex:34; background:var(--c-purple)"></span><span style="flex:57; background:var(--grey-bg)"></span></div>
+              <div class="stack-bar"><span style="flex:34; background:var(--c-purple)"></span><span style="flex:0; background:transparent"></span></div>
               <div class="bar-label"><span>Compute Ops Management</span><span class="pct">34 · 37%</span></div>
             </div>
             <div class="bar-group">
-              <div class="stack-bar"><span style="flex:21; background:var(--c-purple)"></span><span style="flex:70; background:var(--grey-bg)"></span></div>
+              <div class="stack-bar"><span style="flex:21; background:var(--c-purple)"></span><span style="flex:13; background:transparent"></span></div>
               <div class="bar-label"><span>Block Storage</span><span class="pct">21 · 23%</span></div>
             </div>
             <div class="bar-group">
-              <div class="stack-bar"><span style="flex:18; background:var(--c-purple)"></span><span style="flex:73; background:var(--grey-bg)"></span></div>
+              <div class="stack-bar"><span style="flex:18; background:var(--c-purple)"></span><span style="flex:16; background:transparent"></span></div>
               <div class="bar-label"><span>Aruba Central</span><span class="pct">18 · 20%</span></div>
             </div>
             <div class="bar-group">
-              <div class="stack-bar"><span style="flex:18; background:var(--c-purple)"></span><span style="flex:73; background:var(--grey-bg)"></span></div>
+              <div class="stack-bar"><span style="flex:18; background:var(--c-purple)"></span><span style="flex:16; background:transparent"></span></div>
               <div class="bar-label"><span>3 other services</span><span class="pct">18 · 20%</span></div>
             </div>
+            <div class="fine" style="margin-top:12px; line-height:1.5;">COM holds over a third of the queue and is the only service trending up.</div>
           </div>
           <div class="card">
             <div class="card-head"><h2 style="font-size:16px;">Aging buckets</h2></div>
