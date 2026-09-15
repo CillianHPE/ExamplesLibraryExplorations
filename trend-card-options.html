@@ -292,5 +292,123 @@
   </div>
 
 </div>
+
+<h2 style="font-size:17px; color:var(--gl-heading); margin:64px 0 8px;">Single-hue treatments</h2>
+<p style="font-size:14px; color:var(--gl-ink); margin:0 0 32px; max-width:640px;">One hue, two weights: solid blue for the focus series, a translucent tint of the same blue for the comparison. Reads as two facets of one subject rather than two competing categories.</p>
+<div class="opts">
+
+  <!-- D: mono paired columns -->
+  <div>
+    <div class="opt-label">D · Paired columns, solid + tint</div>
+    <div class="opt-note">Closed is the focus (solid); opened is context (30% tint). The eye tracks the solid series first, which is the one the verdict is about.</div>
+    <div class="card">
+      <div style="margin-bottom:14px;">
+        <h2 style="font-size:16px; margin:0;">Case flow</h2>
+        <div class="fine" style="margin-top:3px;">Last 30 days · weekly</div>
+      </div>
+      <div style="display:flex; align-items:stretch; gap:24px; margin-bottom:12px;">
+        <div>
+          <div class="stat-num">65</div>
+          <div class="stat-lbl" style="display:inline-flex; align-items:center; gap:6px;"><span class="sw" style="background:var(--c-blue); opacity:0.3;"></span>Opened</div>
+        </div>
+        <div class="stat-div"></div>
+        <div>
+          <div class="stat-num">72</div>
+          <div class="stat-lbl" style="display:inline-flex; align-items:center; gap:6px;"><span class="sw" style="background:var(--c-blue)"></span>Closed</div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;"><span class="delta up" style="white-space:nowrap;">↓ Backlog down 7</span></div>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 220 78">
+          <rect x="8"   y="24.4" width="16" height="39.6" rx="2" fill="var(--c-blue)" opacity="0.3"/>
+          <rect x="28"  y="33.2" width="16" height="30.8" rx="2" fill="var(--c-blue)"/>
+          <rect x="64"  y="26.6" width="16" height="37.4" rx="2" fill="var(--c-blue)" opacity="0.3"/>
+          <rect x="84"  y="28.8" width="16" height="35.2" rx="2" fill="var(--c-blue)"/>
+          <rect x="120" y="28.8" width="16" height="35.2" rx="2" fill="var(--c-blue)" opacity="0.3"/>
+          <rect x="140" y="22.2" width="16" height="41.8" rx="2" fill="var(--c-blue)"/>
+          <rect x="176" y="33.2" width="16" height="30.8" rx="2" fill="var(--c-blue)" opacity="0.3"/>
+          <rect x="196" y="13.4" width="16" height="50.6" rx="2" fill="var(--c-blue)"/>
+          <path d="M4 64h212" stroke="var(--contained-line)" stroke-width="1"/>
+          <text x="16" y="76" font-size="9.5" fill="var(--gl-ink-soft)" text-anchor="middle">W1</text>
+          <text x="72" y="76" font-size="9.5" fill="var(--gl-ink-soft)" text-anchor="middle">W2</text>
+          <text x="128" y="76" font-size="9.5" fill="var(--gl-ink-soft)" text-anchor="middle">W3</text>
+          <text x="184" y="76" font-size="9.5" fill="var(--gl-ink-soft)" text-anchor="middle">W4</text>
+        </svg>
+      </div>
+      <div class="fine" style="margin-top:12px; line-height:1.5;">Closures overtook new cases in week 3 and pulled ahead in week 4.</div>
+    </div>
+  </div>
+
+  <!-- E: mono lines -->
+  <div>
+    <div class="opt-label">E · Lines, solid + tint</div>
+    <div class="opt-note">Same two rate-lines as before but one hue: solid closed line in front, 35% opened line behind. Less colour noise; the crossing still reads.</div>
+    <div class="card">
+      <div style="margin-bottom:14px;">
+        <h2 style="font-size:16px; margin:0;">Case flow</h2>
+        <div class="fine" style="margin-top:3px;">Last 30 days</div>
+      </div>
+      <div style="display:flex; align-items:stretch; gap:24px; margin-bottom:12px;">
+        <div>
+          <div class="stat-num">65</div>
+          <div class="stat-lbl" style="display:inline-flex; align-items:center; gap:6px;"><span class="sw" style="background:var(--c-blue); opacity:0.35;"></span>Opened</div>
+        </div>
+        <div class="stat-div"></div>
+        <div>
+          <div class="stat-num">72</div>
+          <div class="stat-lbl" style="display:inline-flex; align-items:center; gap:6px;"><span class="sw" style="background:var(--c-blue)"></span>Closed</div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;"><span class="delta up" style="white-space:nowrap;">↓ Backlog down 7</span></div>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 220 74">
+          <path d="M0 37h220" stroke="var(--contained-line)" stroke-width="1"/>
+          <path d="M0 14 C 40 16, 70 22, 105 27 S 175 34, 214 32" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round" opacity="0.35"/>
+          <path d="M0 48 C 45 49, 90 51, 130 55 S 175 66, 214 57" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="214" cy="32" r="3.5" fill="var(--c-blue)" opacity="0.35"/>
+          <circle cx="214" cy="57" r="3.5" fill="var(--c-blue)"/>
+        </svg>
+      </div>
+      <div class="axis-row fine"><span>Aug 16</span><span style="font-weight:600; color:var(--gl-ink);">Today</span></div>
+      <div class="fine" style="margin-top:12px; line-height:1.5;">Closed cases outpaced new ones for the first time in 4 weeks.</div>
+    </div>
+  </div>
+
+  <!-- F: backlog line + neutral trend -->
+  <div>
+    <div class="opt-label">F · Backlog line, neutral reference</div>
+    <div class="opt-note">One solid blue data line; the reference (start level) is a neutral grey dash, so colour only ever means "data". Nothing competes with the line.</div>
+    <div class="card">
+      <div style="margin-bottom:14px;">
+        <h2 style="font-size:16px; margin:0;">Open case backlog</h2>
+        <div class="fine" style="margin-top:3px;">Last 30 days</div>
+      </div>
+      <div style="display:flex; align-items:stretch; gap:24px; margin-bottom:12px;">
+        <div>
+          <div class="stat-num">91</div>
+          <div class="stat-lbl">Open today</div>
+        </div>
+        <div class="stat-div"></div>
+        <div>
+          <div class="stat-num">98</div>
+          <div class="stat-lbl">30 days ago</div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;"><span class="delta up" style="white-space:nowrap;">↓ Backlog down 7</span></div>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 220 74">
+          <path d="M0 18h220" stroke="var(--gl-ink-soft)" stroke-width="1" stroke-dasharray="4 4" opacity="0.5"/>
+          <path d="M0 18 C 25 16, 45 22, 70 20 S 115 28, 140 34 S 185 48, 210 52" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="210" cy="52" r="3.5" fill="var(--c-blue)"/>
+          <text x="4" y="12" font-size="10" fill="var(--gl-ink-soft)">98</text>
+          <text x="202" y="68" font-size="10" font-weight="600" fill="var(--gl-ink)">91</text>
+        </svg>
+      </div>
+      <div class="axis-row fine"><span>Aug 16</span><span style="font-weight:600; color:var(--gl-ink);">Today</span></div>
+      <div class="fine" style="margin-top:12px; line-height:1.5;">Backlog held near 98 for two weeks, then fell steadily to 91.</div>
+    </div>
+  </div>
+
+</div>
 </body>
 </html>
