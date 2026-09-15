@@ -16,3 +16,6 @@
 
 ## Colour rules
 - **Never use colour in typography.** All text renders in the ink palette (`--gl-heading`, `--gl-ink`, `--gl-ink-soft`); this includes status words ("Expires soon"), severity labels, metric values, and up/down deltas. Semantic colour is carried only by tinted pill/badge backgrounds, status dots, meter fills, chart marks, and icons. Green anchor links are the one exception.
+
+## Workflow rules
+- **Auto-refresh the preview after every change.** Once an edit to a page is made and committed, verify the server responds (curl the page; restart `python3 -m http.server 8642` detached if it returns 000), then re-open the browser canvas (instanceId `com-remap`) pointing at the edited page so the user always sees the latest state without asking.
