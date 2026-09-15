@@ -224,9 +224,9 @@ tr:hover td { background: #fafcfb; }
 /* smart-view selector (segmented button group) */
 .qtabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
 .qtab { appearance: none; background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 8px 14px;
-  font-size: 13.5px; font-weight: 600; color: var(--gl-ink); cursor: pointer; font-family: inherit; }
-.qtab .qn { margin-left: 6px; font-weight: 600; color: var(--gl-ink-soft); font-variant-numeric: tabular-nums; }
-.qtab.on { background: #EDF6F2; border-color: var(--gl-green); color: var(--gl-heading); box-shadow: inset 0 0 0 1px var(--gl-green); }
+  font-size: 13.5px; font-weight: 500; color: var(--gl-ink); cursor: pointer; font-family: inherit; }
+.qtab .qn { margin-left: 7px; font-weight: 700; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+.qtab.on { background: #EDF6F2; border-color: var(--gl-green); color: var(--gl-heading); font-weight: 600; box-shadow: inset 0 0 0 1px var(--gl-green); }
 .qtab.on .qn { color: var(--gl-heading); }
 .chip-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
 
