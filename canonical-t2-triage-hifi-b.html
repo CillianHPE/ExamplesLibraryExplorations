@@ -243,41 +243,48 @@
             <div class="bar-group">
               <div class="bar-name">Compute Ops Management</div>
               <div class="stack-bar"><span style="flex:34; background:var(--c-purple)"></span><span style="flex:57; background:var(--grey-line, #E7E7E7); opacity:0.55;"></span></div>
-              <div class="bar-figs"><strong>34</strong><span>· 37% of 91</span></div>
+              <div class="bar-figs"><strong>37%</strong><span>(34)</span></div>
             </div>
             <div class="bar-group">
               <div class="bar-name">Block Storage</div>
               <div class="stack-bar"><span style="flex:21; background:var(--c-purple)"></span><span style="flex:70; background:var(--grey-line, #E7E7E7); opacity:0.55;"></span></div>
-              <div class="bar-figs"><strong>21</strong><span>· 23%</span></div>
+              <div class="bar-figs"><strong>23%</strong><span>(21)</span></div>
             </div>
             <div class="bar-group">
               <div class="bar-name">Aruba Central</div>
               <div class="stack-bar"><span style="flex:18; background:var(--c-purple)"></span><span style="flex:73; background:var(--grey-line, #E7E7E7); opacity:0.55;"></span></div>
-              <div class="bar-figs"><strong>18</strong><span>· 20%</span></div>
+              <div class="bar-figs"><strong>20%</strong><span>(18)</span></div>
             </div>
             <div class="bar-group">
               <div class="bar-name">3 other services</div>
               <div class="stack-bar"><span style="flex:18; background:var(--c-purple); opacity:0.4;"></span><span style="flex:73; background:var(--grey-line, #E7E7E7); opacity:0.55;"></span></div>
-              <div class="bar-figs"><strong>18</strong><span>· 20%</span></div>
+              <div class="bar-figs"><strong>20%</strong><span>(18)</span></div>
             </div>
             <div class="fine" style="margin-top:12px; line-height:1.5;">COM holds over a third of the queue and is the only service trending up.</div>
           </div>
           <div class="card">
-            <div class="card-head"><h2 style="font-size:16px;">Aging buckets</h2></div>
-            <div class="fine" style="margin-bottom:4px;">Time since each of the 91 open cases was opened</div>
-            <div class="list-item">
-              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Open 0–2 days</div><div class="li-sub">Normal: active troubleshooting</div></div></div>
-              <div style="text-align:right;"><div class="li-count">58</div><div class="fine">64%</div></div>
+            <div style="margin-bottom:14px;">
+              <h2 style="font-size:16px; margin:0;">Open cases by service</h2>
+              <div class="fine" style="margin-top:3px;">Distribution view · 6 services</div>
             </div>
-            <div class="list-item">
-              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Open 3–7 days</div><div class="li-sub">Needs owner follow-up</div></div></div>
-              <div style="text-align:right;"><div class="li-count">24</div><div class="fine">26%</div></div>
+            <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:16px;">
+              <div style="font-size:30px; font-weight:700; color:var(--gl-heading); line-height:1.1;">91</div>
+              <span class="fine">Open cases</span>
             </div>
-            <div class="list-item">
-              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">Open 8+ days</div><div class="li-sub">Stalled: review in weekly service meeting</div></div></div>
-              <div style="text-align:right;"><div class="li-count">9</div><div class="fine">10%</div></div>
+            <div class="stack-bar" style="margin:0 0 14px;">
+              <span style="flex:34; background:var(--c-blue)"></span>
+              <span style="flex:21; background:var(--c-green)"></span>
+              <span style="flex:18; background:var(--c-purple)"></span>
+              <span style="flex:8; background:var(--c-navy)"></span>
+              <span style="flex:6; background:var(--c-magenta)"></span>
+              <span style="flex:4; background:var(--c-grey)"></span>
             </div>
-            <div style="margin-top:6px;"><span class="glink">View cases open 8+ days →</span></div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-blue); flex-shrink:0;"></span>Compute Ops Management</span><span class="pct">37% (34)</span></div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-green); flex-shrink:0;"></span>Block Storage</span><span class="pct">23% (21)</span></div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-purple); flex-shrink:0;"></span>Aruba Central</span><span class="pct">20% (18)</span></div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-navy); flex-shrink:0;"></span>Private Cloud Business</span><span class="pct">9% (8)</span></div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-magenta); flex-shrink:0;"></span>Backup and Recovery</span><span class="pct">7% (6)</span></div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-grey); flex-shrink:0;"></span>Other services</span><span class="pct">4% (4)</span></div>
           </div>
         </section>
 
