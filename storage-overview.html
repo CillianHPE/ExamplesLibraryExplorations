@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Data Storage Service · Overview</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  /* Bento grid: contained cards, 16px gaps, mixed spans */
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: auto; gap: var(--gap-container); }
+  .span-2 { grid-column: span 2; }
+  .tall { grid-row: span 2; }
+  @media (max-width: 1100px) { .bento { grid-template-columns: repeat(2, 1fr); } }
+
+  .bcard-title { font-size: 16px; font-weight: 700; color: var(--gl-heading); margin: 0; }
+  .bcard-scope { margin-top: 3px; }
+  .bhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+  .bhead .arrow { font-size: 17px; color: var(--gl-ink); cursor: pointer; line-height: 1; }
+  .fig-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .fig { font-size: 30px; font-weight: 700; color: var(--gl-heading); line-height: 1.1; letter-spacing: -0.4px; }
+  .fig-sub { font-size: 12.5px; color: var(--gl-ink-soft); }
+  .takeaway { margin-top: 12px; }
+  .sqsw { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .chart-wrap svg { display: block; width: 100%; height: auto; }
+  .axis-row { display: flex; justify-content: space-between; margin-top: 6px; }
+  .axis-row .now { font-weight: 600; color: var(--gl-ink); }
+  .donut.sm { width: 118px; height: 118px; }
+  .donut.sm::after { inset: 16px; font-size: 22px; }
+  .stat-pair { display: flex; gap: 28px; }
+  .stat-pair .sp-name { font-size: 12.5px; color: var(--gl-ink-soft); }
+  .stat-pair .sp-val { font-size: 20px; font-weight: 700; color: var(--gl-heading); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="switcher">
+  Prototypes:
+  <a href="index.html">Library</a>
+  <a href="dashboard-alt-d.html">Bento (lo-fi)</a>
+  <a href="storage-overview.html" class="on">Data Storage Service · Overview</a>
+</div>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon active" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Data Storage Service</h1>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <button class="btn">Customize</button>
+        <button class="btn primary">Provision</button>
+      </div>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <section>
+          <div class="bento">
+
+            <!-- Hero: environment health -->
+            <div class="card span-2">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Environment health</h2>
+                  <div class="fine bcard-scope">128 systems · 4 regions</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="donut-wrap">
+                <div class="donut sm" style="background: conic-gradient(var(--red) 0 1.6%, var(--amber) 1.6% 5.5%, var(--ok) 5.5% 100%);" data-center="128"></div>
+                <div style="flex:1; min-width:0;">
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">2</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">5</span></div>
+                  <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy</span><span class="pct">121</span></div>
+                </div>
+              </div>
+              <div class="fine takeaway">2 critical: controller failover on Array-DAL-04, degraded drive set on Array-FRA-11.</div>
+              <div style="margin-top:10px;"><span class="glink">View 7 systems needing attention →</span></div>
+            </div>
+
+            <!-- KPI: capacity -->
+            <div class="card">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Capacity</h2>
+                  <div class="fine bcard-scope">All systems</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="fig-row"><span class="fig">71%</span><span class="delta down" style="white-space:nowrap;">↑ 2% MoM</span></div>
+              <div class="fine">3.4 PB used of 4.8 PB</div>
+              <div class="meter"><i class="warn" style="width:71%"></i></div>
+              <div class="fine takeaway">At current growth, capacity reaches 90% in about 9 months.</div>
+            </div>
+
+            <!-- KPI: protection -->
+            <div class="card">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Data protection</h2>
+                  <div class="fine bcard-scope">1,842 volumes</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="fig-row"><span class="fig">98%</span><span class="delta neutral" style="white-space:nowrap;">14 unprotected</span></div>
+              <div class="fine">Volumes covered by a protection policy</div>
+              <div class="meter"><i style="width:98%"></i></div>
+              <div class="fine takeaway">14 new volumes in Finance-Prod have no snapshot schedule.</div>
+            </div>
+
+            <!-- Alerts: tall -->
+            <div class="card span-2 tall">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Needs attention</h2>
+                  <div class="fine bcard-scope">7 items · newest first</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="list-item">
+                <div class="li-main"><div class="sev crit"></div><div><div class="li-title">Controller failover on Array-DAL-04</div><div class="li-sub">Running on single controller · performance at risk</div></div></div>
+                <div class="li-meta">24 min ago</div>
+              </div>
+              <div class="list-item">
+                <div class="li-main"><div class="sev crit"></div><div><div class="li-title">Drive set degraded on Array-FRA-11</div><div class="li-sub">RAID rebuild in progress · 62% complete</div></div></div>
+                <div class="li-meta">2 hr ago</div>
+              </div>
+              <div class="list-item">
+                <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Pool nearing full on Array-LON-02</div><div class="li-sub">88% used · projected full in 3 weeks</div></div></div>
+                <div class="li-meta">Today</div>
+              </div>
+              <div class="list-item">
+                <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Snapshot backlog on Finance-Prod</div><div class="li-sub">3 schedules missed overnight window</div></div></div>
+                <div class="li-meta">Today</div>
+              </div>
+              <div class="list-item">
+                <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Latency spike on Array-DAL-04</div><div class="li-sub">Peaked 4.1 ms during failover · recovering</div></div></div>
+                <div class="li-meta">Yesterday</div>
+              </div>
+              <div style="margin-top:12px;"><span class="glink">View all alerts →</span></div>
+            </div>
+
+            <!-- Capacity trend -->
+            <div class="card span-2">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Capacity trend</h2>
+                  <div class="fine bcard-scope">Last 90 days</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="fig-row"><span class="fig">3.4 PB</span><span class="delta neutral" style="white-space:nowrap;">↑ 140 TB in 90 days</span></div>
+              <div class="chart-wrap">
+                <svg viewBox="0 0 220 72">
+                  <defs>
+                    <linearGradient id="fillcap" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
+                      <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
+                    </linearGradient>
+                  </defs>
+                  <path d="M0 52 C 30 50, 60 46, 95 42 S 160 34, 210 26 L 210 70 L 0 70 Z" fill="url(#fillcap)"/>
+                  <path d="M0 52 C 30 50, 60 46, 95 42 S 160 34, 210 26" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+                  <circle cx="210" cy="26" r="3.5" fill="var(--c-blue)"/>
+                  <text x="204" y="18" font-size="10.5" font-weight="600" fill="var(--gl-ink)" text-anchor="end">3.4 PB</text>
+                </svg>
+              </div>
+              <div class="fine axis-row"><span>Jun 17</span><span class="now">Today</span></div>
+              <div class="fine takeaway">Growth is steady at 1.5% per month. Data reduction is absorbing most new writes.</div>
+            </div>
+
+            <!-- Performance -->
+            <div class="card">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Performance</h2>
+                  <div class="fine bcard-scope">Avg latency · 7 days</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="fig-row"><span class="fig">0.8 ms</span><span class="pill green" style="white-space:nowrap;">Within target</span></div>
+              <div class="chart-wrap">
+                <svg viewBox="0 0 220 44">
+                  <path d="M0 24 C 25 22, 45 26, 70 24 S 120 20, 145 30 S 185 26, 210 24" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="fine takeaway">Brief spike during the DAL-04 failover, now back to baseline.</div>
+            </div>
+
+            <!-- Efficiency -->
+            <div class="card">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Efficiency</h2>
+                  <div class="fine bcard-scope">Data reduction</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="fig-row"><span class="fig">4.2:1</span><span class="delta up" style="white-space:nowrap;">↑ from 3.9:1</span></div>
+              <div class="stat-pair" style="margin-top:4px;">
+                <div><div class="sp-name">Dedupe</div><div class="sp-val">2.6:1</div></div>
+                <div><div class="sp-name">Compression</div><div class="sp-val">1.6:1</div></div>
+              </div>
+              <div class="fine takeaway">Reduction saved an estimated 10.9 PB of raw capacity.</div>
+            </div>
+
+            <!-- Cyber resilience -->
+            <div class="card span-2">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Cyber resilience</h2>
+                  <div class="fine bcard-scope">Ransomware posture</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="fig-row"><span class="fig">86%</span><span class="delta neutral" style="white-space:nowrap;">258 volumes to cover</span></div>
+              <div class="fine">Production volumes with immutable snapshots</div>
+              <div class="meter"><i class="warn" style="width:86%"></i></div>
+              <div class="fine takeaway">Anomaly detection active on all systems. No suspicious activity in 30 days. Immutability gap is concentrated in Dev-Sandbox.</div>
+              <div style="margin-top:10px;"><span class="glink">Review coverage gaps →</span></div>
+            </div>
+
+            <!-- Capacity by workload -->
+            <div class="card span-2">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Capacity by workload</h2>
+                  <div class="fine bcard-scope">Distribution · 3.4 PB used</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="stack-bar" style="margin:4px 0 14px;">
+                <span style="flex:38; background:var(--c-blue)"></span>
+                <span style="flex:24; background:var(--c-green)"></span>
+                <span style="flex:17; background:var(--c-purple)"></span>
+                <span style="flex:12; background:var(--c-navy)"></span>
+                <span style="flex:9; background:var(--c-grey)"></span>
+              </div>
+              <div class="legend-row"><span class="lg"><span class="sqsw" style="background:var(--c-blue)"></span>Databases</span><span class="pct">38% (1.29 PB)</span></div>
+              <div class="legend-row"><span class="lg"><span class="sqsw" style="background:var(--c-green)"></span>Virtual machines</span><span class="pct">24% (0.82 PB)</span></div>
+              <div class="legend-row"><span class="lg"><span class="sqsw" style="background:var(--c-purple)"></span>File shares</span><span class="pct">17% (0.58 PB)</span></div>
+              <div class="legend-row"><span class="lg"><span class="sqsw" style="background:var(--c-navy)"></span>Analytics</span><span class="pct">12% (0.41 PB)</span></div>
+              <div class="legend-row"><span class="lg"><span class="sqsw" style="background:var(--c-grey)"></span>Other</span><span class="pct">9% (0.30 PB)</span></div>
+            </div>
+
+            <!-- Lifecycle -->
+            <div class="card">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Lifecycle</h2>
+                  <div class="fine bcard-scope">Software currency</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="fig-row"><span class="fig">119</span><span class="fig-sub">of 128 current</span></div>
+              <div class="fine">9 systems below the 2026.08 recommended release</div>
+              <div class="fine takeaway">3 carry a known stability fix. Update windows suggested for this weekend.</div>
+              <div style="margin-top:10px;"><span class="glink">Schedule updates →</span></div>
+            </div>
+
+            <!-- Subscriptions -->
+            <div class="card">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Subscriptions</h2>
+                  <div class="fine bcard-scope">Renewals</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="list-item"><div class="li-title">Expiring ≤ 30 days</div><div class="li-count">2</div></div>
+              <div class="list-item"><div class="li-title">Expiring ≤ 90 days</div><div class="li-count">11</div></div>
+              <div class="fine takeaway">2 near-term renewals cover Array-LON-02 and Array-LON-03.</div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Service status</h3>
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+            <span style="width:10px; height:10px; border-radius:50%; background:var(--ok); flex:none;"></span>
+            <span style="font-size:14px; font-weight:600; color:var(--gl-heading);">Operational</span>
+          </div>
+          <div class="fine">All regions available. Next maintenance: Sep 21, 02:00 UTC.</div>
+        </div>
+        <div>
+          <h3 style="font-size:16px; font-weight:700; margin-bottom:10px;">Quick actions</h3>
+          <ul class="qa-list">
+            <li><a href="#">Create volume</a></li>
+            <li><a href="#">Add protection policy</a></li>
+            <li><a href="#">Run capacity forecast</a></li>
+            <li><a href="#">Invite users</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:16px; font-weight:700; margin-bottom:10px;">Recommendations</h3>
+          <div class="learn-item"><div><div class="lt">Protect 14 Finance-Prod volumes</div><div class="ls">Apply the Gold snapshot policy in one step.</div></div></div>
+          <div class="learn-item"><div><div class="lt">Expand Array-LON-02 pool</div><div class="ls">88% used. Grow now to avoid a full pool in 3 weeks.</div></div></div>
+          <div class="learn-item"><div><div class="lt">Update 3 systems this weekend</div><div class="ls">Includes a stability fix relevant to your models.</div></div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>
