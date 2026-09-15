@@ -169,5 +169,128 @@
     <div class="fine" style="margin-top:12px; line-height:1.5;">Closed cases outpaced new ones for the first time in 4 weeks.</div>
   </div>
 </div>
+
+<!-- Chart treatments -->
+<h2 style="font-size:17px; color:var(--gl-heading); margin:64px 0 8px;">Chart treatments: same data, three visuals</h2>
+<p style="font-size:14px; color:var(--gl-ink); margin:0 0 32px; max-width:640px;">Two crossing rate-lines force the reader to integrate areas to see the backlog change. These make the comparison directly readable at 220px.</p>
+<div class="opts">
+
+  <!-- A: weekly paired columns -->
+  <div>
+    <div class="opt-label">A · Weekly paired columns</div>
+    <div class="opt-note">Honest granularity (4 weeks, not fake daily curves). Each pair is a direct opened-vs-closed comparison; green overtaking blue across the weeks is the story.</div>
+    <div class="card">
+      <div style="margin-bottom:14px;">
+        <h2 style="font-size:16px; margin:0;">Case flow</h2>
+        <div class="fine" style="margin-top:3px;">Last 30 days · weekly</div>
+      </div>
+      <div style="display:flex; align-items:stretch; gap:24px; margin-bottom:12px;">
+        <div>
+          <div class="stat-num">65</div>
+          <div class="stat-lbl" style="display:inline-flex; align-items:center; gap:6px;"><span class="sw" style="background:var(--c-blue)"></span>Opened</div>
+        </div>
+        <div class="stat-div"></div>
+        <div>
+          <div class="stat-num">72</div>
+          <div class="stat-lbl" style="display:inline-flex; align-items:center; gap:6px;"><span class="sw" style="background:var(--gl-green)"></span>Closed</div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;"><span class="delta up" style="white-space:nowrap;">↓ Backlog down 7</span></div>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 220 78">
+          <rect x="8"   y="24.4" width="16" height="39.6" rx="2" fill="var(--c-blue)"/>
+          <rect x="28"  y="33.2" width="16" height="30.8" rx="2" fill="var(--gl-green)"/>
+          <rect x="64"  y="26.6" width="16" height="37.4" rx="2" fill="var(--c-blue)"/>
+          <rect x="84"  y="28.8" width="16" height="35.2" rx="2" fill="var(--gl-green)"/>
+          <rect x="120" y="28.8" width="16" height="35.2" rx="2" fill="var(--c-blue)"/>
+          <rect x="140" y="22.2" width="16" height="41.8" rx="2" fill="var(--gl-green)"/>
+          <rect x="176" y="33.2" width="16" height="30.8" rx="2" fill="var(--c-blue)"/>
+          <rect x="196" y="13.4" width="16" height="50.6" rx="2" fill="var(--gl-green)"/>
+          <path d="M4 64h212" stroke="var(--contained-line)" stroke-width="1"/>
+          <text x="16" y="76" font-size="9.5" fill="var(--gl-ink-soft)" text-anchor="middle">W1</text>
+          <text x="72" y="76" font-size="9.5" fill="var(--gl-ink-soft)" text-anchor="middle">W2</text>
+          <text x="128" y="76" font-size="9.5" fill="var(--gl-ink-soft)" text-anchor="middle">W3</text>
+          <text x="184" y="76" font-size="9.5" fill="var(--gl-ink-soft)" text-anchor="middle">W4</text>
+        </svg>
+      </div>
+      <div class="fine" style="margin-top:12px; line-height:1.5;">Closures overtook new cases in week 3 and pulled ahead in week 4.</div>
+    </div>
+  </div>
+
+  <!-- B: diverging bars -->
+  <div>
+    <div class="opt-label">B · Diverging bars</div>
+    <div class="opt-note">Opened above the baseline, closed below. The balance point is the baseline itself: any week where green is deeper than blue is tall, the team gained ground.</div>
+    <div class="card">
+      <div style="margin-bottom:14px;">
+        <h2 style="font-size:16px; margin:0;">Case flow</h2>
+        <div class="fine" style="margin-top:3px;">Last 30 days · weekly</div>
+      </div>
+      <div style="display:flex; align-items:stretch; gap:24px; margin-bottom:12px;">
+        <div>
+          <div class="stat-num">65</div>
+          <div class="stat-lbl" style="display:inline-flex; align-items:center; gap:6px;"><span class="sw" style="background:var(--c-blue)"></span>Opened</div>
+        </div>
+        <div class="stat-div"></div>
+        <div>
+          <div class="stat-num">72</div>
+          <div class="stat-lbl" style="display:inline-flex; align-items:center; gap:6px;"><span class="sw" style="background:var(--gl-green)"></span>Closed</div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;"><span class="delta up" style="white-space:nowrap;">↓ Backlog down 7</span></div>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 220 78">
+          <rect x="14"  y="11.8" width="24" height="25.2" rx="2" fill="var(--c-blue)"/>
+          <rect x="14"  y="41"   width="24" height="19.6" rx="2" fill="var(--gl-green)"/>
+          <rect x="66"  y="13.2" width="24" height="23.8" rx="2" fill="var(--c-blue)"/>
+          <rect x="66"  y="41"   width="24" height="22.4" rx="2" fill="var(--gl-green)"/>
+          <rect x="118" y="14.6" width="24" height="22.4" rx="2" fill="var(--c-blue)"/>
+          <rect x="118" y="41"   width="24" height="26.6" rx="2" fill="var(--gl-green)"/>
+          <rect x="170" y="17.4" width="24" height="19.6" rx="2" fill="var(--c-blue)"/>
+          <rect x="170" y="41"   width="24" height="32.2" rx="2" fill="var(--gl-green)"/>
+          <path d="M4 39h212" stroke="var(--gl-ink-soft)" stroke-width="1.2"/>
+        </svg>
+      </div>
+      <div class="axis-row fine"><span>Aug 16</span><span style="font-weight:600; color:var(--gl-ink);">Today</span></div>
+      <div class="fine" style="margin-top:12px; line-height:1.5;">Green deeper than blue is tall: closures outweighed new cases in the last 2 weeks.</div>
+    </div>
+  </div>
+
+  <!-- C: net backlog line -->
+  <div>
+    <div class="opt-label">C · Net backlog line</div>
+    <div class="opt-note">Plots the thing the verdict is about: one line, open-case backlog over 30 days. The dashed start level makes the net drop visible as a gap.</div>
+    <div class="card">
+      <div style="margin-bottom:14px;">
+        <h2 style="font-size:16px; margin:0;">Open case backlog</h2>
+        <div class="fine" style="margin-top:3px;">Last 30 days</div>
+      </div>
+      <div style="display:flex; align-items:stretch; gap:24px; margin-bottom:12px;">
+        <div>
+          <div class="stat-num">91</div>
+          <div class="stat-lbl">Open today</div>
+        </div>
+        <div class="stat-div"></div>
+        <div>
+          <div class="stat-num">98</div>
+          <div class="stat-lbl">30 days ago</div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;"><span class="delta up" style="white-space:nowrap;">↓ Backlog down 7</span></div>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 220 74">
+          <path d="M0 18h220" stroke="var(--gl-ink-soft)" stroke-width="1" stroke-dasharray="4 4" opacity="0.6"/>
+          <path d="M0 18 C 25 16, 45 22, 70 20 S 115 28, 140 34 S 185 48, 210 52" fill="none" stroke="var(--c-purple)" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="210" cy="52" r="3.5" fill="var(--c-purple)"/>
+          <text x="4" y="12" font-size="10" fill="var(--gl-ink-soft)">98</text>
+          <text x="202" y="68" font-size="10" font-weight="600" fill="var(--gl-ink)">91</text>
+        </svg>
+      </div>
+      <div class="axis-row fine"><span>Aug 16</span><span style="font-weight:600; color:var(--gl-ink);">Today</span></div>
+      <div class="fine" style="margin-top:12px; line-height:1.5;">Backlog held near 98 for two weeks, then fell steadily to 91.</div>
+    </div>
+  </div>
+
+</div>
 </body>
 </html>
