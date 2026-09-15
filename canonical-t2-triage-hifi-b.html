@@ -86,9 +86,15 @@
 
         <!-- Filter bar + queue -->
         <section>
+          <div class="qtabs">
+            <button class="qtab on" id="qt-all" onclick="setQueueSeg('all')">All<span class="qn">91</span></button>
+            <button class="qtab" id="qt-hpe" onclick="setQueueSeg('hpe')">Needs HPE action<span class="qn">31</span></button>
+            <button class="qtab" id="qt-customer" onclick="setQueueSeg('customer')">Waiting on customer<span class="qn">41</span></button>
+            <button class="qtab" id="qt-validate" onclick="setQueueSeg('validate')">Fix to validate<span class="qn">17</span></button>
+            <button class="qtab" id="qt-esc" onclick="setQueueSeg('esc')">Escalated<span class="qn">2</span></button>
+          </div>
           <div class="dv-toolbar">
             <label class="dv-search"><span class="sic" data-i="search"></span><input type="text" placeholder="Search cases"></label>
-            <button class="dv-icon" title="Filter"><span data-i="filter"></span></button>
             <button class="dv-icon active" id="cv-btn-table" title="Table view" onclick="setCaseView('table')"><span data-i="table"></span></button>
             <button class="dv-icon" id="cv-btn-list" title="List view" onclick="setCaseView('list')"><span data-i="list"></span></button>
             <div class="dv-spacer"></div>
@@ -101,43 +107,43 @@
               <tr><th><span class="cb"></span></th><th>Case ID</th><th>Product</th><th>Severity</th><th>Status</th><th>Opened</th><th>Owner</th><th>Action</th></tr>
             </thead>
             <tbody>
-              <tr>
+              <tr data-q="customer">
                 <td><span class="cb"></span></td><td><span class="tlink">53694182</span></td><td>Block Storage · Block-Resource-032</td><td><span class="pill red">Sev 1</span></td><td><span class="pill amber">Awaiting logs</span></td><td>Sep 9, 2026</td><td>Sophie Anderson</td>
                 <td><button class="btn toolbar" style="font-size:12px;">Upload logs</button></td>
               </tr>
-              <tr>
+              <tr data-q="esc">
                 <td><span class="cb"></span></td><td><span class="tlink">53692841</span></td><td>Compute Ops Management · P55276-B21</td><td><span class="pill red">Sev 1</span></td><td><span class="pill red">Escalated</span></td><td>Sep 8, 2026</td><td>Mason Clark</td>
                 <td><button class="btn toolbar" style="font-size:12px;">Join bridge</button></td>
               </tr>
-              <tr>
+              <tr data-q="customer">
                 <td><span class="cb"></span></td><td><span class="tlink">53690377</span></td><td>Aruba Central · Edge-North-Fleet</td><td><span class="pill amber">Sev 2</span></td><td><span class="pill amber">Customer response</span></td><td>Sep 7, 2026</td><td>William Taylor</td>
                 <td><button class="btn toolbar" style="font-size:12px;">Respond</button></td>
               </tr>
-              <tr>
+              <tr data-q="hpe">
                 <td><span class="cb"></span></td><td><span class="tlink">53688710</span></td><td>Backup and Recovery · Backup-Resource-041</td><td><span class="pill amber">Sev 2</span></td><td><span class="pill grey">HPE investigating</span></td><td>Sep 6, 2026</td><td>Thomas Jackson</td>
                 <td><button class="btn toolbar" style="font-size:12px;">View</button></td>
               </tr>
-              <tr>
+              <tr data-q="hpe">
                 <td><span class="cb"></span></td><td><span class="tlink">53685299</span></td><td>Compute Ops Management · P28948-B21</td><td><span class="pill amber">Sev 3</span></td><td><span class="pill amber">Schedule needed</span></td><td>Sep 4, 2026</td><td>Ethan Brown</td>
                 <td><button class="btn toolbar" style="font-size:12px;">Schedule</button></td>
               </tr>
-              <tr>
+              <tr data-q="validate">
                 <td><span class="cb"></span></td><td><span class="tlink">53682745</span></td><td>Aruba Central · Retail-Edge-UK</td><td><span class="pill grey">Sev 3</span></td><td><span class="pill green">Fix provided</span></td><td>Sep 3, 2026</td><td>Riley Chen</td>
                 <td><button class="btn toolbar" style="font-size:12px;">Validate</button></td>
               </tr>
-              <tr>
+              <tr data-q="customer">
                 <td><span class="cb"></span></td><td><span class="tlink">53679126</span></td><td>Data Services · DSCC-Resource-051</td><td><span class="pill grey">Sev 4</span></td><td><span class="pill amber">Customer response</span></td><td>Aug 31, 2026</td><td>Jamie Patel</td>
                 <td><button class="btn toolbar" style="font-size:12px;">Assign</button></td>
               </tr>
-              <tr>
+              <tr data-q="hpe">
                 <td><span class="cb"></span></td><td><span class="tlink">53676804</span></td><td>Block Storage · Block-Resource-017</td><td><span class="pill grey">Sev 3</span></td><td><span class="pill grey">HPE investigating</span></td><td>Aug 29, 2026</td><td>Olivia Martin</td>
                 <td><button class="btn toolbar" style="font-size:12px;">View</button></td>
               </tr>
-              <tr>
+              <tr data-q="customer">
                 <td><span class="cb"></span></td><td><span class="tlink">53673392</span></td><td>Compute Ops Management · P44231-B21</td><td><span class="pill grey">Sev 4</span></td><td><span class="pill amber">Customer response</span></td><td>Aug 27, 2026</td><td>Lucas Weber</td>
                 <td><button class="btn toolbar" style="font-size:12px;">Respond</button></td>
               </tr>
-              <tr>
+              <tr data-q="validate">
                 <td><span class="cb"></span></td><td><span class="tlink">53670915</span></td><td>Aruba Central · Campus-West</td><td><span class="pill grey">Sev 4</span></td><td><span class="pill green">Fix provided</span></td><td>Aug 24, 2026</td><td>Ava Thompson</td>
                 <td><button class="btn toolbar" style="font-size:12px;">Validate</button></td>
               </tr>
@@ -145,43 +151,43 @@
           </table>
           </div>
           <div id="cv-list" style="display:none;">
-            <div class="list-item">
+            <div class="list-item" data-q="customer">
               <div class="li-main"><div class="sev crit"></div><div><div class="li-title"><span class="tlink">53694182</span> · Volume latency spike on Block-Resource-032</div><div class="li-sub">Sev 1 · Awaiting logs · Opened Sep 9, 2026 · Sophie Anderson</div></div></div>
               <button class="btn toolbar" style="font-size:12px;">Upload logs</button>
             </div>
-            <div class="list-item">
+            <div class="list-item" data-q="esc">
               <div class="li-main"><div class="sev crit"></div><div><div class="li-title"><span class="tlink">53692841</span> · Cluster nodes unreachable after firmware update</div><div class="li-sub">Sev 1 · Escalated · Opened Sep 8, 2026 · Mason Clark</div></div></div>
               <button class="btn toolbar" style="font-size:12px;">Join bridge</button>
             </div>
-            <div class="list-item">
+            <div class="list-item" data-q="customer">
               <div class="li-main"><div class="sev warn"></div><div><div class="li-title"><span class="tlink">53690377</span> · Access points dropping clients in Edge-North-Fleet</div><div class="li-sub">Sev 2 · Customer response · Opened Sep 7, 2026 · William Taylor</div></div></div>
               <button class="btn toolbar" style="font-size:12px;">Respond</button>
             </div>
-            <div class="list-item">
+            <div class="list-item" data-q="hpe">
               <div class="li-main"><div class="sev warn"></div><div><div class="li-title"><span class="tlink">53688710</span> · Backup jobs failing overnight on Backup-Resource-041</div><div class="li-sub">Sev 2 · HPE investigating · Opened Sep 6, 2026 · Thomas Jackson</div></div></div>
               <button class="btn toolbar" style="font-size:12px;">View</button>
             </div>
-            <div class="list-item">
+            <div class="list-item" data-q="hpe">
               <div class="li-main"><div class="sev warn"></div><div><div class="li-title"><span class="tlink">53685299</span> · Maintenance window needed for P28948-B21</div><div class="li-sub">Sev 3 · Schedule needed · Opened Sep 4, 2026 · Ethan Brown</div></div></div>
               <button class="btn toolbar" style="font-size:12px;">Schedule</button>
             </div>
-            <div class="list-item">
+            <div class="list-item" data-q="validate">
               <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53682745</span> · Config drift on Retail-Edge-UK controllers</div><div class="li-sub">Sev 3 · Fix provided · Opened Sep 3, 2026 · Riley Chen</div></div></div>
               <button class="btn toolbar" style="font-size:12px;">Validate</button>
             </div>
-            <div class="list-item">
+            <div class="list-item" data-q="customer">
               <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53679126</span> · Reporting discrepancy in DSCC-Resource-051</div><div class="li-sub">Sev 4 · Customer response · Opened Aug 31, 2026 · Jamie Patel</div></div></div>
               <button class="btn toolbar" style="font-size:12px;">Assign</button>
             </div>
-            <div class="list-item">
+            <div class="list-item" data-q="hpe">
               <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53676804</span> · Intermittent path failover on Block-Resource-017</div><div class="li-sub">Sev 3 · HPE investigating · Opened Aug 29, 2026 · Olivia Martin</div></div></div>
               <button class="btn toolbar" style="font-size:12px;">View</button>
             </div>
-            <div class="list-item">
+            <div class="list-item" data-q="customer">
               <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53673392</span> · License count mismatch on P44231-B21</div><div class="li-sub">Sev 4 · Customer response · Opened Aug 27, 2026 · Lucas Weber</div></div></div>
               <button class="btn toolbar" style="font-size:12px;">Respond</button>
             </div>
-            <div class="list-item">
+            <div class="list-item" data-q="validate">
               <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53670915</span> · Guest portal certificate expiring on Campus-West</div><div class="li-sub">Sev 4 · Fix provided · Opened Aug 24, 2026 · Ava Thompson</div></div></div>
               <button class="btn toolbar" style="font-size:12px;">Validate</button>
             </div>
@@ -344,6 +350,21 @@ function setCaseView(v) {
   document.getElementById('cv-list').style.display = v === 'list' ? '' : 'none';
   document.getElementById('cv-btn-table').classList.toggle('active', v === 'table');
   document.getElementById('cv-btn-list').classList.toggle('active', v === 'list');
+}
+var qTotals = { all: 91, hpe: 31, customer: 41, validate: 17, esc: 2 };
+function setQueueSeg(seg) {
+  document.querySelectorAll('.qtab').forEach(function (t) { t.classList.toggle('on', t.id === 'qt-' + seg); });
+  var shown = 0;
+  document.querySelectorAll('[data-q]').forEach(function (r) {
+    var vis = seg === 'all' || r.dataset.q === seg;
+    r.style.display = vis ? '' : 'none';
+  });
+  document.querySelectorAll('#cv-table [data-q]').forEach(function (r) {
+    if (r.style.display !== 'none') shown++;
+  });
+  var total = qTotals[seg];
+  document.querySelector('.dv-count').textContent = total + ' items';
+  document.querySelector('.pg-info').textContent = 'Showing 1\u2013' + Math.min(shown, total) + ' of ' + total + ' items';
 }
 </script>
 
