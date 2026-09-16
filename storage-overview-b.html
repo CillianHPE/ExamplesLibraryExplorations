@@ -268,16 +268,18 @@
               <svg viewBox="0 0 220 44">
                 <defs>
                   <linearGradient id="fillperf" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.18"/>
+                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
                     <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
                   </linearGradient>
                 </defs>
+                <path d="M0 20 C 25 24, 45 20, 70 24 S 120 28, 145 24 S 185 30, 210 30" fill="none" stroke="var(--line)" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 4"/>
                 <path d="M0 28 C 25 26, 45 30, 70 28 S 120 14, 145 22 S 185 28, 210 26 L 210 42 L 0 42 Z" fill="url(#fillperf)"/>
                 <path d="M0 28 C 25 26, 45 30, 70 28 S 120 14, 145 22 S 185 28, 210 26" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
                 <circle cx="210" cy="26" r="3.5" fill="var(--c-blue)"/>
               </svg>
             </div>
             <div class="fine axis-row"><span>Sep 9 · 0.87 ms</span><span class="now">Today · 0.8 ms</span></div>
+            <div class="fine legend-inline" style="margin-top:6px;"><span class="dash-sw"></span>Prior 7 days</div>
             <div class="fine takeaway">One brief spike during the DAL-04 controller failover. Response times are back to normal.</div>
           </div>
 
@@ -303,16 +305,18 @@
               <svg viewBox="0 0 220 44">
                 <defs>
                   <linearGradient id="filllc" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.18"/>
+                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
                     <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
                   </linearGradient>
                 </defs>
+                <path d="M0 34 C 25 34, 45 32, 70 32 S 110 28, 135 26 S 185 24, 210 22" fill="none" stroke="var(--line)" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 4"/>
                 <path d="M0 30 C 25 30, 45 28, 70 30 S 110 18, 135 16 S 185 26, 210 14 L 210 42 L 0 42 Z" fill="url(#filllc)"/>
                 <path d="M0 30 C 25 30, 45 28, 70 30 S 110 18, 135 16 S 185 26, 210 14" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
                 <circle cx="210" cy="14" r="3.5" fill="var(--c-blue)"/>
               </svg>
             </div>
             <div class="fine axis-row"><span>Jun 17 · 104</span><span class="now">Today · 119</span></div>
+            <div class="fine legend-inline" style="margin-top:6px;"><span class="dash-sw"></span>Prior 90 days</div>
             <div class="fine takeaway">9 systems still need the 2026.08 release. 3 of them are missing a known stability fix: update those first, ideally this weekend.</div>
           </div>
 

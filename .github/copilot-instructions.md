@@ -14,6 +14,9 @@
 - Status ordering: critical → warning → ok → unknown.
 - Max one `.btn.primary` per view.
 
+## Chart rules
+- **Default sparkline/trend style** (as on storage-overview-b capacity trend): 2px solid primary line (`var(--c-blue)`) with `stroke-linecap="round"`, gradient area fill fading to transparent (0.22 → 0 opacity), endpoint dot (r 3.5). Prior-period reference line: 2px `var(--line)` with `stroke-linecap="round" stroke-dasharray="1 4"` (rounded dot-dash). No text inside the plot area; values live in the axis row below as "date · value" at both ends. Dashed reference lines get a `.legend-inline` row with a `.dash-sw` swatch; single solid series never get a legend entry.
+
 ## Colour rules
 - **Never use colour in typography.** All text renders in the ink palette (`--gl-heading`, `--gl-ink`, `--gl-ink-soft`); this includes status words ("Expires soon"), severity labels, metric values, and up/down deltas. Semantic colour is carried only by tinted pill/badge backgrounds, status dots, meter fills, chart marks, and icons. Green anchor links are the one exception.
 
