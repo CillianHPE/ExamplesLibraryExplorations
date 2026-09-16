@@ -19,3 +19,4 @@
 
 ## Workflow rules
 - **Auto-refresh the preview after every change.** Once an edit to a page is made and committed, verify the server responds (curl the page; restart `python3 -m http.server 8642` detached if it returns 000), then re-open the browser canvas (instanceId `com-remap`) pointing at the edited page so the user always sees the latest state without asking.
+- **HARD RULE: always include the live link.** Every reply that reports completed work MUST contain the full `http://localhost:8642/<page>.html` URL of the artefact that was created or changed. No exceptions: even if the preview canvas was refreshed, the link goes in the message text too.
