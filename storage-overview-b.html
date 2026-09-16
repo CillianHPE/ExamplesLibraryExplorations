@@ -30,9 +30,9 @@
   .axis-row .now { font-weight: 600; color: var(--gl-ink); }
   .donut.lg { width: 170px; height: 170px; margin: 8px auto 16px; }
   .donut.lg::after { inset: 20px; font-size: 30px; }
-  .stat-pair { display: flex; gap: 28px; }
-  .stat-pair .sp-name { font-size: 12.5px; color: var(--gl-ink-soft); }
-  .stat-pair .sp-val { font-size: 20px; font-weight: 700; color: var(--gl-heading); margin-top: 2px; }
+  .stat-pair { display: flex; gap: 40px; border-top: 1px solid var(--contained-line); padding-top: 14px; }
+  .stat-pair .sp-val { font-size: 20px; font-weight: 700; color: var(--gl-heading); line-height: 1.1; }
+  .stat-pair .sp-name { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 3px; }
   /* needs-attention grouped rollups with time meta */
   .att-group { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--gl-ink-soft); margin: 18px 0 4px; }
   .att-group:first-of-type { margin-top: 2px; }
@@ -226,8 +226,8 @@
             <div class="fig-row"><span class="fig">4.2:1</span><span class="delta up" style="white-space:nowrap;">↑ from 3.9:1</span></div>
             <div class="fine" style="margin:-8px 0 16px;">Every 4.2 PB written stores as 1 PB</div>
             <div class="stat-pair">
-              <div><div class="sp-name">Dedupe</div><div class="sp-val">2.6:1</div></div>
-              <div><div class="sp-name">Compression</div><div class="sp-val">1.6:1</div></div>
+              <div><div class="sp-val">2.6:1</div><div class="sp-name">Dedupe</div></div>
+              <div><div class="sp-val">1.6:1</div><div class="sp-name">Compression</div></div>
             </div>
             <div class="fine takeaway">Reduction saved an estimated <strong style="color:var(--gl-ink);">10.9 PB</strong> of raw capacity, avoiding about $1.6M in expansion cost.</div>
           </div>
@@ -331,8 +331,8 @@
             <div class="fig-row"><span class="fig">13</span><span class="delta down" style="white-space:nowrap;">2 expire within 30 days</span></div>
             <div class="fine" style="margin:-8px 0 16px;">Subscriptions ending in the next 90 days</div>
             <div class="stat-pair">
-              <div><div class="sp-name">≤ 30 days</div><div class="sp-val">2</div></div>
-              <div><div class="sp-name">31–90 days</div><div class="sp-val">11</div></div>
+              <div><div class="sp-val">2</div><div class="sp-name">Expire within 30 days</div></div>
+              <div><div class="sp-val">11</div><div class="sp-name">Expire in 31–90 days</div></div>
             </div>
             <div class="fine takeaway">The 2 expiring soonest cover Array-LON-02 and Array-LON-03. Renew before Oct 16 to avoid a coverage lapse.</div>
           </div>
