@@ -43,7 +43,7 @@
   .att-label { font-size: 14px; color: var(--gl-ink); flex: 1; }
   .att-time { font-size: 12px; color: var(--gl-ink-faint); white-space: nowrap; }
   .legend-inline { display: flex; align-items: center; gap: 8px; }
-  .dash-sw { width: 16px; height: 0; border-top: 2px dashed var(--gl-ink-soft); opacity: 0.7; flex: none; }
+  .dash-sw { width: 16px; height: 2px; background-image: radial-gradient(circle, var(--gl-ink-soft) 1px, transparent 1.2px); background-size: 6px 2px; background-position: 0 50%; background-repeat: repeat-x; opacity: 0.7; flex: none; }
   .sel-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 6px; background: #fff;
     padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--gl-ink); cursor: pointer; font-family: inherit; white-space: nowrap; }
 </style>
@@ -181,7 +181,7 @@
                     <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
                   </linearGradient>
                 </defs>
-                <path d="M0 30 C 30 32, 60 28, 95 34 S 160 40, 212 44" fill="none" stroke="var(--gl-ink-soft)" stroke-width="2" stroke-dasharray="3 4" opacity="0.5"/>
+                <path d="M0 30 C 30 32, 60 28, 95 34 S 160 40, 212 44" fill="none" stroke="var(--gl-ink-soft)" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 6" opacity="0.5"/>
                 <path d="M0 40 C 30 38, 60 42, 95 38 S 160 30, 210 24 L 210 70 L 0 70 Z" fill="url(#fillcap)"/>
                 <path d="M0 40 C 30 38, 60 42, 95 38 S 160 30, 210 24" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
                 <circle cx="210" cy="24" r="3.5" fill="var(--c-blue)"/>
