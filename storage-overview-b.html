@@ -42,6 +42,8 @@
   .att-n { font-size: 15px; font-weight: 700; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
   .att-label { font-size: 14px; color: var(--gl-ink); flex: 1; }
   .att-time { font-size: 12px; color: var(--gl-ink-faint); white-space: nowrap; }
+  .legend-inline { display: flex; align-items: center; gap: 8px; }
+  .dash-sw { width: 16px; height: 0; border-top: 2px dashed var(--gl-ink-soft); opacity: 0.7; flex: none; }
   .sel-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 6px; background: #fff;
     padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--gl-ink); cursor: pointer; font-family: inherit; white-space: nowrap; }
 </style>
@@ -180,15 +182,13 @@
                   </linearGradient>
                 </defs>
                 <path d="M0 30 C 30 32, 60 28, 95 34 S 160 40, 212 44" fill="none" stroke="var(--gl-ink-soft)" stroke-width="2" stroke-dasharray="3 4" opacity="0.5"/>
-                <text x="4" y="24" font-size="10" fill="var(--gl-ink-soft)">Prior 90 days</text>
                 <path d="M0 40 C 30 38, 60 42, 95 38 S 160 30, 210 24 L 210 70 L 0 70 Z" fill="url(#fillcap)"/>
                 <path d="M0 40 C 30 38, 60 42, 95 38 S 160 30, 210 24" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
                 <circle cx="210" cy="24" r="3.5" fill="var(--c-blue)"/>
-                <text x="204" y="16" font-size="10.5" font-weight="600" fill="var(--gl-ink)" text-anchor="end">3.4 PB</text>
-                <text x="4" y="52" font-size="10" fill="var(--gl-ink-soft)">3.26 PB</text>
               </svg>
             </div>
-            <div class="fine axis-row"><span>Jun 17</span><span class="now">Today</span></div>
+            <div class="fine axis-row"><span>Jun 17 · 3.26 PB</span><span class="now">Today · 3.4 PB</span></div>
+            <div class="fine legend-inline" style="margin-top:6px;"><span class="dash-sw"></span>Prior 90 days</div>
             <div class="fine takeaway">Growing a steady <strong style="color:var(--gl-ink);">1.5%</strong> a month. Deduplication is absorbing most new data, so usable space is lasting longer.</div>
           </div>
 
@@ -275,11 +275,9 @@
                 <path d="M0 28 C 25 26, 45 30, 70 28 S 120 14, 145 22 S 185 28, 210 26 L 210 42 L 0 42 Z" fill="url(#fillperf)"/>
                 <path d="M0 28 C 25 26, 45 30, 70 28 S 120 14, 145 22 S 185 28, 210 26" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
                 <circle cx="210" cy="26" r="3.5" fill="var(--c-blue)"/>
-                <text x="204" y="18" font-size="10.5" font-weight="600" fill="var(--gl-ink)" text-anchor="end">0.8 ms</text>
-                <text x="4" y="40" font-size="10" fill="var(--gl-ink-soft)">0.87 ms</text>
               </svg>
             </div>
-            <div class="fine axis-row"><span>Sep 9</span><span class="now">Today</span></div>
+            <div class="fine axis-row"><span>Sep 9 · 0.87 ms</span><span class="now">Today · 0.8 ms</span></div>
             <div class="fine takeaway">One brief spike during the DAL-04 controller failover. Response times are back to normal.</div>
           </div>
 
@@ -312,11 +310,9 @@
                 <path d="M0 30 C 25 30, 45 28, 70 30 S 110 18, 135 16 S 185 26, 210 14 L 210 42 L 0 42 Z" fill="url(#filllc)"/>
                 <path d="M0 30 C 25 30, 45 28, 70 30 S 110 18, 135 16 S 185 26, 210 14" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
                 <circle cx="210" cy="14" r="3.5" fill="var(--c-blue)"/>
-                <text x="204" y="8" font-size="10.5" font-weight="600" fill="var(--gl-ink)" text-anchor="end">119</text>
-                <text x="4" y="42" font-size="10" fill="var(--gl-ink-soft)">104</text>
               </svg>
             </div>
-            <div class="fine axis-row"><span>Jun 17</span><span class="now">Today</span></div>
+            <div class="fine axis-row"><span>Jun 17 · 104</span><span class="now">Today · 119</span></div>
             <div class="fine takeaway">9 systems still need the 2026.08 release. 3 of them are missing a known stability fix: update those first, ideally this weekend.</div>
           </div>
 
