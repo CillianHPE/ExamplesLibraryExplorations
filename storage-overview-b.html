@@ -25,7 +25,7 @@
   .fig-sub { font-size: 12.5px; color: var(--gl-ink-soft); }
   .takeaway { margin-top: 12px; }
   .sqsw { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
-  .chart-wrap svg { display: block; width: 100%; height: auto; }
+  .chart-wrap svg { display: block; width: 100%; height: 72px; }
   .axis-row { display: flex; justify-content: space-between; margin-top: 6px; }
   .axis-row .now { font-weight: 600; color: var(--gl-ink); }
   .donut.lg { width: 170px; height: 170px; margin: 8px auto 16px; }
@@ -174,7 +174,7 @@
             <div class="fig-row"><span class="fig">3.4</span><span class="delta up" style="white-space:nowrap;">↑ 140 TB in 90 days</span></div>
             <div class="fine" style="margin:-8px 0 12px;">PB</div>
             <div class="chart-wrap">
-              <svg viewBox="0 0 220 72">
+              <svg viewBox="0 0 220 72" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="fillcap" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
@@ -265,17 +265,17 @@
             <div class="fig-row"><span class="fig">0.8</span><span class="delta up" style="white-space:nowrap;">8% faster than last week</span></div>
             <div class="fine" style="margin:-8px 0 12px;">ms</div>
             <div class="chart-wrap">
-              <svg viewBox="0 0 220 44">
+              <svg viewBox="0 0 220 72" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="fillperf" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
                     <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
                   </linearGradient>
                 </defs>
-                <path d="M0 20 C 25 24, 45 20, 70 24 S 120 28, 145 24 S 185 30, 210 30" fill="none" stroke="var(--line)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-dasharray="1 4"/>
-                <path d="M0 28 C 25 26, 45 30, 70 28 S 120 14, 145 22 S 185 28, 210 26 L 210 42 L 0 42 Z" fill="url(#fillperf)"/>
-                <path d="M0 28 C 25 26, 45 30, 70 28 S 120 14, 145 22 S 185 28, 210 26" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
-                <path d="M210 26 h0.01" stroke="var(--c-blue)" stroke-width="12" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+                <path d="M0 33 C 25 39, 45 33, 70 39 S 120 46, 145 39 S 185 49, 210 49" fill="none" stroke="var(--line)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-dasharray="1 4"/>
+                <path d="M0 46 C 25 43, 45 49, 70 46 S 120 23, 145 36 S 185 46, 210 43 L 210 70 L 0 70 Z" fill="url(#fillperf)"/>
+                <path d="M0 46 C 25 43, 45 49, 70 46 S 120 23, 145 36 S 185 46, 210 43" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+                <path d="M210 43 h0.01" stroke="var(--c-blue)" stroke-width="12" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
               </svg>
             </div>
             <div class="fine axis-row"><span>Sep 9 · 0.87 ms</span><span class="now">Today · 0.8 ms</span></div>
@@ -302,17 +302,17 @@
             <div class="fig-row"><span class="fig">119</span><span class="delta up" style="white-space:nowrap;">↑ 6 updated this month</span></div>
             <div class="fine" style="margin:-8px 0 12px;">of 128 systems on the recommended release</div>
             <div class="chart-wrap">
-              <svg viewBox="0 0 220 44">
+              <svg viewBox="0 0 220 72" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="filllc" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
                     <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
                   </linearGradient>
                 </defs>
-                <path d="M0 34 C 25 34, 45 32, 70 32 S 110 28, 135 26 S 185 24, 210 22" fill="none" stroke="var(--line)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-dasharray="1 4"/>
-                <path d="M0 30 C 25 30, 45 28, 70 30 S 110 18, 135 16 S 185 26, 210 14 L 210 42 L 0 42 Z" fill="url(#filllc)"/>
-                <path d="M0 30 C 25 30, 45 28, 70 30 S 110 18, 135 16 S 185 26, 210 14" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
-                <path d="M210 14 h0.01" stroke="var(--c-blue)" stroke-width="12" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+                <path d="M0 56 C 25 56, 45 52, 70 52 S 110 46, 135 43 S 185 39, 210 36" fill="none" stroke="var(--line)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-dasharray="1 4"/>
+                <path d="M0 49 C 25 49, 45 46, 70 49 S 110 29, 135 26 S 185 43, 210 23 L 210 70 L 0 70 Z" fill="url(#filllc)"/>
+                <path d="M0 49 C 25 49, 45 46, 70 49 S 110 29, 135 26 S 185 43, 210 23" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+                <path d="M210 23 h0.01" stroke="var(--c-blue)" stroke-width="12" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
               </svg>
             </div>
             <div class="fine axis-row"><span>Jun 17 · 104</span><span class="now">Today · 119</span></div>
