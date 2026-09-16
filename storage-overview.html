@@ -29,6 +29,14 @@
   .stat-pair { display: flex; gap: 28px; }
   .stat-pair .sp-name { font-size: 12.5px; color: var(--gl-ink-soft); }
   .stat-pair .sp-val { font-size: 20px; font-weight: 700; color: var(--gl-heading); margin-top: 2px; }
+  /* needs-attention rollup rows */
+  .att-group { font-size: 12.5px; color: var(--gl-ink-soft); margin: 18px 0 4px; }
+  .att-group:first-of-type { margin-top: 2px; }
+  .att-row { display: flex; align-items: center; gap: 12px; padding: 12px 0 12px 4px; border-bottom: 1px solid var(--contained-line); cursor: pointer; }
+  .att-row:last-of-type, .att-row:has(+ .att-group) { border-bottom: 0; }
+  .att-row .sev { margin-top: 0; }
+  .att-n { font-size: 17px; font-weight: 700; color: var(--gl-heading); font-variant-numeric: tabular-nums; min-width: 20px; }
+  .att-label { font-size: 14px; color: var(--gl-ink); }
 </style>
 </head>
 <body>
@@ -131,32 +139,23 @@
             <div class="card span-2 tall">
               <div class="bhead">
                 <div>
-                  <h2 class="bcard-title">Needs attention</h2>
-                  <div class="fine bcard-scope">7 items · newest first</div>
+                  <h2 class="bcard-title">Needs your attention</h2>
                 </div>
                 <span class="arrow">→</span>
               </div>
-              <div class="list-item">
-                <div class="li-main"><div class="sev crit"></div><div><div class="li-title">Controller failover on Array-DAL-04</div><div class="li-sub">Running on single controller · performance at risk</div></div></div>
-                <div class="li-meta">24 min ago</div>
-              </div>
-              <div class="list-item">
-                <div class="li-main"><div class="sev crit"></div><div><div class="li-title">Drive set degraded on Array-FRA-11</div><div class="li-sub">RAID rebuild in progress · 62% complete</div></div></div>
-                <div class="li-meta">2 hr ago</div>
-              </div>
-              <div class="list-item">
-                <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Pool nearing full on Array-LON-02</div><div class="li-sub">88% used · projected full in 3 weeks</div></div></div>
-                <div class="li-meta">Today</div>
-              </div>
-              <div class="list-item">
-                <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Snapshot backlog on Finance-Prod</div><div class="li-sub">3 schedules missed overnight window</div></div></div>
-                <div class="li-meta">Today</div>
-              </div>
-              <div class="list-item">
-                <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Latency spike on Array-DAL-04</div><div class="li-sub">Peaked 4.1 ms during failover · recovering</div></div></div>
-                <div class="li-meta">Yesterday</div>
-              </div>
-              <div style="margin-top:12px;"><span class="glink">View all alerts →</span></div>
+
+              <div class="att-group">Act now</div>
+              <div class="att-row"><div class="sev crit"></div><span class="att-n">2</span><span class="att-label">Systems with critical alerts</span></div>
+              <div class="att-row"><div class="sev crit"></div><span class="att-n">1</span><span class="att-label">Pool projected full in 3 weeks</span></div>
+
+              <div class="att-group">Fix this week</div>
+              <div class="att-row"><div class="sev warn"></div><span class="att-n">14</span><span class="att-label">Volumes without protection</span></div>
+              <div class="att-row"><div class="sev warn"></div><span class="att-n">3</span><span class="att-label">Snapshot schedules missed overnight</span></div>
+              <div class="att-row"><div class="sev warn"></div><span class="att-n">9</span><span class="att-label">Systems below recommended release</span></div>
+
+              <div class="att-group">Plan ahead</div>
+              <div class="att-row"><div class="sev low"></div><span class="att-n">2</span><span class="att-label">Subscriptions expiring in 30 days</span></div>
+              <div class="att-row"><div class="sev low"></div><span class="att-n">258</span><span class="att-label">Volumes without immutable snapshots</span></div>
             </div>
 
             <!-- Capacity trend -->
