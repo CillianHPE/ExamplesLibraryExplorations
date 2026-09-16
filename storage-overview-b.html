@@ -274,8 +274,12 @@
                 </defs>
                 <path d="M0 28 C 25 26, 45 30, 70 28 S 120 14, 145 22 S 185 28, 210 26 L 210 42 L 0 42 Z" fill="url(#fillperf)"/>
                 <path d="M0 28 C 25 26, 45 30, 70 28 S 120 14, 145 22 S 185 28, 210 26" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="210" cy="26" r="3.5" fill="var(--c-blue)"/>
+                <text x="204" y="18" font-size="10.5" font-weight="600" fill="var(--gl-ink)" text-anchor="end">0.8 ms</text>
+                <text x="4" y="40" font-size="10" fill="var(--gl-ink-soft)">0.87 ms</text>
               </svg>
             </div>
+            <div class="fine axis-row"><span>Sep 9</span><span class="now">Today</span></div>
             <div class="fine takeaway">One brief spike during the DAL-04 controller failover. Response times are back to normal.</div>
           </div>
 
@@ -299,9 +303,20 @@
             <div class="fine" style="margin:-8px 0 12px;">of 128 systems on the recommended release</div>
             <div class="chart-wrap">
               <svg viewBox="0 0 220 44">
-                <path d="M0 30 C 25 30, 45 28, 70 30 S 110 18, 135 16 S 185 26, 210 24" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
+                <defs>
+                  <linearGradient id="filllc" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.18"/>
+                    <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 30 C 25 30, 45 28, 70 30 S 110 18, 135 16 S 185 26, 210 14 L 210 42 L 0 42 Z" fill="url(#filllc)"/>
+                <path d="M0 30 C 25 30, 45 28, 70 30 S 110 18, 135 16 S 185 26, 210 14" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="210" cy="14" r="3.5" fill="var(--c-blue)"/>
+                <text x="204" y="8" font-size="10.5" font-weight="600" fill="var(--gl-ink)" text-anchor="end">119</text>
+                <text x="4" y="42" font-size="10" fill="var(--gl-ink-soft)">104</text>
               </svg>
             </div>
+            <div class="fine axis-row"><span>Jun 17</span><span class="now">Today</span></div>
             <div class="fine takeaway">9 systems still need the 2026.08 release. 3 of them are missing a known stability fix: update those first, ideally this weekend.</div>
           </div>
 
