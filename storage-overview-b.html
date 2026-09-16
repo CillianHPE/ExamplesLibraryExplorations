@@ -113,10 +113,10 @@
                 </div>
                 <span class="arrow">→</span>
               </div>
-              <div class="fig-row"><span class="fig">71%</span><span class="delta down" style="white-space:nowrap;">↓ 2% MoM</span></div>
+              <div class="fig-row"><span class="fig">71%</span><span class="delta down" style="white-space:nowrap;">↑ 2% vs last month</span></div>
               <div class="meter"><i style="width:71%; background:var(--c-blue);"></i></div>
               <div class="fine" style="margin-top:8px;"><strong style="color:var(--gl-ink);">3.4 PB</strong> used of <strong style="color:var(--gl-ink);">4.8 PB</strong></div>
-              <div class="fine takeaway">At current growth, capacity reaches 90% in about 9 months.</div>
+              <div class="fine takeaway">At the current pace you will hit 90% full in about 9 months.</div>
             </div>
             <div class="card">
               <div class="bhead">
@@ -128,8 +128,8 @@
               </div>
               <div class="fig-row"><span class="fig">98%</span><span class="delta neutral" style="white-space:nowrap;">14 unprotected</span></div>
               <div class="meter"><i style="width:98%"></i></div>
-              <div class="fine" style="margin-top:8px;"><strong style="color:var(--gl-ink);">14</strong> of <strong style="color:var(--gl-ink);">1,842</strong> volumes not covered by protection policy</div>
-              <div class="fine takeaway">14 new volumes in Finance-Prod have no snapshot schedule.</div>
+              <div class="fine" style="margin-top:8px;"><strong style="color:var(--gl-ink);">14</strong> of <strong style="color:var(--gl-ink);">1,842</strong> volumes have no protection policy</div>
+              <div class="fine takeaway">All 14 are new volumes in Finance-Prod. Add a snapshot schedule to close the gap.</div>
             </div>
           </div>
 
@@ -137,7 +137,7 @@
             <div class="bhead">
               <div>
                 <h2 class="bcard-title">Needs attention</h2>
-                <div class="fine bcard-scope">7 items · newest first</div>
+                <div class="fine bcard-scope">Grouped by urgency · newest first</div>
               </div>
               <span class="arrow">→</span>
             </div>
@@ -187,7 +187,7 @@
               </svg>
             </div>
             <div class="fine axis-row"><span>Jun 17</span><span class="now">Today</span></div>
-            <div class="fine takeaway">Growth is steady at <strong style="color:var(--gl-ink);">1.5%</strong> per month. Data reduction is absorbing most new writes.</div>
+            <div class="fine takeaway">Growing a steady <strong style="color:var(--gl-ink);">1.5%</strong> a month. Deduplication is absorbing most new data, so usable space is lasting longer.</div>
           </div>
 
           <div class="card">
@@ -198,7 +198,7 @@
               </div>
               <button class="sel-btn">by Workload <span style="font-size:10px;">▾</span></button>
             </div>
-            <div class="fig-row"><span class="fig">3.4</span><span class="fig-sub">PB usage</span></div>
+            <div class="fig-row"><span class="fig">3.4</span><span class="fig-sub">PB used</span></div>
             <div class="stack-bar" style="margin:4px 0 14px;">
               <span style="flex:38; background:var(--c-blue)"></span>
               <span style="flex:24; background:var(--c-green)"></span>
@@ -242,14 +242,14 @@
             <div class="bhead">
               <div>
                 <h2 class="bcard-title">Cyber resilience</h2>
-                <div class="fine bcard-scope">Ransomware posture</div>
+                <div class="fine bcard-scope">Ransomware protection</div>
               </div>
               <span class="arrow">→</span>
             </div>
-            <div class="fig-row"><span class="fig">86%</span><span class="delta neutral" style="white-space:nowrap;">258 volumes to cover</span></div>
+            <div class="fig-row"><span class="fig">86%</span><span class="delta neutral" style="white-space:nowrap;">258 volumes uncovered</span></div>
             <div class="meter"><i style="width:86%"></i></div>
-            <div class="fine" style="margin-top:8px;">Production volumes with immutable snapshots</div>
-            <div class="fine takeaway">Anomaly detection active on all systems. No suspicious activity in 30 days. Immutability gap is concentrated in Dev-Sandbox.</div>
+            <div class="fine" style="margin-top:8px;">Production volumes with tamper-proof snapshot copies</div>
+            <div class="fine takeaway">No suspicious activity detected in 30 days. Most of the 258 uncovered volumes are in Dev-Sandbox, the lowest-risk environment.</div>
           </div>
 
           <div class="card">
@@ -260,7 +260,7 @@
               </div>
               <span class="arrow">→</span>
             </div>
-            <div class="fig-row"><span class="fig">0.8</span><span class="delta up" style="white-space:nowrap;">↓ 8% better</span></div>
+            <div class="fig-row"><span class="fig">0.8</span><span class="delta up" style="white-space:nowrap;">8% faster than last week</span></div>
             <div class="fine" style="margin:-8px 0 12px;">ms</div>
             <div class="chart-wrap">
               <svg viewBox="0 0 220 44">
@@ -274,7 +274,7 @@
                 <path d="M0 28 C 25 26, 45 30, 70 28 S 120 14, 145 22 S 185 28, 210 26" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </div>
-            <div class="fine takeaway">Brief spike during the DAL-04 failover, now back to baseline.</div>
+            <div class="fine takeaway">One brief spike during the DAL-04 controller failover. Response times are back to normal.</div>
           </div>
 
         </div>
@@ -289,18 +289,18 @@
             <div class="bhead">
               <div>
                 <h2 class="bcard-title">Lifecycle</h2>
-                <div class="fine bcard-scope">Software currency</div>
+                <div class="fine bcard-scope">Software updates</div>
               </div>
               <span class="arrow">→</span>
             </div>
-            <div class="fig-row"><span class="fig">119</span><span class="delta up" style="white-space:nowrap;">↓ 8% better</span></div>
-            <div class="fine" style="margin:-8px 0 12px;">of 128 current</div>
+            <div class="fig-row"><span class="fig">119</span><span class="delta up" style="white-space:nowrap;">↑ 6 updated this month</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">of 128 systems on the recommended release</div>
             <div class="chart-wrap">
               <svg viewBox="0 0 220 44">
                 <path d="M0 30 C 25 30, 45 28, 70 30 S 110 18, 135 16 S 185 26, 210 24" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </div>
-            <div class="fine takeaway">9 systems below the 2026.08 recommended release. 3 carry a known stability fix. Update windows suggested for this weekend.</div>
+            <div class="fine takeaway">9 systems still need the 2026.08 release. 3 of them are missing a known stability fix: update those first, ideally this weekend.</div>
           </div>
 
           <div class="card">
@@ -313,7 +313,7 @@
             </div>
             <div class="list-item"><div class="li-title">Expiring ≤ 30 days</div><div class="li-count">2</div></div>
             <div class="list-item"><div class="li-title">Expiring ≤ 90 days</div><div class="li-count">11</div></div>
-            <div class="fine takeaway">2 near-term renewals cover Array-LON-02 and Array-LON-03.</div>
+            <div class="fine takeaway">The 2 expiring soonest cover Array-LON-02 and Array-LON-03. Renew before Oct 16 to avoid a coverage lapse.</div>
           </div>
 
         </div>
