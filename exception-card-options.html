@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Exception-first cards: options and states</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<style>
+  body { background: var(--page); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 40px 32px 80px; }
+  .wrap > h1 { font-size: 24px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .intro { font-size: 14px; color: var(--gl-ink-soft); margin: 0 0 40px; max-width: 760px; }
+  .sec-h { margin: 56px 0 6px; }
+  .sec-h h2 { font-size: 19px; font-weight: 700; color: var(--gl-heading); margin: 0; }
+  .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: 0 0 24px; max-width: 720px; }
+
+  .opt { margin-bottom: 32px; display: grid; grid-template-columns: 320px 1fr; gap: 32px; align-items: start; }
+  .opt .card { width: 320px; }
+  .opt-note h3 { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .opt-note p { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; max-width: 620px; line-height: 1.5; }
+  .opt-note .fine { color: var(--gl-ink-soft); }
+
+  .states { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .state-cell h3 { font-size: 13px; font-weight: 700; color: var(--gl-heading); margin: 0 0 3px; }
+  .state-cell .cap { font-size: 12.5px; color: var(--gl-ink-soft); margin: 0 0 10px; line-height: 1.45; min-height: 36px; }
+  @media (max-width: 1100px) { .states { grid-template-columns: 1fr; } .opt { grid-template-columns: 1fr; } }
+
+  .bcard-title { font-size: 16px; font-weight: 700; color: var(--gl-heading); margin: 0; }
+  .bcard-scope { margin-top: 3px; }
+  .bhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+  .bhead .arrow { font-size: 17px; color: var(--gl-ink); cursor: pointer; line-height: 1; }
+  .fig-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .fig { font-size: 30px; font-weight: 700; color: var(--gl-heading); line-height: 1.1; letter-spacing: -0.4px; }
+  .takeaway { margin-top: 12px; }
+  .stat-pair { display: flex; gap: 40px; border-top: 1px solid var(--contained-line); padding-top: 14px; margin-top: 14px; }
+  .stat-pair .sp-val { font-size: 20px; font-weight: 700; color: var(--gl-heading); line-height: 1.1; }
+  .stat-pair .sp-name { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 3px; }
+
+  .seg-meter { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; }
+  .seg-meter i { display: block; height: 100%; }
+  .issue-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--contained-line); font-size: 13.5px; color: var(--gl-ink); cursor: pointer; }
+  .issue-row:last-of-type { border-bottom: 0; }
+  .issue-row .n { font-weight: 700; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .issue-row .what { flex: 1; }
+  .issue-row .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  .row-line { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--contained-line); font-size: 13.5px; color: var(--gl-ink); }
+  .row-line:last-of-type { border-bottom: 0; }
+  .row-line .n { font-weight: 700; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<div class="switcher">
+  Prototypes:
+  <a href="index.html">Library</a>
+  <a href="storage-overview-b.html">Storage overview · B: Sectioned</a>
+  <a href="exception-card-options.html" class="on">Exception-first cards</a>
+</div>
+
+<div class="wrap">
+  <h1>Exception-first cards: options and states</h1>
+  <p class="intro">One exploration: when most of an environment is fine, the card should lead with what isn't. Section 1 compares chart treatments for Environment health (donut vs bar). Section 2 does the same for Data protection. Section 3 stress-tests the recommended layout against every state it must handle.</p>
+
+  <!-- ============ SECTION 1: HEALTH ============ -->
+  <div class="sec-h"><h2>Environment health · chart treatments</h2></div>
+  <p class="sec-sub">128 systems: 2 critical, 5 warning, 116 healthy, 5 unknown.</p>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Environment health</h2>
+          <div class="fine bcard-scope">128 systems · 4 regions</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="donut lg" style="width:150px; height:150px; margin:8px auto 16px; background: conic-gradient(var(--red) 0 1.6%, var(--amber) 1.6% 5.5%, var(--ok) 5.5% 96.1%, var(--unknown) 96.1% 100%);" data-center="128"></div>
+      <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">2</span></div>
+      <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">5</span></div>
+      <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy</span><span class="pct">116</span></div>
+      <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown</span><span class="pct">5</span></div>
+    </div>
+    <div class="opt-note">
+      <h3>H0 · Current: distribution donut</h3>
+      <p>The donut is dominated by green; the 2 critical systems are a 1.6% sliver you have to hunt for in the legend. Communicates posture, hides the exception.</p>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Environment health</h2>
+          <div class="fine bcard-scope">128 systems · 4 regions</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">7</span><span class="delta down" style="white-space:nowrap;">2 critical</span></div>
+      <div class="fine" style="margin:-8px 0 12px;">Systems that need attention</div>
+      <div class="seg-meter">
+        <i style="flex:2; background:var(--red); min-width:14px;"></i>
+        <i style="flex:5; background:var(--amber); min-width:14px;"></i>
+        <i style="flex:116; background:var(--ok); opacity:0.35;"></i>
+        <i style="flex:5; background:var(--unknown); min-width:14px;"></i>
+      </div>
+      <div class="fine" style="margin-top:8px; display:flex; justify-content:space-between;"><span><strong style="color:var(--gl-ink);">2 critical · 5 warning</strong></span><span>116 healthy · 5 unknown</span></div>
+      <div class="fine takeaway">Both critical systems are in Dallas: DAL-04 has a failed controller, DAL-07 lost a power supply.</div>
+    </div>
+    <div class="opt-note">
+      <h3>H1 · Exception-first, stacked bar</h3>
+      <p>Headline flips to the 7 needing attention; the pill isolates the 2 critical. The bar keeps the whole-environment shape but mutes healthy and guarantees minimum widths for small segments. Takeaway names the actual problems.</p>
+      <p class="fine">Recommended. States section below uses this layout.</p>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Environment health</h2>
+          <div class="fine bcard-scope">128 systems · 4 regions</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:20px;">
+        <div class="donut" style="width:96px; height:96px; background: conic-gradient(var(--red) 0 17%, var(--amber) 17% 58%, var(--unknown) 58% 100%); flex:none;" data-center="7"></div>
+        <div style="flex:1;">
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">2</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">5</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown</span><span class="pct">5</span></div>
+        </div>
+      </div>
+      <div class="fine" style="margin-top:12px;">116 of 128 systems healthy</div>
+      <div class="fine takeaway">Both critical systems are in Dallas. Start with DAL-04: a second fault would take it offline.</div>
+    </div>
+    <div class="opt-note">
+      <h3>H2 · Exception donut</h3>
+      <p>Keeps the donut but plots only the 12 non-healthy systems, centre count = 7 needing attention. Healthy drops to a caption line; the slices are finally legible.</p>
+      <p class="fine">Caveat: the ring no longer shows proportion of the whole environment; the caption carries that.</p>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Environment health</h2>
+          <div class="fine bcard-scope">128 systems · 4 regions</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">7</span><span class="delta down" style="white-space:nowrap;">↑ 3 more than yesterday</span></div>
+      <div class="fine" style="margin:-8px 0 4px;">Systems that need attention</div>
+      <div>
+        <div class="issue-row"><span class="dot" style="background:var(--red)"></span><span class="what">DAL-04 · controller failed</span><span class="fine">41m ago</span></div>
+        <div class="issue-row"><span class="dot" style="background:var(--red)"></span><span class="what">DAL-07 · power supply lost</span><span class="fine">2h ago</span></div>
+        <div class="issue-row"><span class="dot" style="background:var(--amber)"></span><span class="what">5 systems with warnings</span><span class="n">→</span></div>
+      </div>
+      <div class="fine takeaway">121 remaining systems are healthy or reporting normally.</div>
+    </div>
+    <div class="opt-note">
+      <h3>H3 · Named exceptions</h3>
+      <p>Critical systems named individually with fault and age; warnings roll up into one row; the healthy majority becomes one sentence.</p>
+      <p class="fine">Most actionable, but overlaps a Needs-attention card if both exist on the page.</p>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 2: PROTECTION ============ -->
+  <div class="sec-h"><h2>Data protection · chart treatments</h2></div>
+  <p class="sec-sub">1,842 volumes, 14 with no protection policy.</p>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">98%</span><span class="delta neutral" style="white-space:nowrap;">14 unprotected</span></div>
+      <div class="meter"><i style="width:98%"></i></div>
+      <div class="fine" style="margin-top:8px;"><strong style="color:var(--gl-ink);">14</strong> of <strong style="color:var(--gl-ink);">1,842</strong> volumes have no protection policy</div>
+      <div class="fine takeaway">All 14 are new volumes in Finance-Prod. Add a snapshot schedule to close the gap.</div>
+    </div>
+    <div class="opt-note">
+      <h3>P0 · Current: coverage-first</h3>
+      <p>98% headlines; the actionable 14 lives in a pill. Reads "green, fine, move on". Good for posture reporting, wrong for prompting action.</p>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">14</span><span class="delta down" style="white-space:nowrap;">all new this week</span></div>
+      <div class="fine" style="margin:-8px 0 12px;">Volumes with no backup protection</div>
+      <div class="seg-meter">
+        <i style="flex:1828; background:var(--c-blue); opacity:0.35;"></i>
+        <i style="flex:120; background:var(--red); min-width:14px;"></i>
+      </div>
+      <div class="fine" style="margin-top:8px; display:flex; justify-content:space-between;"><span>1,828 protected</span><span><strong style="color:var(--gl-ink);">14 unprotected</strong></span></div>
+      <div class="fine takeaway">All 14 are new volumes in Finance-Prod. Add a snapshot schedule to close the gap.</div>
+    </div>
+    <div class="opt-note">
+      <h3>P1 · Exception-first, gap-highlighted bar</h3>
+      <p>Headline flips to the 14; the bar mutes the protected mass and saturates the gap with a guaranteed minimum width. Both counts label the bar's ends.</p>
+      <p class="fine">Recommended; same grammar as H1 so the two cards read as siblings.</p>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">14</span><span class="delta down" style="white-space:nowrap;">in production systems</span></div>
+      <div class="fine" style="margin:-8px 0 4px;">Volumes with no backup protection</div>
+      <div class="stat-pair">
+        <div><div class="sp-val">9</div><div class="sp-name">Production volumes</div></div>
+        <div><div class="sp-val">5</div><div class="sp-name">Dev &amp; test volumes</div></div>
+      </div>
+      <div class="fine takeaway">Start with the 9 production volumes in Finance-Prod: they hold live data with no way to recover it.</div>
+    </div>
+    <div class="opt-note">
+      <h3>P2 · Severity split</h3>
+      <p>Drops the chart entirely; the stat pair splits the 14 by blast radius. Best when the audience is the operator doing the fixing.</p>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">14</span><span class="delta down" style="white-space:nowrap;">oldest gap 6 days</span></div>
+      <div class="fine" style="margin:-8px 0 4px;">Volumes with no backup protection</div>
+      <div>
+        <div class="row-line"><span>Finance-Prod</span><span class="n">9</span></div>
+        <div class="row-line"><span>Analytics-Dev</span><span class="n">3</span></div>
+        <div class="row-line"><span>HR-Test</span><span class="n">2</span></div>
+      </div>
+      <div class="fine takeaway">One snapshot schedule on Finance-Prod covers 9 of the 14.</div>
+    </div>
+    <div class="opt-note">
+      <h3>P3 · Worklist by location</h3>
+      <p>The 14 grouped by where they live, largest cluster first; the takeaway names the single action with the biggest payoff.</p>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 3: STATES ============ -->
+  <div class="sec-h"><h2>States coverage · exception-first health card (H1)</h2></div>
+  <p class="sec-sub">The layout has to hold up in every condition it can encounter, not just the demo data. Six states, worst to best, plus the no-data cases a real service will hit.</p>
+
+  <div class="states">
+
+    <div class="state-cell">
+      <h3>Widespread incident</h3>
+      <p class="cap">Exceptions are the majority. The bar goes mostly red; the pill escalates to scope, the takeaway names the shared cause.</p>
+      <div class="card">
+        <div class="bhead">
+          <div>
+            <h2 class="bcard-title">Environment health</h2>
+            <div class="fine bcard-scope">128 systems · 4 regions</div>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="fig-row"><span class="fig">61</span><span class="delta down" style="white-space:nowrap;">38 critical</span></div>
+        <div class="fine" style="margin:-8px 0 12px;">Systems that need attention</div>
+        <div class="seg-meter">
+          <i style="flex:38; background:var(--red);"></i>
+          <i style="flex:23; background:var(--amber);"></i>
+          <i style="flex:67; background:var(--ok); opacity:0.35;"></i>
+        </div>
+        <div class="fine" style="margin-top:8px; display:flex; justify-content:space-between;"><span><strong style="color:var(--gl-ink);">38 critical · 23 warning</strong></span><span>67 healthy</span></div>
+        <div class="fine takeaway">All 38 critical systems lost the DAL-2 network fabric at 14:02. One incident, one fix.</div>
+      </div>
+    </div>
+
+    <div class="state-cell">
+      <h3>Critical present (demo data)</h3>
+      <p class="cap">A few real problems in a healthy environment. The reference state from section 1.</p>
+      <div class="card">
+        <div class="bhead">
+          <div>
+            <h2 class="bcard-title">Environment health</h2>
+            <div class="fine bcard-scope">128 systems · 4 regions</div>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="fig-row"><span class="fig">7</span><span class="delta down" style="white-space:nowrap;">2 critical</span></div>
+        <div class="fine" style="margin:-8px 0 12px;">Systems that need attention</div>
+        <div class="seg-meter">
+          <i style="flex:2; background:var(--red); min-width:14px;"></i>
+          <i style="flex:5; background:var(--amber); min-width:14px;"></i>
+          <i style="flex:116; background:var(--ok); opacity:0.35;"></i>
+          <i style="flex:5; background:var(--unknown); min-width:14px;"></i>
+        </div>
+        <div class="fine" style="margin-top:8px; display:flex; justify-content:space-between;"><span><strong style="color:var(--gl-ink);">2 critical · 5 warning</strong></span><span>116 healthy · 5 unknown</span></div>
+        <div class="fine takeaway">Both critical systems are in Dallas: DAL-04 has a failed controller, DAL-07 lost a power supply.</div>
+      </div>
+    </div>
+
+    <div class="state-cell">
+      <h3>Warnings only</h3>
+      <p class="cap">No critical: pill drops severity language and the count stays honest. Takeaway is preventive, not urgent.</p>
+      <div class="card">
+        <div class="bhead">
+          <div>
+            <h2 class="bcard-title">Environment health</h2>
+            <div class="fine bcard-scope">128 systems · 4 regions</div>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="fig-row"><span class="fig">4</span><span class="delta neutral" style="white-space:nowrap;">no critical issues</span></div>
+        <div class="fine" style="margin:-8px 0 12px;">Systems that need attention</div>
+        <div class="seg-meter">
+          <i style="flex:4; background:var(--amber); min-width:14px;"></i>
+          <i style="flex:124; background:var(--ok); opacity:0.35;"></i>
+        </div>
+        <div class="fine" style="margin-top:8px; display:flex; justify-content:space-between;"><span><strong style="color:var(--gl-ink);">4 warning</strong></span><span>124 healthy</span></div>
+        <div class="fine takeaway">All 4 warnings are fans running hot in RTP-02. Schedule a filter check at the next visit.</div>
+      </div>
+    </div>
+
+    <div class="state-cell">
+      <h3>All healthy (zero state)</h3>
+      <p class="cap">Same layout, calm result. The takeaway earns trust by referencing the last incident instead of just "all good".</p>
+      <div class="card">
+        <div class="bhead">
+          <div>
+            <h2 class="bcard-title">Environment health</h2>
+            <div class="fine bcard-scope">128 systems · 4 regions</div>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="fig-row"><span class="fig">0</span><span class="delta up" style="white-space:nowrap;">all systems healthy</span></div>
+        <div class="fine" style="margin:-8px 0 12px;">Systems that need attention</div>
+        <div class="seg-meter">
+          <i style="flex:1; background:var(--ok); opacity:0.35;"></i>
+        </div>
+        <div class="fine" style="margin-top:8px;">128 of 128 systems healthy and reporting</div>
+        <div class="fine takeaway">Nothing to do here. Last incident resolved 12 days ago.</div>
+      </div>
+    </div>
+
+    <div class="state-cell">
+      <h3>Monitoring gap</h3>
+      <p class="cap">"Unknown" dominates: the honest read is "we can't see", not "all fine". Unknown counts toward the headline and the takeaway says why.</p>
+      <div class="card">
+        <div class="bhead">
+          <div>
+            <h2 class="bcard-title">Environment health</h2>
+            <div class="fine bcard-scope">128 systems · 4 regions</div>
+          </div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="fig-row"><span class="fig">43</span><span class="delta neutral" style="white-space:nowrap;">41 not reporting</span></div>
+        <div class="fine" style="margin:-8px 0 12px;">Systems that need attention</div>
+        <div class="seg-meter">
+          <i style="flex:2; background:var(--amber); min-width:14px;"></i>
+          <i style="flex:85; background:var(--ok); opacity:0.35;"></i>
+          <i style="flex:41; background:var(--unknown);"></i>
+        </div>
+        <div class="fine" style="margin-top:8px; display:flex; justify-content:space-between;"><span><strong style="color:var(--gl-ink);">2 warning · 41 unknown</strong></span><span>85 healthy</span></div>
+        <div class="fine takeaway">41 systems stopped reporting after the 14:02 gateway change. Health may be fine; visibility isn't.</div>
+      </div>
+    </div>
+
+    <div class="state-cell">
+      <h3>No data yet (first run)</h3>
+      <p class="cap">Nothing connected: no number to headline, no fake zero. The card teaches what it will show and offers the first step.</p>
+      <div class="card">
+        <div class="bhead">
+          <div>
+            <h2 class="bcard-title">Environment health</h2>
+            <div class="fine bcard-scope">No systems connected</div>
+          </div>
+        </div>
+        <div class="fine" style="margin:4px 0 12px;">Once systems are connected, this card shows how many need attention and why.</div>
+        <div class="seg-meter">
+          <i style="flex:1; background:var(--contained-line);"></i>
+        </div>
+        <div class="fine takeaway" style="margin-top:12px;"><a href="#" class="link">Connect your first system</a></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script src="livereload.js"></script>
+</body>
+</html>
