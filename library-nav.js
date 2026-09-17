@@ -68,7 +68,13 @@
       ]},
     ]},
     { label: 'UI compositions', children: [
-      { href: '/card-gallery.html', label: 'Card gallery' },
+      { label: 'Card / widget gallery', children: [
+        { href: '/card-gallery.html#exception', label: 'Report an exception' },
+        { href: '/card-gallery.html#trend', label: 'Show a trend' },
+        { href: '/card-gallery.html#insight', label: 'Explain an insight' },
+        { href: '/card-gallery.html#deadline', label: 'Prompt a deadline' },
+        { href: '/card-gallery.html#distribution', label: 'Summarise a distribution' },
+      ]},
       { href: '/exception-card-options.html', label: 'Status card exploration' },
       { href: '/trend-card-options.html', label: 'Trend card options' },
       { href: '/needs-attention/needs-attention-exploration.html', label: 'Needs attention exploration' },
@@ -120,7 +126,11 @@
   document.head.appendChild(style);
 
   const here = location.pathname + location.search;
-  const isCur = (href) => href === here || href === location.pathname;
+  const isCur = (href) => {
+    const [path, hash] = href.split('#');
+    if (path !== here && path !== location.pathname) return false;
+    return hash ? '#' + hash === location.hash : true;
+  };
 
   const root = document.createElement('div');
   const chev = '<svg class="chev" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>';
@@ -162,6 +172,7 @@
   root.querySelector('.x').addEventListener('click', close);
   root.querySelectorAll('.twig').forEach(t =>
     t.addEventListener('click', () => t.parentElement.classList.toggle('exp')));
+  root.querySelectorAll('.libnav-drawer a').forEach(a => a.addEventListener('click', close));
   scrim.addEventListener('click', close);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 })();
