@@ -70,6 +70,7 @@
     <button class="tabbtn on" onclick="setTab('health', this)">Environment health</button>
     <button class="tabbtn" onclick="setTab('protection', this)">Data protection</button>
     <button class="tabbtn" onclick="setTab('states', this)">States coverage</button>
+    <button class="tabbtn" onclick="setTab('anatomy', this)">Card anatomy</button>
   </div>
 
   <!-- ============ SECTION 1: HEALTH ============ -->
@@ -417,6 +418,165 @@
     </div>
 
   </div>
+  </div>
+
+  <!-- ============ SECTION 4: ANATOMY ============ -->
+  <div class="pane" id="pane-anatomy">
+  <div class="sec-h"><h2>Card anatomy · typography, layout and spacing</h2></div>
+  <p class="sec-sub">Same content (14 unprotected volumes, 9 production / 5 dev &amp; test) explored through type scale and spacing instead of dividers. Whitespace and size contrast do the separating.</p>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">14</span><span class="delta down" style="white-space:nowrap;">in production systems</span></div>
+      <div class="fine" style="margin:-8px 0 4px;">Volumes with no backup protection</div>
+      <div class="stat-pair">
+        <div><div class="sp-val">9</div><div class="sp-name">Production volumes</div></div>
+        <div><div class="sp-val">5</div><div class="sp-name">Dev &amp; test volumes</div></div>
+      </div>
+      <div class="fine takeaway">Start with the 9 production volumes in Finance-Prod: they hold live data with no way to recover it.</div>
+    </div>
+    <div class="opt-note">
+      <h3>A0 · Current (reference)</h3>
+      <p>Stat pair separated by a hairline divider. Works, but the divider adds a structural line the type could carry on its own.</p>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row" style="margin-bottom:2px;"><span class="fig">14</span><span class="delta down" style="white-space:nowrap;">in production systems</span></div>
+      <div class="fine" style="margin:0 0 24px;">Volumes with no backup protection</div>
+      <div style="display:flex; gap:40px; margin-bottom:24px;">
+        <div><div style="font-size:20px; font-weight:700; color:var(--gl-heading); line-height:1.1;">9</div><div class="fine" style="margin-top:3px;">Production</div></div>
+        <div><div style="font-size:20px; font-weight:700; color:var(--gl-heading); line-height:1.1;">5</div><div class="fine" style="margin-top:3px;">Dev &amp; test</div></div>
+      </div>
+      <div class="fine">Start with the 9 production volumes in Finance-Prod: they hold live data with no way to recover it.</div>
+    </div>
+    <div class="opt-note">
+      <h3>A1 · Whitespace only</h3>
+      <p>Identical structure with the divider removed; 24px gaps separate the three zones instead. Size contrast (30 → 20 → 12.5) keeps hierarchy legible. Labels shortened to one word so the numbers stay dominant.</p>
+      <p class="fine">Cheapest change; tests whether the divider was earning anything.</p>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row" style="margin-bottom:2px;"><span class="fig">14</span><span class="delta down" style="white-space:nowrap;">in production systems</span></div>
+      <div class="fine" style="margin:0 0 22px;">Volumes with no backup protection</div>
+      <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:22px; font-size:13.5px; color:var(--gl-ink-soft);">
+        <span style="font-size:17px; font-weight:700; color:var(--gl-heading);">9</span> production
+        <span style="margin:0 4px;">·</span>
+        <span style="font-size:17px; font-weight:700; color:var(--gl-heading);">5</span> dev &amp; test
+      </div>
+      <div class="fine">Start with the 9 production volumes in Finance-Prod: they hold live data with no way to recover it.</div>
+    </div>
+    <div class="opt-note">
+      <h3>A2 · Inline breakdown</h3>
+      <p>The split collapses to one reading line: "9 production · 5 dev &amp; test", with weight and size carrying the numbers. Frees a full row of vertical space; good when the card must stay short.</p>
+      <p class="fine">Trade-off: numbers no longer align in a scannable column across sibling cards.</p>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div style="margin:2px 0 22px;">
+        <div style="display:flex; align-items:baseline; gap:10px;"><span class="fig">14</span><span style="font-size:14px; color:var(--gl-ink);">volumes with no backup protection</span></div>
+      </div>
+      <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:8px;">
+        <span style="font-size:20px; font-weight:700; color:var(--gl-heading); min-width:32px; text-align:right; font-variant-numeric:tabular-nums;">9</span>
+        <span style="font-size:13.5px; color:var(--gl-ink);">in production, holding live data</span>
+      </div>
+      <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:22px;">
+        <span style="font-size:20px; font-weight:700; color:var(--gl-heading); min-width:32px; text-align:right; font-variant-numeric:tabular-nums;">5</span>
+        <span style="font-size:13.5px; color:var(--gl-ink);">in dev &amp; test</span>
+      </div>
+      <div class="fine">Start with Finance-Prod: one snapshot schedule covers all 9.</div>
+    </div>
+    <div class="opt-note">
+      <h3>A3 · Figure column</h3>
+      <p>Numbers form a right-aligned column (tabular numerals) with descriptions reading rightward, like a mini table without rules. The headline's label moves beside it, so every line follows one grammar: number, then meaning.</p>
+      <p class="fine">Scans fastest when there are 2–4 breakdown rows; scales to more rows better than side-by-side stats.</p>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div style="font-size:15px; line-height:1.6; color:var(--gl-ink); margin:4px 0 22px;">
+        <span style="font-size:26px; font-weight:700; color:var(--gl-heading); letter-spacing:-0.3px;">14 volumes</span> have no backup protection.
+        <span style="font-weight:700; color:var(--gl-heading);">9</span> are in production and hold live data;
+        <span style="font-weight:700; color:var(--gl-heading);">5</span> are dev &amp; test.
+      </div>
+      <div class="fine">Add a snapshot schedule to Finance-Prod first: it covers all 9 production volumes.</div>
+    </div>
+    <div class="opt-note">
+      <h3>A4 · Prose-led</h3>
+      <p>The whole story is one sentence with the figures set in heavier, larger type. No layout scaffolding at all; typography is the only structure.</p>
+      <p class="fine">Reads most naturally, but numbers are hard to compare across cards and localisation gets harder. Best for narrative or AI-summary surfaces.</p>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div style="display:flex; gap:32px; align-items:flex-start; margin-top:4px;">
+        <div style="flex:none;">
+          <div class="fig" style="font-size:38px;">14</div>
+          <div class="fine" style="margin-top:2px; max-width:110px;">volumes with no backup protection</div>
+        </div>
+        <div style="flex:1; padding-top:6px;">
+          <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:6px;"><span style="font-size:16px; font-weight:700; color:var(--gl-heading); font-variant-numeric:tabular-nums;">9</span><span class="fine">production</span></div>
+          <div style="display:flex; align-items:baseline; gap:8px;"><span style="font-size:16px; font-weight:700; color:var(--gl-heading); font-variant-numeric:tabular-nums;">5</span><span class="fine">dev &amp; test</span></div>
+        </div>
+      </div>
+      <div class="fine takeaway" style="margin-top:20px;">Start with the 9 production volumes in Finance-Prod: they hold live data with no way to recover it.</div>
+    </div>
+    <div class="opt-note">
+      <h3>A5 · Anchor + satellite</h3>
+      <p>The headline figure grows to 38px and anchors the left; the breakdown sits beside it as small satellites. Horizontal proximity says "these are parts of that number" without a single line or box.</p>
+      <p class="fine">Strong glance hierarchy; needs the pill dropped or relocated, and the label wraps under the big figure.</p>
+    </div>
+  </div>
+
   </div>
 </div>
 <script>
