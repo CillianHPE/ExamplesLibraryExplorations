@@ -12,13 +12,14 @@
 
   .toc { position: sticky; top: 24px; }
   .toc .t { font-size: 11.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gl-ink-faint); margin-bottom: 10px; }
-  .toc a { display: block; font-size: 13.5px; color: var(--gl-ink); text-decoration: none; padding: 6px 10px; border-radius: 6px; }
+  .toc a { display: block; font-size: 13.5px; color: var(--gl-ink); text-decoration: none; padding: 7px 10px; border-radius: 6px; }
   .toc a:hover { background: var(--contained); }
+  .toc a.on { background: #EDF6F2; box-shadow: inset 0 0 0 1.5px var(--gl-green-dark); font-weight: 600; color: var(--gl-heading); }
 
   .main h1 { font-size: 24px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
   .intro { font-size: 14px; color: var(--gl-ink-soft); margin: 0 0 12px; max-width: 760px; line-height: 1.6; }
-  .job { margin-top: 56px; scroll-margin-top: 24px; }
-  .job:first-of-type { margin-top: 40px; }
+  .job { display: none; margin-top: 36px; }
+  .job.active { display: block; }
   .job > h2 { font-size: 19px; font-weight: 700; color: var(--gl-heading); margin: 0 0 4px; }
   .job .goal { font-size: 14px; color: var(--gl-ink); margin: 0 0 4px; max-width: 720px; }
   .job .goal strong { color: var(--gl-heading); }
@@ -26,8 +27,12 @@
 
   .sub { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gl-ink-faint); margin: 26px 0 12px; }
   .shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; align-items: start; }
-  .cell .cap { font-size: 12.5px; color: var(--gl-ink-soft); margin: 8px 2px 0; line-height: 1.45; }
+  .cell .cap { font-size: 12.5px; color: var(--gl-ink-soft); margin: 10px 2px 0; line-height: 1.45; }
   .cell .cap b { color: var(--gl-ink); font-weight: 600; }
+  .uw { display: flex; gap: 8px; font-size: 12px; line-height: 1.45; color: var(--gl-ink-soft); margin: 6px 2px 0; }
+  .uw:first-of-type { margin-top: 8px; }
+  .uw .k { flex: none; width: 62px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--gl-ink); padding-top: 1px; }
+  .uw.not .k { color: var(--gl-ink-faint); }
 
   /* card internals (shared with overview pages) */
   .bcard-title { font-size: 16px; font-weight: 700; color: var(--gl-heading); margin: 0; }
@@ -64,11 +69,11 @@
 
   <nav class="toc">
     <div class="t">Jobs to be done</div>
-    <a href="#exception">Report an exception</a>
-    <a href="#trend">Show a trend</a>
-    <a href="#insight">Explain an insight</a>
-    <a href="#deadline">Prompt a deadline</a>
-    <a href="#distribution">Summarise a distribution</a>
+    <a href="#exception" class="jobtab" data-job="exception">Report an exception</a>
+    <a href="#trend" class="jobtab" data-job="trend">Show a trend</a>
+    <a href="#insight" class="jobtab" data-job="insight">Explain an insight</a>
+    <a href="#deadline" class="jobtab" data-job="deadline">Prompt a deadline</a>
+    <a href="#distribution" class="jobtab" data-job="distribution">Summarise a distribution</a>
     <div class="t" style="margin-top:22px;">Related</div>
     <a href="exception-card-options.html">Exploration archive</a>
     <a href="index.html">Library home</a>
@@ -76,7 +81,7 @@
 
   <main class="main">
     <h1>Card gallery</h1>
-    <p class="intro">Cards organised by the job they do for the viewer, not the metric they happen to show. Pick the job first; the canonical card and its rules follow. Each job ends with the states its card must survive: day zero, missing data, error, and both busy and calm results.</p>
+    <p class="intro">Cards organised by the job they do for the viewer, not the metric they happen to show. Pick a job on the left; each tab holds the canonical card, its presentation variants with guidance on when each earns its place, and the states the card must survive.</p>
 
     <!-- ================= JOB 1: EXCEPTION ================= -->
     <section class="job" id="exception">
@@ -104,6 +109,8 @@
             <div class="fine takeaway">Both critical systems are in Dallas: DAL-04 has a failed controller, DAL-07 lost a power supply.</div>
           </div>
           <p class="cap"><b>Exception count + gap bar.</b> Headline is the number needing attention; the bar keeps whole-environment shape with muted healthy mass and minimum-width severity segments; takeaway names the problems.</p>
+          <div class="uw"><span class="k">Use when</span><span>Routine monitoring of a mixed-severity environment. The viewer needs the count and a sense of scale ("7 of 128") in one glance.</span></div>
+          <div class="uw not"><span class="k">Not when</span><span>The viewer must choose what to fix first. The bar shows severity, not blast radius: use the severity split instead.</span></div>
         </div>
       </div>
 
@@ -123,7 +130,9 @@
             </div>
             <div class="fine">Start with the 9 production volumes in Finance-Prod: they hold live data with no way to recover it.</div>
           </div>
-          <p class="cap"><b>Severity split.</b> No chart; the count splits by blast radius. Use when the split IS the priority call and the audience is the fixer. Whitespace separates zones, no dividers.</p>
+          <p class="cap"><b>Severity split.</b> No chart; the count splits by blast radius. Whitespace separates zones, no dividers.</p>
+          <div class="uw"><span class="k">Use when</span><span>The split IS the priority call and the audience is the person who fixes it. Works up to three buckets.</span></div>
+          <div class="uw not"><span class="k">Not when</span><span>Scale matters. With no chart, "14 of 1,842" loses its proportion: pair with the gap bar or state the total in the scope line.</span></div>
         </div>
         <div class="cell">
           <div class="card">
@@ -136,7 +145,9 @@
             <div class="bd-row" style="margin-bottom:22px;"><span class="n">5</span><span class="d">in dev &amp; test</span></div>
             <div class="fine">Start with Finance-Prod: one snapshot schedule covers all 9.</div>
           </div>
-          <p class="cap"><b>Figure column.</b> Right-aligned tabular numbers, descriptions reading rightward. Scales best when the breakdown grows past two rows.</p>
+          <p class="cap"><b>Figure column.</b> Right-aligned tabular numbers, descriptions reading rightward.</p>
+          <div class="uw"><span class="k">Use when</span><span>The breakdown grows past two rows, or each row needs a sentence of context rather than a two-word label.</span></div>
+          <div class="uw not"><span class="k">Not when</span><span>A two-way split is enough: side-by-side columns scan faster than a stacked list.</span></div>
         </div>
         <div class="cell">
           <div class="card">
@@ -155,7 +166,9 @@
             <div class="fine" style="margin-top:12px;">116 of 128 systems healthy</div>
             <div class="fine takeaway">Both critical systems are in Dallas. Start with DAL-04.</div>
           </div>
-          <p class="cap"><b>Exception donut.</b> Plots only the non-healthy systems, centre count = needs attention. Use where a ring is house style; the caption must carry the whole-environment proportion.</p>
+          <p class="cap"><b>Exception donut.</b> Plots only the non-healthy systems, centre count = needs attention.</p>
+          <div class="uw"><span class="k">Use when</span><span>The surrounding dashboard already uses rings and consistency wins. The caption must carry the whole-environment proportion.</span></div>
+          <div class="uw not"><span class="k">Not when</span><span>Exception counts are tiny or similar in size: donut slivers are illegible, and the gap bar's minimum segment widths handle that better.</span></div>
         </div>
       </div>
 
@@ -263,6 +276,8 @@
             <div class="fine takeaway">Growing a steady <strong style="color:var(--gl-ink);">1.5%</strong> a month. Deduplication is absorbing most new data.</div>
           </div>
           <p class="cap"><b>Sparkline with prior-period reference.</b> The full spec: comparison line dashed and legended, endpoint dot ties "Today" to the line.</p>
+          <div class="uw"><span class="k">Use when</span><span>The comparison against a prior period is the story: "faster or slower than last quarter" matters more than the shape alone.</span></div>
+          <div class="uw not"><span class="k">Not when</span><span>The delta pill already states the comparison. Encoding it twice adds ink without information.</span></div>
         </div>
         <div class="cell">
           <div class="card">
@@ -288,7 +303,9 @@
             <div class="fine axis-row"><span>Sep 9 · 0.87 ms</span><span class="now">Today · 0.8 ms</span></div>
             <div class="fine takeaway">One brief spike during the DAL-04 controller failover. Back to normal.</div>
           </div>
-          <p class="cap"><b>Sparkline, single series.</b> When the pill carries the comparison, no dashed line and no legend: a single solid series never gets a legend entry.</p>
+          <p class="cap"><b>Sparkline, single series.</b> A single solid series never gets a legend entry.</p>
+          <div class="uw"><span class="k">Use when</span><span>The trajectory itself is the message and the pill carries any comparison. This should be the default trend card.</span></div>
+          <div class="uw not"><span class="k">Not when</span><span>The viewer must judge this period against the last one visually: add the dashed reference and its legend.</span></div>
         </div>
       </div>
 
@@ -367,6 +384,8 @@
             <div class="fine">The difference is space you never had to buy: about <strong style="color:var(--gl-ink);">$1.6M</strong> of hardware avoided.</div>
           </div>
           <p class="cap"><b>Insight card.</b> The arithmetic is visible (14.3 written, 3.4 stored, 10.9 saved); the takeaway converts it to money. No ratios, no jargon.</p>
+          <div class="uw"><span class="k">Use when</span><span>The metric is derived or abstract (efficiency, scores, ratios) and the viewer can't be assumed to know what it means.</span></div>
+          <div class="uw not"><span class="k">Not when</span><span>The number is self-explanatory ("3.4 PB used"). A decoder line under an obvious figure reads as filler.</span></div>
         </div>
         <div class="cell">
           <div class="card">
@@ -381,7 +400,9 @@
             </div>
             <div class="fine">That's about $1.6M of hardware you didn't have to buy.</div>
           </div>
-          <p class="cap"><b>Prose-led variant.</b> Same story as one sentence with the figures set heavier. Best for narrative or AI-summary surfaces; harder to compare across cards.</p>
+          <p class="cap"><b>Prose-led variant.</b> Same story as one sentence with the figures set heavier.</p>
+          <div class="uw"><span class="k">Use when</span><span>The card sits alone on a narrative surface: a report, an emailed digest, an AI summary panel.</span></div>
+          <div class="uw not"><span class="k">Not when</span><span>The card sits in a grid with others. Figures buried in sentences don't align, so cross-card scanning breaks down.</span></div>
         </div>
       </div>
 
@@ -437,6 +458,8 @@
             <div class="fine">The 2 most urgent cover Array-LON-02 and Array-LON-03. If they lapse, those systems lose support and updates: renew before <strong style="color:var(--gl-ink);">Oct 16</strong>.</div>
           </div>
           <p class="cap"><b>Deadline card.</b> Count → nearest date → urgency buckets → consequence + action.</p>
+          <div class="uw"><span class="k">Use when</span><span>Items expire on hard dates with real consequences: subscriptions, licences, certificates, warranties.</span></div>
+          <div class="uw not"><span class="k">Not when</span><span>The date is a soft target or forecast. Stating a consequence you can't stand behind erodes trust: use a trend or insight card instead.</span></div>
         </div>
       </div>
 
@@ -490,6 +513,8 @@
             <div class="fine takeaway">Databases are the biggest consumer and growing fastest: they drive the capacity forecast.</div>
           </div>
           <p class="cap"><b>Composition bar + legend.</b> Largest-first, percentages right-aligned, takeaway names what dominates and why it matters.</p>
+          <div class="uw"><span class="k">Use when</span><span>Proportion is the message and the viewer just needs posture: "what is this made of, does anything dominate."</span></div>
+          <div class="uw not"><span class="k">Not when</span><span>The viewer is meant to act on one slice. That's an exception job: lead with the count that needs attention instead.</span></div>
         </div>
       </div>
 
@@ -527,6 +552,16 @@
   </main>
 </div>
 
+<script>
+  const tabs = document.querySelectorAll('.jobtab');
+  function showJob(id) {
+    document.querySelectorAll('.job').forEach(s => s.classList.toggle('active', s.id === id));
+    tabs.forEach(a => a.classList.toggle('on', a.dataset.job === id));
+  }
+  tabs.forEach(a => a.addEventListener('click', () => showJob(a.dataset.job)));
+  const initial = location.hash.slice(1);
+  showJob(document.getElementById(initial) ? initial : 'exception');
+</script>
 <script src="livereload.js"></script>
 </body>
 </html>
