@@ -1,33 +1,34 @@
 // Global library navigation: floating button + drawer, present on every page.
 (function () {
+  // Tree: top-level categories → expandable groups → links.
   const NAV = [
-    { title: 'Library', items: [
-      { href: '/index.html', label: 'Home' },
+    { label: 'Home', href: '/index.html' },
+    { label: 'Pages', children: [
+      { label: 'Dashboards', children: [
+        { href: '/viewer.html?t=t1', label: 'T1 · Overview' },
+        { href: '/viewer.html?t=t2', label: 'T2 · Triage / work queue' },
+        { href: '/viewer.html?t=t3', label: 'T3 · Analytics / report' },
+        { href: '/viewer.html?t=t5', label: 'T5 · Custom board' },
+      ]},
+      { label: 'Details', children: [
+        { href: '/viewer.html?t=t4', label: 'T4 · Object detail' },
+      ]},
+      { label: 'Data collection', children: [
+        { href: '/data-collection/index.html', label: 'Overview' },
+        { href: '/data-collection/inventory-table.html', label: 'D1 · Filterable inventory table' },
+        { href: '/data-collection/card-catalog.html', label: 'D2 · Card grid catalog' },
+        { href: '/data-collection/event-stream.html', label: 'D3 · Faceted event stream' },
+        { href: '/data-collection/analytics-explorer.html', label: 'D4 · Analytics explorer' },
+        { href: '/data-collection/map-view.html', label: 'D5 · Map / spatial view' },
+      ]},
     ]},
-    { title: 'Pages · Dashboards', items: [
-      { href: '/viewer.html?t=t1', label: 'T1 · Overview' },
-      { href: '/viewer.html?t=t2', label: 'T2 · Triage / work queue' },
-      { href: '/viewer.html?t=t3', label: 'T3 · Analytics / report' },
-      { href: '/viewer.html?t=t5', label: 'T5 · Custom board' },
-    ]},
-    { title: 'Pages · Details', items: [
-      { href: '/viewer.html?t=t4', label: 'T4 · Object detail' },
-    ]},
-    { title: 'Pages · Data collection', items: [
-      { href: '/data-collection/index.html', label: 'Overview' },
-      { href: '/data-collection/inventory-table.html', label: 'D1 · Filterable inventory table' },
-      { href: '/data-collection/card-catalog.html', label: 'D2 · Card grid catalog' },
-      { href: '/data-collection/event-stream.html', label: 'D3 · Faceted event stream' },
-      { href: '/data-collection/analytics-explorer.html', label: 'D4 · Analytics explorer' },
-      { href: '/data-collection/map-view.html', label: 'D5 · Map / spatial view' },
-    ]},
-    { title: 'UI compositions', items: [
+    { label: 'UI compositions', children: [
       { href: '/card-gallery.html', label: 'Card gallery' },
       { href: '/exception-card-options.html', label: 'Status card exploration' },
       { href: '/trend-card-options.html', label: 'Trend card options' },
       { href: '/needs-attention/needs-attention-exploration.html', label: 'Needs attention exploration' },
     ]},
-    { title: 'Applied exercises', items: [
+    { label: 'Applied exercises', children: [
       { href: '/storage-overview-b.html', label: 'Storage overview · sectioned' },
       { href: '/storage-overview.html', label: 'Storage overview · bento' },
       { href: '/com-overview-remap-hifi.html', label: 'COM remap · A' },
@@ -53,12 +54,20 @@
     .libnav-drawer .hd b { font-size: 15px; font-weight: 700; color: var(--gl-heading, #202B30); }
     .libnav-drawer .x { border: none; background: none; font-size: 18px; line-height: 1; cursor: pointer; color: var(--gl-ink, #444E54); padding: 4px 6px; border-radius: 6px; }
     .libnav-drawer .x:hover { background: #F0F1F2; }
-    .libnav-drawer .grp { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
-      color: #7A868C; margin: 18px 8px 6px; }
     .libnav-drawer a { display: block; padding: 7px 10px; border-radius: 6px; font-size: 13.5px; text-decoration: none;
       color: var(--gl-ink, #444E54); }
     .libnav-drawer a:hover { background: #F0F1F2; }
     .libnav-drawer a.cur { background: #EDF6F2; box-shadow: inset 0 0 0 1.5px var(--gl-green-dark, #01754F); font-weight: 600; color: var(--gl-heading, #202B30); }
+    .libnav-drawer .twig { display: flex; align-items: center; gap: 6px; width: 100%; border: none; background: none;
+      text-align: left; padding: 7px 10px; border-radius: 6px; cursor: pointer; font-family: inherit;
+      font-size: 13.5px; font-weight: 600; color: var(--gl-heading, #202B30); }
+    .libnav-drawer .twig:hover { background: #F0F1F2; }
+    .libnav-drawer .twig .chev { flex: none; width: 12px; transition: transform .15s; transform: rotate(-90deg); color: #7A868C; }
+    .libnav-drawer .branch.exp > .twig .chev { transform: none; }
+    .libnav-drawer .branch > .kids { display: none; margin-left: 14px; padding-left: 6px; border-left: 1px solid var(--line, #D4D8DB); }
+    .libnav-drawer .branch.exp > .kids { display: block; }
+    .libnav-drawer .lv0 > .twig { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: #7A868C; margin-top: 14px; }
+    .libnav-drawer .lv0 > .kids { margin-left: 8px; padding-left: 0; border-left: none; }
   `;
 
   const style = document.createElement('style');
@@ -69,13 +78,20 @@
   const isCur = (href) => href === here || href === location.pathname;
 
   const root = document.createElement('div');
-  let links = '';
-  NAV.forEach(g => {
-    links += `<div class="grp">${g.title}</div>`;
-    g.items.forEach(i => {
-      links += `<a href="${i.href}"${isCur(i.href) ? ' class="cur"' : ''}>${i.label}</a>`;
-    });
-  });
+  const chev = '<svg class="chev" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>';
+
+  // A branch containing the current page starts expanded.
+  const hasCur = (node) => node.href ? isCur(node.href) : (node.children || []).some(hasCur);
+
+  function render(node, depth) {
+    if (node.href) return `<a href="${node.href}"${isCur(node.href) ? ' class="cur"' : ''}>${node.label}</a>`;
+    const exp = hasCur(node) || depth === 0;
+    return `<div class="branch lv${depth}${exp ? ' exp' : ''}">
+      <button class="twig">${chev}${node.label}</button>
+      <div class="kids">${node.children.map(c => render(c, depth + 1)).join('')}</div>
+    </div>`;
+  }
+  const links = NAV.map(n => render(n, 0)).join('');
   root.innerHTML = `
     <div class="libnav-scrim" hidden></div>
     <nav class="libnav-drawer" aria-label="Library navigation">
@@ -99,6 +115,8 @@
   const close = () => { root.classList.remove('libnav-open'); setTimeout(() => { scrim.hidden = true; }, 200); };
   trigger.addEventListener('click', open);
   root.querySelector('.x').addEventListener('click', close);
+  root.querySelectorAll('.twig').forEach(t =>
+    t.addEventListener('click', () => t.parentElement.classList.toggle('exp')));
   scrim.addEventListener('click', close);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 })();
