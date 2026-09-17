@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Card gallery · UI compositions</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  body { background: var(--page); }
+  .layout { max-width: 1360px; margin: 0 auto; padding: 40px 32px 96px; display: grid; grid-template-columns: 200px 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 1100px) { .layout { grid-template-columns: 1fr; } .toc { position: static; } }
+
+  .toc { position: sticky; top: 24px; }
+  .toc .t { font-size: 11.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gl-ink-faint); margin-bottom: 10px; }
+  .toc a { display: block; font-size: 13.5px; color: var(--gl-ink); text-decoration: none; padding: 6px 10px; border-radius: 6px; }
+  .toc a:hover { background: var(--contained); }
+
+  .main h1 { font-size: 24px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .intro { font-size: 14px; color: var(--gl-ink-soft); margin: 0 0 12px; max-width: 760px; line-height: 1.6; }
+  .job { margin-top: 56px; scroll-margin-top: 24px; }
+  .job:first-of-type { margin-top: 40px; }
+  .job > h2 { font-size: 19px; font-weight: 700; color: var(--gl-heading); margin: 0 0 4px; }
+  .job .goal { font-size: 14px; color: var(--gl-ink); margin: 0 0 4px; max-width: 720px; }
+  .job .goal strong { color: var(--gl-heading); }
+  .job .rule { font-size: 13px; color: var(--gl-ink-soft); margin: 0 0 22px; max-width: 720px; line-height: 1.5; }
+
+  .sub { font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gl-ink-faint); margin: 26px 0 12px; }
+  .shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; align-items: start; }
+  .cell .cap { font-size: 12.5px; color: var(--gl-ink-soft); margin: 8px 2px 0; line-height: 1.45; }
+  .cell .cap b { color: var(--gl-ink); font-weight: 600; }
+
+  /* card internals (shared with overview pages) */
+  .bcard-title { font-size: 16px; font-weight: 700; color: var(--gl-heading); margin: 0; }
+  .bcard-scope { margin-top: 3px; }
+  .bhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+  .bhead .arrow { font-size: 17px; color: var(--gl-ink); cursor: pointer; line-height: 1; }
+  .fig-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .fig { font-size: 30px; font-weight: 700; color: var(--gl-heading); line-height: 1.1; letter-spacing: -0.4px; }
+  .takeaway { margin-top: 12px; }
+  .seg-meter { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; }
+  .seg-meter i { display: block; height: 100%; }
+  .chart-wrap svg { display: block; width: 100%; height: 72px; overflow: visible; }
+  .axis-row { display: flex; justify-content: space-between; margin-top: 6px; }
+  .axis-row .now { font-weight: 600; color: var(--gl-ink); }
+  .legend-inline { display: flex; align-items: center; gap: 8px; }
+  .dash-sw { width: 16px; height: 2px; background-image: radial-gradient(circle, var(--line) 1px, transparent 1.2px); background-size: 4px 2px; background-position: 0 50%; background-repeat: repeat-x; flex: none; }
+  .bd-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+  .bd-row .n { font-size: 20px; font-weight: 700; color: var(--gl-heading); min-width: 32px; text-align: right; font-variant-numeric: tabular-nums; }
+  .bd-row .d { font-size: 13.5px; color: var(--gl-ink); }
+  .stat-cols { display: flex; gap: 40px; margin-bottom: 22px; }
+  .stat-cols .v { font-size: 20px; font-weight: 700; color: var(--gl-heading); line-height: 1.1; }
+  .stat-cols .l { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 3px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
+  <div class="workspace">Examples library · UI compositions</div>
+</header>
+
+<div class="layout">
+
+  <nav class="toc">
+    <div class="t">Jobs to be done</div>
+    <a href="#exception">Report an exception</a>
+    <a href="#trend">Show a trend</a>
+    <a href="#insight">Explain an insight</a>
+    <a href="#deadline">Prompt a deadline</a>
+    <a href="#distribution">Summarise a distribution</a>
+    <div class="t" style="margin-top:22px;">Related</div>
+    <a href="exception-card-options.html">Exploration archive</a>
+    <a href="index.html">Library home</a>
+  </nav>
+
+  <main class="main">
+    <h1>Card gallery</h1>
+    <p class="intro">Cards organised by the job they do for the viewer, not the metric they happen to show. Pick the job first; the canonical card and its rules follow. Each job ends with the states its card must survive: day zero, missing data, error, and both busy and calm results.</p>
+
+    <!-- ================= JOB 1: EXCEPTION ================= -->
+    <section class="job" id="exception">
+      <h2>Report an exception</h2>
+      <p class="goal"><strong>Viewer's question:</strong> "Is anything broken or unprotected, and how bad?"</p>
+      <p class="rule">Lead with the exception count in absolute units, never the healthy percentage: nobody acts on 98%. The healthy majority demotes to muted chart mass and a caption. Must pass the zero test: at 0 exceptions the same layout reads as calm reassurance.</p>
+
+      <div class="sub">Canonical</div>
+      <div class="shelf">
+        <div class="cell">
+          <div class="card">
+            <div class="bhead">
+              <div><h2 class="bcard-title">Environment health</h2><div class="fine bcard-scope">128 systems · 4 regions</div></div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row"><span class="fig">7</span><span class="delta down" style="white-space:nowrap;">2 critical</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">Systems that need attention</div>
+            <div class="seg-meter">
+              <i style="flex:2; background:var(--red); min-width:14px;"></i>
+              <i style="flex:5; background:var(--amber); min-width:14px;"></i>
+              <i style="flex:116; background:var(--ok); opacity:0.35;"></i>
+              <i style="flex:5; background:var(--unknown); min-width:14px;"></i>
+            </div>
+            <div class="fine" style="margin-top:8px; display:flex; justify-content:space-between;"><span><strong style="color:var(--gl-ink);">2 critical · 5 warning</strong></span><span>116 healthy · 5 unknown</span></div>
+            <div class="fine takeaway">Both critical systems are in Dallas: DAL-04 has a failed controller, DAL-07 lost a power supply.</div>
+          </div>
+          <p class="cap"><b>Exception count + gap bar.</b> Headline is the number needing attention; the bar keeps whole-environment shape with muted healthy mass and minimum-width severity segments; takeaway names the problems.</p>
+        </div>
+      </div>
+
+      <div class="sub">Presentation variants</div>
+      <div class="shelf">
+        <div class="cell">
+          <div class="card">
+            <div class="bhead">
+              <div><h2 class="bcard-title">Data protection</h2><div class="fine bcard-scope">1,842 volumes</div></div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row" style="margin-bottom:2px;"><span class="fig">14</span><span class="delta down" style="white-space:nowrap;">in production systems</span></div>
+            <div class="fine" style="margin:0 0 24px;">Volumes with no backup protection</div>
+            <div class="stat-cols">
+              <div><div class="v">9</div><div class="l">Production</div></div>
+              <div><div class="v">5</div><div class="l">Dev &amp; test</div></div>
+            </div>
+            <div class="fine">Start with the 9 production volumes in Finance-Prod: they hold live data with no way to recover it.</div>
+          </div>
+          <p class="cap"><b>Severity split.</b> No chart; the count splits by blast radius. Use when the split IS the priority call and the audience is the fixer. Whitespace separates zones, no dividers.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead">
+              <div><h2 class="bcard-title">Data protection</h2><div class="fine bcard-scope">1,842 volumes</div></div>
+              <span class="arrow">→</span>
+            </div>
+            <div style="margin:2px 0 22px;"><div style="display:flex; align-items:baseline; gap:10px;"><span class="fig">14</span><span style="font-size:14px; color:var(--gl-ink);">volumes with no backup protection</span></div></div>
+            <div class="bd-row"><span class="n">9</span><span class="d">in production, holding live data</span></div>
+            <div class="bd-row" style="margin-bottom:22px;"><span class="n">5</span><span class="d">in dev &amp; test</span></div>
+            <div class="fine">Start with Finance-Prod: one snapshot schedule covers all 9.</div>
+          </div>
+          <p class="cap"><b>Figure column.</b> Right-aligned tabular numbers, descriptions reading rightward. Scales best when the breakdown grows past two rows.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead">
+              <div><h2 class="bcard-title">Environment health</h2><div class="fine bcard-scope">128 systems · 4 regions</div></div>
+              <span class="arrow">→</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:20px;">
+              <div class="donut" style="width:96px; height:96px; background: conic-gradient(var(--red) 0 17%, var(--amber) 17% 58%, var(--unknown) 58% 100%); flex:none;" data-center="7"></div>
+              <div style="flex:1;">
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">2</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">5</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown</span><span class="pct">5</span></div>
+              </div>
+            </div>
+            <div class="fine" style="margin-top:12px;">116 of 128 systems healthy</div>
+            <div class="fine takeaway">Both critical systems are in Dallas. Start with DAL-04.</div>
+          </div>
+          <p class="cap"><b>Exception donut.</b> Plots only the non-healthy systems, centre count = needs attention. Use where a ring is house style; the caption must carry the whole-environment proportion.</p>
+        </div>
+      </div>
+
+      <div class="sub">States</div>
+      <div class="shelf">
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Environment health</h2><div class="fine bcard-scope">No systems connected</div></div></div>
+            <div class="fine" style="margin:4px 0 12px;">Once systems are connected, this card shows how many need attention and why.</div>
+            <div class="seg-meter"><i style="flex:1; background:var(--contained-line);"></i></div>
+            <div class="fine takeaway" style="margin-top:12px;"><a href="#" class="link">Connect your first system</a></div>
+          </div>
+          <p class="cap"><b>Day zero.</b> No fake numbers; the card teaches what it will show and offers the first step.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Environment health</h2><div class="fine bcard-scope">128 systems · 4 regions</div></div><span class="arrow">→</span></div>
+            <div class="fig-row"><span class="fig">43</span><span class="delta neutral" style="white-space:nowrap;">41 not reporting</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">Systems that need attention</div>
+            <div class="seg-meter">
+              <i style="flex:2; background:var(--amber); min-width:14px;"></i>
+              <i style="flex:85; background:var(--ok); opacity:0.35;"></i>
+              <i style="flex:41; background:var(--unknown);"></i>
+            </div>
+            <div class="fine" style="margin-top:8px; display:flex; justify-content:space-between;"><span><strong style="color:var(--gl-ink);">2 warning · 41 unknown</strong></span><span>85 healthy</span></div>
+            <div class="fine takeaway">41 systems stopped reporting after the 14:02 gateway change. Health may be fine; visibility isn't.</div>
+          </div>
+          <p class="cap"><b>Missing data.</b> Unknown counts toward the headline: "we can't see" is not "all fine".</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Environment health</h2><div class="fine bcard-scope">128 systems · 4 regions</div></div><span class="arrow">→</span></div>
+            <div class="fine" style="margin:4px 0 12px;">Health data didn't load. Showing the last good reading from <strong style="color:var(--gl-ink);">15:42</strong>.</div>
+            <div class="fig-row"><span class="fig" style="color:var(--gl-ink-soft);">7</span><span class="delta neutral" style="white-space:nowrap;">as of 15:42</span></div>
+            <div class="seg-meter" style="opacity:0.5;">
+              <i style="flex:2; background:var(--red); min-width:14px;"></i>
+              <i style="flex:5; background:var(--amber); min-width:14px;"></i>
+              <i style="flex:121; background:var(--ok); opacity:0.35;"></i>
+            </div>
+            <div class="fine takeaway"><a href="#" class="link">Retry</a></div>
+          </div>
+          <p class="cap"><b>Error / stale.</b> Never blank the card: keep the last good reading, timestamp it, dim the marks, offer retry.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Environment health</h2><div class="fine bcard-scope">128 systems · 4 regions</div></div><span class="arrow">→</span></div>
+            <div class="fig-row"><span class="fig">61</span><span class="delta down" style="white-space:nowrap;">38 critical</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">Systems that need attention</div>
+            <div class="seg-meter">
+              <i style="flex:38; background:var(--red);"></i>
+              <i style="flex:23; background:var(--amber);"></i>
+              <i style="flex:67; background:var(--ok); opacity:0.35;"></i>
+            </div>
+            <div class="fine" style="margin-top:8px; display:flex; justify-content:space-between;"><span><strong style="color:var(--gl-ink);">38 critical · 23 warning</strong></span><span>67 healthy</span></div>
+            <div class="fine takeaway">All 38 critical systems lost the DAL-2 network fabric at 14:02. One incident, one fix.</div>
+          </div>
+          <p class="cap"><b>Widespread incident.</b> Layout unchanged at scale; the takeaway looks for the shared cause.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Environment health</h2><div class="fine bcard-scope">128 systems · 4 regions</div></div><span class="arrow">→</span></div>
+            <div class="fig-row"><span class="fig">0</span><span class="delta up" style="white-space:nowrap;">all systems healthy</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">Systems that need attention</div>
+            <div class="seg-meter"><i style="flex:1; background:var(--ok); opacity:0.35;"></i></div>
+            <div class="fine" style="margin-top:8px;">128 of 128 systems healthy and reporting</div>
+            <div class="fine takeaway">Nothing to do here. Last incident resolved 12 days ago.</div>
+          </div>
+          <p class="cap"><b>Zero state.</b> Same layout, calm result; "last incident 12 days ago" earns trust in the 0.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= JOB 2: TREND ================= -->
+    <section class="job" id="trend">
+      <h2>Show a trend</h2>
+      <p class="goal"><strong>Viewer's question:</strong> "Which way is this heading, and how fast?"</p>
+      <p class="rule">Lead with the current total: the number is only meaningful as a trajectory. Sparkline per the canonical spec: 2px non-scaling blue line, gradient fill, fixed 12px endpoint dot, no text in the plot; values live in the axis row as "date · value". Dashed prior-period reference only when the comparison is the story, and it gets a legend.</p>
+
+      <div class="sub">Canonical</div>
+      <div class="shelf">
+        <div class="cell">
+          <div class="card">
+            <div class="bhead">
+              <div><h2 class="bcard-title">Capacity trend</h2><div class="fine bcard-scope">Last 90 days</div></div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row"><span class="fig">3.4</span><span class="delta up" style="white-space:nowrap;">↑ 140 TB in 90 days</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">PB</div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 220 72" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="g-fillcap" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 30 C 30 32, 60 28, 95 34 S 160 40, 220 44" fill="none" stroke="var(--line)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-dasharray="1 4"/>
+                <path d="M0 40 C 30 38, 60 42, 95 38 S 160 30, 220 24 L 220 70 L 0 70 Z" fill="url(#g-fillcap)"/>
+                <path d="M0 40 C 30 38, 60 42, 95 38 S 160 30, 220 24" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+                <path d="M220 24 h0.01" stroke="var(--c-blue)" stroke-width="12" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="fine axis-row"><span>Jun 17 · 3.26 PB</span><span class="now">Today · 3.4 PB</span></div>
+            <div class="fine legend-inline" style="margin-top:6px;"><span class="dash-sw"></span>Prior 90 days</div>
+            <div class="fine takeaway">Growing a steady <strong style="color:var(--gl-ink);">1.5%</strong> a month. Deduplication is absorbing most new data.</div>
+          </div>
+          <p class="cap"><b>Sparkline with prior-period reference.</b> The full spec: comparison line dashed and legended, endpoint dot ties "Today" to the line.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead">
+              <div><h2 class="bcard-title">Performance</h2><div class="fine bcard-scope">Avg latency · 7 days</div></div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row"><span class="fig">0.8</span><span class="delta up" style="white-space:nowrap;">8% faster than last week</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">ms</div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 220 72" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="g-fillperf" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 46 C 25 43, 45 49, 70 46 S 120 23, 145 36 S 185 46, 220 43 L 220 70 L 0 70 Z" fill="url(#g-fillperf)"/>
+                <path d="M0 46 C 25 43, 45 49, 70 46 S 120 23, 145 36 S 185 46, 220 43" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+                <path d="M220 43 h0.01" stroke="var(--c-blue)" stroke-width="12" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="fine axis-row"><span>Sep 9 · 0.87 ms</span><span class="now">Today · 0.8 ms</span></div>
+            <div class="fine takeaway">One brief spike during the DAL-04 controller failover. Back to normal.</div>
+          </div>
+          <p class="cap"><b>Sparkline, single series.</b> When the pill carries the comparison, no dashed line and no legend: a single solid series never gets a legend entry.</p>
+        </div>
+      </div>
+
+      <div class="sub">States</div>
+      <div class="shelf">
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Capacity trend</h2><div class="fine bcard-scope">Last 90 days</div></div></div>
+            <div class="fine" style="margin:4px 0 12px;">Trends appear after 7 days of readings. First reading was today.</div>
+            <div class="chart-wrap" style="display:flex; align-items:center;"><div style="width:100%; height:2px; background-image: radial-gradient(circle, var(--line) 1px, transparent 1.2px); background-size:4px 2px; background-repeat:repeat-x;"></div></div>
+            <div class="fine axis-row"><span>Today · 3.4 PB</span><span class="now">Trend from Sep 24</span></div>
+          </div>
+          <p class="cap"><b>Day zero / warming up.</b> Say when the trend will appear; show the one real reading rather than a fake flat line.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Capacity trend</h2><div class="fine bcard-scope">Last 90 days</div></div><span class="arrow">→</span></div>
+            <div class="fig-row"><span class="fig" style="color:var(--gl-ink-soft);">3.4</span><span class="delta neutral" style="white-space:nowrap;">as of 15:42</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">PB · data didn't refresh</div>
+            <div class="chart-wrap" style="opacity:0.5;">
+              <svg viewBox="0 0 220 72" preserveAspectRatio="none">
+                <path d="M0 40 C 30 38, 60 42, 95 38 S 160 30, 220 24" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="fine axis-row"><span>Jun 17 · 3.26 PB</span><span class="now">15:42 · 3.4 PB</span></div>
+            <div class="fine takeaway"><a href="#" class="link">Retry</a></div>
+          </div>
+          <p class="cap"><b>Error / stale.</b> Last good series stays, dimmed and timestamped; "Today" is replaced by the reading time.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Capacity trend</h2><div class="fine bcard-scope">Last 90 days</div></div><span class="arrow">→</span></div>
+            <div class="fig-row"><span class="fig">3.4</span><span class="delta neutral" style="white-space:nowrap;">flat for 90 days</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">PB</div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 220 72" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="g-fillflat" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 38 C 40 37.5, 90 38.5, 130 38 S 190 37.5, 220 38 L 220 70 L 0 70 Z" fill="url(#g-fillflat)"/>
+                <path d="M0 38 C 40 37.5, 90 38.5, 130 38 S 190 37.5, 220 38" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+                <path d="M220 38 h0.01" stroke="var(--c-blue)" stroke-width="12" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="fine axis-row"><span>Jun 17 · 3.4 PB</span><span class="now">Today · 3.4 PB</span></div>
+            <div class="fine takeaway">Usage is stable. No capacity action needed this quarter.</div>
+          </div>
+          <p class="cap"><b>Flat / no change.</b> A flat line is a valid answer; the takeaway says so instead of hunting for a story.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= JOB 3: INSIGHT ================= -->
+    <section class="job" id="insight">
+      <h2>Explain an insight</h2>
+      <p class="goal"><strong>Viewer's question:</strong> "What does this number mean, and why should I care?"</p>
+      <p class="rule">Five-part anatomy: title + scope → headline figure + delta pill → decoder line (plain-language meaning) → evidence → takeaway ending in an action or reassurance. Use real units over ratios; make the arithmetic visible; deltas quantified in the headline's own unit.</p>
+
+      <div class="sub">Canonical</div>
+      <div class="shelf">
+        <div class="cell">
+          <div class="card">
+            <div class="bhead">
+              <div><h2 class="bcard-title">Efficiency</h2><div class="fine bcard-scope">Space savings · all systems</div></div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row" style="margin-bottom:2px;"><span class="fig">10.9 PB</span><span class="delta up" style="white-space:nowrap;">↑ 0.6 PB more than last quarter</span></div>
+            <div class="fine" style="margin:0 0 24px;">Disk space saved by shrinking your data before storing it</div>
+            <div class="stat-cols">
+              <div><div class="v">14.3 PB</div><div class="l">Data your apps have written</div></div>
+              <div><div class="v">3.4 PB</div><div class="l">Disk it actually takes up</div></div>
+            </div>
+            <div class="fine">The difference is space you never had to buy: about <strong style="color:var(--gl-ink);">$1.6M</strong> of hardware avoided.</div>
+          </div>
+          <p class="cap"><b>Insight card.</b> The arithmetic is visible (14.3 written, 3.4 stored, 10.9 saved); the takeaway converts it to money. No ratios, no jargon.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead">
+              <div><h2 class="bcard-title">Efficiency</h2><div class="fine bcard-scope">Space savings · all systems</div></div>
+              <span class="arrow">→</span>
+            </div>
+            <div style="font-size:15px; line-height:1.6; color:var(--gl-ink); margin:4px 0 22px;">
+              <span style="font-size:26px; font-weight:700; color:var(--gl-heading); letter-spacing:-0.3px;">10.9 PB saved</span> by shrinking data before storing it.
+              Apps wrote <span style="font-weight:700; color:var(--gl-heading);">14.3 PB</span>; it takes up
+              <span style="font-weight:700; color:var(--gl-heading);">3.4 PB</span> of disk.
+            </div>
+            <div class="fine">That's about $1.6M of hardware you didn't have to buy.</div>
+          </div>
+          <p class="cap"><b>Prose-led variant.</b> Same story as one sentence with the figures set heavier. Best for narrative or AI-summary surfaces; harder to compare across cards.</p>
+        </div>
+      </div>
+
+      <div class="sub">States</div>
+      <div class="shelf">
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Efficiency</h2><div class="fine bcard-scope">Space savings</div></div></div>
+            <div class="fine" style="margin:4px 0 12px;">Savings are calculated after the first week of writes. Data collection started today.</div>
+            <div class="stat-cols" style="opacity:0.5;">
+              <div><div class="v">–</div><div class="l">Data written</div></div>
+              <div><div class="v">–</div><div class="l">Disk used</div></div>
+            </div>
+          </div>
+          <p class="cap"><b>Day zero.</b> Explain when the insight arrives; em-dash placeholders, no invented numbers.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Efficiency</h2><div class="fine bcard-scope">Space savings · all systems</div></div><span class="arrow">→</span></div>
+            <div class="fig-row" style="margin-bottom:2px;"><span class="fig">0.2 PB</span><span class="delta neutral" style="white-space:nowrap;">mostly incompressible data</span></div>
+            <div class="fine" style="margin:0 0 24px;">Disk space saved by shrinking your data before storing it</div>
+            <div class="stat-cols">
+              <div><div class="v">3.6 PB</div><div class="l">Data your apps have written</div></div>
+              <div><div class="v">3.4 PB</div><div class="l">Disk it actually takes up</div></div>
+            </div>
+            <div class="fine">Most of this data is video, which is already compressed. Low savings are expected here.</div>
+          </div>
+          <p class="cap"><b>Unimpressive result.</b> When the number is small, explain why it's expected instead of letting it read as failure.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= JOB 4: DEADLINE ================= -->
+    <section class="job" id="deadline">
+      <h2>Prompt a deadline</h2>
+      <p class="goal"><strong>Viewer's question:</strong> "What runs out, when, and what happens if I miss it?"</p>
+      <p class="rule">Headline the count due; the pill carries the nearest concrete date, not a restated stat. The breakdown buckets by urgency window. The takeaway must state the consequence of missing the deadline, then the action and date.</p>
+
+      <div class="sub">Canonical</div>
+      <div class="shelf">
+        <div class="cell">
+          <div class="card">
+            <div class="bhead">
+              <div><h2 class="bcard-title">Subscriptions</h2><div class="fine bcard-scope">Renewals</div></div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row" style="margin-bottom:2px;"><span class="fig">13</span><span class="delta down" style="white-space:nowrap;">soonest runs out Oct 16</span></div>
+            <div class="fine" style="margin:0 0 24px;">Subscriptions that need renewing in the next 90 days</div>
+            <div class="stat-cols">
+              <div><div class="v">2</div><div class="l">Run out within 30 days</div></div>
+              <div><div class="v">11</div><div class="l">Run out in 31–90 days</div></div>
+            </div>
+            <div class="fine">The 2 most urgent cover Array-LON-02 and Array-LON-03. If they lapse, those systems lose support and updates: renew before <strong style="color:var(--gl-ink);">Oct 16</strong>.</div>
+          </div>
+          <p class="cap"><b>Deadline card.</b> Count → nearest date → urgency buckets → consequence + action.</p>
+        </div>
+      </div>
+
+      <div class="sub">States</div>
+      <div class="shelf">
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Subscriptions</h2><div class="fine bcard-scope">Renewals</div></div><span class="arrow">→</span></div>
+            <div class="fig-row" style="margin-bottom:2px;"><span class="fig">1</span><span class="delta down" style="white-space:nowrap;">lapsed 3 days ago</span></div>
+            <div class="fine" style="margin:0 0 24px;">Subscription already run out</div>
+            <div class="fine">Array-LON-02 has been without support since Oct 13. It still runs, but faults won't be serviced until renewal.</div>
+          </div>
+          <p class="cap"><b>Missed deadline.</b> The card flips from future to past tense and says what is already at risk.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Subscriptions</h2><div class="fine bcard-scope">Renewals</div></div><span class="arrow">→</span></div>
+            <div class="fig-row" style="margin-bottom:2px;"><span class="fig">0</span><span class="delta up" style="white-space:nowrap;">next renewal in March</span></div>
+            <div class="fine" style="margin:0 0 24px;">Subscriptions that need renewing in the next 90 days</div>
+            <div class="fine">Nothing due this quarter. All 48 subscriptions renew on or after Mar 2, 2027.</div>
+          </div>
+          <p class="cap"><b>Zero state.</b> The pill still gives a horizon ("next renewal in March") so 0 reads as informed, not empty.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= JOB 5: DISTRIBUTION ================= -->
+    <section class="job" id="distribution">
+      <h2>Summarise a distribution</h2>
+      <p class="goal"><strong>Viewer's question:</strong> "What is this made of, and does anything dominate?"</p>
+      <p class="rule">A posture job: proportion is the message, so donuts and full-width meters are appropriate here (unlike exception cards). Order segments largest-first unless a status order applies. Never render zero-count legend entries. If the viewer is meant to act on one slice, this is the wrong job: use an exception card.</p>
+
+      <div class="sub">Canonical</div>
+      <div class="shelf">
+        <div class="cell">
+          <div class="card">
+            <div class="bhead">
+              <div><h2 class="bcard-title">Capacity by workload</h2><div class="fine bcard-scope">3.4 PB used</div></div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="seg-meter" style="height:10px; margin:8px 0 14px;">
+              <i style="flex:38; background:var(--c-blue);"></i>
+              <i style="flex:27; background:var(--c-teal);"></i>
+              <i style="flex:19; background:var(--c-purple);"></i>
+              <i style="flex:16; background:var(--c-sand);"></i>
+            </div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Databases</span><span class="pct">38%</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-teal)"></span>Virtual machines</span><span class="pct">27%</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>File shares</span><span class="pct">19%</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-sand)"></span>Backups &amp; other</span><span class="pct">16%</span></div>
+            <div class="fine takeaway">Databases are the biggest consumer and growing fastest: they drive the capacity forecast.</div>
+          </div>
+          <p class="cap"><b>Composition bar + legend.</b> Largest-first, percentages right-aligned, takeaway names what dominates and why it matters.</p>
+        </div>
+      </div>
+
+      <div class="sub">States</div>
+      <div class="shelf">
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Capacity by workload</h2><div class="fine bcard-scope">3.4 PB used</div></div><span class="arrow">→</span></div>
+            <div class="seg-meter" style="height:10px; margin:8px 0 14px;">
+              <i style="flex:92; background:var(--c-blue);"></i>
+              <i style="flex:8; background:var(--c-sand);"></i>
+            </div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Databases</span><span class="pct">92%</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-sand)"></span>Everything else</span><span class="pct">8%</span></div>
+            <div class="fine takeaway">One workload dominates. Capacity planning is effectively database planning.</div>
+          </div>
+          <p class="cap"><b>Dominated.</b> When one slice takes over, collapse the tail into "Everything else" instead of listing slivers.</p>
+        </div>
+        <div class="cell">
+          <div class="card">
+            <div class="bhead"><div><h2 class="bcard-title">Capacity by workload</h2><div class="fine bcard-scope">3.4 PB used</div></div><span class="arrow">→</span></div>
+            <div class="seg-meter" style="height:10px; margin:8px 0 14px;">
+              <i style="flex:71; background:var(--c-blue);"></i>
+              <i style="flex:29; background:var(--unknown);"></i>
+            </div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Classified workloads</span><span class="pct">71%</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Untagged</span><span class="pct">29%</span></div>
+            <div class="fine takeaway">29% of usage has no workload tag. <a href="#" class="link">Tag volumes</a> to complete this breakdown.</div>
+          </div>
+          <p class="cap"><b>Partial classification.</b> Untagged mass shown honestly in the unknown colour, with the fix linked.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="livereload.js"></script>
+</body>
+</html>
