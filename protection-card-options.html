@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Data protection card: presentation options</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<style>
+  body { background: var(--page); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 40px 32px 80px; }
+  .wrap > h1 { font-size: 24px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .intro { font-size: 14px; color: var(--gl-ink-soft); margin: 0 0 40px; max-width: 720px; }
+  .opt { margin-bottom: 32px; display: grid; grid-template-columns: 300px 1fr; gap: 32px; align-items: start; }
+  .opt .card { width: 300px; }
+  .opt-note h3 { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .opt-note p { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; max-width: 620px; line-height: 1.5; }
+  .opt-note .fine { color: var(--gl-ink-soft); }
+
+  .bcard-title { font-size: 16px; font-weight: 700; color: var(--gl-heading); margin: 0; }
+  .bcard-scope { margin-top: 3px; }
+  .bhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+  .bhead .arrow { font-size: 17px; color: var(--gl-ink); cursor: pointer; line-height: 1; }
+  .fig-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .fig { font-size: 30px; font-weight: 700; color: var(--gl-heading); line-height: 1.1; letter-spacing: -0.4px; }
+  .takeaway { margin-top: 12px; }
+  .stat-pair { display: flex; gap: 40px; border-top: 1px solid var(--contained-line); padding-top: 14px; margin-top: 14px; }
+  .stat-pair .sp-val { font-size: 20px; font-weight: 700; color: var(--gl-heading); line-height: 1.1; }
+  .stat-pair .sp-name { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 3px; }
+
+  /* variant helpers */
+  .seg-meter { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; }
+  .seg-meter i { display: block; height: 100%; }
+  .row-line { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--contained-line); font-size: 13.5px; color: var(--gl-ink); }
+  .row-line:last-of-type { border-bottom: 0; }
+  .row-line .n { font-weight: 700; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+<div class="switcher">
+  Prototypes:
+  <a href="index.html">Library</a>
+  <a href="storage-overview-b.html">Storage overview · B: Sectioned</a>
+  <a href="protection-card-options.html" class="on">Protection card options</a>
+</div>
+
+<div class="wrap">
+  <h1>Data protection card: presentation options</h1>
+  <p class="intro">Same data (1,842 volumes, 14 with no protection policy). Each option shifts what the viewer is asked to notice first. Current design leads with 98%, which reads as reassurance when the card's job is to surface risk.</p>
+
+  <!-- OPTION 0: current -->
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">98%</span><span class="delta neutral" style="white-space:nowrap;">14 unprotected</span></div>
+      <div class="meter"><i style="width:98%"></i></div>
+      <div class="fine" style="margin-top:8px;"><strong style="color:var(--gl-ink);">14</strong> of <strong style="color:var(--gl-ink);">1,842</strong> volumes have no protection policy</div>
+      <div class="fine takeaway">All 14 are new volumes in Finance-Prod. Add a snapshot schedule to close the gap.</div>
+    </div>
+    <div class="opt-note">
+      <h3>0 · Current: coverage-first</h3>
+      <p>98% headlines; the actionable 14 lives in a pill. Reads "green, fine, move on". Good for posture reporting, wrong for prompting action.</p>
+      <p class="fine">Keeps: trend legibility (98 → 96 drift is visible). Loses: urgency.</p>
+    </div>
+  </div>
+
+  <!-- OPTION 1: exception-first -->
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">14</span><span class="delta down" style="white-space:nowrap;">all new this week</span></div>
+      <div class="fine" style="margin:-8px 0 12px;">Volumes with no backup protection</div>
+      <div class="meter"><i style="width:98%"></i></div>
+      <div class="fine" style="margin-top:8px;">98% protected · 1,828 of 1,842 volumes</div>
+      <div class="fine takeaway">All 14 are new volumes in Finance-Prod. Add a snapshot schedule to close the gap.</div>
+    </div>
+    <div class="opt-note">
+      <h3>1 · Exception-first</h3>
+      <p>Headline flips to the 14; pill carries recency ("all new this week"). The 98% + meter demote to the evidence row. When the gap is 0 the card naturally becomes reassurance ("0 unprotected").</p>
+      <p class="fine">Minimal change from current anatomy. Recommended starting point.</p>
+    </div>
+  </div>
+
+  <!-- OPTION 2: severity split -->
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">14</span><span class="delta down" style="white-space:nowrap;">in production systems</span></div>
+      <div class="fine" style="margin:-8px 0 4px;">Volumes with no backup protection</div>
+      <div class="stat-pair">
+        <div><div class="sp-val">9</div><div class="sp-name">Production volumes</div></div>
+        <div><div class="sp-val">5</div><div class="sp-name">Dev &amp; test volumes</div></div>
+      </div>
+      <div class="fine takeaway">Start with the 9 production volumes in Finance-Prod: they hold live data with no way to recover it.</div>
+    </div>
+    <div class="opt-note">
+      <h3>2 · Exception-first + severity split</h3>
+      <p>Drops the % entirely. The stat pair splits the 14 by blast radius (production vs dev/test), telling the viewer which subset actually matters. Same anatomy as the reworked Efficiency and Subscriptions cards.</p>
+      <p class="fine">Best when the audience is the operator who will do the fixing. Coverage trend is lost, would live on the drill-in.</p>
+    </div>
+  </div>
+
+  <!-- OPTION 3: segmented meter -->
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">14</span><span class="delta down" style="white-space:nowrap;">↑ 14 more than last week</span></div>
+      <div class="fine" style="margin:-8px 0 12px;">Volumes with no backup protection</div>
+      <div class="seg-meter">
+        <i style="flex:1828; background:var(--c-blue); opacity:0.35;"></i>
+        <i style="flex:120; background:#C9573B;"></i>
+      </div>
+      <div class="fine" style="margin-top:8px; display:flex; justify-content:space-between;"><span>1,828 protected</span><span><strong style="color:var(--gl-ink);">14 unprotected</strong></span></div>
+      <div class="fine takeaway">All 14 are new volumes in Finance-Prod. Add a snapshot schedule to close the gap.</div>
+    </div>
+    <div class="opt-note">
+      <h3>3 · Gap-highlighted meter</h3>
+      <p>The meter itself carries the message: the protected mass is muted, the gap segment is saturated and enlarged past true scale so it can't be missed (true 14/1842 would be invisible). Both counts label the meter's ends. Pill quantifies the change.</p>
+      <p class="fine">Caveat: exaggerating the segment trades accuracy for salience; needs a consistent minimum-segment rule if adopted.</p>
+    </div>
+  </div>
+
+  <!-- OPTION 4: worklist -->
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">14</span><span class="delta down" style="white-space:nowrap;">oldest gap 6 days</span></div>
+      <div class="fine" style="margin:-8px 0 4px;">Volumes with no backup protection</div>
+      <div>
+        <div class="row-line"><span>Finance-Prod</span><span class="n">9</span></div>
+        <div class="row-line"><span>Analytics-Dev</span><span class="n">3</span></div>
+        <div class="row-line"><span>HR-Test</span><span class="n">2</span></div>
+      </div>
+      <div class="fine takeaway">One snapshot schedule on Finance-Prod covers 9 of the 14.</div>
+    </div>
+    <div class="opt-note">
+      <h3>4 · Worklist by location</h3>
+      <p>Turns the card into the first step of the fix: where the unprotected volumes live, largest cluster first. The takeaway points out the single action with the biggest payoff.</p>
+      <p class="fine">Most actionable, but heaviest; competes with the Needs-attention card if both list items.</p>
+    </div>
+  </div>
+
+  <!-- OPTION 5: reassurance state -->
+  <div class="opt">
+    <div class="card">
+      <div class="bhead">
+        <div>
+          <h2 class="bcard-title">Data protection</h2>
+          <div class="fine bcard-scope">1,842 volumes</div>
+        </div>
+        <span class="arrow">→</span>
+      </div>
+      <div class="fig-row"><span class="fig">0</span><span class="delta up" style="white-space:nowrap;">all volumes covered</span></div>
+      <div class="fine" style="margin:-8px 0 12px;">Volumes with no backup protection</div>
+      <div class="meter"><i style="width:100%"></i></div>
+      <div class="fine" style="margin-top:8px;">100% protected · every volume has a policy</div>
+      <div class="fine takeaway">Nothing to do here. New volumes inherit a policy automatically.</div>
+    </div>
+    <div class="opt-note">
+      <h3>5 · The zero state (for options 1–3)</h3>
+      <p>What the exception-first card looks like when there is no gap: the same layout flips into calm reassurance without redesign. This is the test any exception-first card must pass.</p>
+    </div>
+  </div>
+
+</div>
+<script src="livereload.js"></script>
+</body>
+</html>
