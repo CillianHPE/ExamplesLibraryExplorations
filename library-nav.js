@@ -5,21 +5,66 @@
     { label: 'Home', href: '/index.html' },
     { label: 'Pages', children: [
       { label: 'Dashboards', children: [
-        { href: '/viewer.html?t=t1', label: 'T1 · Overview' },
-        { href: '/viewer.html?t=t2', label: 'T2 · Triage / work queue' },
-        { href: '/viewer.html?t=t3', label: 'T3 · Analytics / report' },
-        { href: '/viewer.html?t=t5', label: 'T5 · Custom board' },
+        { label: 'T1 · Overview', children: [
+          { href: '/canonical-t1-overview-hifi.html', label: 'A · Home' },
+          { href: '/canonical-t1-overview-hifi-b.html', label: 'B · Compute' },
+          { href: '/canonical-t1-overview-hifi-c.html', label: 'C · Cost & usage' },
+          { href: '/canonical-t1-overview-hifi-d.html', label: 'D · Networking' },
+          { href: '/canonical-t1-overview.html', label: 'Lo-fi spec' },
+        ]},
+        { label: 'T2 · Triage / work queue', children: [
+          { href: '/canonical-t2-triage-hifi.html', label: 'A · Alerts' },
+          { href: '/canonical-t2-triage-hifi-b.html', label: 'B · Support cases' },
+          { href: '/canonical-t2-triage-hifi-c.html', label: 'C · Firmware updates' },
+          { href: '/canonical-t2-triage-hifi-d.html', label: 'D · Security findings' },
+          { href: '/canonical-t2-triage.html', label: 'Lo-fi spec' },
+        ]},
+        { label: 'T3 · Analytics / report', children: [
+          { href: '/canonical-t3-analytics-hifi.html', label: 'A · Sustainability' },
+          { href: '/canonical-t3-analytics-hifi-b.html', label: 'B · Capacity planning' },
+          { href: '/canonical-t3-analytics-hifi-c.html', label: 'C · Utilization' },
+          { href: '/canonical-t3-analytics-hifi-d.html', label: 'D · Wireless experience' },
+          { href: '/canonical-t3-analytics.html', label: 'Lo-fi spec' },
+        ]},
+        { label: 'T5 · Custom board', children: [
+          { href: '/canonical-t5-custom-hifi.html', label: 'A · Personal ops' },
+          { href: '/canonical-t5-custom-hifi-b.html', label: 'B · Executive' },
+          { href: '/canonical-t5-custom-hifi-c.html', label: 'C · NOC wallboard' },
+          { href: '/canonical-t5-custom-hifi-d.html', label: 'D · Sustainability' },
+          { href: '/canonical-t5-custom.html', label: 'Lo-fi spec' },
+        ]},
       ]},
       { label: 'Details', children: [
-        { href: '/viewer.html?t=t4', label: 'T4 · Object detail' },
+        { label: 'T4 · Object detail', children: [
+          { href: '/canonical-t4-detail-hifi.html', label: 'A · Server' },
+          { href: '/canonical-t4-detail-hifi-b.html', label: 'B · Storage array' },
+          { href: '/canonical-t4-detail-hifi-c.html', label: 'C · Network site' },
+          { href: '/canonical-t4-detail-hifi-d.html', label: 'D · Subscription' },
+          { href: '/canonical-t4-detail.html', label: 'Lo-fi spec' },
+        ]},
       ]},
       { label: 'Data collection', children: [
         { href: '/data-collection/index.html', label: 'Overview' },
-        { href: '/data-collection/inventory-table.html', label: 'D1 · Filterable inventory table' },
-        { href: '/data-collection/card-catalog.html', label: 'D2 · Card grid catalog' },
-        { href: '/data-collection/event-stream.html', label: 'D3 · Faceted event stream' },
-        { href: '/data-collection/analytics-explorer.html', label: 'D4 · Analytics explorer' },
-        { href: '/data-collection/map-view.html', label: 'D5 · Map / spatial view' },
+        { label: 'D1 · Inventory table', children: [
+          { href: '/data-collection/servers-inventory.html', label: 'Hi-fi · Servers' },
+          { href: '/data-collection/inventory-table.html', label: 'Lo-fi spec' },
+        ]},
+        { label: 'D2 · Card grid catalog', children: [
+          { href: '/data-collection/catalog-hifi.html', label: 'Hi-fi · Service catalog' },
+          { href: '/data-collection/card-catalog.html', label: 'Lo-fi spec' },
+        ]},
+        { label: 'D3 · Faceted event stream', children: [
+          { href: '/data-collection/events-hifi.html', label: 'Hi-fi · Audit log' },
+          { href: '/data-collection/event-stream.html', label: 'Lo-fi spec' },
+        ]},
+        { label: 'D4 · Analytics explorer', children: [
+          { href: '/data-collection/analytics-cards-c.html', label: 'Hi-fi · Sustainability insights' },
+          { href: '/data-collection/analytics-explorer.html', label: 'Lo-fi spec' },
+        ]},
+        { label: 'D5 · Map / spatial view', children: [
+          { href: '/data-collection/map-hifi.html', label: 'Hi-fi · Sites map' },
+          { href: '/data-collection/map-view.html', label: 'Lo-fi spec' },
+        ]},
       ]},
     ]},
     { label: 'UI compositions', children: [
