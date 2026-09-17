@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo-fi — Settings / configuration page</title><style>
+  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
+  .topbar { height:52px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:16px; padding:0 20px; background:#fff; }
+  .logo { width:90px; height:20px; background:var(--faint); border-radius:3px; }
+  .searchbox { flex:0 0 320px; height:30px; border:1px solid var(--line); border-radius:15px; margin-left:auto; }
+  .avatar { width:28px; height:28px; border-radius:50%; background:var(--faint); }
+  .page { padding:24px 32px 48px; max-width:1000px; margin:0 auto; }
+  h1 { font-size:26px; font-weight:600; margin-bottom:20px; }
+  .btn { font-size:13px; padding:6px 14px; border:1px solid var(--line); border-radius:4px; background:#fff; cursor:pointer; }
+  .btn-primary { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .layout2 { display:flex; gap:32px; }
+  .settings-nav { flex:0 0 180px; font-size:13.5px; }
+  .settings-nav div { padding:8px 10px; border-radius:4px; color:var(--muted); cursor:pointer; }
+  .settings-nav div.active { background:var(--fill); color:var(--ink); font-weight:600; }
+  .settings-main { flex:1; min-width:0; }
+  .card { border:1px solid var(--line); border-radius:6px; background:#fff; padding:16px 20px; margin-bottom:16px; }
+  .card h2 { font-size:15px; font-weight:600; margin-bottom:2px; }
+  .card .sec-help { font-size:12.5px; color:var(--muted); margin-bottom:14px; }
+  .field { margin-bottom:16px; max-width:420px; }
+  .field label { display:block; font-size:13px; font-weight:600; margin-bottom:5px; }
+  .input { height:34px; border:1px solid var(--line); border-radius:4px; background:#fff; display:flex; align-items:center; padding:0 10px; font-size:13px; color:var(--ink); }
+  .input.readonly { background:var(--fill); color:var(--muted); }
+  .mono { font-family:"SF Mono",Menlo,monospace; font-size:12.5px; }
+  .help { font-size:12px; color:var(--muted); margin-top:4px; }
+  .sec-foot { border-top:1px solid var(--fill); margin-top:4px; padding-top:12px; display:flex; align-items:center; gap:10px; }
+  .saved-note { font-size:12px; color:var(--muted); }
+  .toggle-row { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid var(--fill); }
+  .toggle-row:last-child { border-bottom:none; }
+  .toggle { width:34px; height:18px; border-radius:9px; background:var(--faint); position:relative; flex:0 0 34px; margin-top:2px; }
+  .toggle.on { background:var(--ink); } .toggle::after { content:""; position:absolute; top:2px; left:2px; width:14px; height:14px; border-radius:50%; background:#fff; }
+  .toggle.on::after { left:auto; right:2px; }
+  .toggle-row b { display:block; font-size:13.5px; font-weight:600; }
+  .toggle-row span { font-size:12.5px; color:var(--muted); }
+  .danger { border-style:dashed; }
+  .danger h2 { }
+  .danger-row { display:flex; align-items:center; gap:12px; padding:10px 0; font-size:13px; }
+  .danger-row span { color:var(--muted); font-size:12.5px; }
+  .annotation { margin-top:24px; font-size:12px; color:var(--muted); border:1px dashed var(--faint); border-radius:4px; padding:10px 12px; line-height:1.5; }
+  .backlink { display:inline-block; margin-bottom:12px; font-size:13px; color:var(--muted); }
+</style><script src="../global-nav.js" data-section="data-collection" defer></script>
+</head><body>
+<div class="topbar"><div class="logo"></div><div class="searchbox"></div><div class="avatar"></div></div>
+<div class="page">
+<a class="backlink" href="index.html">&lsaquo; All mockups</a>
+<h1>Workspace settings</h1>
+
+<div class="layout2">
+  <!-- Secondary nav: settings are a place, not a task -->
+  <nav class="settings-nav">
+    <div class="active">General</div>
+    <div>Members</div>
+    <div>Notifications</div>
+    <div>API &amp; integrations</div>
+    <div>Billing</div>
+    <div>Audit log</div>
+  </nav>
+
+  <div class="settings-main">
+    <div class="card">
+      <h2>Workspace identity</h2>
+      <p class="sec-help">Shown across the console and in notifications.</p>
+      <div class="field"><label>Workspace name</label><div class="input">Acme Manufacturing — Prod</div></div>
+      <div class="field"><label>Workspace ID</label><div class="input readonly mono">ws-8842-ac3f-0071</div><div class="help">Immutable. Shown read-only, never as a disabled input with no explanation.</div></div>
+      <div class="sec-foot"><button class="btn btn-primary">Save changes</button><span class="saved-note">Last saved 2 days ago by r.chen</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Preferences</h2>
+      <p class="sec-help">Toggles apply immediately — no save button needed.</p>
+      <div class="toggle-row"><div class="toggle on"></div><div><b>Weekly usage digest</b><span>Email a summary of consumption to workspace admins every Monday.</span></div></div>
+      <div class="toggle-row"><div class="toggle on"></div><div><b>Maintenance notifications</b><span>Notify before scheduled platform maintenance windows.</span></div></div>
+      <div class="toggle-row"><div class="toggle"></div><div><b>Beta features</b><span>Enable preview features for all members of this workspace.</span></div></div>
+    </div>
+
+    <div class="card danger">
+      <h2>Danger zone</h2>
+      <p class="sec-help">Destructive actions. Each requires typed confirmation.</p>
+      <div class="danger-row"><button class="btn">Transfer ownership</button><span>Move this workspace to another organization.</span></div>
+      <div class="danger-row"><button class="btn">Delete workspace</button><span>Permanently removes all resources and data.</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotation">Archetype 4 — Settings / configuration page. Editing long-lived state, not creating (Sentry, GitHub, Greptile). Rules: secondary settings nav splits domains — never one endless page; grouped cards, each with its own Save + last-saved attribution (text fields) or instant-apply toggles with per-row descriptions; immutable values shown read-only with an explanation; danger zone visually separated and always last. No global "Save all" across unrelated sections — blast radius per save stays one card.</div>
+</div><script src="/library-nav.js"></script>
+</body></html>

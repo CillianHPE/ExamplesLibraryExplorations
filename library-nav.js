@@ -2,26 +2,37 @@
 (function () {
   const NAV = [
     { title: 'Library', items: [
-      { href: 'index.html', label: 'Home' },
+      { href: '/index.html', label: 'Home' },
     ]},
-    { title: 'Archetypes', items: [
-      { href: 'viewer.html?t=t1', label: 'T1 · Overview' },
-      { href: 'viewer.html?t=t2', label: 'T2 · Triage / work queue' },
-      { href: 'viewer.html?t=t3', label: 'T3 · Analytics / report' },
-      { href: 'viewer.html?t=t4', label: 'T4 · Object detail' },
-      { href: 'viewer.html?t=t5', label: 'T5 · Custom board' },
+    { title: 'Pages · Dashboards', items: [
+      { href: '/viewer.html?t=t1', label: 'T1 · Overview' },
+      { href: '/viewer.html?t=t2', label: 'T2 · Triage / work queue' },
+      { href: '/viewer.html?t=t3', label: 'T3 · Analytics / report' },
+      { href: '/viewer.html?t=t5', label: 'T5 · Custom board' },
+    ]},
+    { title: 'Pages · Details', items: [
+      { href: '/viewer.html?t=t4', label: 'T4 · Object detail' },
+    ]},
+    { title: 'Pages · Data collection', items: [
+      { href: '/data-collection/index.html', label: 'Overview' },
+      { href: '/data-collection/inventory-table.html', label: 'D1 · Filterable inventory table' },
+      { href: '/data-collection/card-catalog.html', label: 'D2 · Card grid catalog' },
+      { href: '/data-collection/event-stream.html', label: 'D3 · Faceted event stream' },
+      { href: '/data-collection/analytics-explorer.html', label: 'D4 · Analytics explorer' },
+      { href: '/data-collection/map-view.html', label: 'D5 · Map / spatial view' },
     ]},
     { title: 'UI compositions', items: [
-      { href: 'card-gallery.html', label: 'Card gallery' },
-      { href: 'exception-card-options.html', label: 'Status card exploration' },
-      { href: 'trend-card-options.html', label: 'Trend card options' },
+      { href: '/card-gallery.html', label: 'Card gallery' },
+      { href: '/exception-card-options.html', label: 'Status card exploration' },
+      { href: '/trend-card-options.html', label: 'Trend card options' },
+      { href: '/needs-attention/needs-attention-exploration.html', label: 'Needs attention exploration' },
     ]},
     { title: 'Applied exercises', items: [
-      { href: 'storage-overview-b.html', label: 'Storage overview · sectioned' },
-      { href: 'storage-overview.html', label: 'Storage overview · bento' },
-      { href: 'com-overview-remap-hifi.html', label: 'COM remap · A' },
-      { href: 'com-overview-remap-hifi-b.html', label: 'COM remap · B' },
-      { href: 'dashboard-lofi.html', label: 'Original lo-fi exploration' },
+      { href: '/storage-overview-b.html', label: 'Storage overview · sectioned' },
+      { href: '/storage-overview.html', label: 'Storage overview · bento' },
+      { href: '/com-overview-remap-hifi.html', label: 'COM remap · A' },
+      { href: '/com-overview-remap-hifi-b.html', label: 'COM remap · B' },
+      { href: '/dashboard-lofi.html', label: 'Original lo-fi exploration' },
     ]},
   ];
 
@@ -54,8 +65,8 @@
   style.textContent = css;
   document.head.appendChild(style);
 
-  const here = location.pathname.split('/').pop() + location.search;
-  const isCur = (href) => href === here || href === location.pathname.split('/').pop();
+  const here = location.pathname + location.search;
+  const isCur = (href) => href === here || href === location.pathname;
 
   const root = document.createElement('div');
   let links = '';

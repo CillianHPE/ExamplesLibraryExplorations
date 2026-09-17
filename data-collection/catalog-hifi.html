@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Service catalog · Card grid · Hi-fi</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  .cats { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:var(--gap-container); }
+  .svc { background:var(--contained); border-radius:var(--radius); padding:20px 22px; cursor:pointer; border:2px solid transparent; }
+  .svc:hover { border-color:var(--gl-green); }
+  .svc .ic { width:40px; height:40px; border-radius:10px; background:#fff; display:flex; align-items:center; justify-content:center; margin-bottom:12px; color:var(--gl-green-deep); }
+  .svc .ic svg { width:22px; height:22px; }
+  .svc h2 { font-size:16px; font-weight:700; margin-bottom:4px; }
+  .svc p { font-size:12.5px; color:var(--gl-ink-soft); line-height:1.5; }
+  .svc .tag { display:inline-block; margin-top:10px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--gl-ink-faint); }
+</style>
+<script src="../global-nav.js" data-section="data-collection" defer></script>
+</head>
+<body>
+<script src="fidelity-bar.js" data-name="2 · Card grid catalog" data-lofi="card-catalog.html" data-hifi="catalog-hifi.html" data-mode="hifi"></script>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
+  <div class="workspace">HPECC_Partner</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon active" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Service catalog</h1>
+      <button class="btn secondary">Request a service</button>
+    </div>
+    <p class="meta-note" style="margin-bottom:20px;">Browse and launch services available in your workspace.</p>
+
+    <div class="toolbar" style="margin-bottom:8px;">
+      <div class="search-sm"><span class="sic" data-i="search"></span>Search catalog</div>
+      <span class="spacer"></span>
+      <span class="meta-note">24 services</span>
+    </div>
+    <div class="cats" id="cats"></div>
+    <div class="grid" id="grid"></div>
+  </main>
+</div>
+
+<script>
+const CATS=[["All",24],["Compute",6],["Storage",5],["Networking",4],["Data & AI",5],["Management",4]];
+const SVCS=[
+ ["Compute Ops Management","Monitor, update and automate your server fleet from the cloud.","Compute","terminal"],
+ ["Private Cloud Business Edition","Self-service VMs on demand across sites.","Compute","cube"],
+ ["Bare Metal","Provision dedicated physical servers in minutes.","Compute","cube"],
+ ["Virtual Machines","Run and scale virtualized workloads.","Compute","cube"],
+ ["Containers","Managed Kubernetes for hybrid estates.","Compute","grid"],
+ ["Morpheus VM Essentials","Unified VM management across hypervisors.","Compute","terminal"],
+ ["Block Storage","Mission-critical storage with 100% availability.","Storage","database"],
+ ["File Storage","Enterprise file services for AI and analytics.","Storage","database"],
+ ["Object Storage","S3-compatible storage at cloud economics.","Storage","database"],
+ ["Backup & Recovery","Policy-driven protection for VMs and databases.","Storage","layers"],
+ ["Disaster Recovery","Orchestrated failover with Zerto.","Storage","layers"],
+ ["Aruba Central","Cloud-managed campus and branch networking.","Networking","broadcast"],
+ ["EdgeConnect SD-WAN","Secure, self-healing wide-area network.","Networking","broadcast"],
+ ["Private 5G","Deploy private cellular alongside Wi-Fi.","Networking","broadcast"],
+ ["SSE / Security","Zero-trust access to private and SaaS apps.","Networking","panel"],
+ ["Machine Learning Ops","Train, deploy and monitor models at scale.","Data & AI","sparkle"],
+ ["Data Fabric","Global namespace for files, objects, streams.","Data & AI","database"],
+ ["Analytics Engine","Unified Spark & SQL on hybrid data.","Data & AI","grid"],
+ ["Vector Search","Similarity search for GenAI applications.","Data & AI","sparkle"],
+ ["Model Registry","Version and govern foundation models.","Data & AI","layers"],
+ ["Identity & Access","Workspace users, roles and API clients.","Management","user"],
+ ["Cost & Usage","Consumption analytics and budgets.","Management","grid"],
+ ["Sustainability Insight Center","Energy, carbon and cost analytics.","Management","sparkle"],
+ ["Audit & Compliance","Workspace-wide activity and policy posture.","Management","panel"],
+];
+let cur="All";
+function render(){
+  document.getElementById("cats").innerHTML=CATS.map(([c,n])=>
+    `<span class="fchip${c===cur?" on":""}" onclick="setCat('${c}')">${c} (${n})</span>`).join("");
+  document.getElementById("grid").innerHTML=SVCS.filter(s=>cur==="All"||s[2]===cur).map(s=>
+    `<div class="svc"><div class="ic"><span data-i="${s[3]}"></span></div><h2>${s[0]}</h2><p>${s[1]}</p><span class="tag">${s[2]}</span></div>`).join("");
+  if(window.glIcons) window.glIcons();
+}
+function setCat(c){cur=c;render();}
+render();
+</script>
+<script src="/library-nav.js"></script>
+</body>
+</html>

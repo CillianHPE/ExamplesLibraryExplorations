@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sites · Map view · Hi-fi</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  .maplayout { display:grid; grid-template-columns:300px 1fr; gap:var(--gap-primary-secondary); align-items:start; }
+  .sitelist .card { padding:0; overflow:hidden; }
+  .site { padding:14px 18px; border-bottom:1px solid var(--contained-line); cursor:pointer; }
+  .site:last-child { border-bottom:0; }
+  .site:hover, .site.on { background:#fff; box-shadow:inset 3px 0 0 var(--gl-green); }
+  .site h3 { font-size:14.5px; font-weight:700; display:flex; justify-content:space-between; align-items:center; }
+  .site .sub { font-size:12px; color:var(--gl-ink-soft); margin-top:2px; }
+  .site .alert { font-size:11px; font-weight:700; color:var(--red); }
+  .mapbox { position:relative; height:520px; border-radius:var(--radius); overflow:hidden;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(1,169,130,.06), transparent 40%),
+      repeating-linear-gradient(0deg, transparent 0 39px, rgba(0,0,0,.045) 39px 40px),
+      repeating-linear-gradient(90deg, transparent 0 39px, rgba(0,0,0,.045) 39px 40px),
+      #eef3f2; }
+  .land { position:absolute; background:#dfe9e5; border-radius:45% 55% 50% 50%/50% 45% 55% 50%; }
+  .pin { position:absolute; transform:translate(-50%,-100%); cursor:pointer; text-align:center; }
+  .pin .dotp { width:16px; height:16px; border-radius:50%; background:var(--gl-green); border:3px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.35); margin:0 auto; }
+  .pin.alert .dotp { background:var(--red); width:22px; height:22px; }
+  .pin .lbl { font-size:11px; font-weight:700; background:#fff; border-radius:4px; padding:1px 6px; box-shadow:0 1px 3px rgba(0,0,0,.2); margin-top:3px; white-space:nowrap; }
+  .pop { position:absolute; width:230px; background:#fff; border-radius:10px; box-shadow:0 4px 18px rgba(0,0,0,.22); padding:14px 16px; font-size:12.5px; z-index:5; }
+  .pop h4 { font-size:14px; font-weight:700; margin-bottom:6px; }
+  .pop .kvr { display:flex; justify-content:space-between; padding:2px 0; color:var(--gl-ink-soft); }
+  .pop .kvr b { color:var(--gl-ink); }
+  .maplegend { display:flex; gap:18px; font-size:12px; color:var(--gl-ink-soft); margin-top:10px; }
+  .maplegend i { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; }
+</style>
+<script src="../global-nav.js" data-section="data-collection" defer></script>
+</head>
+<body>
+<script src="fidelity-bar.js" data-name="5 · Map / spatial view" data-lofi="map-view.html" data-hifi="map-hifi.html" data-mode="hifi"></script>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
+  <div class="workspace">HPECC_Partner</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon active" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page" style="max-width:none;">
+    <div class="page-head">
+      <h1>Sites</h1>
+      <button class="btn primary">Add site</button>
+    </div>
+
+    <div class="toolbar" style="margin-bottom:20px;">
+      <div class="search-sm"><span class="sic" data-i="search"></span>Search sites</div>
+      <span class="fchip on">Status: All ▾</span>
+      <span class="fchip">Region ▾</span>
+      <span class="spacer"></span>
+      <span class="meta-note">6 sites · 214 devices</span>
+    </div>
+
+    <div class="maplayout">
+      <div class="sitelist">
+        <div class="card">
+          <div class="site on"><h3>Dublin DC <span class="alert">3 alerts</span></h3><div class="sub">82 devices · eu-west</div></div>
+          <div class="site"><h3>London DC</h3><div class="sub">54 devices · eu-west</div></div>
+          <div class="site"><h3>Frankfurt DC <span class="alert">1 alert</span></h3><div class="sub">31 devices · eu-central</div></div>
+          <div class="site"><h3>Austin DC</h3><div class="sub">26 devices · us-south</div></div>
+          <div class="site"><h3>San Jose Lab</h3><div class="sub">14 devices · us-west</div></div>
+          <div class="site"><h3>Singapore Edge</h3><div class="sub">7 devices · ap-southeast</div></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="mapbox">
+          <div class="land" style="left:4%; top:8%; width:30%; height:44%;"></div>
+          <div class="land" style="left:40%; top:6%; width:26%; height:38%; border-radius:55% 45% 50% 50%/45% 55% 50% 50%;"></div>
+          <div class="land" style="left:72%; top:30%; width:24%; height:40%; border-radius:50% 50% 45% 55%/55% 45% 50% 50%;"></div>
+
+          <div class="pin alert" style="left:47%; top:24%;"><div class="dotp"></div><div class="lbl">Dublin · 82</div></div>
+          <div class="pin" style="left:52%; top:28%;"><div class="dotp"></div><div class="lbl">London · 54</div></div>
+          <div class="pin alert" style="left:58%; top:31%;"><div class="dotp"></div><div class="lbl">Frankfurt · 31</div></div>
+          <div class="pin" style="left:18%; top:44%;"><div class="dotp"></div><div class="lbl">Austin · 26</div></div>
+          <div class="pin" style="left:9%; top:36%;"><div class="dotp"></div><div class="lbl">San Jose · 14</div></div>
+          <div class="pin" style="left:84%; top:62%;"><div class="dotp"></div><div class="lbl">Singapore · 7</div></div>
+
+          <div class="pop" style="left:44%; top:29%;">
+            <h4>Dublin DC</h4>
+            <div class="kvr"><span>Devices</span><b>82</b></div>
+            <div class="kvr"><span>Health</span><b style="color:var(--red)">3 alerts</b></div>
+            <div class="kvr"><span>Gateway</span><b>Connected</b></div>
+            <div style="margin-top:8px;"><span class="glink">View site detail →</span></div>
+          </div>
+        </div>
+        <div class="maplegend">
+          <span><i style="background:var(--red)"></i>Alerting site</span>
+          <span><i style="background:var(--gl-green)"></i>Healthy site</span>
+          <span>Pin size = alert state · label shows device count</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="/library-nav.js"></script>
+</body>
+</html>

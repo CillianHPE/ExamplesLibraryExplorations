@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo-fi — Card grid catalog</title><style>
+  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
+  .topbar { height:52px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:16px; padding:0 20px; background:#fff; }
+  .logo { width:90px; height:20px; background:var(--faint); border-radius:3px; }
+  .searchbox { flex:0 0 320px; height:30px; border:1px solid var(--line); border-radius:15px; margin-left:auto; }
+  .avatar { width:28px; height:28px; border-radius:50%; background:var(--faint); }
+  .layout { display:flex; }
+  .sidenav { width:56px; min-height:calc(100vh - 52px); border-right:1px solid var(--line); background:#fff; padding-top:16px; display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .navdot { width:22px; height:22px; border-radius:4px; background:var(--faint); }
+  .page { flex:1; padding:24px 32px 48px; max-width:1400px; }
+  h1 { font-size:26px; font-weight:600; }
+  .header-row { display:flex; align-items:center; gap:12px; margin-bottom:4px; }
+  .subtitle { font-size:14px; color:var(--muted); margin-bottom:20px; }
+  .btn { font-size:13px; padding:6px 14px; border:1px solid var(--line); border-radius:4px; background:#fff; cursor:pointer; }
+  .filters { display:flex; gap:8px; align-items:center; margin-bottom:20px; flex-wrap:wrap; }
+  .tsearch { flex:0 0 280px; height:32px; border:1px solid var(--line); border-radius:4px; display:flex; align-items:center; padding:0 10px; font-size:12.5px; color:var(--muted); background:#fff; }
+  .cat { font-size:13px; padding:6px 14px; border:1px solid var(--line); border-radius:16px; background:#fff; color:var(--muted); cursor:pointer; }
+  .cat.active { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .filters .sort { margin-left:auto; font-size:12.5px; color:var(--muted); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
+  .tile { border:1px solid var(--line); border-radius:6px; background:#fff; padding:16px; cursor:pointer; display:flex; flex-direction:column; gap:8px; }
+  .tile:hover { border-color:var(--muted); }
+  .tile-head { display:flex; align-items:center; gap:10px; }
+  .tile-icon { width:36px; height:36px; border-radius:6px; background:var(--fill); border:1px solid var(--line); }
+  .tile h2 { font-size:14.5px; font-weight:600; }
+  .tile .by { font-size:11.5px; color:var(--muted); }
+  .tile p { font-size:12.5px; color:var(--muted); line-height:1.45; flex:1; }
+  .tile-foot { display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--muted); border-top:1px solid var(--fill); padding-top:10px; }
+  .badge { border:1px solid var(--line); border-radius:10px; padding:1px 8px; font-size:10.5px; }
+  .badge.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .annotation { margin-top:24px; font-size:12px; color:var(--muted); border:1px dashed var(--faint); border-radius:4px; padding:10px 12px; line-height:1.5; }
+  .backlink { display:inline-block; margin-bottom:12px; font-size:13px; color:var(--muted); }
+</style><script src="../global-nav.js" data-section="data-collection" defer></script>
+</head><body>
+<script src="fidelity-bar.js" data-name="2 · Card grid catalog" data-lofi="card-catalog.html" data-hifi="catalog-hifi.html" data-mode="lofi"></script>
+
+<div class="topbar"><div class="logo"></div><div class="searchbox"></div><div class="avatar"></div></div>
+<div class="layout">
+<nav class="sidenav"><div class="navdot"></div><div class="navdot"></div><div class="navdot"></div><div class="navdot"></div><div class="navdot"></div><div class="navdot"></div></nav>
+<div class="page">
+<a class="backlink" href="index.html">&lsaquo; All mockups</a>
+<div class="header-row"><h1>Service catalog</h1></div>
+<p class="subtitle">Provision services and add integrations across your workspaces.</p>
+
+<div class="filters">
+  <div class="tsearch">🔍 Search catalog…</div>
+  <div class="cat active">All · 48</div>
+  <div class="cat">Compute · 12</div>
+  <div class="cat">Storage · 9</div>
+  <div class="cat">Networking · 11</div>
+  <div class="cat">Observability · 8</div>
+  <div class="cat">Integrations · 8</div>
+  <span class="sort">Sort: Most used ▾</span>
+</div>
+
+<div class="grid">
+  <div class="tile"><div class="tile-head"><div class="tile-icon"></div><div><h2>Private Cloud Compute</h2><div class="by">by Platform team</div></div></div><p>Provision virtual machines and bare-metal clusters across on-prem and colo sites.</p><div class="tile-foot"><span class="badge on">Enabled</span><span>v4.2</span><span style="margin-left:auto">312 instances</span></div></div>
+  <div class="tile"><div class="tile-head"><div class="tile-icon"></div><div><h2>Block Storage</h2><div class="by">by Platform team</div></div></div><p>High-performance volumes with snapshot schedules and replication policies.</p><div class="tile-foot"><span class="badge on">Enabled</span><span>v3.8</span><span style="margin-left:auto">1.2 PiB</span></div></div>
+  <div class="tile"><div class="tile-head"><div class="tile-icon"></div><div><h2>Wireless Management</h2><div class="by">by Networking</div></div></div><p>Central configuration and health for access points across all sites.</p><div class="tile-foot"><span class="badge on">Enabled</span><span>v9.1</span><span style="margin-left:auto">640 APs</span></div></div>
+  <div class="tile"><div class="tile-head"><div class="tile-icon"></div><div><h2>Backup &amp; Recovery</h2><div class="by">by Data services</div></div></div><p>Policy-driven backup for VMs, databases and file shares with air-gapped copies.</p><div class="tile-foot"><span class="badge">Not enabled</span><span>v2.0</span><span style="margin-left:auto">Set up →</span></div></div>
+  <div class="tile"><div class="tile-head"><div class="tile-icon"></div><div><h2>Metrics &amp; Alerting</h2><div class="by">by Observability</div></div></div><p>Collect, chart and alert on platform and workload metrics.</p><div class="tile-foot"><span class="badge on">Enabled</span><span>v5.4</span><span style="margin-left:auto">88 rules</span></div></div>
+  <div class="tile"><div class="tile-head"><div class="tile-icon"></div><div><h2>ServiceNow Connector</h2><div class="by">by Integrations</div></div></div><p>Sync incidents and change requests with your ServiceNow instance.</p><div class="tile-foot"><span class="badge">Not enabled</span><span>v1.9</span><span style="margin-left:auto">Set up →</span></div></div>
+  <div class="tile"><div class="tile-head"><div class="tile-icon"></div><div><h2>Container Platform</h2><div class="by">by Platform team</div></div></div><p>Managed Kubernetes clusters with policy guardrails and fleet upgrades.</p><div class="tile-foot"><span class="badge on">Enabled</span><span>v7.0</span><span style="margin-left:auto">14 clusters</span></div></div>
+  <div class="tile"><div class="tile-head"><div class="tile-icon"></div><div><h2>Cost Explorer</h2><div class="by">by FinOps</div></div></div><p>Consumption analytics and chargeback reports per workspace and tag.</p><div class="tile-foot"><span class="badge">Not enabled</span><span>v1.2</span><span style="margin-left:auto">Set up →</span></div></div>
+</div>
+
+<div class="annotation">Archetype 2 — Card grid catalog. For heterogeneous items where identity and description matter more than comparable attributes (Codecademy, Langdock, marketplace patterns). Rules: category pills with counts act as the primary filter — one tap, mutually exclusive; search is secondary; every tile has identical anatomy (icon, name, owner, 2-line description, status/meta footer) so scanning stays rhythmic; tiles are one big click target; state badge distinguishes "enabled" vs "available"; sort defaults to relevance/usage, not alphabetical. If users need to compare attributes across items, use Archetype 1 (table) instead — grids are for choosing, tables for managing.</div>
+</div></div><script src="/library-nav.js"></script>
+</body></html>

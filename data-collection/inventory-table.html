@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo-fi — Filterable inventory table</title><style>
+  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
+  .topbar { height:52px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:16px; padding:0 20px; background:#fff; }
+  .logo { width:90px; height:20px; background:var(--faint); border-radius:3px; }
+  .searchbox { flex:0 0 320px; height:30px; border:1px solid var(--line); border-radius:15px; margin-left:auto; }
+  .avatar { width:28px; height:28px; border-radius:50%; background:var(--faint); }
+  .layout { display:flex; }
+  .sidenav { width:56px; min-height:calc(100vh - 52px); border-right:1px solid var(--line); background:#fff; padding-top:16px; display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .navdot { width:22px; height:22px; border-radius:4px; background:var(--faint); }
+  .page { flex:1; padding:24px 32px 48px; max-width:1400px; }
+  .breadcrumb { font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1 { font-size:26px; font-weight:600; }
+  h1 .count { font-weight:400; color:var(--muted); font-size:20px; }
+  .header-row { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .header-actions { margin-left:auto; display:flex; gap:8px; }
+  .btn { font-size:13px; padding:6px 14px; border:1px solid var(--line); border-radius:4px; background:#fff; cursor:pointer; }
+  .btn-primary { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .card { border:1px solid var(--line); border-radius:6px; background:#fff; padding:0; overflow:hidden; }
+  .toolbar { display:flex; gap:8px; align-items:center; padding:12px 16px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .tsearch { flex:0 0 260px; height:30px; border:1px solid var(--line); border-radius:4px; display:flex; align-items:center; padding:0 10px; font-size:12.5px; color:var(--muted); }
+  .fchip { font-size:12.5px; border:1px solid var(--line); border-radius:14px; padding:4px 12px; color:var(--ink); display:flex; gap:6px; align-items:center; cursor:pointer; }
+  .fchip.applied { background:var(--fill); border-color:var(--muted); }
+  .fchip .x { color:var(--muted); }
+  .toolbar .right { margin-left:auto; display:flex; gap:8px; align-items:center; color:var(--muted); font-size:12.5px; }
+  .iconbtn { width:28px; height:28px; border:1px solid var(--line); border-radius:4px; background:#fff; display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:13px; cursor:pointer; }
+  .bulkbar { display:flex; gap:10px; align-items:center; padding:8px 16px; background:var(--fill); border-bottom:1px solid var(--line); font-size:13px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; color:var(--muted); font-weight:400; font-size:12px; padding:10px 12px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  th.sorted { color:var(--ink); font-weight:600; }
+  td { padding:11px 12px; border-bottom:1px solid var(--fill); }
+  td a { color:var(--ink); font-weight:600; text-decoration:none; border-bottom:1px solid var(--faint); }
+  .cb { width:14px; height:14px; border:1px solid var(--faint); border-radius:3px; display:inline-block; }
+  .cb.on { background:var(--ink); border-color:var(--ink); }
+  .status { display:inline-flex; align-items:center; gap:6px; }
+  .dot { width:8px; height:8px; border-radius:50%; background:var(--ink); }
+  .dot.warn { background:#fff; border:2px solid var(--ink); }
+  .dot.off { background:var(--faint); }
+  .pager { display:flex; align-items:center; gap:12px; padding:12px 16px; font-size:12.5px; color:var(--muted); }
+  .pager .pages { margin-left:auto; display:flex; gap:4px; }
+  .pager .pg { width:26px; height:26px; border:1px solid var(--line); border-radius:4px; display:flex; align-items:center; justify-content:center; }
+  .pager .pg.cur { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .annotation { margin-top:24px; font-size:12px; color:var(--muted); border:1px dashed var(--faint); border-radius:4px; padding:10px 12px; line-height:1.5; }
+  .backlink { display:inline-block; margin-bottom:12px; font-size:13px; color:var(--muted); }
+</style><script src="../global-nav.js" data-section="data-collection" defer></script>
+</head><body>
+<script src="fidelity-bar.js" data-name="1 · Filterable inventory table" data-lofi="inventory-table.html" data-hifi="servers-inventory.html" data-mode="lofi"></script>
+
+<div class="topbar"><div class="logo"></div><div class="searchbox"></div><div class="avatar"></div></div>
+<div class="layout">
+<nav class="sidenav"><div class="navdot"></div><div class="navdot"></div><div class="navdot"></div><div class="navdot"></div><div class="navdot"></div><div class="navdot"></div></nav>
+<div class="page">
+<a class="backlink" href="index.html">&lsaquo; All mockups</a>
+<div class="breadcrumb">&lsaquo; <a href="#" style="color:var(--muted)">Infrastructure</a></div>
+<div class="header-row">
+  <h1>Devices <span class="count">· 1,847</span></h1>
+  <div class="header-actions"><button class="btn">Export</button><button class="btn btn-primary">+ Add devices</button></div>
+</div>
+
+<div class="card">
+  <div class="toolbar">
+    <div class="tsearch">🔍 Search by name, serial, MAC…</div>
+    <div class="fchip applied">Status: Critical + Warning <span class="x">✕</span></div>
+    <div class="fchip applied">Site: DC-West <span class="x">✕</span></div>
+    <div class="fchip">Type ▾</div>
+    <div class="fchip">Tag ▾</div>
+    <div class="fchip">+ More filters</div>
+    <div class="right"><span>142 results</span><div class="iconbtn">▦</div><div class="iconbtn">⚙</div></div>
+  </div>
+
+  <!-- Bulk bar replaces toolbar context when rows selected -->
+  <div class="bulkbar"><span class="cb on"></span><b>3 selected</b><button class="btn">Assign tag</button><button class="btn">Move to site</button><button class="btn">Restart</button><span style="flex:1"></span><span style="color:var(--muted)">Select all 142 matching</span></div>
+
+  <table>
+    <tr><th style="width:36px"></th><th class="sorted">Name ↓</th><th>Status</th><th>Type</th><th>Site</th><th>IP address</th><th>Firmware</th><th>Last seen</th><th style="width:30px"></th></tr>
+    <tr><td><span class="cb on"></span></td><td><a href="#">sw-agg-west-014</a></td><td><span class="status"><span class="dot"></span>Critical</span></td><td>Switch</td><td>DC-West</td><td>10.4.18.14</td><td>10.13.1000</td><td>2 min ago</td><td>⋯</td></tr>
+    <tr><td><span class="cb on"></span></td><td><a href="#">ap-floor3-lobby-02</a></td><td><span class="status"><span class="dot warn"></span>Warning</span></td><td>Access point</td><td>DC-West</td><td>10.4.22.107</td><td>8.11.2.1</td><td>5 min ago</td><td>⋯</td></tr>
+    <tr><td><span class="cb on"></span></td><td><a href="#">gw-branch-west-01</a></td><td><span class="status"><span class="dot warn"></span>Warning</span></td><td>Gateway</td><td>DC-West</td><td>10.4.0.1</td><td>10.12.0008</td><td>1 min ago</td><td>⋯</td></tr>
+    <tr><td><span class="cb"></span></td><td><a href="#">sw-access-west-201</a></td><td><span class="status"><span class="dot warn"></span>Warning</span></td><td>Switch</td><td>DC-West</td><td>10.4.18.201</td><td>10.13.1000</td><td>just now</td><td>⋯</td></tr>
+    <tr><td><span class="cb"></span></td><td><a href="#">ap-floor1-east-11</a></td><td><span class="status"><span class="dot"></span>Critical</span></td><td>Access point</td><td>DC-West</td><td>10.4.22.34</td><td>8.10.0.6</td><td>44 min ago</td><td>⋯</td></tr>
+    <tr><td><span class="cb"></span></td><td><a href="#">sw-agg-west-015</a></td><td><span class="status"><span class="dot warn"></span>Warning</span></td><td>Switch</td><td>DC-West</td><td>10.4.18.15</td><td>10.13.0921</td><td>3 min ago</td><td>⋯</td></tr>
+    <tr><td><span class="cb"></span></td><td><a href="#">gw-branch-west-02</a></td><td><span class="status"><span class="dot warn"></span>Warning</span></td><td>Gateway</td><td>DC-West</td><td>10.4.0.2</td><td>10.12.0008</td><td>8 min ago</td><td>⋯</td></tr>
+  </table>
+  <div class="pager"><span>Showing 1–50 of 142</span><span>Rows per page: 50 ▾</span><div class="pages"><div class="pg">‹</div><div class="pg cur">1</div><div class="pg">2</div><div class="pg">3</div><div class="pg">›</div></div></div>
+</div>
+
+<div class="annotation">Archetype 1 — Filterable inventory table. The workhorse of data-intensive platforms (Twingate, LangChain, Vapi, Cloudflare): total count in the title; toolbar = search + applied filter chips (removable, visible state) + column/density controls; result count updates with filters; selecting rows swaps the toolbar for a bulk-action bar with "select all matching"; primary column links to the detail page; status rendered as dot + word, never color alone; sort state shown in the header; pagination (or infinite scroll) with rows-per-page. Everything the user does here is reductive — from 1,847 to the few rows they care about.</div>
+</div></div><script src="/library-nav.js"></script>
+</body></html>

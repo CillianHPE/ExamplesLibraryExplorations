@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo-fi — Analytics explorer</title><style>
+  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
+  .topbar { height:52px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:16px; padding:0 20px; background:#fff; }
+  .logo { width:90px; height:20px; background:var(--faint); border-radius:3px; }
+  .searchbox { flex:0 0 320px; height:30px; border:1px solid var(--line); border-radius:15px; margin-left:auto; }
+  .avatar { width:28px; height:28px; border-radius:50%; background:var(--faint); }
+  .page { padding:20px 32px 48px; max-width:1400px; margin:0 auto; }
+  h1 { font-size:22px; font-weight:600; }
+  .header-row { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .btn { font-size:13px; padding:6px 14px; border:1px solid var(--line); border-radius:4px; background:#fff; cursor:pointer; }
+  .querybar { display:flex; gap:8px; align-items:center; margin-bottom:16px; flex-wrap:wrap; background:#fff; border:1px solid var(--line); border-radius:6px; padding:10px 14px; }
+  .qpart { display:flex; align-items:center; gap:6px; font-size:12.5px; }
+  .qpart .k { color:var(--muted); }
+  .qsel { border:1px solid var(--line); border-radius:4px; padding:5px 10px; background:#fff; }
+  .qsel::after { content:" ▾"; color:var(--muted); }
+  .trange { display:flex; border:1px solid var(--line); border-radius:4px; overflow:hidden; margin-left:auto; }
+  .trange div { font-size:12px; padding:6px 10px; color:var(--muted); border-right:1px solid var(--line); cursor:pointer; }
+  .trange div:last-child { border-right:none; }
+  .trange div.cur { background:var(--ink); color:#fff; }
+  .chart-card { border:1px solid var(--line); border-radius:6px; background:#fff; padding:14px 18px; margin-bottom:16px; }
+  .chart-head { display:flex; align-items:baseline; gap:10px; margin-bottom:6px; }
+  .chart-head h2 { font-size:14px; font-weight:600; }
+  .chart-head .big { font-size:22px; font-weight:600; }
+  .chart-head .delta { font-size:12px; color:var(--muted); }
+  .legend { margin-left:auto; display:flex; gap:14px; font-size:11.5px; color:var(--muted); }
+  .legend span::before { content:"—"; font-weight:700; margin-right:4px; color:var(--ink); }
+  .legend span.l2::before { color:var(--faint); }
+  svg { width:100%; height:150px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; color:var(--muted); font-weight:400; font-size:11.5px; padding:8px 12px 8px 0; border-bottom:1px solid var(--line); }
+  td { padding:9px 12px 9px 0; border-bottom:1px solid var(--fill); }
+  td a { color:var(--ink); font-weight:600; text-decoration:none; border-bottom:1px solid var(--faint); }
+  .spark { display:inline-block; width:80px; height:16px; background:linear-gradient(to top right, transparent 48%, var(--faint) 49%, var(--faint) 51%, transparent 52%); }
+  .annotation { margin-top:24px; font-size:12px; color:var(--muted); border:1px dashed var(--faint); border-radius:4px; padding:10px 12px; line-height:1.5; }
+  .backlink { display:inline-block; margin-bottom:12px; font-size:13px; color:var(--muted); }
+</style><script src="../global-nav.js" data-section="data-collection" defer></script>
+</head><body>
+<script src="fidelity-bar.js" data-name="4 · Analytics explorer" data-lofi="analytics-explorer.html" data-hifi="analytics-cards-c.html" data-mode="lofi"></script>
+
+<div class="topbar"><div class="logo"></div><div class="searchbox"></div><div class="avatar"></div></div>
+<div class="page">
+<a class="backlink" href="index.html">&lsaquo; All mockups</a>
+<div class="header-row"><h1>Capacity explorer</h1><span style="margin-left:auto"></span><button class="btn">Save query</button><button class="btn">Add to dashboard</button><button class="btn">Export</button></div>
+
+<!-- Query builder: metric + aggregation + group-by + filters + time -->
+<div class="querybar">
+  <div class="qpart"><span class="k">Metric</span><span class="qsel">Storage used (TiB)</span></div>
+  <div class="qpart"><span class="k">Agg</span><span class="qsel">p95</span></div>
+  <div class="qpart"><span class="k">Group by</span><span class="qsel">Site</span></div>
+  <div class="qpart"><span class="k">Filter</span><span class="qsel">tier = Performance SSD ✕</span></div>
+  <div class="qpart"><span class="qsel" style="border-style:dashed;color:var(--muted)">+ Add filter</span></div>
+  <div class="trange"><div>24h</div><div>7d</div><div class="cur">30d</div><div>90d</div><div>Custom ▾</div></div>
+</div>
+
+<div class="chart-card">
+  <div class="chart-head"><h2>Storage used</h2><span class="big">318.4 TiB</span><span class="delta">▲ 6.2% vs previous 30d</span><div class="legend"><span>DC-West</span><span class="l2">DC-East</span></div></div>
+  <svg viewBox="0 0 800 150" preserveAspectRatio="none">
+    <line x1="0" y1="37" x2="800" y2="37" stroke="#f2f2f2"/><line x1="0" y1="75" x2="800" y2="75" stroke="#f2f2f2"/><line x1="0" y1="112" x2="800" y2="112" stroke="#f2f2f2"/>
+    <polyline fill="none" stroke="#2b2b2b" stroke-width="2" points="0,110 60,106 120,104 180,98 240,99 300,92 360,88 420,86 480,80 540,74 600,70 660,62 720,55 800,48"/>
+    <polyline fill="none" stroke="#c9c9c9" stroke-width="2" points="0,126 60,124 120,125 180,120 240,118 300,119 360,114 420,112 480,110 540,108 600,104 660,103 720,100 800,97"/>
+    <line x1="660" y1="0" x2="660" y2="150" stroke="#8a8a8a" stroke-dasharray="4 3"/>
+    <rect x="560" y="6" width="200" height="26" fill="#fff" stroke="#dcdcdc" rx="3"/>
+    <text x="570" y="23" font-size="11" fill="#2b2b2b" font-family="Arial">Mar 22 · West 292.1 · East 121.8</text>
+  </svg>
+  <div style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);margin-top:2px"><span>Feb 24</span><span>Mar 3</span><span>Mar 10</span><span>Mar 17</span><span>Mar 24</span></div>
+</div>
+
+<div class="grid2">
+  <div class="chart-card" style="margin:0">
+    <div class="chart-head"><h2>Growth rate / week</h2><span class="delta">by site</span></div>
+    <svg viewBox="0 0 400 150" preserveAspectRatio="none">
+      <rect x="20" y="60" width="60" height="90" fill="#2b2b2b"/><rect x="100" y="90" width="60" height="60" fill="#c9c9c9"/>
+      <rect x="220" y="45" width="60" height="105" fill="#2b2b2b"/><rect x="300" y="105" width="60" height="45" fill="#c9c9c9"/>
+    </svg>
+    <div style="display:flex;justify-content:space-around;font-size:10.5px;color:var(--faint)"><span>4 wks ago</span><span>Now</span></div>
+  </div>
+  <div class="chart-card" style="margin:0">
+    <div class="chart-head"><h2>Days until full</h2><span class="delta">projection at current rate</span></div>
+    <svg viewBox="0 0 400 150" preserveAspectRatio="none">
+      <polyline fill="none" stroke="#2b2b2b" stroke-width="2" points="0,30 100,52 200,78 300,102 400,128"/>
+      <line x1="0" y1="128" x2="400" y2="128" stroke="#8a8a8a" stroke-dasharray="4 3"/>
+      <text x="8" y="122" font-size="11" fill="#8a8a8a" font-family="Arial">capacity limit · est. crossing Jul 11</text>
+    </svg>
+  </div>
+</div>
+
+<!-- Chart and table stay in sync: the table is the chart's data -->
+<div class="chart-card">
+  <div class="chart-head"><h2>Breakdown by site</h2><span class="delta">reflects filters above</span></div>
+  <table>
+    <tr><th>Site</th><th>Used (p95)</th><th>Of total</th><th>Trend 30d</th><th>Growth / wk</th><th>Days to full</th></tr>
+    <tr><td><a href="#">DC-West</a></td><td>292.1 TiB</td><td>62%</td><td><span class="spark"></span></td><td>+2.4 TiB</td><td>110</td></tr>
+    <tr><td><a href="#">DC-East</a></td><td>121.8 TiB</td><td>26%</td><td><span class="spark"></span></td><td>+0.9 TiB</td><td>armed &gt; 365</td></tr>
+    <tr><td><a href="#">Branch-Co</a></td><td>41.7 TiB</td><td>9%</td><td><span class="spark"></span></td><td>+0.3 TiB</td><td>&gt; 365</td></tr>
+    <tr><td><a href="#">Edge sites</a></td><td>14.0 TiB</td><td>3%</td><td><span class="spark"></span></td><td>+0.1 TiB</td><td>&gt; 365</td></tr>
+  </table>
+</div>
+
+<div class="annotation">Archetype 4 — Analytics explorer. Chart-first collection page for aggregate questions: trends, capacity, consumption (Sentry Traces, Vercel Observability, Supabase reports). Rules: a structured query bar (metric · aggregation · group-by · filters · time range) is the page's state — everything below re-renders from it; headline chart pairs the current value + delta with the trend; hover reveals exact values, drag zooms time; secondary charts answer the obvious follow-ups; a breakdown table under the charts shows the same data as rows with sparklines, linking each group to its detail page; Save query / Add to dashboard make explorations durable. The chart is for spotting the anomaly — the table is for acting on it.</div>
+</div><script src="/library-nav.js"></script>
+</body></html>

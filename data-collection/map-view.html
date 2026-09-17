@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo-fi — Map / spatial view</title><style>
+  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
+  .topbar { height:52px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:16px; padding:0 20px; background:#fff; }
+  .logo { width:90px; height:20px; background:var(--faint); border-radius:3px; }
+  .searchbox { flex:0 0 320px; height:30px; border:1px solid var(--line); border-radius:15px; margin-left:auto; }
+  .avatar { width:28px; height:28px; border-radius:50%; background:var(--faint); }
+  .page { padding:20px 32px 48px; max-width:1400px; margin:0 auto; }
+  h1 { font-size:22px; font-weight:600; }
+  .header-row { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .btn { font-size:13px; padding:6px 14px; border:1px solid var(--line); border-radius:4px; background:#fff; cursor:pointer; }
+  .viewtoggle { display:flex; border:1px solid var(--line); border-radius:4px; overflow:hidden; margin-left:auto; }
+  .viewtoggle div { font-size:12.5px; padding:6px 14px; color:var(--muted); cursor:pointer; background:#fff; border-right:1px solid var(--line); }
+  .viewtoggle div:last-child { border-right:none; }
+  .viewtoggle div.cur { background:var(--ink); color:#fff; }
+  .fchip { font-size:12.5px; border:1px solid var(--line); border-radius:14px; padding:4px 12px; background:#fff; color:var(--ink); cursor:pointer; }
+  .fchip.applied { background:var(--fill); border-color:var(--muted); }
+  .filters { display:flex; gap:8px; margin-bottom:14px; align-items:center; }
+  .split { display:flex; gap:0; border:1px solid var(--line); border-radius:6px; overflow:hidden; background:#fff; height:560px; }
+  .sitelist { flex:0 0 320px; border-right:1px solid var(--line); display:flex; flex-direction:column; }
+  .sl-head { padding:10px 14px; border-bottom:1px solid var(--line); font-size:12.5px; color:var(--muted); display:flex; align-items:center; }
+  .sl-scroll { flex:1; overflow:auto; }
+  .site { padding:12px 14px; border-bottom:1px solid var(--fill); cursor:pointer; }
+  .site:hover { background:var(--fill); }
+  .site.sel { background:var(--fill); box-shadow:inset 3px 0 0 var(--ink); }
+  .site h3 { font-size:13.5px; font-weight:600; display:flex; align-items:center; gap:8px; }
+  .site .meta { font-size:12px; color:var(--muted); margin-top:3px; }
+  .dot { width:8px; height:8px; border-radius:50%; background:var(--ink); display:inline-block; }
+  .dot.warn { background:#fff; border:2px solid var(--ink); }
+  .dot.ok { background:var(--faint); }
+  .mapwrap { flex:1; position:relative; background:repeating-linear-gradient(0deg,#f7f7f7,#f7f7f7 39px,#efefef 40px),repeating-linear-gradient(90deg,#f7f7f7,#f7f7f7 39px,#efefef 40px); }
+  .coast { position:absolute; inset:0; }
+  .pin { position:absolute; width:26px; height:26px; border-radius:50%; background:#fff; border:2px solid var(--ink); display:flex; align-items:center; justify-content:center; font-size:10.5px; font-weight:700; cursor:pointer; }
+  .pin.crit { background:var(--ink); color:#fff; }
+  .pin.big { width:34px; height:34px; }
+  .pin.dim { border-color:var(--faint); color:var(--muted); }
+  .popover { position:absolute; left:295px; top:120px; width:230px; background:#fff; border:1px solid var(--line); border-radius:6px; box-shadow:0 4px 14px rgba(0,0,0,.08); padding:12px 14px; font-size:12.5px; }
+  .popover h3 { font-size:13.5px; font-weight:600; display:flex; gap:8px; align-items:center; margin-bottom:6px; }
+  .popover .kv { display:flex; justify-content:space-between; padding:3px 0; color:var(--muted); }
+  .popover .kv b { color:var(--ink); font-weight:600; }
+  .popover a { display:inline-block; margin-top:8px; font-size:12.5px; color:var(--accent); }
+  .mapctl { position:absolute; right:14px; top:14px; display:flex; flex-direction:column; gap:6px; }
+  .mapctl div { width:30px; height:30px; background:#fff; border:1px solid var(--line); border-radius:4px; display:flex; align-items:center; justify-content:center; color:var(--muted); cursor:pointer; }
+  .maplegend { position:absolute; left:14px; bottom:14px; background:#fff; border:1px solid var(--line); border-radius:4px; padding:8px 12px; font-size:11.5px; color:var(--muted); display:flex; gap:14px; }
+  .searcharea { position:absolute; top:14px; left:50%; transform:translateX(-50%); background:#fff; border:1px solid var(--line); border-radius:14px; font-size:12px; padding:5px 14px; color:var(--muted); }
+  .annotation { margin-top:24px; font-size:12px; color:var(--muted); border:1px dashed var(--faint); border-radius:4px; padding:10px 12px; line-height:1.5; }
+  .backlink { display:inline-block; margin-bottom:12px; font-size:13px; color:var(--muted); }
+</style><script src="../global-nav.js" data-section="data-collection" defer></script>
+</head><body>
+<script src="fidelity-bar.js" data-name="5 · Map / spatial view" data-lofi="map-view.html" data-hifi="map-hifi.html" data-mode="lofi"></script>
+
+<div class="topbar"><div class="logo"></div><div class="searchbox"></div><div class="avatar"></div></div>
+<div class="page">
+<a class="backlink" href="index.html">&lsaquo; All mockups</a>
+<div class="header-row"><h1>Sites</h1><span style="font-size:13px;color:var(--muted)">· 62 sites, 4 with issues</span>
+  <div class="viewtoggle"><div class="cur">Map</div><div>List</div></div>
+</div>
+
+<div class="filters">
+  <div class="fchip applied">Health: Any issue ✕</div>
+  <div class="fchip">Region ▾</div>
+  <div class="fchip">Service ▾</div>
+</div>
+
+<div class="split">
+  <!-- Synced list: same collection, same filters, same selection -->
+  <div class="sitelist">
+    <div class="sl-head">4 sites in view · sorted by severity</div>
+    <div class="sl-scroll">
+      <div class="site sel"><h3><span class="dot"></span>DC-West · Portland</h3><div class="meta">2 critical · 14 warning · 312 devices</div></div>
+      <div class="site"><h3><span class="dot warn"></span>Branch · Sacramento</h3><div class="meta">0 critical · 3 warning · 48 devices</div></div>
+      <div class="site"><h3><span class="dot warn"></span>Branch · Boise</h3><div class="meta">0 critical · 2 warning · 31 devices</div></div>
+      <div class="site"><h3><span class="dot warn"></span>Edge · Reno kiosk</h3><div class="meta">0 critical · 1 warning · 6 devices</div></div>
+      <div class="site" style="opacity:.55"><h3><span class="dot ok"></span>DC-East · Columbus</h3><div class="meta">Healthy · 406 devices — outside filter</div></div>
+    </div>
+  </div>
+
+  <div class="mapwrap">
+    <div class="searcharea">↻ Search this area as I move the map</div>
+    <!-- Pins: severity = fill, count = size; clusters split on zoom -->
+    <div class="pin crit big" style="left:24%;top:22%">16</div>
+    <div class="pin" style="left:38%;top:48%">3</div>
+    <div class="pin" style="left:52%;top:30%">2</div>
+    <div class="pin" style="left:46%;top:64%">1</div>
+    <div class="pin dim" style="left:78%;top:40%">✓</div>
+    <div class="pin dim" style="left:70%;top:68%">✓</div>
+    <div class="popover">
+      <h3><span class="dot"></span>DC-West · Portland</h3>
+      <div class="kv"><span>Critical</span><b>2</b></div>
+      <div class="kv"><span>Warning</span><b>14</b></div>
+      <div class="kv"><span>Devices</span><b>312</b></div>
+      <div class="kv"><span>WAN uplink</span><b>Degraded</b></div>
+      <a href="#">Open site →</a>
+    </div>
+    <div class="mapctl"><div>＋</div><div>－</div><div>⌖</div></div>
+    <div class="maplegend"><span>● critical</span><span>◍ warning</span><span style="color:var(--faint)">○ healthy</span><span>size = device count</span></div>
+  </div>
+</div>
+
+<div class="annotation">Archetype 5 — Map / spatial view with synced list. When location is the organizing attribute: sites, fleets, coverage (DoorDash, Felt, Turo, Cloudflare geo). Rules: map and list are one collection — same filters, same selection, hover/click syncs both directions; pins encode severity (fill) and magnitude (size), clustering at low zoom; clicking a pin opens a summary popover with a link to the full detail page — the map never becomes the detail view; "search this area" re-queries on pan; healthy items dim rather than disappear when filtering by issue; always offer a List toggle for accessibility and export — the map is a lens, not the source of truth.</div>
+</div><script src="/library-nav.js"></script>
+</body></html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo-fi — In-context drawer form</title><style>
+  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
+  .topbar { height:52px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:16px; padding:0 20px; background:#fff; }
+  .logo { width:90px; height:20px; background:var(--faint); border-radius:3px; }
+  .searchbox { flex:0 0 320px; height:30px; border:1px solid var(--line); border-radius:15px; margin-left:auto; }
+  .avatar { width:28px; height:28px; border-radius:50%; background:var(--faint); }
+  .page { padding:24px 32px 48px; max-width:1400px; }
+  .breadcrumb { font-size:13px; color:var(--muted); margin-bottom:6px; }
+  h1 { font-size:26px; font-weight:600; }
+  .header-row { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+  .header-actions { margin-left:auto; display:flex; gap:8px; }
+  .btn { font-size:13px; padding:6px 14px; border:1px solid var(--line); border-radius:4px; background:#fff; cursor:pointer; }
+  .btn-primary { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .card { border:1px solid var(--line); border-radius:6px; background:#fff; padding:16px 20px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; color:var(--muted); font-weight:400; font-size:12px; padding:8px 12px 8px 0; border-bottom:1px solid var(--line); }
+  td { padding:10px 12px 10px 0; border-bottom:1px solid var(--fill); }
+  tr.highlight td { background:var(--fill); }
+  .dim { position:fixed; inset:0; background:rgba(0,0,0,.12); }
+  .drawer { position:fixed; top:0; right:0; bottom:0; width:420px; background:#fff; border-left:1px solid var(--line); box-shadow:-6px 0 18px rgba(0,0,0,.06); display:flex; flex-direction:column; }
+  .drawer-head { padding:16px 20px; border-bottom:1px solid var(--line); display:flex; align-items:center; }
+  .drawer-head h2 { font-size:16px; font-weight:600; }
+  .drawer-head .close { margin-left:auto; color:var(--muted); font-size:16px; cursor:pointer; }
+  .drawer-body { flex:1; overflow:auto; padding:20px; }
+  .drawer-foot { padding:12px 20px; border-top:1px solid var(--line); display:flex; align-items:center; gap:8px; }
+  .field { margin-bottom:16px; }
+  .field label { display:block; font-size:13px; font-weight:600; margin-bottom:5px; }
+  .field label .req { color:var(--muted); font-weight:400; }
+  .input { height:34px; border:1px solid var(--line); border-radius:4px; background:#fff; display:flex; align-items:center; padding:0 10px; font-size:13px; color:var(--muted); }
+  .input.filled { color:var(--ink); }
+  .select { display:flex; } .select::after { content:"▾"; margin-left:auto; color:var(--muted); }
+  .help { font-size:12px; color:var(--muted); margin-top:4px; }
+  .checkbox-row { display:flex; gap:8px; align-items:center; font-size:13px; color:var(--muted); }
+  .checkbox { width:14px; height:14px; border:1px solid var(--faint); border-radius:3px; }
+  .annotation { margin-top:24px; font-size:12px; color:var(--muted); border:1px dashed var(--faint); border-radius:4px; padding:10px 12px; line-height:1.5; max-width:920px; }
+  .backlink { display:inline-block; margin-bottom:12px; font-size:13px; color:var(--muted); }
+</style><script src="../global-nav.js" data-section="data-collection" defer></script>
+</head><body>
+<div class="topbar"><div class="logo"></div><div class="searchbox"></div><div class="avatar"></div></div>
+<div class="page">
+<a class="backlink" href="index.html">&lsaquo; All mockups</a>
+<div class="breadcrumb">&lsaquo; <a href="#" style="color:var(--muted)">Access</a></div>
+<div class="header-row">
+  <h1>API keys</h1>
+  <div class="header-actions"><button class="btn btn-primary">+ Create key</button></div>
+</div>
+
+<!-- The list stays visible behind the drawer — that's the point -->
+<div class="card" style="max-width:920px">
+  <table>
+    <tr><th>Name</th><th>Scope</th><th>Created</th><th>Last used</th><th></th></tr>
+    <tr><td>ci-pipeline-key</td><td>read/write</td><td>2025-11-02</td><td>2 min ago</td><td style="color:var(--muted)">Edit</td></tr>
+    <tr><td>grafana-readonly</td><td>read</td><td>2025-08-19</td><td>1 hr ago</td><td style="color:var(--muted)">Edit</td></tr>
+    <tr class="highlight"><td>terraform-prod</td><td>admin</td><td>2025-06-30</td><td>Yesterday</td><td><b>Editing…</b></td></tr>
+    <tr><td>backup-agent</td><td>write</td><td>2025-03-14</td><td>3 days ago</td><td style="color:var(--muted)">Edit</td></tr>
+  </table>
+</div>
+
+<div class="annotation">Archetype 3 — In-context drawer form. For quick create/edit of one small record where the list itself is the user's reference (Supabase row editor, Airwallex "Create vendor", Vapi). Rules: drawer overlays from the right at ~400–480px, list stays visible and the affected row is highlighted; &le;8 fields, single column; footer pinned with Cancel + Save; "create another" checkbox for repeat entry; destructive or complex edits escalate to a full page instead. Dismiss = discard, so warn on unsaved changes. If the form outgrows the drawer, it's Archetype 2.</div>
+</div>
+
+<div class="dim"></div>
+<div class="drawer">
+  <div class="drawer-head"><h2>Edit key · terraform-prod</h2><span class="close">✕</span></div>
+  <div class="drawer-body">
+    <div class="field">
+      <label>Key name <span class="req">required</span></label>
+      <div class="input filled">terraform-prod</div>
+    </div>
+    <div class="field">
+      <label>Scope <span class="req">required</span></label>
+      <div class="input select">admin</div>
+      <div class="help">Admin keys can manage other keys. Prefer write scope for automation.</div>
+    </div>
+    <div class="field">
+      <label>Expiry</label>
+      <div class="input select">90 days</div>
+    </div>
+    <div class="field">
+      <label>Allowed IP range</label>
+      <div class="input">e.g. 10.0.0.0/16</div>
+      <div class="help">Optional. Leave empty to allow all.</div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <div class="checkbox-row"><div class="checkbox"></div> Create another</div>
+    <span style="flex:1"></span>
+    <button class="btn">Cancel</button>
+    <button class="btn btn-primary">Save</button>
+  </div>
+</div>
+<script src="/library-nav.js"></script>
+</body></html>

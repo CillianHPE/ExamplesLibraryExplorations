@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard archetypes · Examples library</title>
+<title>Examples library</title>
 <link rel="stylesheet" href="hifi-shared.css">
 <script src="hifi-icons.js" defer></script>
 <style>
@@ -32,10 +32,11 @@
 </header>
 
 <div class="wrap">
-  <h1>Dashboard archetypes</h1>
-  <p class="intro">Five canonical page types for the GreenLake dashboard system. Open an archetype to see its
-    low-fidelity spec and high-fidelity build side by side, and toggle between them.</p>
+  <h1>Examples library</h1>
+  <p class="intro">Page types for the GreenLake design system, each broken into canonical archetypes. Open an archetype to see its
+    low-fidelity spec and high-fidelity build side by side.</p>
 
+  <div class="sec-h" style="margin-top:8px;">Pages · Dashboards</div>
   <div class="arch-grid">
     <a class="arch-card" href="viewer.html?t=t1">
       <span class="tag">T1</span>
@@ -55,17 +56,61 @@
       <p>Answer "how are we trending, and why?" One question per page, told top-down, no secondary rail.</p>
       <span class="open">Open archetype</span>
     </a>
+    <a class="arch-card" href="viewer.html?t=t5">
+      <span class="tag">T5</span>
+      <h2>Custom board</h2>
+      <p>The user's own cockpit. Contained, movable widgets in fixed sizes, each mapping to a canonical source page.</p>
+      <span class="open">Open archetype</span>
+    </a>
+  </div>
+
+  <div class="sec-h">Pages · Details</div>
+  <div class="arch-grid">
     <a class="arch-card" href="viewer.html?t=t4">
       <span class="tag">T4</span>
       <h2>Object detail</h2>
       <p>Everything about one thing: vitals up top, one chart or timeline, immutable key facts in the rail.</p>
       <span class="open">Open archetype</span>
     </a>
-    <a class="arch-card" href="viewer.html?t=t5">
-      <span class="tag">T5</span>
-      <h2>Custom board</h2>
-      <p>The user's own cockpit. Contained, movable widgets in fixed sizes, each mapping to a canonical source page.</p>
+  </div>
+
+  <div class="sec-h">Pages · Data collection</div>
+  <div class="arch-grid">
+    <a class="arch-card" href="data-collection/inventory-table.html">
+      <span class="tag">D1</span>
+      <h2>Filterable inventory table</h2>
+      <p>"Find and manage these 1,847 things." Search, filter chips, sortable columns, bulk-select action bar, pagination.</p>
       <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="data-collection/card-catalog.html">
+      <span class="tag">D2</span>
+      <h2>Card grid catalog</h2>
+      <p>"Browse and pick one." Identity over attributes: uniform tiles with category pills as the primary filter. Grids are for choosing, tables for managing.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="data-collection/event-stream.html">
+      <span class="tag">D3</span>
+      <h2>Faceted event stream</h2>
+      <p>"What happened, when?" Time-ordered logs with a volume histogram as zoom brush, facet sidebar with counts, live tail.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="data-collection/analytics-explorer.html">
+      <span class="tag">D4</span>
+      <h2>Analytics explorer</h2>
+      <p>"What's the trend? Where's the anomaly?" Chart-first: one scoped query drives the headline chart and breakdown in sync.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="data-collection/map-view.html">
+      <span class="tag">D5</span>
+      <h2>Map / spatial view</h2>
+      <p>"Where is the problem?" Map plus synced list with shared filters and selection. The map is a lens, never the source of truth.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="data-collection/index.html">
+      <span class="tag">Index</span>
+      <h2>Data collection overview</h2>
+      <p>The full data-collection library: archetype rationale, evidence, and the lo-fi ⇄ hi-fi toggles for each page.</p>
+      <span class="open">Open overview</span>
     </a>
   </div>
 
