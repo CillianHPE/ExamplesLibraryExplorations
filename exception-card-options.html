@@ -63,20 +63,46 @@
 </div>
 
 <div class="wrap">
-  <h1>Exception-first cards: options and states</h1>
-  <p class="intro">One exploration: when most of an environment is fine, the card should lead with what isn't. Section 1 compares chart treatments for Environment health (donut vs bar). Section 2 does the same for Data protection. Section 3 stress-tests the recommended layout against every state it must handle.</p>
+  <h1>Status cards: goal, presentation, states</h1>
+  <p class="intro">A status card has one job to define before anything is drawn: is it reporting <strong>posture</strong> (how healthy are we overall?) or prompting <strong>action</strong> (what needs fixing?). This exploration is organised in that order: first pick the goal, then the presentation that serves it, then verify the design survives every state it can encounter.</p>
 
   <div class="tabs">
-    <button class="tabbtn on" onclick="setTab('health', this)">Environment health</button>
-    <button class="tabbtn" onclick="setTab('protection', this)">Data protection</button>
-    <button class="tabbtn" onclick="setTab('states', this)">States coverage</button>
-    <button class="tabbtn" onclick="setTab('anatomy', this)">Card anatomy</button>
+    <button class="tabbtn on" onclick="setTab('goal', this)">1 · Goal of the card</button>
+    <button class="tabbtn" onclick="setTab('health', this)">2a · Presentation: health</button>
+    <button class="tabbtn" onclick="setTab('protection', this)">2b · Presentation: protection</button>
+    <button class="tabbtn" onclick="setTab('anatomy', this)">2c · Typography &amp; spacing</button>
+    <button class="tabbtn" onclick="setTab('states', this)">3 · States</button>
+  </div>
+
+  <!-- ============ SECTION 0: GOAL ============ -->
+  <div class="pane on" id="pane-goal">
+    <div class="sec-h"><h2>What is this card for?</h2></div>
+    <p class="sec-sub">Every choice downstream (chart, headline, copy) follows from one decision about the card's job.</p>
+
+    <div class="opt" style="grid-template-columns: 1fr;">
+      <div class="opt-note">
+        <h3>The decision rule</h3>
+        <p><strong>Lead with the total when the trend is the story.</strong> Capacity leads with 71% because the question is "how fast is it filling?" The number is only meaningful as a trajectory.</p>
+        <p><strong>Lead with the exception when completeness is the story.</strong> Health and protection are guard-rail metrics: the expected state is "everything covered / everything healthy", so the only information is the gap. Nobody acts on 98%; they act on the 14.</p>
+        <p><strong>Percentages hide scale.</strong> 98% protected reads identically whether the gap is 14 volumes or 400. When the gap is what matters, count it in absolute units.</p>
+        <p><strong>The zero test.</strong> An exception-first card must flip into calm reassurance when the exception count hits 0, with no redesign. If it can't, the anatomy is wrong.</p>
+      </div>
+    </div>
+
+    <div class="opt" style="grid-template-columns: 1fr;">
+      <div class="opt-note">
+        <h3>What each goal asks the viewer to do</h3>
+        <p><strong>Posture card</strong> ("how are we doing?"): glance, confirm, move on. Serves executives and weekly reviews. Distribution charts (donut, full meter) fit here because proportion is the message.</p>
+        <p><strong>Action card</strong> ("what needs fixing?"): notice, prioritise, click through. Serves operators. Exception counts, severity splits and named items fit here; the healthy majority demotes to a caption.</p>
+        <p class="fine">The same metric can appear in both forms on different pages: an exec summary keeps posture, the operations overview flips exception-first. What you can't do is ask one card to do both jobs at once, which is what the current donut and 98% meter attempt.</p>
+      </div>
+    </div>
   </div>
 
   <!-- ============ SECTION 1: HEALTH ============ -->
-  <div class="pane on" id="pane-health">
-  <div class="sec-h"><h2>Environment health · chart treatments</h2></div>
-  <p class="sec-sub">128 systems: 2 critical, 5 warning, 116 healthy, 5 unknown.</p>
+  <div class="pane" id="pane-health">
+  <div class="sec-h"><h2>Presentation · Environment health</h2></div>
+  <p class="sec-sub">Goal: action card. 128 systems: 2 critical, 5 warning, 116 healthy, 5 unknown. H0 shows the posture treatment we're moving away from; H1–H3 are action-first alternatives.</p>
 
   <div class="opt">
     <div class="card">
@@ -182,8 +208,8 @@
 
   <!-- ============ SECTION 2: PROTECTION ============ -->
   <div class="pane" id="pane-protection">
-  <div class="sec-h"><h2>Data protection · chart treatments</h2></div>
-  <p class="sec-sub">1,842 volumes, 14 with no protection policy.</p>
+  <div class="sec-h"><h2>Presentation · Data protection</h2></div>
+  <p class="sec-sub">Goal: action card. 1,842 volumes, 14 with no protection policy. P0 is the posture treatment; P1–P3 are action-first alternatives.</p>
 
   <div class="opt">
     <div class="card">
@@ -281,8 +307,8 @@
 
   <!-- ============ SECTION 3: STATES ============ -->
   <div class="pane" id="pane-states">
-  <div class="sec-h"><h2>States coverage · exception-first health card (H1)</h2></div>
-  <p class="sec-sub">The layout has to hold up in every condition it can encounter, not just the demo data. Six states, worst to best, plus the no-data cases a real service will hit.</p>
+  <div class="sec-h"><h2>States · exception-first health card (H1)</h2></div>
+  <p class="sec-sub">Separate from the goal question: whatever presentation wins must hold up in every condition it can encounter. Six states, worst to best, including the no-data cases a real service will hit.</p>
 
   <div class="states">
 
@@ -422,8 +448,8 @@
 
   <!-- ============ SECTION 4: ANATOMY ============ -->
   <div class="pane" id="pane-anatomy">
-  <div class="sec-h"><h2>Card anatomy · typography, layout and spacing</h2></div>
-  <p class="sec-sub">Same content (14 unprotected volumes, 9 production / 5 dev &amp; test) explored through type scale and spacing instead of dividers. Whitespace and size contrast do the separating.</p>
+  <div class="sec-h"><h2>Presentation · typography &amp; spacing</h2></div>
+  <p class="sec-sub">Once the goal and chart are chosen, the same content (14 unprotected, 9 production / 5 dev &amp; test) explored through type scale and spacing instead of dividers.</p>
 
   <div class="opt">
     <div class="card">
