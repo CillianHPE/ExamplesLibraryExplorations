@@ -66,10 +66,6 @@
     });
   });
   root.innerHTML = `
-    <button class="libnav-btn" aria-label="Open library navigation">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 3h12M1 7h12M1 11h12"/></svg>
-      Library
-    </button>
     <div class="libnav-scrim" hidden></div>
     <nav class="libnav-drawer" aria-label="Library navigation">
       <div class="hd"><b>Examples library</b><button class="x" aria-label="Close">✕</button></div>
@@ -77,10 +73,20 @@
     </nav>`;
   document.body.appendChild(root);
 
+  // The page header's hamburger opens the drawer; pages without one get a floating button.
+  let trigger = document.querySelector('.header .burger, .burger');
+  if (!trigger) {
+    trigger = document.createElement('button');
+    trigger.className = 'libnav-btn';
+    trigger.setAttribute('aria-label', 'Open library navigation');
+    trigger.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 3h12M1 7h12M1 11h12"/></svg> Library';
+    document.body.appendChild(trigger);
+  }
+
   const scrim = root.querySelector('.libnav-scrim');
   const open = () => { scrim.hidden = false; requestAnimationFrame(() => root.classList.add('libnav-open')); };
   const close = () => { root.classList.remove('libnav-open'); setTimeout(() => { scrim.hidden = true; }, 200); };
-  root.querySelector('.libnav-btn').addEventListener('click', open);
+  trigger.addEventListener('click', open);
   root.querySelector('.x').addEventListener('click', close);
   scrim.addEventListener('click', close);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
