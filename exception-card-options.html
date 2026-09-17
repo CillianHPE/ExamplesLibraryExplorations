@@ -9,7 +9,13 @@
   .wrap { max-width: 1280px; margin: 0 auto; padding: 40px 32px 80px; }
   .wrap > h1 { font-size: 24px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
   .intro { font-size: 14px; color: var(--gl-ink-soft); margin: 0 0 40px; max-width: 760px; }
-  .sec-h { margin: 56px 0 6px; }
+  .tabs { display: flex; gap: 8px; margin: 0 0 32px; }
+  .tabbtn { border: 1px solid var(--line); border-radius: 20px; background: #fff; padding: 8px 18px;
+    font-size: 13.5px; font-weight: 600; color: var(--gl-ink); cursor: pointer; font-family: inherit; }
+  .tabbtn.on { background: #EDF6F2; border-color: var(--gl-green-dark); box-shadow: inset 0 0 0 1px var(--gl-green-dark); color: var(--gl-heading); }
+  .pane { display: none; }
+  .pane.on { display: block; }
+  .sec-h { margin: 0 0 6px; }
   .sec-h h2 { font-size: 19px; font-weight: 700; color: var(--gl-heading); margin: 0; }
   .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: 0 0 24px; max-width: 720px; }
 
@@ -60,7 +66,14 @@
   <h1>Exception-first cards: options and states</h1>
   <p class="intro">One exploration: when most of an environment is fine, the card should lead with what isn't. Section 1 compares chart treatments for Environment health (donut vs bar). Section 2 does the same for Data protection. Section 3 stress-tests the recommended layout against every state it must handle.</p>
 
+  <div class="tabs">
+    <button class="tabbtn on" onclick="setTab('health', this)">Environment health</button>
+    <button class="tabbtn" onclick="setTab('protection', this)">Data protection</button>
+    <button class="tabbtn" onclick="setTab('states', this)">States coverage</button>
+  </div>
+
   <!-- ============ SECTION 1: HEALTH ============ -->
+  <div class="pane on" id="pane-health">
   <div class="sec-h"><h2>Environment health · chart treatments</h2></div>
   <p class="sec-sub">128 systems: 2 critical, 5 warning, 116 healthy, 5 unknown.</p>
 
@@ -164,7 +177,10 @@
     </div>
   </div>
 
+  </div>
+
   <!-- ============ SECTION 2: PROTECTION ============ -->
+  <div class="pane" id="pane-protection">
   <div class="sec-h"><h2>Data protection · chart treatments</h2></div>
   <p class="sec-sub">1,842 volumes, 14 with no protection policy.</p>
 
@@ -260,7 +276,10 @@
     </div>
   </div>
 
+  </div>
+
   <!-- ============ SECTION 3: STATES ============ -->
+  <div class="pane" id="pane-states">
   <div class="sec-h"><h2>States coverage · exception-first health card (H1)</h2></div>
   <p class="sec-sub">The layout has to hold up in every condition it can encounter, not just the demo data. Six states, worst to best, plus the no-data cases a real service will hit.</p>
 
@@ -398,7 +417,16 @@
     </div>
 
   </div>
+  </div>
 </div>
+<script>
+function setTab(id, btn) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+  document.getElementById('pane-' + id).classList.add('on');
+  document.querySelectorAll('.tabbtn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+</script>
 <script src="livereload.js"></script>
 </body>
 </html>
