@@ -28,6 +28,13 @@
   .shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; align-items: start; }
   .cell .cap { font-size: 12.5px; color: var(--gl-ink-soft); margin: 10px 2px 0; line-height: 1.45; }
   .cell .cap b { color: var(--gl-ink); font-weight: 600; }
+  .spec { background: var(--contained); border-radius: 8px; padding: 14px 16px 16px; margin-top: 12px; }
+  .spec-name { font-size: 13px; font-weight: 700; color: var(--gl-heading); }
+  .spec-desc { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin: 4px 0 0; }
+  .spec-k { font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--gl-ink); margin: 14px 0 4px; }
+  .spec-qs span { display: block; font-size: 12.5px; font-style: italic; color: var(--gl-ink); line-height: 1.5; padding: 1px 0; }
+  .spec .uw { margin: 8px 0 0; }
+  .spec .uw:first-of-type { margin-top: 14px; }
   .uw { display: flex; gap: 8px; font-size: 12px; line-height: 1.45; color: var(--gl-ink-soft); margin: 6px 2px 0; }
   .uw:first-of-type { margin-top: 8px; }
   .uw .k { flex: none; width: 62px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--gl-ink); padding-top: 1px; }
@@ -95,9 +102,14 @@
             <div class="fine" style="margin-top:8px; display:flex; justify-content:space-between;"><span><strong style="color:var(--gl-ink);">2 critical · 5 warning</strong></span><span>116 healthy · 5 unknown</span></div>
             <div class="fine takeaway">Both critical systems are in Dallas: DAL-04 has a failed controller, DAL-07 lost a power supply.</div>
           </div>
-          <p class="cap"><b>Exception count + gap bar.</b> Headline is the number needing attention; the bar keeps whole-environment shape with muted healthy mass and minimum-width severity segments; takeaway names the problems.</p>
-          <div class="uw"><span class="k">Use when</span><span>Routine monitoring of a mixed-severity environment. The viewer needs the count and a sense of scale ("7 of 128") in one glance.</span></div>
-          <div class="uw not"><span class="k">Not when</span><span>The viewer must choose what to fix first. The bar shows severity, not blast radius: use the severity split instead.</span></div>
+          <div class="spec">
+            <div class="spec-name">Exception count + gap bar</div>
+            <p class="spec-desc">Leads with the count needing attention; the bar keeps the whole population in view with muted healthy mass and minimum-width severity segments; the takeaway names the offenders.</p>
+            <div class="spec-k">Viewers' questions</div>
+            <div class="spec-qs"><span>"Is anything wrong right now?"</span><span>"How many things need attention?"</span><span>"Is it a sliver of the estate, or half of it?"</span></div>
+            <div class="uw"><span class="k">Use when</span><span>The metric's job is completeness across a population (health, protection, compliance) and the viewer checks it routinely at a glance.</span></div>
+            <div class="uw not"><span class="k">Not when</span><span>The viewer's next step is choosing what to fix first: a severity or blast-radius split answers that faster than a bar.</span></div>
+          </div>
         </div>
       </div>
 
@@ -117,9 +129,14 @@
             </div>
             <div class="fine">Start with the 9 production volumes in Finance-Prod: they hold live data with no way to recover it.</div>
           </div>
-          <p class="cap"><b>Severity split.</b> No chart; the count splits by blast radius. Whitespace separates zones, no dividers.</p>
-          <div class="uw"><span class="k">Use when</span><span>The split IS the priority call and the audience is the person who fixes it. Works up to three buckets.</span></div>
-          <div class="uw not"><span class="k">Not when</span><span>Scale matters. With no chart, "14 of 1,842" loses its proportion: pair with the gap bar or state the total in the scope line.</span></div>
+          <div class="spec">
+            <div class="spec-name">Severity split</div>
+            <p class="spec-desc">Drops the chart entirely; the exception count splits into two or three labelled buckets separated by whitespace, no dividers.</p>
+            <div class="spec-k">Viewers' questions</div>
+            <div class="spec-qs"><span>"Which of these actually matter?"</span><span>"Where do I start?"</span></div>
+            <div class="uw"><span class="k">Use when</span><span>The split itself is the priority call and the audience is the person who acts on it. Works up to three buckets.</span></div>
+            <div class="uw not"><span class="k">Not when</span><span>The overall population size gives the number its meaning: without a chart the proportion is lost, so pair it with a bar or state the total in the scope line.</span></div>
+          </div>
         </div>
         <div class="cell">
           <div class="card">
@@ -132,9 +149,14 @@
             <div class="bd-row" style="margin-bottom:22px;"><span class="n">5</span><span class="d">in dev &amp; test</span></div>
             <div class="fine">Start with Finance-Prod: one snapshot schedule covers all 9.</div>
           </div>
-          <p class="cap"><b>Figure column.</b> Right-aligned tabular numbers, descriptions reading rightward.</p>
-          <div class="uw"><span class="k">Use when</span><span>The breakdown grows past two rows, or each row needs a sentence of context rather than a two-word label.</span></div>
-          <div class="uw not"><span class="k">Not when</span><span>A two-way split is enough: side-by-side columns scan faster than a stacked list.</span></div>
+          <div class="spec">
+            <div class="spec-name">Figure column</div>
+            <p class="spec-desc">Right-aligned tabular figures with a sentence of context reading rightward from each.</p>
+            <div class="spec-k">Viewers' questions</div>
+            <div class="spec-qs"><span>"What makes up this number?"</span><span>"What does each part mean for me?"</span></div>
+            <div class="uw"><span class="k">Use when</span><span>The breakdown has three or more rows, or each row needs explanation rather than a two-word label.</span></div>
+            <div class="uw not"><span class="k">Not when</span><span>A two-way split is enough: side-by-side stat columns scan faster than a stacked list.</span></div>
+          </div>
         </div>
         <div class="cell">
           <div class="card">
@@ -153,9 +175,14 @@
             <div class="fine" style="margin-top:12px;">116 of 128 systems healthy</div>
             <div class="fine takeaway">Both critical systems are in Dallas. Start with DAL-04.</div>
           </div>
-          <p class="cap"><b>Exception donut.</b> Plots only the non-healthy systems, centre count = needs attention.</p>
-          <div class="uw"><span class="k">Use when</span><span>The surrounding dashboard already uses rings and consistency wins. The caption must carry the whole-environment proportion.</span></div>
-          <div class="uw not"><span class="k">Not when</span><span>Exception counts are tiny or similar in size: donut slivers are illegible, and the gap bar's minimum segment widths handle that better.</span></div>
+          <div class="spec">
+            <div class="spec-name">Exception donut</div>
+            <p class="spec-desc">Plots only the exceptions; the centre count is the headline. The caption must carry the whole-population proportion.</p>
+            <div class="spec-k">Viewers' questions</div>
+            <div class="spec-qs"><span>"How do the exceptions break down?"</span><span>"Which kind dominates?"</span></div>
+            <div class="uw"><span class="k">Use when</span><span>The surrounding dashboard is ring-based and consistency wins over the marginal clarity of a bar.</span></div>
+            <div class="uw not"><span class="k">Not when</span><span>Exception counts are tiny or near-equal: donut slivers are illegible at card size, where a gap bar's minimum segment widths hold up.</span></div>
+          </div>
         </div>
       </div>
 
@@ -262,9 +289,14 @@
             <div class="fine legend-inline" style="margin-top:6px;"><span class="dash-sw"></span>Prior 90 days</div>
             <div class="fine takeaway">Growing a steady <strong style="color:var(--gl-ink);">1.5%</strong> a month. Deduplication is absorbing most new data.</div>
           </div>
-          <p class="cap"><b>Sparkline with prior-period reference.</b> The full spec: comparison line dashed and legended, endpoint dot ties "Today" to the line.</p>
-          <div class="uw"><span class="k">Use when</span><span>The comparison against a prior period is the story: "faster or slower than last quarter" matters more than the shape alone.</span></div>
-          <div class="uw not"><span class="k">Not when</span><span>The delta pill already states the comparison. Encoding it twice adds ink without information.</span></div>
+          <div class="spec">
+            <div class="spec-name">Sparkline with prior-period reference</div>
+            <p class="spec-desc">The full chart spec: dashed, legended comparison line; endpoint dot ties the "Today" value to the line.</p>
+            <div class="spec-k">Viewers' questions</div>
+            <div class="spec-qs"><span>"Which way is this heading?"</span><span>"Faster or slower than last period?"</span></div>
+            <div class="uw"><span class="k">Use when</span><span>The comparison against a prior period is the story and the viewer should judge it visually, not just read a number.</span></div>
+            <div class="uw not"><span class="k">Not when</span><span>The delta pill already states the comparison: encoding it twice adds ink without information.</span></div>
+          </div>
         </div>
         <div class="cell">
           <div class="card">
@@ -290,9 +322,14 @@
             <div class="fine axis-row"><span>Sep 9 · 0.87 ms</span><span class="now">Today · 0.8 ms</span></div>
             <div class="fine takeaway">One brief spike during the DAL-04 controller failover. Back to normal.</div>
           </div>
-          <p class="cap"><b>Sparkline, single series.</b> A single solid series never gets a legend entry.</p>
-          <div class="uw"><span class="k">Use when</span><span>The trajectory itself is the message and the pill carries any comparison. This should be the default trend card.</span></div>
-          <div class="uw not"><span class="k">Not when</span><span>The viewer must judge this period against the last one visually: add the dashed reference and its legend.</span></div>
+          <div class="spec">
+            <div class="spec-name">Sparkline, single series</div>
+            <p class="spec-desc">One solid line, no legend: a single series is explained by the card title.</p>
+            <div class="spec-k">Viewers' questions</div>
+            <div class="spec-qs"><span>"Which way is this heading, and how fast?"</span><span>"Anything unusual in the shape?"</span></div>
+            <div class="uw"><span class="k">Use when</span><span>The trajectory itself is the message and the pill carries any comparison. This is the default trend card.</span></div>
+            <div class="uw not"><span class="k">Not when</span><span>The viewer must judge this period against the last one visually: add the dashed reference and its legend.</span></div>
+          </div>
         </div>
       </div>
 
@@ -370,9 +407,14 @@
             </div>
             <div class="fine">The difference is space you never had to buy: about <strong style="color:var(--gl-ink);">$1.6M</strong> of hardware avoided.</div>
           </div>
-          <p class="cap"><b>Insight card.</b> The arithmetic is visible (14.3 written, 3.4 stored, 10.9 saved); the takeaway converts it to money. No ratios, no jargon.</p>
-          <div class="uw"><span class="k">Use when</span><span>The metric is derived or abstract (efficiency, scores, ratios) and the viewer can't be assumed to know what it means.</span></div>
-          <div class="uw not"><span class="k">Not when</span><span>The number is self-explanatory ("3.4 PB used"). A decoder line under an obvious figure reads as filler.</span></div>
+          <div class="spec">
+            <div class="spec-name">Insight card</div>
+            <p class="spec-desc">Five-part anatomy with the arithmetic visible and a takeaway converting it into a real-world consequence. Real units, no ratios, no jargon.</p>
+            <div class="spec-k">Viewers' questions</div>
+            <div class="spec-qs"><span>"What does this number actually mean?"</span><span>"Why should I care?"</span><span>"What has it done for us?"</span></div>
+            <div class="uw"><span class="k">Use when</span><span>The metric is derived or abstract (efficiency, savings, scores) and the viewer can't be assumed to know what it means.</span></div>
+            <div class="uw not"><span class="k">Not when</span><span>The number is self-explanatory: a decoder line under an obvious figure reads as filler.</span></div>
+          </div>
         </div>
         <div class="cell">
           <div class="card">
@@ -387,9 +429,14 @@
             </div>
             <div class="fine">That's about $1.6M of hardware you didn't have to buy.</div>
           </div>
-          <p class="cap"><b>Prose-led variant.</b> Same story as one sentence with the figures set heavier.</p>
-          <div class="uw"><span class="k">Use when</span><span>The card sits alone on a narrative surface: a report, an emailed digest, an AI summary panel.</span></div>
-          <div class="uw not"><span class="k">Not when</span><span>The card sits in a grid with others. Figures buried in sentences don't align, so cross-card scanning breaks down.</span></div>
+          <div class="spec">
+            <div class="spec-name">Prose-led variant</div>
+            <p class="spec-desc">The same story told as one sentence with the figures set heavier.</p>
+            <div class="spec-k">Viewers' questions</div>
+            <div class="spec-qs"><span>"What's the story in one sentence?"</span></div>
+            <div class="uw"><span class="k">Use when</span><span>The card sits alone on a narrative surface: a report, an emailed digest, an AI summary panel.</span></div>
+            <div class="uw not"><span class="k">Not when</span><span>The card sits in a grid with others: figures buried in sentences don't align, so cross-card scanning breaks down.</span></div>
+          </div>
         </div>
       </div>
 
@@ -444,9 +491,14 @@
             </div>
             <div class="fine">The 2 most urgent cover Array-LON-02 and Array-LON-03. If they lapse, those systems lose support and updates: renew before <strong style="color:var(--gl-ink);">Oct 16</strong>.</div>
           </div>
-          <p class="cap"><b>Deadline card.</b> Count → nearest date → urgency buckets → consequence + action.</p>
-          <div class="uw"><span class="k">Use when</span><span>Items expire on hard dates with real consequences: subscriptions, licences, certificates, warranties.</span></div>
-          <div class="uw not"><span class="k">Not when</span><span>The date is a soft target or forecast. Stating a consequence you can't stand behind erodes trust: use a trend or insight card instead.</span></div>
+          <div class="spec">
+            <div class="spec-name">Deadline card</div>
+            <p class="spec-desc">Count due → nearest concrete date in the pill → urgency buckets → a takeaway stating the consequence, then the action and date.</p>
+            <div class="spec-k">Viewers' questions</div>
+            <div class="spec-qs"><span>"What runs out, and when?"</span><span>"What happens if I miss it?"</span><span>"Which one first?"</span></div>
+            <div class="uw"><span class="k">Use when</span><span>Items expire on hard dates with real consequences: subscriptions, licences, certificates, warranties.</span></div>
+            <div class="uw not"><span class="k">Not when</span><span>The date is a soft target or forecast: stating a consequence you can't stand behind erodes trust, so use a trend or insight card instead.</span></div>
+          </div>
         </div>
       </div>
 
@@ -499,9 +551,14 @@
             <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-sand)"></span>Backups &amp; other</span><span class="pct">16%</span></div>
             <div class="fine takeaway">Databases are the biggest consumer and growing fastest: they drive the capacity forecast.</div>
           </div>
-          <p class="cap"><b>Composition bar + legend.</b> Largest-first, percentages right-aligned, takeaway names what dominates and why it matters.</p>
-          <div class="uw"><span class="k">Use when</span><span>Proportion is the message and the viewer just needs posture: "what is this made of, does anything dominate."</span></div>
-          <div class="uw not"><span class="k">Not when</span><span>The viewer is meant to act on one slice. That's an exception job: lead with the count that needs attention instead.</span></div>
+          <div class="spec">
+            <div class="spec-name">Composition bar + legend</div>
+            <p class="spec-desc">Segments largest-first, percentages right-aligned; the takeaway names what dominates and why it matters. Zero-count entries never render.</p>
+            <div class="spec-k">Viewers' questions</div>
+            <div class="spec-qs"><span>"What is this made of?"</span><span>"Does anything dominate?"</span><span>"Is anything missing or unaccounted for?"</span></div>
+            <div class="uw"><span class="k">Use when</span><span>Proportion is the message and the viewer needs posture, not a task list.</span></div>
+            <div class="uw not"><span class="k">Not when</span><span>The viewer is meant to act on one slice: that's an exception job, so lead with the count needing attention instead.</span></div>
+          </div>
         </div>
       </div>
 
