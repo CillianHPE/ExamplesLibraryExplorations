@@ -66,6 +66,9 @@
           { href: '/data-collection/map-view.html', label: 'Lo-fi spec' },
         ]},
       ]},
+      { label: 'Build specs', children: [
+        { href: '/build-specs/index.html', label: 'Overview' },
+      ]},
     ]},
     { label: 'UI compositions', children: [
       { label: 'Card / widget gallery', children: [
