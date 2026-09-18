@@ -71,6 +71,9 @@
         ]},
       ]},
     ]},
+    { label: 'Layouts', children: [
+      { href: '/layouts/containers.html', label: 'Containers' },
+    ]},
     { label: 'UI compositions', children: [
       { label: 'Card / widget gallery', children: [
         { href: '/card-gallery.html#exception', label: 'Report an exception' },
@@ -114,8 +117,8 @@
     .libnav-drawer { position: fixed; top: 0; left: 0; bottom: 0; z-index: 960; width: 292px; background: #FFF;
       box-shadow: 4px 0 24px rgba(32,43,48,0.16); transform: translateX(-100%); transition: transform .2s ease;
       overflow-y: auto; padding: 20px 16px 32px; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .libnav-instant .libnav-drawer { transition: none; }
     .libnav-open .libnav-drawer { transform: none; }
-    .libnav-open .libnav-scrim { opacity: 1; }
     .libnav-drawer .hd { display: flex; align-items: center; justify-content: space-between; margin: 0 8px 14px; }
     .libnav-drawer .hd b { font-size: 15px; font-weight: 700; color: var(--gl-heading, #202B30); }
     .libnav-drawer .x { border: none; background: none; font-size: 18px; line-height: 1; cursor: pointer; color: var(--gl-ink, #444E54); padding: 4px 6px; border-radius: 6px; }
@@ -194,13 +197,20 @@
   });
 
   const scrim = root.querySelector('.libnav-scrim');
-  const open = () => { scrim.hidden = false; requestAnimationFrame(() => root.classList.add('libnav-open')); };
-  const close = () => { root.classList.remove('libnav-open'); setTimeout(() => { scrim.hidden = true; }, 200); };
-  trigger.addEventListener('click', open);
+  scrim.remove(); // drawer is persistent; no modal scrim
+  const KEY = 'libnavOpen';
+  const open = (instant) => {
+    if (instant) root.classList.add('libnav-instant');
+    root.classList.add('libnav-open');
+    if (instant) requestAnimationFrame(() => root.classList.remove('libnav-instant'));
+    localStorage.setItem(KEY, '1');
+  };
+  const close = () => { root.classList.remove('libnav-open'); localStorage.removeItem(KEY); };
+  const toggle = () => root.classList.contains('libnav-open') ? close() : open();
+  trigger.addEventListener('click', toggle);
   root.querySelector('.x').addEventListener('click', close);
   root.querySelectorAll('.twig').forEach(t =>
     t.addEventListener('click', () => t.parentElement.classList.toggle('exp')));
-  root.querySelectorAll('.libnav-drawer a').forEach(a => a.addEventListener('click', close));
-  scrim.addEventListener('click', close);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  if (localStorage.getItem(KEY)) open(true);
 })();
