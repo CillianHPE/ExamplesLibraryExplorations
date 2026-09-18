@@ -1,34 +1,90 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Data collection page archetypes</title><style>
-  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  :root { --ink:#2b2b2b; --muted:#6f6f6f; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; }
   * { box-sizing:border-box; margin:0; padding:0; }
   body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
-  .page { padding:24px 32px 48px; max-width:860px; margin:0 auto; }
-  h1 { font-size:26px; font-weight:600; }
-  .card { border:1px solid var(--line); border-radius:6px; background:#fff; padding:16px 20px; }
+  .page { padding:24px 32px 64px; max-width:960px; margin:0 auto; }
+  h1 { font-size:26px; font-weight:600; margin:16px 0 6px; }
+  .lede { font-size:14px; color:var(--muted); line-height:1.55; margin-bottom:28px; max-width:720px; }
+
   .arch { display:block; text-decoration:none; color:inherit; margin-bottom:16px; }
-  .arch .card:hover { border-color:var(--muted); }
-  .arch h2 { font-size:17px; margin-bottom:4px; font-weight:600; }
-  .arch p { font-size:13.5px; color:var(--muted); line-height:1.5; }
-  .q { font-style:italic; color:var(--ink); }
-  .evidence { font-size:12px; color:var(--faint); margin-top:6px; }
-  .fnote { font-size:11.5px; color:var(--muted); margin-top:8px; }
-  .fnote b { border:1px solid var(--line); border-radius:10px; padding:1px 8px; font-weight:600; }
+  .card { border:1px solid var(--line); border-radius:8px; background:#fff; padding:20px 24px; transition:border-color .12s, box-shadow .12s; }
+  .arch:hover .card { border-color:#9a9a9a; box-shadow:0 2px 10px rgba(0,0,0,0.06); }
+
+  .top { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:2px; }
+  .card h2 { font-size:17px; font-weight:600; }
+  .go { font-size:12.5px; color:var(--muted); white-space:nowrap; }
+  .arch:hover .go { color:var(--ink); }
+  .job { font-size:14px; font-style:italic; color:var(--ink); margin:2px 0 8px; }
+  .why { font-size:13.5px; color:var(--muted); line-height:1.55; max-width:720px; }
+
+  .chips { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0; }
+  .chip { font-size:11.5px; color:var(--ink); border:1px solid var(--line); background:var(--fill); border-radius:10px; padding:2px 9px; white-space:nowrap; }
+
+  .uw { display:grid; grid-template-columns:1fr 1fr; gap:16px; border-top:1px dashed var(--line); padding-top:12px; margin-top:2px; }
+  .uw h3 { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:4px; }
+  .uw p { font-size:12.5px; color:var(--muted); line-height:1.5; }
+  @media (max-width:640px){ .uw { grid-template-columns:1fr; } }
 </style>
 </head><body>
 <div class="page">
-  <h1 style="margin:16px 0 6px">Data collection page archetypes</h1>
-  <p style="font-size:14px;color:var(--muted);margin-bottom:24px">Five canonical patterns for pages that <b>display collections of data</b> — tables, grids, streams, charts and maps — covering ~90% of scenarios in data-intensive platforms (researched via Mobbin: Cloudflare, Vercel, Sentry, Supabase, Twingate, LangChain, Modal, Better Stack, DoorDash&hellip;). Click an archetype, then use the <b>Lo-fi / Hi-fi</b> toggle on the page to switch between the abstract pattern and a GreenLake-styled example.</p>
+  <h1>Data collection page archetypes</h1>
+  <p class="lede">Five canonical patterns for pages that display collections of data: tables, grids, streams, charts and maps. Start from the user's job, not the component: each card states the job to be done, the defining characteristics, and when the pattern fits or fails. Click through for the full archetype with a lo-fi spec and a GreenLake-styled example.</p>
 
-  <a class="arch" href="inventory-table.html"><div class="card"><h2>1 · Filterable inventory table</h2><p><span class="q">"Find and manage these 1,847 things."</span> — The workhorse. Search + filter chips + column controls, sortable columns, bulk-select action bar, pagination. Compare attributes, act in bulk.</p><div class="fnote"><b>Lo-fi ⇄ Hi-fi</b> hi-fi: GreenLake Servers (triage strip, collapsible activity, pagination)</div><div class="evidence">Evidence: Twingate, LangChain, Vapi, Cloudflare</div></div></a>
+  <a class="arch" href="inventory-table.html"><div class="card">
+    <div class="top"><h2>1 · Filterable inventory table</h2><span class="go">View archetype →</span></div>
+    <p class="job">"Find and manage these 1,847 things."</p>
+    <p class="why">The workhorse for operating a known set of objects. Users arrive with a target in mind (a server, a subnet, a policy) or a slice to act on (everything failing, everything in one site). Rows are peers; the value is comparing attributes across them and acting in bulk. If your users manage rather than browse, this is the default answer.</p>
+    <div class="chips"><span class="chip">Search + filter chips</span><span class="chip">Sortable columns</span><span class="chip">Bulk-select action bar</span><span class="chip">Column controls</span><span class="chip">Pagination</span></div>
+    <div class="uw">
+      <div><h3>Use when</h3><p>The collection is large and attribute-rich, users know roughly what they're looking for, and rows need comparing or bulk action.</p></div>
+      <div><h3>Not when</h3><p>Users are choosing one unfamiliar item by identity (use the card catalog) or the order of events matters more than attributes (use the event stream).</p></div>
+    </div>
+  </div></a>
 
-  <a class="arch" href="card-catalog.html"><div class="card"><h2>2 · Card grid catalog</h2><p><span class="q">"Browse and pick one."</span> — Identity over attributes: icon, name, description on uniform tiles; category pills with counts as the primary filter. Grids are for choosing, tables for managing.</p><div class="fnote"><b>Lo-fi ⇄ Hi-fi</b> hi-fi: GreenLake Service catalog</div><div class="evidence">Evidence: Codecademy, Langdock, marketplace patterns</div></div></a>
+  <a class="arch" href="card-catalog.html"><div class="card">
+    <div class="top"><h2>2 · Card grid catalog</h2><span class="go">View archetype →</span></div>
+    <p class="job">"Browse and pick one."</p>
+    <p class="why">For choosing, not managing. Each item leads with identity: icon, name, one-line description, so users can recognise the right option among unfamiliar ones. Categories with counts do the narrowing; nobody sorts a catalog by column. The outcome is a single selection that starts a flow (provision, install, subscribe).</p>
+    <div class="chips"><span class="chip">Uniform tiles</span><span class="chip">Icon + name + description</span><span class="chip">Category pills with counts</span><span class="chip">One-click select</span></div>
+    <div class="uw">
+      <div><h3>Use when</h3><p>Items are distinct offerings users pick from occasionally, and recognition (branding, description) beats attribute comparison.</p></div>
+      <div><h3>Not when</h3><p>Users return daily to operate on many items at once, or need to scan values across the set: that's the inventory table.</p></div>
+    </div>
+  </div></a>
 
-  <a class="arch" href="event-stream.html"><div class="card"><h2>3 · Faceted event stream</h2><p><span class="q">"What happened, when?"</span> — Time-ordered logs/audit/alerts. Volume histogram doubling as a zoom brush, facet sidebar with counts, query bar as canonical state, dense expandable rows, live tail.</p><div class="fnote"><b>Lo-fi ⇄ Hi-fi</b> hi-fi: GreenLake Audit log</div><div class="evidence">Evidence: Cloudflare, Vercel, Modal, Better Stack, Railway</div></div></a>
+  <a class="arch" href="event-stream.html"><div class="card">
+    <div class="top"><h2>3 · Faceted event stream</h2><span class="go">View archetype →</span></div>
+    <p class="job">"What happened, and when?"</p>
+    <p class="why">For investigating time-ordered records: logs, audit trails, alerts. Users start from a symptom and narrow down: a time window, a severity, a user, a resource. The volume histogram is both overview and zoom control; facets with counts show where the signal is before a single row is read.</p>
+    <div class="chips"><span class="chip">Time-ordered rows</span><span class="chip">Volume histogram + brush</span><span class="chip">Facet sidebar with counts</span><span class="chip">Query bar</span><span class="chip">Expandable rows</span><span class="chip">Live tail</span></div>
+    <div class="uw">
+      <div><h3>Use when</h3><p>Records are immutable and time-stamped, questions are forensic ("what happened around 3pm?"), and volume is high.</p></div>
+      <div><h3>Not when</h3><p>Users need current state rather than history (inventory table), or aggregates matter more than individual events (analytics explorer).</p></div>
+    </div>
+  </div></a>
 
-  <a class="arch" href="analytics-explorer.html"><div class="card"><h2>4 · Analytics explorer</h2><p><span class="q">"What's the trend? Where's the anomaly?"</span> — Chart-first. A scoped query (metric · agg · group-by · filters · time) drives everything; headline chart + breakdown stay in sync.</p><div class="fnote"><b>Lo-fi ⇄ Hi-fi</b> hi-fi: GreenLake Sustainability insights (KPI cards as metric switcher)</div><div class="evidence">Evidence: Sentry, Vercel, Supabase, WRITER, HPE GreenLake</div></div></a>
+  <a class="arch" href="analytics-explorer.html"><div class="card">
+    <div class="top"><h2>4 · Analytics explorer</h2><span class="go">View archetype →</span></div>
+    <p class="job">"What's the trend? Where's the anomaly?"</p>
+    <p class="why">Chart-first: the collection is aggregated before it's shown. A scoped query (metric, aggregation, group-by, filters, time range) drives everything on the page, and the headline chart and breakdown table stay in sync with it. Users form and test hypotheses; individual records only appear at the end of a drill-down.</p>
+    <div class="chips"><span class="chip">Metric switcher</span><span class="chip">Headline chart</span><span class="chip">Group-by breakdown</span><span class="chip">Time range control</span><span class="chip">Synced drill-down</span></div>
+    <div class="uw">
+      <div><h3>Use when</h3><p>The question is about patterns over time or across segments, and the honest answer is an aggregate, not a row.</p></div>
+      <div><h3>Not when</h3><p>Users need to find and act on specific items: aggregation hides exactly what they're looking for.</p></div>
+    </div>
+  </div></a>
 
-  <a class="arch" href="map-view.html"><div class="card"><h2>5 · Map / spatial view</h2><p><span class="q">"Where is the problem?"</span> — Map + synced list, one collection with shared filters and selection. Pins encode severity and magnitude; popover links to detail; the map is a lens, never the source of truth.</p><div class="fnote"><b>Lo-fi ⇄ Hi-fi</b> hi-fi: GreenLake Sites map</div><div class="evidence">Evidence: DoorDash, Felt, Turo, Cloudflare geo</div></div></a>
+  <a class="arch" href="map-view.html"><div class="card">
+    <div class="top"><h2>5 · Map / spatial view</h2><span class="go">View archetype →</span></div>
+    <p class="job">"Where is the problem?"</p>
+    <p class="why">For collections where location is the organising attribute: sites, regions, devices in the field. Map and list are one collection with shared filters and selection; pins encode severity and magnitude at a glance. The map is a lens for spotting geographic clusters, never the source of truth: everything on it must be reachable through the list too.</p>
+    <div class="chips"><span class="chip">Map + synced list</span><span class="chip">Shared filters &amp; selection</span><span class="chip">Severity-coded pins</span><span class="chip">Popover to detail</span></div>
+    <div class="uw">
+      <div><h3>Use when</h3><p>"Where" is a question users genuinely ask, and geographic clustering carries meaning (outages by region, sites by health).</p></div>
+      <div><h3>Not when</h3><p>Location is just an attribute among many: a filterable column serves better than a map that adds navigation cost.</p></div>
+    </div>
+  </div></a>
 
 </div>
 <script src="/library-nav.js"></script>
