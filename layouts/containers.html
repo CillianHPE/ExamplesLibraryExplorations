@@ -149,7 +149,7 @@
       <span class="lg"><span class="sw slot"></span>Trailing action slot · 36×36px, optional</span>
     </div>
   </div>
-  <div class="callout"><span class="ic">⚠</span><div><strong>Standardisation note.</strong> Existing hi-fi templates in this library use a 16px gap between header and body (<code>.card-head { margin-bottom: 16px }</code>). The Figma <code>Container</code> component specifies 24px. Adopt 24px going forward; existing pages will be reconciled separately.</div></div>
+  <div class="note"><strong>Locked in.</strong> <code>.card-head { margin-bottom: 24px }</code> is now the single source of truth across every shared stylesheet in the library (hi-fi, lo-fi, data collection, needs-attention), matching the Figma <code>Container</code> component. Dense wallboard tiles on the T5 custom-board pages keep their own tighter, intentionally compact spacing — that's a distinct widget density tier, not the standard container.</div>
 
   <div class="sec-h">Header row</div>
   <p class="sec-sub">The header always carries the container's heading on the leading side. The trailing side is an optional slot for a single action — a link-out arrow, a menu, or a short chip. Never more than one trailing element.</p>
