@@ -17,6 +17,11 @@
   .tag-section { background: #E8EEF9; } .tag-section::before { background: #3B6FC9; }
   .tag-container { background: #FDF0DF; } .tag-container::before { background: #D9822B; }
 
+  /* nesting chain */
+  .nesting { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 20px 0 8px; }
+  .nesting .contains { font-size: 12px; color: var(--gl-ink-faint); }
+  .nesting .contains::after { content: " →"; }
+
   /* combined levels + tokens table */
   .scale { margin: 32px 0 48px; max-width: 900px; }
   .scale-row { display: grid; grid-template-columns: 190px 150px 1fr; gap: 20px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--line); }
@@ -77,7 +82,15 @@
 
 <div class="wrap">
   <h1>Layout spacing scale</h1>
-  <p class="intro">A page is built from three nested levels: content regions hold content sections, and content sections hold containers. Each level pairs with one token from the HPE design system spacing scale, which sets the gap between siblings at that level. Pick by relationship, not by eye: the further apart two things are in meaning, the bigger the token.</p>
+  <p class="intro">A page is built from three nested levels. Each level pairs with one token from the HPE design system spacing scale, which sets the gap between siblings at that level. Pick by relationship, not by eye: the further apart two things are in meaning, the bigger the token.</p>
+
+  <div class="nesting">
+    <span class="tag tag-region">Content region</span>
+    <span class="contains">contains</span>
+    <span class="tag tag-section">Content section</span>
+    <span class="contains">contains</span>
+    <span class="tag tag-container">Container</span>
+  </div>
 
   <div class="sec-h" style="margin-top:32px;">Levels and tokens</div>
   <div class="scale">
@@ -89,7 +102,7 @@
         <div class="tok-swatch" style="width:64px;"></div>
       </div>
       <div class="lvl-def">
-        <strong>The top-level split of the page body.</strong> Every view has a primary content region (the main work surface) and may have a secondary content region (a narrower rail for callouts, quick links and ambient metrics). Never more than two, so this gap appears exactly once.
+        <strong>The top-level split of the page body.</strong> A primary region for the main work surface, and optionally a narrower secondary region.
         <div class="between"><span class="tag tag-region">Primary content region</span> ↔ <span class="tag tag-region">Secondary content region</span></div>
       </div>
     </div>
@@ -100,7 +113,7 @@
         <div class="tok-swatch" style="width:32px;"></div>
       </div>
       <div class="lvl-def">
-        <strong>A topic grouping inside a content region.</strong> A KPI strip, a chart row, a full-width table: each is one section. Sections stack vertically in the primary content region. The secondary region is small enough that it has no sections; containers sit in it directly.
+        <strong>A topic grouping inside a content region.</strong> A KPI strip, a chart row, a full-width table: each is one section.
         <div class="between"><span class="tag tag-section">Content section</span> ↔ <span class="tag tag-section">Content section</span></div>
       </div>
     </div>
@@ -111,7 +124,7 @@
         <div class="tok-swatch" style="width:16px;"></div>
       </div>
       <div class="lvl-def">
-        <strong>The individual modules inside a content section.</strong> Cards, tiles, chart containers. Grey containment signals a contained module; a table on the page body may be uncontained and full width. The gap applies to rows and columns inside a section, and to stacked containers in the secondary region.
+        <strong>The individual modules inside a content section.</strong> Cards, tiles, chart containers.
         <div class="between"><span class="tag tag-container">Container</span> ↔ <span class="tag tag-container">Container</span></div>
       </div>
     </div>
