@@ -46,13 +46,6 @@
   .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 900px) { .signal-grid { grid-template-columns: 1fr; } }
   .signal-col .lbl-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-
-  /* composition options */
-  .hopts { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap-container); }
-  @media (max-width: 900px) { .hopts { grid-template-columns: 1fr; } }
-  .hopt { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
-  .hopt .hopt-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gl-ink-faint); margin-bottom: 12px; }
-  .hopt .content-header { padding-bottom: 0; }
 </style>
 </head>
 <body>
@@ -83,26 +76,6 @@
     <div class="anatomy-legend">
       <span class="lg"><span class="sw"></span>Heading · 24px / 700 / <code style="background:none;padding:0;">var(--gl-heading)</code></span>
       <span class="lg"><span class="sw slot"></span>Trailing action slot, optional — arrow, chip, or single icon button</span>
-    </div>
-  </div>
-
-  <div class="sec-h">Styling</div>
-  <div class="hopts">
-    <div class="hopt">
-      <div class="hopt-lbl">Heading only</div>
-      <div class="content-header"><h2 style="font-size:19px;">Fleet health</h2></div>
-    </div>
-    <div class="hopt">
-      <div class="hopt-lbl">+ link-out arrow</div>
-      <div class="content-header"><h2 style="font-size:19px;">Recent activity</h2><span class="arrow">→</span></div>
-    </div>
-    <div class="hopt">
-      <div class="hopt-lbl">+ meta chip</div>
-      <div class="content-header"><h2 style="font-size:19px;">Alert volume</h2><span class="chip" style="padding:4px 10px;font-size:11.5px;">7 days</span></div>
-    </div>
-    <div class="hopt">
-      <div class="hopt-lbl">+ icon button</div>
-      <div class="content-header"><h2 style="font-size:19px;">Entitlements</h2><button class="btn icon" style="width:36px;height:36px;font-size:15px;">⋯</button></div>
     </div>
   </div>
 
