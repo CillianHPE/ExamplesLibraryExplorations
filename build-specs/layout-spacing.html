@@ -62,62 +62,62 @@
 
 <div class="wrap">
   <h1>Layout spacing scale</h1>
-  <p class="intro">Three semantic tokens govern vertical and horizontal rhythm on a page. Pick by relationship, not by eye: the further apart two things are in meaning, the bigger the token.</p>
+  <p class="intro">Three sizes from the HPE design system spacing scale govern page rhythm at the macro and meso levels. Pick by relationship, not by eye: the further apart two things are in meaning, the bigger the token.</p>
 
   <div class="tok-table">
     <div class="tok-row">
-      <div><div class="tok-name">--space-region</div><div class="tok-swatch" style="width:64px;"></div></div>
+      <div><div class="tok-name">xxlarge</div><div class="tok-swatch" style="width:64px;"></div></div>
       <div class="tok-val">64 px</div>
-      <div class="tok-use">Between the primary and secondary regions of a page. The largest gap on any view; used once.</div>
+      <div class="tok-use">Macro · Between the primary content area and the secondary content area. The largest gap on any view; used once.</div>
     </div>
     <div class="tok-row">
-      <div><div class="tok-name">--space-section</div><div class="tok-swatch" style="width:32px;"></div></div>
+      <div><div class="tok-name">large</div><div class="tok-swatch" style="width:32px;"></div></div>
       <div class="tok-val">32 px</div>
-      <div class="tok-use">Between content sections within a region: separates one topic from the next.</div>
+      <div class="tok-use">Macro · Between content sections within a content area: separates one topic from the next.</div>
     </div>
     <div class="tok-row">
-      <div><div class="tok-name">--space-container</div><div class="tok-swatch" style="width:16px;"></div></div>
+      <div><div class="tok-name">small</div><div class="tok-swatch" style="width:16px;"></div></div>
       <div class="tok-val">16 px</div>
-      <div class="tok-use">Between containers inside a section: cards in a grid, stacked modules in the rail.</div>
+      <div class="tok-use">Meso · Card sibling gap: between containers / cards inside a content section, and between stacked modules in the secondary area.</div>
     </div>
   </div>
 
-  <div class="sec-h">Applied to a primary + secondary layout</div>
+  <div class="sec-h">Applied to a primary + secondary content area</div>
   <div class="demo">
     <div class="lofi">
       <div class="primary">
 
-        <div class="ph short white">Section 1 · KPI strip</div>
+        <div class="ph short white">Content section · KPI strip</div>
 
-        <div class="gap gap-v gap-section"><span class="lbl">--space-section · 32</span></div>
+        <div class="gap gap-v gap-section"><span class="lbl">large · 32</span></div>
 
         <div class="cgrid">
-          <div class="ph tall">Container</div>
-          <div class="gap gap-h gap-container-h"><span class="lbl">--space-container · 16</span></div>
-          <div class="ph tall">Container</div>
-          <div class="gap gap-h gap-container-h"><span class="lbl">--space-container · 16</span></div>
-          <div class="ph tall">Container</div>
+          <div class="ph tall">Card</div>
+          <div class="gap gap-h gap-container-h"><span class="lbl">small · 16</span></div>
+          <div class="ph tall">Card</div>
+          <div class="gap gap-h gap-container-h"><span class="lbl">small · 16</span></div>
+          <div class="ph tall">Card</div>
         </div>
 
-        <div class="gap gap-v gap-section"><span class="lbl">--space-section · 32</span></div>
+        <div class="gap gap-v gap-section"><span class="lbl">large · 32</span></div>
 
-        <div class="ph mid white">Section 3 · Full-width table (uncontained)</div>
+        <div class="ph mid white">Content section · Full-width table (uncontained)</div>
 
       </div>
 
-      <div class="gap gap-h gap-region"><span class="lbl">--space-region · 64</span></div>
+      <div class="gap gap-h gap-region"><span class="lbl">xxlarge · 64</span></div>
 
       <div class="secondary">
-        <div class="ph short">Rail module</div>
-        <div class="gap gap-v gap-container-v"><span class="lbl">--space-container · 16</span></div>
-        <div class="ph short">Rail module</div>
-        <div class="gap gap-v gap-container-v"><span class="lbl">--space-container · 16</span></div>
-        <div class="ph mid">Rail module</div>
+        <div class="ph short">Card</div>
+        <div class="gap gap-v gap-container-v"><span class="lbl">small · 16</span></div>
+        <div class="ph short">Card</div>
+        <div class="gap gap-v gap-container-v"><span class="lbl">small · 16</span></div>
+        <div class="ph mid">Card</div>
       </div>
     </div>
   </div>
 
-  <p class="note">Rules of thumb: <code>--space-region</code> appears exactly once per view. A section's internal grid uses <code>--space-container</code> for both row and column gaps. The secondary rail has no sections of its own, so its modules stack at <code>--space-container</code>. Never mix tokens inside one grid, and never invent an in-between value: if a gap wants 24&nbsp;px, the grouping is wrong, not the scale.</p>
+  <p class="note">Rules of thumb: <code>xxlarge</code> appears exactly once per view, between the primary and secondary content areas. A content section's internal grid uses <code>small</code> for both row and column gaps. The secondary area has no sections of its own, so its cards stack at <code>small</code>. Never mix sizes inside one grid, and never invent an in-between value: if a gap wants 24&nbsp;px, the grouping is wrong, not the scale.</p>
 </div>
 
 <script src="/library-nav.js"></script>
