@@ -101,6 +101,8 @@
     .libnav-hdr .libnav-burger:hover { background: #F0F1F2; }
     .libnav-hdr .libnav-burger span { display: block; height: 2px; border-radius: 1px; background: var(--gl-heading, #202B30); }
     .libnav-hdr img { height: 24px; display: block; }
+    .libnav-hdr a { display: flex; }
+    .header .logo a { display: flex; }
     .libnav-hdr .libnav-ws { font-size: 14px; font-weight: 600; color: var(--gl-heading, #202B30); }
     .libnav-btn { position: fixed; left: 16px; bottom: 16px; z-index: 900; display: flex; align-items: center; gap: 8px;
       padding: 9px 14px 9px 12px; border: 1px solid var(--line, #D4D8DB); border-radius: 20px; background: #FFF;
@@ -175,11 +177,21 @@
     hdr.className = 'libnav-hdr';
     hdr.innerHTML = `
       <button class="libnav-burger" aria-label="Open library navigation"><span></span><span></span><span></span></button>
-      <img src="/greenlake-logo.svg" alt="HPE">
+      <a href="/index.html" aria-label="Home"><img src="/greenlake-logo.svg" alt="HPE"></a>
       <div class="libnav-ws">Examples library</div>`;
     document.body.insertBefore(hdr, document.body.firstChild);
     trigger = hdr.querySelector('.libnav-burger');
   }
+
+  // Header logo links home on every page.
+  document.querySelectorAll('.header .logo img, .libnav-hdr > img').forEach(img => {
+    if (img.closest('a')) return;
+    const a = document.createElement('a');
+    a.href = '/index.html';
+    a.setAttribute('aria-label', 'Home');
+    img.replaceWith(a);
+    a.appendChild(img);
+  });
 
   const scrim = root.querySelector('.libnav-scrim');
   const open = () => { scrim.hidden = false; requestAnimationFrame(() => root.classList.add('libnav-open')); };
