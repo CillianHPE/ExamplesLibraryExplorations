@@ -36,14 +36,14 @@
   /* lo-fi diagram */
   .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
   .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 16px; max-width: 720px; }
-  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; background: #FFF; overflow-x: auto; }
+  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; background: #FFF; overflow-x: auto; }
   .lofi { display: flex; min-width: 760px; }
   .lofi .primary { flex: 1; min-width: 0; }
   .lofi .secondary { flex: none; width: 230px; }
 
-  /* labelled nesting regions */
-  .region { border: 1.5px solid; border-radius: 10px; padding: 34px 14px 14px; position: relative; }
-  .region > .rtag { position: absolute; top: 8px; left: 10px; }
+  /* labelled nesting regions: tag flows above content so token gaps stay true-size */
+  .region { border: 1.5px solid; border-radius: 10px; padding: 8px; }
+  .region > .rtag { margin-bottom: 8px; }
   .region.area { border-color: #D66A8A; background: #FFFBFC; }
   .region.section { border-color: #3B6FC9; border-style: dashed; background: #FFF; }
 
