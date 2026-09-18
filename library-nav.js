@@ -93,6 +93,15 @@
   ];
 
   const css = `
+    .libnav-hdr { position: sticky; top: 0; z-index: 900; display: flex; align-items: center; gap: 16px;
+      height: 64px; padding: 0 24px; background: #FFF; border-bottom: 1px solid var(--line, #D4D8DB);
+      font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .libnav-hdr .libnav-burger { display: flex; flex-direction: column; justify-content: center; gap: 4px;
+      width: 32px; height: 32px; padding: 7px; border: none; background: none; border-radius: 6px; cursor: pointer; }
+    .libnav-hdr .libnav-burger:hover { background: #F0F1F2; }
+    .libnav-hdr .libnav-burger span { display: block; height: 2px; border-radius: 1px; background: var(--gl-heading, #202B30); }
+    .libnav-hdr img { height: 24px; display: block; }
+    .libnav-hdr .libnav-ws { font-size: 14px; font-weight: 600; color: var(--gl-heading, #202B30); }
     .libnav-btn { position: fixed; left: 16px; bottom: 16px; z-index: 900; display: flex; align-items: center; gap: 8px;
       padding: 9px 14px 9px 12px; border: 1px solid var(--line, #D4D8DB); border-radius: 20px; background: #FFF;
       font: 600 13px/-apple-system -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 600;
@@ -159,14 +168,17 @@
     </nav>`;
   document.body.appendChild(root);
 
-  // The page header's hamburger opens the drawer; pages without one get a floating button.
+  // The page header's hamburger opens the drawer; pages without one get an injected global header.
   let trigger = document.querySelector('.header .burger, .burger');
   if (!trigger) {
-    trigger = document.createElement('button');
-    trigger.className = 'libnav-btn';
-    trigger.setAttribute('aria-label', 'Open library navigation');
-    trigger.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 3h12M1 7h12M1 11h12"/></svg> Library';
-    document.body.appendChild(trigger);
+    const hdr = document.createElement('header');
+    hdr.className = 'libnav-hdr';
+    hdr.innerHTML = `
+      <button class="libnav-burger" aria-label="Open library navigation"><span></span><span></span><span></span></button>
+      <img src="/greenlake-logo.svg" alt="HPE">
+      <div class="libnav-ws">Examples library</div>`;
+    document.body.insertBefore(hdr, document.body.firstChild);
+    trigger = hdr.querySelector('.libnav-burger');
   }
 
   const scrim = root.querySelector('.libnav-scrim');
