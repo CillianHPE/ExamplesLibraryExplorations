@@ -23,10 +23,7 @@
   .callout strong { color: var(--gl-heading); }
 
   /* signal tags */
-  .tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; border-radius: 10px; padding: 2px 10px; white-space: nowrap; color: var(--gl-heading); }
-  .tag::before { content: ""; width: 8px; height: 8px; border-radius: 2px; }
-  .tag-contained { background: #EAEAEA; } .tag-contained::before { background: #7A868C; }
-  .tag-uncontained { background: #E8EEF9; } .tag-uncontained::before { background: #3B6FC9; }
+  .tag { font-size: 12px; font-weight: 700; color: var(--gl-ink-soft); }
 
   /* side-by-side signal comparison */
   .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -66,17 +63,6 @@
   .anatomy-legend .sw { width: 22px; height: 2px; border-radius: 2px; background: var(--gl-green-dark); flex: none; }
   .anatomy-legend .sw.dash { background: none; border-top: 1.5px dashed #B9DECE; }
   .anatomy-legend .sw.slot { background: none; border-top: 1.5px dashed #C9CDD1; }
-
-  /* header composition options */
-  .hopts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap-container); }
-  @media (max-width: 900px) { .hopts { grid-template-columns: 1fr; } }
-  .hopt { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
-  .hopt .hopt-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gl-ink-faint); margin-bottom: 10px; }
-  .hopt .card-head { padding-bottom: 0; }
-
-  /* nesting diagram */
-  .nest-region { border: 1.5px dashed #3B6FC9; border-radius: 10px; padding: 20px; background: #FFF; }
-  .nest-region > .rtag { display: block; margin-bottom: 14px; }
 </style>
 </head>
 <body>
@@ -143,45 +129,6 @@
           <div class="value-row"><span class="value" style="font-size:26px;">99.2%</span><span class="delta up">↑ 0.3%</span></div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="sec-h">Examples</div>
-
-  <div class="sub-h">Nesting</div>
-  <div class="demo">
-    <div class="nest-region">
-      <span class="rtag tag tag-uncontained">Content section</span>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-head"><h2 style="font-size:16px;">Current services</h2></div>
-          <div class="list-item"><div class="li-main"><div><div class="li-title">Compute · COM-Cluster-EU</div><div class="li-sub">Operational</div></div></div><div class="li-meta">99.98%</div></div>
-          <div class="list-item"><div class="li-main"><div><div class="li-title">Storage · Array-North-04</div><div class="li-sub">Operational</div></div></div><div class="li-meta">99.95%</div></div>
-        </div>
-        <div class="card">
-          <div class="card-head"><h2 style="font-size:16px;">Entitlements</h2></div>
-          <div class="ent" style="padding:0 0 12px;"><div class="ent-head"><span class="ent-name">Compute nodes</span><span class="pill green">Active</span></div><div class="ent-date">Renews 14 Mar 2027</div></div>
-          <div class="ent" style="padding:0;border-bottom:0;"><div class="ent-head"><span class="ent-name">Data protection</span><span class="pill amber">Expiring</span></div><div class="ent-date">Renews 2 Nov 2026</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sub-h">Uncontained on the page body</div>
-  <div class="hopts" style="grid-template-columns: 1fr 1fr;">
-    <div class="hopt">
-      <div class="hopt-lbl">KPI strip</div>
-      <div class="kpi-strip" style="grid-template-columns:1fr 1fr;">
-        <div class="kpi-intro" style="padding-right:16px;"><div class="eyebrow">Overview</div><div class="title" style="font-size:17px;">Fleet health</div></div>
-        <div class="kpi" style="padding:0 0 0 16px;"><div class="cat">Efficiency</div><div class="value-row"><span class="value" style="font-size:24px;">68%</span></div></div>
-      </div>
-    </div>
-    <div class="hopt">
-      <div class="hopt-lbl">Full-width table</div>
-      <table style="font-size:12.5px;">
-        <tr><th>Name</th><th>Status</th></tr>
-        <tr><td>srv-eu-1204</td><td><span class="pill green">Healthy</span></td></tr>
-      </table>
     </div>
   </div>
 </div>
