@@ -32,8 +32,6 @@
   .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 900px) { .signal-grid { grid-template-columns: 1fr; } }
   .signal-col .lbl-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .signal-col .verdict { font-size: 12px; color: var(--gl-ink-soft); }
-  .mini-page { background: #fbfbfb; border: 1px dashed var(--line); border-radius: 8px; padding: 20px; }
 
   /* anatomy diagram: real .card marked up with dimension callouts */
   .anatomy-stage { position: relative; padding: 30px 24px 20px 66px; }
@@ -79,11 +77,6 @@
   /* nesting diagram */
   .nest-region { border: 1.5px dashed #3B6FC9; border-radius: 10px; padding: 20px; background: #FFF; }
   .nest-region > .rtag { display: block; margin-bottom: 14px; }
-
-  code.block { display: block; background: var(--gl-heading); color: #E7EEEC; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 12.5px; line-height: 1.7; padding: 18px 20px; border-radius: var(--radius); overflow-x: auto; white-space: pre; }
-  code.block .cm { color: #8FA0A8; }
-  code.block .at { color: #8FD6C0; }
 </style>
 </head>
 <body>
@@ -125,68 +118,37 @@
   <div class="note"><strong>Locked in.</strong> <code>.card-head { padding-bottom: 24px }</code> is now the single source of truth across every shared stylesheet in the library (hi-fi, lo-fi, data collection, needs-attention), matching the Figma <code>Container</code> component. We use padding or gap for spacing, never margin — padding-bottom on the header row reads identically since it has no background of its own. Dense wallboard tiles on the T5 custom-board pages keep their own tighter, intentionally compact spacing — that's a distinct widget density tier, not the standard container.</div>
 
   <div class="sec-h">Styling</div>
-  <p class="sec-sub">What earns the grey background, how the header row is composed, and how it relates to the standalone Content header component.</p>
-
-  <div class="sub-h">Signal</div>
-  <p class="sec-sub">A light grey background (<code>var(--contained)</code>, <code>#F7F7F7</code>) is the only signal that a group of content is a contained module. Everything else — page headings, KPI strips, full-width tables — sits directly on the white page body, uncontained.</p>
   <div class="signal-grid">
     <div class="signal-col">
-      <div class="lbl-row"><span class="tag tag-contained">Contained</span><span class="verdict">Grey background · owns its own space</span></div>
-      <div class="mini-page">
-        <div class="card" style="max-width:none;">
-          <div class="card-head"><h2 style="font-size:16px;">Devices</h2><span class="arrow">→</span></div>
-          <span class="big-number" style="font-size:30px;">542</span>
-          <div class="stack-bar" style="margin:12px 0 0;">
-            <span style="flex:22; background:var(--c-blue)"></span>
-            <span style="flex:14; background:var(--c-green)"></span>
-            <span style="flex:64; background:var(--c-grey)"></span>
-          </div>
+      <div class="lbl-row"><span class="tag tag-contained">Contained</span></div>
+      <div class="card" style="max-width:none;">
+        <div class="card-head"><h2 style="font-size:16px;">Devices</h2><span class="arrow">→</span></div>
+        <span class="big-number" style="font-size:30px;">542</span>
+        <div class="stack-bar" style="margin:12px 0 0;">
+          <span style="flex:22; background:var(--c-blue)"></span>
+          <span style="flex:14; background:var(--c-green)"></span>
+          <span style="flex:64; background:var(--c-grey)"></span>
         </div>
       </div>
     </div>
     <div class="signal-col">
-      <div class="lbl-row"><span class="tag tag-uncontained">Uncontained</span><span class="verdict">On the page, no boundary of its own</span></div>
-      <div class="mini-page">
-        <div class="kpi-strip" style="grid-template-columns:1fr 1fr;">
-          <div class="kpi-intro" style="padding-right:16px;">
-            <div class="eyebrow">This week</div>
-            <div class="title" style="font-size:18px;">Fleet health</div>
-          </div>
-          <div class="kpi" style="padding:0 0 0 16px;">
-            <div class="cat">Availability</div>
-            <div class="value-row"><span class="value" style="font-size:26px;">99.2%</span><span class="delta up">↑ 0.3%</span></div>
-          </div>
+      <div class="lbl-row"><span class="tag tag-uncontained">Uncontained</span></div>
+      <div class="kpi-strip" style="grid-template-columns:1fr 1fr;">
+        <div class="kpi-intro" style="padding-right:16px;">
+          <div class="eyebrow">This week</div>
+          <div class="title" style="font-size:18px;">Fleet health</div>
+        </div>
+        <div class="kpi" style="padding:0 0 0 16px;">
+          <div class="cat">Availability</div>
+          <div class="value-row"><span class="value" style="font-size:26px;">99.2%</span><span class="delta up">↑ 0.3%</span></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="note">A module is contained when it's a self-sufficient unit someone would recognise on its own — a chart, a short list, a summary tile. A module stays uncontained when it already reads as part of the page: a heading and its KPIs, or a table that already fills the width of its section.</div>
-
-  <div class="sub-h">Header row</div>
-  <p class="sec-sub">The header always carries the container's heading on the leading side. The trailing side is an optional slot for a single action — a link-out arrow, a menu, or a short chip. Never more than one trailing element.</p>
-  <div class="hopts">
-    <div class="hopt">
-      <div class="hopt-lbl">Heading only</div>
-      <div class="card-head"><h2 style="font-size:17px;">Devices</h2></div>
-    </div>
-    <div class="hopt">
-      <div class="hopt-lbl">+ link-out arrow</div>
-      <div class="card-head"><h2 style="font-size:17px;">Networking alerts</h2><span class="arrow">→</span></div>
-    </div>
-    <div class="hopt">
-      <div class="hopt-lbl">+ meta chip</div>
-      <div class="card-head"><h2 style="font-size:17px;">Alert volume</h2><span class="chip" style="padding:4px 10px;font-size:11.5px;">7 days</span></div>
-    </div>
-  </div>
-
-  <div class="sub-h">Content header</div>
-  <p class="sec-sub">The header row itself — leading heading (flex) + optional 36px trailing action — is its own component, used both as a container's header and as the title for an uncontained content section. Full breakdown, placements, and rules: <a href="/layouts/content-header.html">Content header</a>.</p>
 
   <div class="sec-h">Examples</div>
-  <p class="sec-sub">Containers in context: how they nest inside a content section, and what stays uncontained on the page body instead.</p>
 
   <div class="sub-h">Nesting</div>
-  <p class="sec-sub">A container is a single level of containment. Inside its body, group related items with dividers or spacing — never with a second grey background. Grey-on-grey reads as a bug, not a hierarchy.</p>
   <div class="demo">
     <div class="nest-region">
       <span class="rtag tag tag-uncontained">Content section</span>
@@ -204,10 +166,8 @@
       </div>
     </div>
   </div>
-  <div class="note">Two containers sit side by side inside one content section (<code>gap: var(--gap-container)</code>, 16px). Inside each container, rows are separated with a 1px divider on <code>var(--contained-line)</code> — never a nested grey box.</div>
 
   <div class="sub-h">Uncontained on the page body</div>
-  <p class="sec-sub">Some content already reads as page-level and doesn't need a boundary. Two recurring cases:</p>
   <div class="hopts" style="grid-template-columns: 1fr 1fr;">
     <div class="hopt">
       <div class="hopt-lbl">KPI strip</div>
@@ -224,24 +184,6 @@
       </table>
     </div>
   </div>
-  <div class="note">Both already carry their own visual weight (a heading, or column rules) and sit at page width — wrapping either in a grey box would duplicate a boundary that's already implied.</div>
-
-  <div class="sub-h">Markup</div>
-  <code class="block"><span class="cm">&lt;!-- Container: contained module --&gt;</span>
-&lt;div <span class="at">class</span>="card"&gt;
-  &lt;div <span class="at">class</span>="card-head"&gt;
-    &lt;h2&gt;Heading&lt;/h2&gt;
-    &lt;span <span class="at">class</span>="arrow"&gt;→&lt;/span&gt;  <span class="cm">&lt;!-- optional trailing action --&gt;</span>
-  &lt;/div&gt;
-  &lt;!-- body: chart, list, table, form... --&gt;
-&lt;/div&gt;
-
-<span class="cm">&lt;!-- Content header: standalone section title, uncontained --&gt;</span>
-&lt;div <span class="at">class</span>="content-header"&gt;
-  &lt;h2&gt;Heading&lt;/h2&gt;
-  &lt;span <span class="at">class</span>="arrow"&gt;→&lt;/span&gt;  <span class="cm">&lt;!-- optional trailing action --&gt;</span>
-&lt;/div&gt;
-&lt;!-- section content: table, chart, card grid... --&gt;</code>
 </div>
 
 <script src="/library-nav.js"></script>

@@ -49,7 +49,6 @@
   .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 900px) { .signal-grid { grid-template-columns: 1fr; } }
   .signal-col .lbl-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .mini-page { background: #fbfbfb; border: 1px dashed var(--line); border-radius: 8px; padding: 20px; }
 
   /* composition options */
   .hopts { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap-container); }
@@ -57,19 +56,6 @@
   .hopt { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
   .hopt .hopt-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gl-ink-faint); margin-bottom: 12px; }
   .hopt .content-header { padding-bottom: 0; }
-
-  code.block { display: block; background: var(--gl-heading); color: #E7EEEC; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 12.5px; line-height: 1.7; padding: 18px 20px; border-radius: var(--radius); overflow-x: auto; white-space: pre; }
-  code.block .cm { color: #8FA0A8; }
-  code.block .at { color: #8FD6C0; }
-
-  .rules { display: flex; flex-direction: column; gap: 10px; max-width: 760px; }
-  .rule { display: flex; gap: 10px; font-size: 13.5px; color: var(--gl-ink); line-height: 1.55; }
-  .rule code { white-space: nowrap; }
-  .rule .ok, .rule .no { flex: none; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 10px; font-weight: 700; color: #fff; margin-top: 2px; }
-  .rule .ok { background: var(--ok); }
-  .rule .no { background: var(--red); }
 </style>
 </head>
 <body>
@@ -104,13 +90,6 @@
   </div>
 
   <div class="sec-h">Styling</div>
-  <p class="sec-sub">The two size scales this component ships at, and the trailing-slot compositions it supports.</p>
-
-  <div class="sub-h">Scale</div>
-  <div class="note"><strong>Full 24px scale</strong> is the default, standalone size — the same size as the heading in the Figma component. Inside a container, use the established compact variant instead (<code>.card-head</code>, 19px heading) rather than the full-scale class.</div>
-
-  <div class="sub-h">Trailing options</div>
-  <p class="sec-sub">The trailing slot holds exactly one action. Pick the one that matches what the heading links to.</p>
   <div class="hopts">
     <div class="hopt">
       <div class="hopt-lbl">Heading only</div>
@@ -131,9 +110,6 @@
   </div>
 
   <div class="sec-h">Examples</div>
-  <p class="sec-sub">The same building block placed in its two real contexts, plus the rules that keep it consistent.</p>
-
-  <div class="sub-h">Two placements, one component</div>
   <div class="signal-grid">
     <div class="signal-col">
       <div class="lbl-row"><span class="tag tag-contained">As a container's header</span></div>
@@ -146,46 +122,17 @@
           <span style="flex:64; background:var(--c-grey)"></span>
         </div>
       </div>
-      <div class="note" style="margin-top:10px;"><code>.card-head</code> · compact 19px heading, sits inside the container's own 24px padding.</div>
     </div>
     <div class="signal-col">
       <div class="lbl-row"><span class="tag tag-uncontained">As a section header</span></div>
-      <div class="mini-page">
-        <div class="content-header"><h2>Recent activity</h2><span class="arrow">→</span></div>
-        <table style="font-size:12.5px;">
-          <tr><th>Event</th><th>Status</th></tr>
-          <tr><td>Firmware update · rack-04</td><td><span class="pill green">Complete</span></td></tr>
-          <tr><td>Config drift · edge-cluster-9</td><td><span class="pill amber">Review</span></td></tr>
-        </table>
-      </div>
-      <div class="note" style="margin-top:10px;"><code>.content-header</code> · full 24px heading, sits directly on the white page body above uncontained content.</div>
+      <div class="content-header"><h2>Recent activity</h2><span class="arrow">→</span></div>
+      <table style="font-size:12.5px;">
+        <tr><th>Event</th><th>Status</th></tr>
+        <tr><td>Firmware update · rack-04</td><td><span class="pill green">Complete</span></td></tr>
+        <tr><td>Config drift · edge-cluster-9</td><td><span class="pill amber">Review</span></td></tr>
+      </table>
     </div>
   </div>
-
-  <div class="sub-h">Rules</div>
-  <div class="rules">
-    <div class="rule"><span class="ok">✓</span>One trailing element maximum — an arrow, a chip, or an icon button, never combined.</div>
-    <div class="rule"><span class="ok">✓</span>Use the full 24px scale (<code>.content-header</code>) for an uncontained section title; use the compact 19px scale (<code>.card-head</code>) inside a container.</div>
-    <div class="rule"><span class="ok">✓</span>The heading always takes the leading side and consumes remaining width — don't shrink it to fit a trailing element.</div>
-    <div class="rule"><span class="no">✕</span>Don't stack a content header directly above a card-head for the same title — pick the placement, not both.</div>
-    <div class="rule"><span class="no">✕</span>Don't wrap a section header's trailing slot in a second background — it reads on the page body, unboxed.</div>
-  </div>
-
-  <div class="sub-h">Markup</div>
-  <code class="block"><span class="cm">&lt;!-- Container header: compact, inside .card padding --&gt;</span>
-&lt;div <span class="at">class</span>="card-head"&gt;
-  &lt;h2&gt;Heading&lt;/h2&gt;
-  &lt;span <span class="at">class</span>="arrow"&gt;→&lt;/span&gt;  <span class="cm">&lt;!-- optional trailing action --&gt;</span>
-&lt;/div&gt;
-
-<span class="cm">&lt;!-- Content header: standalone section title, uncontained --&gt;</span>
-&lt;div <span class="at">class</span>="content-header"&gt;
-  &lt;h2&gt;Heading&lt;/h2&gt;
-  &lt;span <span class="at">class</span>="arrow"&gt;→&lt;/span&gt;  <span class="cm">&lt;!-- optional trailing action --&gt;</span>
-&lt;/div&gt;
-&lt;!-- section content: table, chart, card grid... --&gt;</code>
-
-  <p class="note">See <a href="/layouts/containers.html">Containers</a> for how this header sits inside a container's padding and gap.</p>
 </div>
 
 <script src="/library-nav.js"></script>
