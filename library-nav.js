@@ -68,6 +68,7 @@
       ]},
       { label: 'Build specs', children: [
         { href: '/build-specs/index.html', label: 'Overview' },
+        { href: '/build-specs/layout-spacing.html', label: 'Layout spacing scale' },
       ]},
     ]},
     { label: 'UI compositions', children: [
