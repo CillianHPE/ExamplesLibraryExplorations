@@ -31,37 +31,26 @@
   .signal-col .lbl-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 
   /* anatomy diagram: real .card marked up with dimension callouts */
-  .anatomy-stage { position: relative; padding: 30px 24px 20px 66px; }
+  .anatomy-stage { position: relative; padding: 24px; }
   .dim { position: absolute; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px; font-weight: 600;
     color: var(--gl-green-dark); white-space: nowrap; z-index: 3; }
   .dim-radius { top: -11px; right: -11px; background: rgba(255,255,255,0.95); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
   .dim-gap { position: relative; height: 24px; display: flex; align-items: center; justify-content: center; }
   .dim-gap .lbl { background: rgba(237,246,242,0.95); border-radius: 8px; padding: 1px 7px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px; font-weight: 600; color: var(--gl-green-dark); }
-  /* ruler-style padding callouts, sit in the stage gutter — never on top of card content */
-  .ruler { position: absolute; background: var(--gl-green-dark); }
-  .ruler::before, .ruler::after { content: ""; position: absolute; background: var(--gl-green-dark); }
-  .ruler .lbl { position: absolute; background: #fff; padding: 0 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 10.5px; font-weight: 600; color: var(--gl-green-dark); white-space: nowrap; }
-  .ruler-top { top: 14px; left: 66px; right: 24px; height: 1px; }
-  .ruler-top::before, .ruler-top::after { top: -4px; width: 1px; height: 9px; }
-  .ruler-top::before { left: 0; } .ruler-top::after { right: 0; }
-  .ruler-top .lbl { top: -20px; left: 50%; transform: translateX(-50%); }
-  .ruler-left { left: 24px; top: 30px; bottom: 20px; width: 1px; }
-  .ruler-left::before, .ruler-left::after { left: -4px; width: 9px; height: 1px; }
-  .ruler-left::before { top: 0; } .ruler-left::after { bottom: 0; }
-  .ruler-left .lbl { left: -8px; top: 50%; transform: translate(-100%, -50%); }
   .anatomy-card { background: var(--contained); border-radius: var(--radius); padding: 24px; position: relative; }
-  .anatomy-head { display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 3; }
+  .anatomy-zone { border: 1.5px dashed #C9CDD1; border-radius: 6px; padding: 14px; position: relative; z-index: 3; }
+  .anatomy-zone .zone-lbl { position: absolute; top: -10px; left: 12px; background: var(--contained); padding: 0 6px; font-size: 10.5px;
+    font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--gl-ink-faint); }
+  .anatomy-head { display: flex; align-items: center; justify-content: space-between; }
   .anatomy-head .htxt h2 { font-size: 19px; font-weight: 700; }
   .anatomy-head .htxt .eyebrow { font-size: 12px; color: var(--gl-ink-soft); margin-bottom: 2px; }
   .trailing-slot { width: 36px; height: 36px; border-radius: 8px; border: 1.5px dashed #C9CDD1; display: flex; align-items: center;
     justify-content: center; font-size: 15px; color: var(--gl-ink-faint); flex: none; }
-  .anatomy-body { margin-top: 24px; border: 1.5px dashed #C9CDD1; border-radius: 6px; padding: 14px; font-size: 12.5px;
-    color: var(--gl-ink-faint); text-align: center; position: relative; z-index: 3; }
+  .anatomy-body { font-size: 12.5px; color: var(--gl-ink-faint); text-align: center; }
   .anatomy-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 20px; font-size: 12.5px; color: var(--gl-ink-soft); }
   .anatomy-legend .lg { display: flex; align-items: center; gap: 7px; }
   .anatomy-legend .sw { width: 22px; height: 2px; border-radius: 2px; background: var(--gl-green-dark); flex: none; }
-  .anatomy-legend .sw.dash { background: none; border-top: 1.5px dashed #B9DECE; }
+  .anatomy-legend .sw.dash { background: none; border-top: 1.5px dashed #C9CDD1; }
   .anatomy-legend .sw.slot { background: none; border-top: 1.5px dashed #C9CDD1; }
 </style>
 </head>
@@ -81,18 +70,20 @@
   <p class="sec-sub">Every container follows the same structure: padding, a header row, and a body. This matches the <code>Container</code> component in the design system Figma file.</p>
   <div class="demo">
     <div class="anatomy-stage">
-      <div class="ruler ruler-top"><span class="lbl">24px</span></div>
-      <div class="ruler ruler-left"><span class="lbl">24px</span></div>
       <div class="dim dim-radius">radius · 12px</div>
       <div class="anatomy-card">
-        <div class="anatomy-head">
+        <div class="anatomy-zone anatomy-head">
+          <span class="zone-lbl">Header</span>
           <div class="htxt">
             <h2>Heading</h2>
           </div>
           <div class="trailing-slot">→</div>
         </div>
         <div class="dim-gap"><span class="lbl">gap · 24px</span></div>
-        <div class="anatomy-body">Body — chart, list, table, or any composed content</div>
+        <div class="anatomy-zone anatomy-body">
+          <span class="zone-lbl">Body</span>
+          Chart, list, table, or any composed content
+        </div>
       </div>
     </div>
     <div class="anatomy-legend">
