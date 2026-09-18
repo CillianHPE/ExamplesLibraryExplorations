@@ -10,27 +10,49 @@
   .wrap h1 { margin-bottom: 8px; }
   .intro { font-size: 15px; color: var(--gl-ink-soft); line-height: 1.6; margin-bottom: 12px; max-width: 720px; }
 
+  /* level tags: shared vocabulary between the list and the diagram */
+  .tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; border-radius: 10px; padding: 2px 10px; white-space: nowrap; color: var(--gl-heading); }
+  .tag::before { content: ""; width: 8px; height: 8px; border-radius: 2px; }
+  .tag-area { background: #E8EEF9; } .tag-area::before { background: #3B6FC9; }
+  .tag-section { background: #F3EAF9; } .tag-section::before { background: #8E5BB5; }
+  .tag-card { background: #FDF0DF; } .tag-card::before { background: #D9822B; }
+
+  /* anatomy list */
+  .anat { margin: 32px 0 48px; max-width: 780px; }
+  .anat-row { display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: start; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .anat-row:first-child { border-top: 1px solid var(--line); }
+  .anat-def { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; }
+  .anat-def strong { color: var(--gl-heading); font-weight: 600; }
+
   /* token table */
-  .tok-table { margin: 32px 0 48px; max-width: 720px; }
-  .tok-row { display: grid; grid-template-columns: 220px 70px 1fr; gap: 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .tok-table { margin: 24px 0 48px; max-width: 780px; }
+  .tok-row { display: grid; grid-template-columns: 150px 1fr; gap: 16px; align-items: start; padding: 14px 0; border-bottom: 1px solid var(--line); }
   .tok-row:first-child { border-top: 1px solid var(--line); }
-  .tok-name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; font-weight: 600; color: var(--gl-heading); }
-  .tok-val { font-size: 13px; color: var(--gl-ink); font-variant-numeric: tabular-nums; }
-  .tok-use { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.5; }
-  .tok-swatch { height: 14px; background: repeating-linear-gradient(45deg, #CBE9DC, #CBE9DC 4px, #E4F4EC 4px, #E4F4EC 8px); border-radius: 3px; margin-top: 6px; }
+  .tok-name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; font-weight: 600; color: var(--gl-heading); }
+  .tok-level { font-size: 11px; color: var(--gl-ink-faint); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 3px; }
+  .tok-swatch { height: 12px; background: repeating-linear-gradient(45deg, #CBE9DC, #CBE9DC 4px, #E4F4EC 4px, #E4F4EC 8px); border-radius: 3px; margin-top: 8px; }
+  .tok-between { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--gl-ink-soft); }
+  .tok-use { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin-top: 6px; }
 
   /* lo-fi diagram */
-  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 0 0 14px; }
-  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; background: #FFF; }
-  .lofi { display: flex; }
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
+  .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 16px; max-width: 720px; }
+  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; background: #FFF; overflow-x: auto; }
+  .lofi { display: flex; min-width: 760px; }
   .lofi .primary { flex: 1; min-width: 0; }
-  .lofi .secondary { flex: none; width: 220px; }
+  .lofi .secondary { flex: none; width: 230px; }
 
-  .ph { border: 1.5px dashed var(--gl-ink-faint); border-radius: 8px; background: var(--contained); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--gl-ink-soft); text-align: center; padding: 8px; }
-  .ph.tall { height: 120px; }
-  .ph.mid { height: 88px; }
-  .ph.short { height: 64px; }
-  .ph.white { background: #FFF; }
+  /* labelled nesting regions */
+  .region { border: 1.5px solid; border-radius: 10px; padding: 34px 14px 14px; position: relative; }
+  .region > .rtag { position: absolute; top: 8px; left: 10px; }
+  .region.area { border-color: #3B6FC9; background: #FBFCFE; }
+  .region.section { border-color: #8E5BB5; border-style: dashed; background: #FFF; }
+
+  .ph { border: 1.5px solid #D9822B; border-radius: 8px; background: #FFFDF9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: var(--gl-ink-soft); text-align: center; padding: 8px; }
+  .ph .tag { padding: 1px 8px; font-size: 10px; }
+  .ph.tall { height: 110px; }
+  .ph.mid { height: 84px; }
+  .ph.short { height: 72px; }
 
   .cgrid { display: grid; grid-template-columns: repeat(3, 1fr); }
 
@@ -44,9 +66,8 @@
   .gap-section { height: 32px; }
   .gap-container-v { height: 16px; }
   .gap-container-h { width: 16px; }
-  .gap-section .lbl, .gap-container-v .lbl { position: relative; }
   .gap-container-v .lbl { padding: 1px 8px; font-size: 9.5px; }
-  .gap-container-h .lbl { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); padding: 1px 8px; font-size: 9.5px; }
+  .gap-container-h .lbl { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 1px 8px; font-size: 9.5px; }
 
   .note { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.6; margin-top: 20px; max-width: 720px; }
   .note code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--gl-heading); background: var(--contained); border-radius: 4px; padding: 1px 6px; }
@@ -62,62 +83,115 @@
 
 <div class="wrap">
   <h1>Layout spacing scale</h1>
-  <p class="intro">Three sizes from the HPE design system spacing scale govern page rhythm at the macro and meso levels. Pick by relationship, not by eye: the further apart two things are in meaning, the bigger the token.</p>
+  <p class="intro">A page is built from three nested levels. Each level has a name, and the gap between siblings at each level has one token from the HPE design system spacing scale. Pick by relationship, not by eye: the further apart two things are in meaning, the bigger the token.</p>
 
-  <div class="tok-table">
-    <div class="tok-row">
-      <div><div class="tok-name">xxlarge</div><div class="tok-swatch" style="width:64px;"></div></div>
-      <div class="tok-val">64 px</div>
-      <div class="tok-use">Macro · Between the primary content area and the secondary content area. The largest gap on any view; used once.</div>
+  <div class="sec-h" style="margin-top:32px;">The three levels</div>
+  <div class="anat">
+    <div class="anat-row">
+      <div><span class="tag tag-area">Content area</span></div>
+      <div class="anat-def"><strong>The top-level split of the page body.</strong> Every view has a primary content area (the main work surface) and may have a secondary content area (a narrower rail for callouts, quick links and ambient metrics). There are never more than two.</div>
     </div>
-    <div class="tok-row">
-      <div><div class="tok-name">large</div><div class="tok-swatch" style="width:32px;"></div></div>
-      <div class="tok-val">32 px</div>
-      <div class="tok-use">Macro · Between content sections within a content area: separates one topic from the next.</div>
+    <div class="anat-row">
+      <div><span class="tag tag-section">Content section</span></div>
+      <div class="anat-def"><strong>A topic grouping inside a content area.</strong> A KPI strip, a chart row, a full-width table: each is one section. Sections stack vertically in the primary content area. The secondary area is small enough that it has no sections; cards sit in it directly.</div>
     </div>
-    <div class="tok-row">
-      <div><div class="tok-name">small</div><div class="tok-swatch" style="width:16px;"></div></div>
-      <div class="tok-val">16 px</div>
-      <div class="tok-use">Meso · Card sibling gap: between containers / cards inside a content section, and between stacked modules in the secondary area.</div>
+    <div class="anat-row">
+      <div><span class="tag tag-card">Container / card</span></div>
+      <div class="anat-def"><strong>The individual modules inside a content section.</strong> Cards, tiles, chart containers. Grey containment signals a contained module; a table on the page body may be uncontained and full width.</div>
     </div>
   </div>
 
-  <div class="sec-h">Applied to a primary + secondary content area</div>
+  <div class="sec-h">The three tokens</div>
+  <div class="tok-table">
+    <div class="tok-row">
+      <div>
+        <div class="tok-name">xxlarge · 64px</div>
+        <div class="tok-level">Macro</div>
+        <div class="tok-swatch" style="width:64px;"></div>
+      </div>
+      <div>
+        <div class="tok-between"><span class="tag tag-area">Content area</span> ↔ <span class="tag tag-area">Content area</span></div>
+        <div class="tok-use">Between the primary and secondary content areas. The largest gap on any view; used exactly once.</div>
+      </div>
+    </div>
+    <div class="tok-row">
+      <div>
+        <div class="tok-name">large · 32px</div>
+        <div class="tok-level">Macro</div>
+        <div class="tok-swatch" style="width:32px;"></div>
+      </div>
+      <div>
+        <div class="tok-between"><span class="tag tag-section">Content section</span> ↔ <span class="tag tag-section">Content section</span></div>
+        <div class="tok-use">Between content sections within a content area: separates one topic from the next.</div>
+      </div>
+    </div>
+    <div class="tok-row">
+      <div>
+        <div class="tok-name">small · 16px</div>
+        <div class="tok-level">Meso</div>
+        <div class="tok-swatch" style="width:16px;"></div>
+      </div>
+      <div>
+        <div class="tok-between"><span class="tag tag-card">Card</span> ↔ <span class="tag tag-card">Card</span></div>
+        <div class="tok-use">Card sibling gap: between containers inside a content section (rows and columns), and between stacked cards in the secondary content area.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-h">Put together</div>
+  <p class="sec-sub">The same tags mark each level in the diagram below. Coloured outlines show the nesting: content areas hold content sections, content sections hold cards. Green pills mark the token that owns each gap.</p>
   <div class="demo">
     <div class="lofi">
-      <div class="primary">
 
-        <div class="ph short white">Content section · KPI strip</div>
+      <div class="primary region area">
+        <span class="rtag tag tag-area">Primary content area</span>
 
-        <div class="gap gap-v gap-section"><span class="lbl">large · 32</span></div>
-
-        <div class="cgrid">
-          <div class="ph tall">Card</div>
-          <div class="gap gap-h gap-container-h"><span class="lbl">small · 16</span></div>
-          <div class="ph tall">Card</div>
-          <div class="gap gap-h gap-container-h"><span class="lbl">small · 16</span></div>
-          <div class="ph tall">Card</div>
+        <div class="region section">
+          <span class="rtag tag tag-section">Content section · KPIs</span>
+          <div class="cgrid">
+            <div class="ph short"><span class="tag tag-card">Card</span></div>
+            <div class="gap gap-h gap-container-h"><span class="lbl">small · 16</span></div>
+            <div class="ph short"><span class="tag tag-card">Card</span></div>
+            <div class="gap gap-h gap-container-h"><span class="lbl">small · 16</span></div>
+            <div class="ph short"><span class="tag tag-card">Card</span></div>
+          </div>
         </div>
 
         <div class="gap gap-v gap-section"><span class="lbl">large · 32</span></div>
 
-        <div class="ph mid white">Content section · Full-width table (uncontained)</div>
+        <div class="region section">
+          <span class="rtag tag tag-section">Content section · Charts</span>
+          <div class="cgrid" style="grid-template-columns: 2fr 16px 1fr;">
+            <div class="ph tall"><span class="tag tag-card">Card</span></div>
+            <div class="gap gap-h gap-container-h"><span class="lbl">small · 16</span></div>
+            <div class="ph tall"><span class="tag tag-card">Card</span></div>
+          </div>
+        </div>
+
+        <div class="gap gap-v gap-section"><span class="lbl">large · 32</span></div>
+
+        <div class="region section">
+          <span class="rtag tag tag-section">Content section · Table</span>
+          <div class="ph mid" style="border-style:dashed;">Full-width table (uncontained)</div>
+        </div>
 
       </div>
 
       <div class="gap gap-h gap-region"><span class="lbl">xxlarge · 64</span></div>
 
-      <div class="secondary">
-        <div class="ph short">Card</div>
+      <div class="secondary region area">
+        <span class="rtag tag tag-area">Secondary content area</span>
+        <div class="ph short"><span class="tag tag-card">Card</span></div>
         <div class="gap gap-v gap-container-v"><span class="lbl">small · 16</span></div>
-        <div class="ph short">Card</div>
+        <div class="ph short"><span class="tag tag-card">Card</span></div>
         <div class="gap gap-v gap-container-v"><span class="lbl">small · 16</span></div>
-        <div class="ph mid">Card</div>
+        <div class="ph mid"><span class="tag tag-card">Card</span></div>
       </div>
+
     </div>
   </div>
 
-  <p class="note">Rules of thumb: <code>xxlarge</code> appears exactly once per view, between the primary and secondary content areas. A content section's internal grid uses <code>small</code> for both row and column gaps. The secondary area has no sections of its own, so its cards stack at <code>small</code>. Never mix sizes inside one grid, and never invent an in-between value: if a gap wants 24&nbsp;px, the grouping is wrong, not the scale.</p>
+  <p class="note">Rules of thumb: <code>xxlarge</code> appears exactly once per view, between the primary and secondary content areas. A content section's internal grid uses <code>small</code> for both row and column gaps. The secondary content area has no sections of its own, so its cards stack at <code>small</code>. Never mix sizes inside one grid, and never invent an in-between value: if a gap wants 24&nbsp;px, the grouping is wrong, not the scale.</p>
 </div>
 
 <script src="/library-nav.js"></script>
