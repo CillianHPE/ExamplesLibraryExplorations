@@ -132,7 +132,7 @@ h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.3px; }
 /* Leading heading (flex) + optional trailing action (36px slot). The header
    for a container or for an uncontained content section — same component,
    full scale. Inside a container, use the compact .card-head variant below. */
-.content-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 24px; }
+.content-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 24px; }
 .content-header h1, .content-header h2, .content-header h3 { flex: 1 1 0%; min-width: 0; }
 .content-header h2 { font-size: 24px; font-weight: 700; }
 .content-header .arrow { font-size: 18px; color: var(--gl-ink); cursor: pointer; flex: none; }
@@ -140,7 +140,7 @@ h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.3px; }
 
 /* ---------- Cards ---------- */
 .card { background: var(--contained); border-radius: var(--radius); padding: 24px; min-width: 0; }
-.card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.card-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 24px; }
 .card-head h2 { font-size: 19px; font-weight: 700; }
 .card-head .arrow { font-size: 18px; color: var(--gl-ink); cursor: pointer; }
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap-container); }

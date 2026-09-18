@@ -74,7 +74,7 @@
   @media (max-width: 900px) { .hopts { grid-template-columns: 1fr; } }
   .hopt { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
   .hopt .hopt-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gl-ink-faint); margin-bottom: 10px; }
-  .hopt .card-head { margin-bottom: 0; }
+  .hopt .card-head { padding-bottom: 0; }
 
   /* nesting diagram */
   .nest-region { border: 1.5px dashed #3B6FC9; border-radius: 10px; padding: 20px; background: #FFF; }
@@ -122,7 +122,7 @@
       <span class="lg"><span class="sw slot"></span>Trailing action slot · 36×36px, optional</span>
     </div>
   </div>
-  <div class="note"><strong>Locked in.</strong> <code>.card-head { margin-bottom: 24px }</code> is now the single source of truth across every shared stylesheet in the library (hi-fi, lo-fi, data collection, needs-attention), matching the Figma <code>Container</code> component. Dense wallboard tiles on the T5 custom-board pages keep their own tighter, intentionally compact spacing — that's a distinct widget density tier, not the standard container.</div>
+  <div class="note"><strong>Locked in.</strong> <code>.card-head { padding-bottom: 24px }</code> is now the single source of truth across every shared stylesheet in the library (hi-fi, lo-fi, data collection, needs-attention), matching the Figma <code>Container</code> component. We use padding or gap for spacing, never margin — padding-bottom on the header row reads identically since it has no background of its own. Dense wallboard tiles on the T5 custom-board pages keep their own tighter, intentionally compact spacing — that's a distinct widget density tier, not the standard container.</div>
 
   <div class="sec-h">Styling</div>
   <p class="sec-sub">What earns the grey background, how the header row is composed, and how it relates to the standalone Content header component.</p>
