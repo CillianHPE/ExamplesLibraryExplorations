@@ -11,6 +11,7 @@
   .intro { font-size: 15px; color: var(--gl-ink-soft); line-height: 1.6; margin-bottom: 12px; max-width: 720px; }
 
   .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
+  .sub-h { font-size: 12.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin: 32px 0 10px; }
   .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 20px; max-width: 720px; }
   .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: #FFF; overflow-x: auto; }
   .note { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.6; margin-top: 16px; max-width: 760px; }
@@ -35,16 +36,25 @@
   .mini-page { background: #fbfbfb; border: 1px dashed var(--line); border-radius: 8px; padding: 20px; }
 
   /* anatomy diagram: real .card marked up with dimension callouts */
-  .anatomy-stage { position: relative; padding: 36px 44px 44px 44px; }
-  .anatomy-stage .card { position: relative; max-width: 560px; }
+  .anatomy-stage { position: relative; padding: 30px 24px 20px 66px; }
   .dim { position: absolute; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px; font-weight: 600;
     color: var(--gl-green-dark); white-space: nowrap; z-index: 3; }
-  .dim-pad-top { top: 14px; left: 50%; transform: translateX(-50%); }
-  .dim-pad-left { left: 14px; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: left top; }
-  .dim-radius { top: -12px; left: -12px; background: rgba(255,255,255,0.95); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+  .dim-radius { top: -11px; right: -11px; background: rgba(255,255,255,0.95); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
   .dim-gap { position: relative; height: 24px; display: flex; align-items: center; justify-content: center; }
-  .dim-gap .lbl { background: rgba(237,246,242,0.95); border-radius: 8px; padding: 1px 7px; }
-  .pad-ring { position: absolute; inset: 24px; border: 1.5px dashed #B9DECE; border-radius: 6px; pointer-events: none; z-index: 2; }
+  .dim-gap .lbl { background: rgba(237,246,242,0.95); border-radius: 8px; padding: 1px 7px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px; font-weight: 600; color: var(--gl-green-dark); }
+  /* ruler-style padding callouts, sit in the stage gutter — never on top of card content */
+  .ruler { position: absolute; background: var(--gl-green-dark); }
+  .ruler::before, .ruler::after { content: ""; position: absolute; background: var(--gl-green-dark); }
+  .ruler .lbl { position: absolute; background: #fff; padding: 0 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 10.5px; font-weight: 600; color: var(--gl-green-dark); white-space: nowrap; }
+  .ruler-top { top: 14px; left: 66px; right: 24px; height: 1px; }
+  .ruler-top::before, .ruler-top::after { top: -4px; width: 1px; height: 9px; }
+  .ruler-top::before { left: 0; } .ruler-top::after { right: 0; }
+  .ruler-top .lbl { top: -20px; left: 50%; transform: translateX(-50%); }
+  .ruler-left { left: 24px; top: 30px; bottom: 20px; width: 1px; }
+  .ruler-left::before, .ruler-left::after { left: -4px; width: 9px; height: 1px; }
+  .ruler-left::before { top: 0; } .ruler-left::after { bottom: 0; }
+  .ruler-left .lbl { left: -8px; top: 50%; transform: translate(-100%, -50%); }
   .anatomy-card { background: var(--contained); border-radius: var(--radius); padding: 24px; position: relative; }
   .anatomy-head { display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 3; }
   .anatomy-head .htxt h2 { font-size: 19px; font-weight: 700; }
@@ -88,9 +98,37 @@
   <h1>Containers</h1>
   <p class="intro">How containment works in this design language: what earns a grey container, what sits uncontained on the page body, the anatomy of a container, and how containers nest inside content sections.</p>
 
-  <div class="sec-h">The signal</div>
-  <p class="sec-sub">A light grey background (<code>var(--contained)</code>, <code>#F7F7F7</code>) is the only signal that a group of content is a contained module. Everything else — page headings, KPI strips, full-width tables — sits directly on the white page body, uncontained.</p>
+  <div class="sec-h">Anatomy</div>
+  <p class="sec-sub">Every container follows the same structure: padding, a header row, and a body. This matches the <code>Container</code> component in the design system Figma file.</p>
+  <div class="demo">
+    <div class="anatomy-stage">
+      <div class="ruler ruler-top"><span class="lbl">24px</span></div>
+      <div class="ruler ruler-left"><span class="lbl">24px</span></div>
+      <div class="dim dim-radius">radius · 12px</div>
+      <div class="anatomy-card">
+        <div class="anatomy-head">
+          <div class="htxt">
+            <h2>Heading</h2>
+          </div>
+          <div class="trailing-slot">→</div>
+        </div>
+        <div class="dim-gap"><span class="lbl">gap · 24px</span></div>
+        <div class="anatomy-body">Body — chart, list, table, or any composed content</div>
+      </div>
+    </div>
+    <div class="anatomy-legend">
+      <span class="lg"><span class="sw"></span>Background <code style="background:none;padding:0;">var(--contained)</code></span>
+      <span class="lg"><span class="sw dash"></span>24px padding on all sides</span>
+      <span class="lg"><span class="sw slot"></span>Trailing action slot · 36×36px, optional</span>
+    </div>
+  </div>
+  <div class="note"><strong>Locked in.</strong> <code>.card-head { margin-bottom: 24px }</code> is now the single source of truth across every shared stylesheet in the library (hi-fi, lo-fi, data collection, needs-attention), matching the Figma <code>Container</code> component. Dense wallboard tiles on the T5 custom-board pages keep their own tighter, intentionally compact spacing — that's a distinct widget density tier, not the standard container.</div>
 
+  <div class="sec-h">Styling</div>
+  <p class="sec-sub">What earns the grey background, how the header row is composed, and how it relates to the standalone Content header component.</p>
+
+  <div class="sub-h">Signal</div>
+  <p class="sec-sub">A light grey background (<code>var(--contained)</code>, <code>#F7F7F7</code>) is the only signal that a group of content is a contained module. Everything else — page headings, KPI strips, full-width tables — sits directly on the white page body, uncontained.</p>
   <div class="signal-grid">
     <div class="signal-col">
       <div class="lbl-row"><span class="tag tag-contained">Contained</span><span class="verdict">Grey background · owns its own space</span></div>
@@ -124,34 +162,7 @@
   </div>
   <div class="note">A module is contained when it's a self-sufficient unit someone would recognise on its own — a chart, a short list, a summary tile. A module stays uncontained when it already reads as part of the page: a heading and its KPIs, or a table that already fills the width of its section.</div>
 
-  <div class="sec-h">Anatomy</div>
-  <p class="sec-sub">Every container follows the same structure: padding, a header row, and a body. This matches the <code>Container</code> component in the design system Figma file.</p>
-  <div class="demo">
-    <div class="anatomy-stage">
-      <div class="dim dim-radius">radius · 12px</div>
-      <div class="anatomy-card">
-        <div class="pad-ring"></div>
-        <div class="dim dim-pad-top">padding · 24px</div>
-        <div class="dim dim-pad-left">padding · 24px</div>
-        <div class="anatomy-head">
-          <div class="htxt">
-            <h2>Heading</h2>
-          </div>
-          <div class="trailing-slot">→</div>
-        </div>
-        <div class="dim-gap"><span class="lbl">gap · 24px</span></div>
-        <div class="anatomy-body">Body — chart, list, table, or any composed content</div>
-      </div>
-    </div>
-    <div class="anatomy-legend">
-      <span class="lg"><span class="sw"></span>Background <code style="background:none;padding:0;">var(--contained)</code></span>
-      <span class="lg"><span class="sw dash"></span>24px padding on all sides</span>
-      <span class="lg"><span class="sw slot"></span>Trailing action slot · 36×36px, optional</span>
-    </div>
-  </div>
-  <div class="note"><strong>Locked in.</strong> <code>.card-head { margin-bottom: 24px }</code> is now the single source of truth across every shared stylesheet in the library (hi-fi, lo-fi, data collection, needs-attention), matching the Figma <code>Container</code> component. Dense wallboard tiles on the T5 custom-board pages keep their own tighter, intentionally compact spacing — that's a distinct widget density tier, not the standard container.</div>
-
-  <div class="sec-h">Header row</div>
+  <div class="sub-h">Header row</div>
   <p class="sec-sub">The header always carries the container's heading on the leading side. The trailing side is an optional slot for a single action — a link-out arrow, a menu, or a short chip. Never more than one trailing element.</p>
   <div class="hopts">
     <div class="hopt">
@@ -168,10 +179,13 @@
     </div>
   </div>
 
-  <div class="sec-h">Content header</div>
+  <div class="sub-h">Content header</div>
   <p class="sec-sub">The header row itself — leading heading (flex) + optional 36px trailing action — is its own component, used both as a container's header and as the title for an uncontained content section. Full breakdown, placements, and rules: <a href="/layouts/content-header.html">Content header</a>.</p>
 
-  <div class="sec-h">Nesting</div>
+  <div class="sec-h">Examples</div>
+  <p class="sec-sub">Containers in context: how they nest inside a content section, and what stays uncontained on the page body instead.</p>
+
+  <div class="sub-h">Nesting</div>
   <p class="sec-sub">A container is a single level of containment. Inside its body, group related items with dividers or spacing — never with a second grey background. Grey-on-grey reads as a bug, not a hierarchy.</p>
   <div class="demo">
     <div class="nest-region">
@@ -192,7 +206,7 @@
   </div>
   <div class="note">Two containers sit side by side inside one content section (<code>gap: var(--gap-container)</code>, 16px). Inside each container, rows are separated with a 1px divider on <code>var(--contained-line)</code> — never a nested grey box.</div>
 
-  <div class="sec-h">Uncontained on the page body</div>
+  <div class="sub-h">Uncontained on the page body</div>
   <p class="sec-sub">Some content already reads as page-level and doesn't need a boundary. Two recurring cases:</p>
   <div class="hopts" style="grid-template-columns: 1fr 1fr;">
     <div class="hopt">
@@ -212,7 +226,7 @@
   </div>
   <div class="note">Both already carry their own visual weight (a heading, or column rules) and sit at page width — wrapping either in a grey box would duplicate a boundary that's already implied.</div>
 
-  <div class="sec-h">Markup</div>
+  <div class="sub-h">Markup</div>
   <code class="block"><span class="cm">&lt;!-- Container: contained module --&gt;</span>
 &lt;div <span class="at">class</span>="card"&gt;
   &lt;div <span class="at">class</span>="card-head"&gt;
