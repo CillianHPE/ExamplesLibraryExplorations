@@ -8,9 +8,72 @@
 <style>
   .wrap { max-width: 1160px; margin: 0 auto; padding: 48px 40px 96px; }
   .wrap h1 { margin-bottom: 8px; }
-  .intro { font-size: 15px; color: var(--gl-ink-soft); line-height: 1.6; margin-bottom: 40px; max-width: 720px; }
-  .placeholder { background: var(--contained); border-radius: var(--radius); padding: 32px;
-    font-size: 14px; color: var(--gl-ink-soft); line-height: 1.6; max-width: 720px; }
+  .intro { font-size: 15px; color: var(--gl-ink-soft); line-height: 1.6; margin-bottom: 12px; max-width: 720px; }
+
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
+  .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 20px; max-width: 720px; }
+  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: #FFF; overflow-x: auto; }
+  .note { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.6; margin-top: 16px; max-width: 760px; }
+  .note code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--gl-heading); background: var(--contained); border-radius: 4px; padding: 1px 6px; }
+  .note strong { color: var(--gl-heading); font-weight: 600; }
+  .callout { display: flex; gap: 10px; align-items: flex-start; background: #FFFDF9; border: 1px solid #F0DFC0; border-radius: 8px;
+    padding: 12px 14px; font-size: 13px; color: var(--gl-ink); line-height: 1.55; max-width: 760px; margin-top: 20px; }
+  .callout .ic { flex: none; font-size: 14px; margin-top: 1px; }
+  .callout strong { color: var(--gl-heading); }
+
+  /* signal tags */
+  .tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; border-radius: 10px; padding: 2px 10px; white-space: nowrap; color: var(--gl-heading); }
+  .tag::before { content: ""; width: 8px; height: 8px; border-radius: 2px; }
+  .tag-contained { background: #EAEAEA; } .tag-contained::before { background: #7A868C; }
+  .tag-uncontained { background: #E8EEF9; } .tag-uncontained::before { background: #3B6FC9; }
+
+  /* side-by-side signal comparison */
+  .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 900px) { .signal-grid { grid-template-columns: 1fr; } }
+  .signal-col .lbl-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .signal-col .verdict { font-size: 12px; color: var(--gl-ink-soft); }
+  .mini-page { background: #fbfbfb; border: 1px dashed var(--line); border-radius: 8px; padding: 20px; }
+
+  /* anatomy diagram: real .card marked up with dimension callouts */
+  .anatomy-stage { position: relative; padding: 36px 44px 44px 44px; }
+  .anatomy-stage .card { position: relative; max-width: 560px; }
+  .dim { position: absolute; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px; font-weight: 600;
+    color: var(--gl-green-dark); white-space: nowrap; z-index: 3; }
+  .dim-pad-top { top: 14px; left: 50%; transform: translateX(-50%); }
+  .dim-pad-left { left: 14px; top: 50%; transform: translateY(-50%) rotate(-90deg); transform-origin: left top; }
+  .dim-radius { top: -12px; left: -12px; background: rgba(255,255,255,0.95); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+  .dim-gap { position: relative; height: 24px; display: flex; align-items: center; justify-content: center; }
+  .dim-gap .lbl { background: rgba(237,246,242,0.95); border-radius: 8px; padding: 1px 7px; }
+  .pad-ring { position: absolute; inset: 24px; border: 1.5px dashed #B9DECE; border-radius: 6px; pointer-events: none; z-index: 2; }
+  .anatomy-card { background: var(--contained); border-radius: var(--radius); padding: 24px; position: relative; }
+  .anatomy-head { display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 3; }
+  .anatomy-head .htxt h2 { font-size: 19px; font-weight: 700; }
+  .anatomy-head .htxt .eyebrow { font-size: 12px; color: var(--gl-ink-soft); margin-bottom: 2px; }
+  .trailing-slot { width: 36px; height: 36px; border-radius: 8px; border: 1.5px dashed #C9CDD1; display: flex; align-items: center;
+    justify-content: center; font-size: 15px; color: var(--gl-ink-faint); flex: none; }
+  .anatomy-body { margin-top: 24px; border: 1.5px dashed #C9CDD1; border-radius: 6px; padding: 14px; font-size: 12.5px;
+    color: var(--gl-ink-faint); text-align: center; position: relative; z-index: 3; }
+  .anatomy-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 20px; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .anatomy-legend .lg { display: flex; align-items: center; gap: 7px; }
+  .anatomy-legend .sw { width: 22px; height: 2px; border-radius: 2px; background: var(--gl-green-dark); flex: none; }
+  .anatomy-legend .sw.dash { background: none; border-top: 1.5px dashed #B9DECE; }
+  .anatomy-legend .sw.slot { background: none; border-top: 1.5px dashed #C9CDD1; }
+
+  /* header composition options */
+  .hopts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap-container); }
+  @media (max-width: 900px) { .hopts { grid-template-columns: 1fr; } }
+  .hopt { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+  .hopt .hopt-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gl-ink-faint); margin-bottom: 10px; }
+  .hopt .card-head { margin-bottom: 0; }
+
+  /* nesting diagram */
+  .nest-region { border: 1.5px dashed #3B6FC9; border-radius: 10px; padding: 20px; background: #FFF; }
+  .nest-region > .rtag { display: block; margin-bottom: 14px; }
+
+  code.block { display: block; background: var(--gl-heading); color: #E7EEEC; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px; line-height: 1.7; padding: 18px 20px; border-radius: var(--radius); overflow-x: auto; white-space: pre; }
+  code.block .cm { color: #8FA0A8; }
+  code.block .at { color: #8FD6C0; }
 </style>
 </head>
 <body>
@@ -23,8 +86,138 @@
 
 <div class="wrap">
   <h1>Containers</h1>
-  <p class="intro">How containment works in this design language: what earns a grey container, what sits uncontained on the page body, and how containers nest inside content sections.</p>
-  <div class="placeholder">Spec in progress. Planned coverage: grey containment as the signal for a contained module, uncontained full-width tables on the page body, container anatomy (padding, radius, heading row), and nesting rules within content sections.</div>
+  <p class="intro">How containment works in this design language: what earns a grey container, what sits uncontained on the page body, the anatomy of a container, and how containers nest inside content sections.</p>
+
+  <div class="sec-h">The signal</div>
+  <p class="sec-sub">A light grey background (<code>var(--contained)</code>, <code>#F7F7F7</code>) is the only signal that a group of content is a contained module. Everything else — page headings, KPI strips, full-width tables — sits directly on the white page body, uncontained.</p>
+
+  <div class="signal-grid">
+    <div class="signal-col">
+      <div class="lbl-row"><span class="tag tag-contained">Contained</span><span class="verdict">Grey background · owns its own space</span></div>
+      <div class="mini-page">
+        <div class="card" style="max-width:none;">
+          <div class="card-head"><h2 style="font-size:16px;">Devices</h2><span class="arrow">→</span></div>
+          <span class="big-number" style="font-size:30px;">542</span>
+          <div class="stack-bar" style="margin:12px 0 0;">
+            <span style="flex:22; background:var(--c-blue)"></span>
+            <span style="flex:14; background:var(--c-green)"></span>
+            <span style="flex:64; background:var(--c-grey)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="signal-col">
+      <div class="lbl-row"><span class="tag tag-uncontained">Uncontained</span><span class="verdict">On the page, no boundary of its own</span></div>
+      <div class="mini-page">
+        <div class="kpi-strip" style="grid-template-columns:1fr 1fr;">
+          <div class="kpi-intro" style="padding-right:16px;">
+            <div class="eyebrow">This week</div>
+            <div class="title" style="font-size:18px;">Fleet health</div>
+          </div>
+          <div class="kpi" style="padding:0 0 0 16px;">
+            <div class="cat">Availability</div>
+            <div class="value-row"><span class="value" style="font-size:26px;">99.2%</span><span class="delta up">↑ 0.3%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="note">A module is contained when it's a self-sufficient unit someone would recognise on its own — a chart, a short list, a summary tile. A module stays uncontained when it already reads as part of the page: a heading and its KPIs, or a table that already fills the width of its section.</div>
+
+  <div class="sec-h">Anatomy</div>
+  <p class="sec-sub">Every container follows the same structure: padding, a header row, and a body. This matches the <code>Container</code> component in the design system Figma file.</p>
+  <div class="demo">
+    <div class="anatomy-stage">
+      <div class="dim dim-radius">radius · 12px</div>
+      <div class="anatomy-card">
+        <div class="pad-ring"></div>
+        <div class="dim dim-pad-top">padding · 24px</div>
+        <div class="dim dim-pad-left">padding · 24px</div>
+        <div class="anatomy-head">
+          <div class="htxt">
+            <h2>Heading</h2>
+          </div>
+          <div class="trailing-slot">→</div>
+        </div>
+        <div class="dim-gap"><span class="lbl">gap · 24px</span></div>
+        <div class="anatomy-body">Body — chart, list, table, or any composed content</div>
+      </div>
+    </div>
+    <div class="anatomy-legend">
+      <span class="lg"><span class="sw"></span>Background <code style="background:none;padding:0;">var(--contained)</code></span>
+      <span class="lg"><span class="sw dash"></span>24px padding on all sides</span>
+      <span class="lg"><span class="sw slot"></span>Trailing action slot · 36×36px, optional</span>
+    </div>
+  </div>
+  <div class="callout"><span class="ic">⚠</span><div><strong>Standardisation note.</strong> Existing hi-fi templates in this library use a 16px gap between header and body (<code>.card-head { margin-bottom: 16px }</code>). The Figma <code>Container</code> component specifies 24px. Adopt 24px going forward; existing pages will be reconciled separately.</div></div>
+
+  <div class="sec-h">Header row</div>
+  <p class="sec-sub">The header always carries the container's heading on the leading side. The trailing side is an optional slot for a single action — a link-out arrow, a menu, or a short chip. Never more than one trailing element.</p>
+  <div class="hopts">
+    <div class="hopt">
+      <div class="hopt-lbl">Heading only</div>
+      <div class="card-head"><h2 style="font-size:17px;">Devices</h2></div>
+    </div>
+    <div class="hopt">
+      <div class="hopt-lbl">+ link-out arrow</div>
+      <div class="card-head"><h2 style="font-size:17px;">Networking alerts</h2><span class="arrow">→</span></div>
+    </div>
+    <div class="hopt">
+      <div class="hopt-lbl">+ meta chip</div>
+      <div class="card-head"><h2 style="font-size:17px;">Alert volume</h2><span class="chip" style="padding:4px 10px;font-size:11.5px;">7 days</span></div>
+    </div>
+  </div>
+
+  <div class="sec-h">Nesting</div>
+  <p class="sec-sub">A container is a single level of containment. Inside its body, group related items with dividers or spacing — never with a second grey background. Grey-on-grey reads as a bug, not a hierarchy.</p>
+  <div class="demo">
+    <div class="nest-region">
+      <span class="rtag tag tag-uncontained">Content section</span>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head"><h2 style="font-size:16px;">Current services</h2></div>
+          <div class="list-item"><div class="li-main"><div><div class="li-title">Compute · COM-Cluster-EU</div><div class="li-sub">Operational</div></div></div><div class="li-meta">99.98%</div></div>
+          <div class="list-item"><div class="li-main"><div><div class="li-title">Storage · Array-North-04</div><div class="li-sub">Operational</div></div></div><div class="li-meta">99.95%</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2 style="font-size:16px;">Entitlements</h2></div>
+          <div class="ent" style="padding:0 0 12px;"><div class="ent-head"><span class="ent-name">Compute nodes</span><span class="pill green">Active</span></div><div class="ent-date">Renews 14 Mar 2027</div></div>
+          <div class="ent" style="padding:0;border-bottom:0;"><div class="ent-head"><span class="ent-name">Data protection</span><span class="pill amber">Expiring</span></div><div class="ent-date">Renews 2 Nov 2026</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="note">Two containers sit side by side inside one content section (<code>gap: var(--gap-container)</code>, 16px). Inside each container, rows are separated with a 1px divider on <code>var(--contained-line)</code> — never a nested grey box.</div>
+
+  <div class="sec-h">Uncontained on the page body</div>
+  <p class="sec-sub">Some content already reads as page-level and doesn't need a boundary. Two recurring cases:</p>
+  <div class="hopts" style="grid-template-columns: 1fr 1fr;">
+    <div class="hopt">
+      <div class="hopt-lbl">KPI strip</div>
+      <div class="kpi-strip" style="grid-template-columns:1fr 1fr;">
+        <div class="kpi-intro" style="padding-right:16px;"><div class="eyebrow">Overview</div><div class="title" style="font-size:17px;">Fleet health</div></div>
+        <div class="kpi" style="padding:0 0 0 16px;"><div class="cat">Efficiency</div><div class="value-row"><span class="value" style="font-size:24px;">68%</span></div></div>
+      </div>
+    </div>
+    <div class="hopt">
+      <div class="hopt-lbl">Full-width table</div>
+      <table style="font-size:12.5px;">
+        <tr><th>Name</th><th>Status</th></tr>
+        <tr><td>srv-eu-1204</td><td><span class="pill green">Healthy</span></td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="note">Both already carry their own visual weight (a heading, or column rules) and sit at page width — wrapping either in a grey box would duplicate a boundary that's already implied.</div>
+
+  <div class="sec-h">Markup</div>
+  <code class="block"><span class="cm">&lt;!-- Container: contained module --&gt;</span>
+&lt;div <span class="at">class</span>="card"&gt;
+  &lt;div <span class="at">class</span>="card-head"&gt;
+    &lt;h2&gt;Heading&lt;/h2&gt;
+    &lt;span <span class="at">class</span>="arrow"&gt;→&lt;/span&gt;  <span class="cm">&lt;!-- optional trailing action --&gt;</span>
+  &lt;/div&gt;
+  &lt;!-- body: chart, list, table, form... --&gt;
+&lt;/div&gt;</code>
 </div>
 
 <script src="/library-nav.js"></script>
