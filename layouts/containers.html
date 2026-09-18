@@ -169,29 +169,7 @@
   </div>
 
   <div class="sec-h">Content header</div>
-  <p class="sec-sub">The header itself — leading heading (flex) + optional 36px trailing action — is one component, <code>.content-header</code>. It's what sits inside a container's padding as its header row, and it's also what sits directly on the page as the title for an uncontained content section. Same shape, two placements.</p>
-  <div class="signal-grid">
-    <div class="signal-col">
-      <div class="lbl-row"><span class="tag tag-contained">As a container's header</span></div>
-      <div class="card" style="max-width:none;">
-        <div class="card-head"><h2>Devices</h2><span class="arrow">→</span></div>
-        <div class="anatomy-body" style="margin-top:0;border-style:solid;">Body</div>
-      </div>
-      <div class="note" style="margin-top:10px;">Inside a container, use the compact <code>.card-head</code> variant (19px heading) — this library's established in-container scale.</div>
-    </div>
-    <div class="signal-col">
-      <div class="lbl-row"><span class="tag tag-uncontained">As a section header</span></div>
-      <div class="mini-page">
-        <div class="content-header"><h2>Recent activity</h2><span class="arrow">→</span></div>
-        <table style="font-size:12.5px;">
-          <tr><th>Event</th><th>Status</th></tr>
-          <tr><td>Firmware update · rack-04</td><td><span class="pill green">Complete</span></td></tr>
-        </table>
-      </div>
-      <div class="note" style="margin-top:10px;">Directly on the page, use <code>.content-header</code> at full scale (24px heading) — the same size as the Figma <code>Content header</code> component.</div>
-    </div>
-  </div>
-  <div class="note">Trailing accepts the same options as a container header: a link-out arrow, a chip, or a single icon button in the 36px slot. Never both a card-head and a content-header stacked on the same title — pick the one for where the heading actually sits.</div>
+  <p class="sec-sub">The header row itself — leading heading (flex) + optional 36px trailing action — is its own component, used both as a container's header and as the title for an uncontained content section. Full breakdown, placements, and rules: <a href="/layouts/content-header.html">Content header</a>.</p>
 
   <div class="sec-h">Nesting</div>
   <p class="sec-sub">A container is a single level of containment. Inside its body, group related items with dividers or spacing — never with a second grey background. Grey-on-grey reads as a bug, not a hierarchy.</p>

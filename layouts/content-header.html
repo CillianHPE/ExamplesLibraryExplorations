@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Content header · Layouts</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<script src="/hifi-icons.js" defer></script>
+<style>
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 48px 40px 96px; }
+  .wrap h1 { margin-bottom: 8px; }
+  .intro { font-size: 15px; color: var(--gl-ink-soft); line-height: 1.6; margin-bottom: 12px; max-width: 720px; }
+  .crumb-nav { font-size: 13px; color: var(--gl-ink-soft); margin-bottom: 14px; }
+  .crumb-nav a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; }
+  .crumb-nav a:hover { text-decoration: underline; }
+
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
+  .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 20px; max-width: 720px; }
+  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: #FFF; overflow-x: auto; }
+  .note { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.6; margin-top: 16px; max-width: 760px; }
+  .note code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--gl-heading); background: var(--contained); border-radius: 4px; padding: 1px 6px; }
+  .note strong { color: var(--gl-heading); font-weight: 600; }
+
+  /* tags */
+  .tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; border-radius: 10px; padding: 2px 10px; white-space: nowrap; color: var(--gl-heading); }
+  .tag::before { content: ""; width: 8px; height: 8px; border-radius: 2px; }
+  .tag-contained { background: #EAEAEA; } .tag-contained::before { background: #7A868C; }
+  .tag-uncontained { background: #E8EEF9; } .tag-uncontained::before { background: #3B6FC9; }
+
+  /* anatomy diagram */
+  .anatomy-stage { position: relative; padding: 30px 20px 20px; }
+  .dim { position: absolute; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px; font-weight: 600;
+    color: var(--gl-green-dark); white-space: nowrap; z-index: 3; }
+  .anatomy-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; max-width: 620px; position: relative; }
+  .anatomy-row .leading { flex: 1 1 0%; min-width: 0; border: 1.5px dashed #B9DECE; border-radius: 6px; padding: 6px 10px; position: relative; }
+  .anatomy-row .leading h2 { font-size: 24px; font-weight: 700; }
+  .anatomy-row .gap-lbl { flex: none; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; font-weight: 600;
+    color: var(--gl-green-dark); background: rgba(237,246,242,0.95); border-radius: 8px; padding: 2px 8px; }
+  .anatomy-row .trailing-slot { width: 36px; height: 36px; border-radius: 8px; border: 1.5px dashed #C9CDD1; display: flex; align-items: center;
+    justify-content: center; font-size: 15px; color: var(--gl-ink-faint); flex: none; }
+  .dim-lead { top: -18px; left: 0; }
+  .dim-trail { top: -18px; right: 0; text-align: right; }
+  .anatomy-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 24px; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .anatomy-legend .lg { display: flex; align-items: center; gap: 7px; }
+  .anatomy-legend .sw { width: 22px; height: 0; border-top: 1.5px dashed #B9DECE; }
+  .anatomy-legend .sw.slot { border-top-color: #C9CDD1; }
+
+  /* placement comparison */
+  .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 900px) { .signal-grid { grid-template-columns: 1fr; } }
+  .signal-col .lbl-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .mini-page { background: #fbfbfb; border: 1px dashed var(--line); border-radius: 8px; padding: 20px; }
+
+  /* composition options */
+  .hopts { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--gap-container); }
+  @media (max-width: 900px) { .hopts { grid-template-columns: 1fr; } }
+  .hopt { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+  .hopt .hopt-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gl-ink-faint); margin-bottom: 12px; }
+  .hopt .content-header { margin-bottom: 0; }
+
+  code.block { display: block; background: var(--gl-heading); color: #E7EEEC; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12.5px; line-height: 1.7; padding: 18px 20px; border-radius: var(--radius); overflow-x: auto; white-space: pre; }
+  code.block .cm { color: #8FA0A8; }
+  code.block .at { color: #8FD6C0; }
+
+  .rules { display: flex; flex-direction: column; gap: 10px; max-width: 760px; }
+  .rule { display: flex; gap: 10px; font-size: 13.5px; color: var(--gl-ink); line-height: 1.55; }
+  .rule .ok, .rule .no { flex: none; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; color: #fff; margin-top: 2px; }
+  .rule .ok { background: var(--ok); }
+  .rule .no { background: var(--red); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Layouts</div>
+</header>
+
+<div class="wrap">
+  <div class="crumb-nav"><a href="/layouts/containers.html">Containers</a> · Content header</div>
+  <h1>Content header</h1>
+  <p class="intro">A leading heading with an optional trailing action — the one header component used both as a container's header row and as the title for an uncontained content section. Same shape, same spacing rules, two placements.</p>
+
+  <div class="sec-h">Anatomy</div>
+  <p class="sec-sub">A leading heading that takes up available width, and an optional 36×36px trailing slot for a single action. This matches the <code>Content header</code> component in the design system Figma file (node <code>2545:70883</code>).</p>
+  <div class="demo">
+    <div class="anatomy-stage">
+      <div class="anatomy-row">
+        <div class="dim dim-lead">Leading · flex, min-width 0</div>
+        <div class="leading"><h2>Heading</h2></div>
+        <span class="gap-lbl">gap · 12px</span>
+        <div class="dim dim-trail">Trailing · 36×36px</div>
+        <div class="trailing-slot">→</div>
+      </div>
+    </div>
+    <div class="anatomy-legend">
+      <span class="lg"><span class="sw"></span>Heading · 24px / 700 / <code style="background:none;padding:0;">var(--gl-heading)</code></span>
+      <span class="lg"><span class="sw slot"></span>Trailing action slot, optional — arrow, chip, or single icon button</span>
+    </div>
+  </div>
+  <div class="note">Full 24px scale is the default, standalone size — the same size as the heading in the Figma component. Inside a container, use the established compact variant instead (<code>.card-head</code>, 19px heading) rather than the full-scale class.</div>
+
+  <div class="sec-h">Two placements, one component</div>
+  <p class="sec-sub">The header row is the same building block wherever it appears. What changes is scale and context, not structure.</p>
+  <div class="signal-grid">
+    <div class="signal-col">
+      <div class="lbl-row"><span class="tag tag-contained">As a container's header</span></div>
+      <div class="card" style="max-width:none;">
+        <div class="card-head"><h2>Devices</h2><span class="arrow">→</span></div>
+        <span class="big-number" style="font-size:30px;">542</span>
+        <div class="stack-bar" style="margin:12px 0 0;">
+          <span style="flex:22; background:var(--c-blue)"></span>
+          <span style="flex:14; background:var(--c-green)"></span>
+          <span style="flex:64; background:var(--c-grey)"></span>
+        </div>
+      </div>
+      <div class="note" style="margin-top:10px;"><code>.card-head</code> · compact 19px heading, sits inside the container's own 24px padding.</div>
+    </div>
+    <div class="signal-col">
+      <div class="lbl-row"><span class="tag tag-uncontained">As a section header</span></div>
+      <div class="mini-page">
+        <div class="content-header"><h2>Recent activity</h2><span class="arrow">→</span></div>
+        <table style="font-size:12.5px;">
+          <tr><th>Event</th><th>Status</th></tr>
+          <tr><td>Firmware update · rack-04</td><td><span class="pill green">Complete</span></td></tr>
+          <tr><td>Config drift · edge-cluster-9</td><td><span class="pill amber">Review</span></td></tr>
+        </table>
+      </div>
+      <div class="note" style="margin-top:10px;"><code>.content-header</code> · full 24px heading, sits directly on the white page body above uncontained content.</div>
+    </div>
+  </div>
+
+  <div class="sec-h">Trailing options</div>
+  <p class="sec-sub">The trailing slot holds exactly one action. Pick the one that matches what the heading links to.</p>
+  <div class="hopts">
+    <div class="hopt">
+      <div class="hopt-lbl">Heading only</div>
+      <div class="content-header"><h2 style="font-size:19px;">Fleet health</h2></div>
+    </div>
+    <div class="hopt">
+      <div class="hopt-lbl">+ link-out arrow</div>
+      <div class="content-header"><h2 style="font-size:19px;">Recent activity</h2><span class="arrow">→</span></div>
+    </div>
+    <div class="hopt">
+      <div class="hopt-lbl">+ meta chip</div>
+      <div class="content-header"><h2 style="font-size:19px;">Alert volume</h2><span class="chip" style="padding:4px 10px;font-size:11.5px;">7 days</span></div>
+    </div>
+    <div class="hopt">
+      <div class="hopt-lbl">+ icon button</div>
+      <div class="content-header"><h2 style="font-size:19px;">Entitlements</h2><button class="btn icon" style="width:36px;height:36px;font-size:15px;">⋯</button></div>
+    </div>
+  </div>
+
+  <div class="sec-h">Rules</div>
+  <div class="rules">
+    <div class="rule"><span class="ok">✓</span>One trailing element maximum — an arrow, a chip, or an icon button, never combined.</div>
+    <div class="rule"><span class="ok">✓</span>Use the full 24px scale (<code>.content-header</code>) for an uncontained section title; use the compact 19px scale (<code>.card-head</code>) inside a container.</div>
+    <div class="rule"><span class="ok">✓</span>The heading always takes the leading side and consumes remaining width — don't shrink it to fit a trailing element.</div>
+    <div class="rule"><span class="no">✕</span>Don't stack a content header directly above a card-head for the same title — pick the placement, not both.</div>
+    <div class="rule"><span class="no">✕</span>Don't wrap a section header's trailing slot in a second background — it reads on the page body, unboxed.</div>
+  </div>
+
+  <div class="sec-h">Markup</div>
+  <code class="block"><span class="cm">&lt;!-- Container header: compact, inside .card padding --&gt;</span>
+&lt;div <span class="at">class</span>="card-head"&gt;
+  &lt;h2&gt;Heading&lt;/h2&gt;
+  &lt;span <span class="at">class</span>="arrow"&gt;→&lt;/span&gt;  <span class="cm">&lt;!-- optional trailing action --&gt;</span>
+&lt;/div&gt;
+
+<span class="cm">&lt;!-- Content header: standalone section title, uncontained --&gt;</span>
+&lt;div <span class="at">class</span>="content-header"&gt;
+  &lt;h2&gt;Heading&lt;/h2&gt;
+  &lt;span <span class="at">class</span>="arrow"&gt;→&lt;/span&gt;  <span class="cm">&lt;!-- optional trailing action --&gt;</span>
+&lt;/div&gt;
+&lt;!-- section content: table, chart, card grid... --&gt;</code>
+
+  <p class="note">See <a href="/layouts/containers.html">Containers</a> for how this header sits inside a container's padding and gap.</p>
+</div>
+
+<script src="/library-nav.js"></script>
+<script src="/livereload.js"></script>
+</body>
+</html>

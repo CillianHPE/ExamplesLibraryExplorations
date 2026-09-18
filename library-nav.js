@@ -73,6 +73,7 @@
     ]},
     { label: 'Layouts', children: [
       { href: '/layouts/containers.html', label: 'Containers' },
+      { href: '/layouts/content-header.html', label: 'Content header' },
     ]},
     { label: 'UI compositions', children: [
       { label: 'Card / widget gallery', children: [
