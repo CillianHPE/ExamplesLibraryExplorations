@@ -4,6 +4,10 @@
   const NAV = [
     { label: 'Home', href: '/index.html' },
     { label: 'Pages', children: [
+      { label: 'Build specs', children: [
+        { href: '/build-specs/index.html', label: 'Overview' },
+        { href: '/build-specs/layout-spacing.html', label: 'Layout spacing scale' },
+      ]},
       { label: 'Dashboards', children: [
         { label: 'T1 · Overview', children: [
           { href: '/canonical-t1-overview-hifi.html', label: 'A · Home' },
@@ -65,10 +69,6 @@
           { href: '/data-collection/map-hifi.html', label: 'Hi-fi · Sites map' },
           { href: '/data-collection/map-view.html', label: 'Lo-fi spec' },
         ]},
-      ]},
-      { label: 'Build specs', children: [
-        { href: '/build-specs/index.html', label: 'Overview' },
-        { href: '/build-specs/layout-spacing.html', label: 'Layout spacing scale' },
       ]},
     ]},
     { label: 'UI compositions', children: [
