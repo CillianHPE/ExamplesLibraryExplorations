@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Service health widget: content options</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<style>
+  body { background: var(--page); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 40px 32px 80px; }
+  .wrap > h1 { font-size: 24px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .intro { font-size: 14px; color: var(--gl-ink-soft); margin: 0 0 40px; max-width: 760px; line-height: 1.55; }
+  .tabs { display: flex; gap: 8px; margin: 0 0 32px; flex-wrap: wrap; }
+  .tabbtn { border: 1px solid var(--line); border-radius: 20px; background: #fff; padding: 8px 18px;
+    font-size: 13.5px; font-weight: 600; color: var(--gl-ink); cursor: pointer; font-family: inherit; }
+  .tabbtn.on { background: #EDF6F2; border-color: var(--gl-green-dark); box-shadow: inset 0 0 0 1px var(--gl-green-dark); color: var(--gl-heading); }
+  .pane { display: none; } .pane.on { display: block; }
+  .sec-h h2 { font-size: 19px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: 0 0 24px; max-width: 720px; line-height: 1.5; }
+
+  .opt { margin-bottom: 32px; display: grid; grid-template-columns: 552px 1fr; gap: 32px; align-items: start; }
+  .opt .card { width: 552px; }
+  .opt-note h3 { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .opt-note p { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; max-width: 620px; line-height: 1.5; }
+  .opt-note ul { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; padding-left: 18px; line-height: 1.5; max-width: 620px; }
+  .opt-note .fine { color: var(--gl-ink-soft); }
+  @media (max-width: 1100px) { .opt { grid-template-columns: 1fr; } }
+
+  .bhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+  .bcard-title { font-size: 18px; font-weight: 700; color: var(--gl-heading); margin: 0; }
+  .bcard-scope { margin-top: 3px; }
+  .bhead .arrow { font-size: 17px; color: var(--gl-ink); cursor: pointer; line-height: 1; }
+
+  .hrow { display: grid; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--contained-line); font-size: 13.5px; }
+  .hrow:last-of-type { border-bottom: 0; }
+  .hrow.up  { grid-template-columns: 10px 1fr 180px 96px; }
+  .hrow.cnt { grid-template-columns: 10px 1fr 180px 96px; }
+  .hrow .sd { width: 10px; height: 10px; border-radius: 50%; }
+  .hrow .nm { min-width: 0; line-height: 1.25; }
+  .hrow .nm .t { display: block; font-weight: 600; color: var(--gl-heading); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hrow .nm .sub { display: block; font-size: 12px; color: var(--gl-ink-soft); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hrow .stt { text-align: right; white-space: nowrap; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .seg-bar { display: flex; gap: 2px; height: 12px; }
+  .seg-bar i { flex: 1; min-width: 0; border-radius: 1px; background: var(--ok); }
+  .seg-bar i.w { background: var(--amber); } .seg-bar i.c { background: var(--red); } .seg-bar i.u { background: var(--unknown-bg); }
+  .prop { display: flex; gap: 2px; height: 8px; border-radius: 2px; overflow: hidden; }
+  .prop i { display: block; height: 100%; min-width: 3px; }
+  .grp { font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--gl-ink-soft); padding: 14px 0 4px; }
+  .grp:first-of-type { padding-top: 0; }
+  .grp + .hrow { padding-top: 6px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--contained-line); }
+  .foot .fine { margin: 0; }
+  .axis { display: flex; justify-content: space-between; font-size: 11px; color: var(--gl-ink-faint); margin-top: 6px; }
+  .legend-inline { display: flex; gap: 14px; font-size: 12px; color: var(--gl-ink-soft); margin-top: 10px; }
+  .legend-inline .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: -1px; margin-right: 5px; }
+
+  table.gl { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.gl th { text-align: left; font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--gl-ink-soft); padding: 8px 12px 8px 0; border-bottom: 1.5px solid var(--gl-ink-soft); font-weight: 700; }
+  table.gl td { padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--gl-ink); line-height: 1.45; }
+  table.gl td:first-child { font-weight: 600; color: var(--gl-heading); white-space: nowrap; }
+  .callout { background: var(--contained); border-radius: var(--radius); padding: 20px 24px; margin: 0 0 32px; font-size: 13.5px; color: var(--gl-ink); line-height: 1.5; max-width: 900px; }
+  .callout strong { color: var(--gl-heading); }
+  .callout ul { margin: 6px 0 0; padding-left: 18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Service health widget: what is a row?</h1>
+  <p class="intro">The Data Storage overview needs a health widget, and the sketch shows the right shape (status list with 30-day uptime bars) but not yet the right content. Before choosing rows, decide what "health" means for this page. This page walks through the decision, then shows three content options built from the same row anatomy, and closes with a glossary of every monitoring domain a row could represent.</p>
+
+  <div class="tabs">
+    <button class="tabbtn on" onclick="setTab('frame', this)">1 · What "health" means here</button>
+    <button class="tabbtn" onclick="setTab('a', this)">2a · Option A: Cloud service status</button>
+    <button class="tabbtn" onclick="setTab('b', this)">2b · Option B: Estate health</button>
+    <button class="tabbtn" onclick="setTab('c', this)">2c · Option C: Layered stack</button>
+    <button class="tabbtn" onclick="setTab('gloss', this)">3 · Row glossary</button>
+  </div>
+
+  <!-- ===== 1 FRAME ===== -->
+  <div class="pane on" id="pane-frame">
+    <div class="sec-h"><h2>Two different questions hide behind one word</h2></div>
+    <p class="sec-sub">A storage admin opening this page is asking one of two things, and a row means something different for each.</p>
+
+    <div class="opt" style="grid-template-columns: 1fr 1fr;">
+      <div class="opt-note">
+        <h3>"Is the GreenLake service I depend on working?"</h3>
+        <p>This is <strong>service status</strong>: the HPE-operated control plane (console, provisioning APIs, backup service, identity). The customer cannot fix any of it; the job is to know quickly whether a problem is theirs or HPE's.</p>
+        <ul>
+          <li>A row is <strong>one cloud service</strong>. Region is a sub-line only where the service is region-scoped.</li>
+          <li>States are status-page vocabulary: Operational, Degraded, Partial outage, Outage, Maintenance.</li>
+          <li>The 30-day uptime bar fits: one segment per day, colour = worst state that day.</li>
+          <li>Rows are stable: the same list every day, in the same order.</li>
+        </ul>
+      </div>
+      <div class="opt-note">
+        <h3>"Is my storage estate healthy?"</h3>
+        <p>This is <strong>estate health</strong>: the arrays, volumes, hosts, replication links and protection jobs the customer owns. They can act on every row, so the widget's job is to point at the exception.</p>
+        <ul>
+          <li>A row is <strong>one monitored domain</strong> (Systems, Volumes, Replication), not one object.</li>
+          <li>Health is a <strong>count by status</strong>, so the visual is a proportion bar, not an uptime history.</li>
+          <li>The right-hand text is the exception: "2 critical", "14 failed".</li>
+          <li>Critical first: ordering follows severity, not a fixed list.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>What the sketch gets tangled on.</strong> The current rows mix the two framings and a third axis (region):
+      <ul>
+        <li>"Object storage EU-W" and "Identity North America" are cloud services (framing 1), but "Computer Ops EMEA" is neither a data service nor a monitored storage domain.</li>
+        <li>"Data services AUS-NZ" repeated three times treats region as the row, which only works if <em>every</em> row is a region.</li>
+        <li>The footer sentence ("space you never had to buy") is a capacity insight and belongs on the Efficiency card.</li>
+        <li>Each row carries a 30-day bar, but only cloud services have a meaningful daily uptime history; a volume count does not.</li>
+      </ul>
+    </div>
+
+    <div class="sec-h"><h2>Recommendation</h2></div>
+    <p class="sec-sub">Keep the card titled <strong>Service health</strong> and make it framing 1 (Option A): the neighbouring Capacity and Data protection cards, plus the "Needs your attention" list further down, already cover the estate. If the page has no other estate-health surface, use Option C, which gives service status two rows and spends the rest on the estate.</p>
+  </div>
+
+  <!-- ===== 2a OPTION A ===== -->
+  <div class="pane" id="pane-a">
+    <div class="sec-h"><h2>Option A: Cloud service status</h2></div>
+    <p class="sec-sub">One row per GreenLake data service. This is the status-page pattern, brought onto the dashboard so the admin never has to leave to check whether HPE is the cause.</p>
+
+    <div class="opt">
+      <div class="card">
+        <div class="bhead">
+          <div><h2 class="bcard-title">Service health</h2><div class="fine bcard-scope">Last 30 days · daily · 7 services</div></div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="hrow up"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Object storage</span><span class="sub">EU-West · since 09:12 UTC</span></span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="c"></i><i class="w"></i><i class="w"></i></span><span class="stt">Degraded</span></div>
+<div class="hrow up"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Data Services console</span><span class="sub">Management UI and API</span></span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
+<div class="hrow up"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Block storage</span><span class="sub">Provisioning and mapping</span></span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
+<div class="hrow up"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">File storage</span></span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
+<div class="hrow up"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Backup and recovery</span><span class="sub">Cloud backup service</span></span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
+<div class="hrow up"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Disaster recovery</span><span class="sub">Continuous replication</span></span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
+<div class="hrow up"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Identity and access</span><span class="sub">Sign-in, SSO, RBAC</span></span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w"></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
+        <div class="foot">
+          <p class="fine">1 open incident: Object storage in EU-West is degraded (elevated PUT latency). Next update 11:00 UTC.</p>
+          <span class="glink" style="white-space:nowrap;">Incident history →</span>
+        </div>
+      </div>
+      <div class="opt-note">
+        <h3>What each row represents</h3>
+        <ul>
+          <li><strong>Object storage</strong>: S3-compatible object service. Health = API availability and latency SLO per region, so region is named in the sub-line.</li>
+          <li><strong>Data Services console</strong>: the management UI and its API. If this is down the customer cannot see or change anything, so it sits second, above the data planes.</li>
+          <li><strong>Block storage</strong>: provisioning, host mapping and management for arrays. The arrays keep serving I/O when this is degraded; the row is about being able to manage them.</li>
+          <li><strong>File storage</strong>: the file service control plane.</li>
+          <li><strong>Backup and recovery</strong>: cloud backup targets and scheduling. Degraded here means protection jobs are at risk, which is why Data protection sits beside this card.</li>
+          <li><strong>Disaster recovery</strong>: continuous replication and orchestration.</li>
+          <li><strong>Identity and access</strong>: sign-in, SSO federation, RBAC. Amber on days 13 and 14 shows a maintenance window.</li>
+        </ul>
+        <h3>Rules encoded</h3>
+        <p>Ordering is worst-first, then a fixed canonical order for the operational rows so the list is scannable day to day. The sub-line explains the state ("degraded since 09:12 UTC") only when the state is not Operational. The footer is the one open incident and a link to history; if there are no incidents the footer is omitted.</p>
+        <p class="fine">Bar: 30 segments, one per day, newest on the right. Colour = worst state during that day. Hover gives the date and duration; the bar never encodes a percentage.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 2b OPTION B ===== -->
+  <div class="pane" id="pane-b">
+    <div class="sec-h"><h2>Option B: Estate health</h2></div>
+    <p class="sec-sub">One row per monitored domain of the customer's own storage. The bar becomes a proportion (how many of each status), and the right-hand text names the exception to act on.</p>
+
+    <div class="opt">
+      <div class="card">
+        <div class="bhead">
+          <div><h2 class="bcard-title">Storage health</h2><div class="fine bcard-scope">All systems · 4 regions · 6 domains</div></div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="hrow cnt"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Systems</span><span class="sub">128 arrays · controllers, drives, power</span></span><span class="prop"><i style="flex:2;background:var(--red)"></i><i style="flex:5;background:var(--amber)"></i><i style="flex:121;background:var(--ok)"></i></span><span class="stt">2 critical</span></div>
+<div class="hrow cnt"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Volumes</span><span class="sub">1,842 · online, thresholds, latency</span></span><span class="prop"><i style="flex:33;background:var(--amber)"></i><i style="flex:1809;background:var(--ok)"></i></span><span class="stt">33 warning</span></div>
+<div class="hrow cnt"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Host connectivity</span><span class="sub">412 hosts · path redundancy</span></span><span class="prop"><i style="flex:412;background:var(--ok)"></i></span><span class="stt">All healthy</span></div>
+<div class="hrow cnt"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Replication</span><span class="sub">36 partnerships · in sync, RPO met</span></span><span class="prop"><i style="flex:2;background:var(--amber)"></i><i style="flex:34;background:var(--ok)"></i></span><span class="stt">2 lagging</span></div>
+<div class="hrow cnt"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Protection jobs</span><span class="sub">Last 24 h · snapshots and backups</span></span><span class="prop"><i style="flex:14;background:var(--red)"></i><i style="flex:1180;background:var(--ok)"></i></span><span class="stt">14 failed</span></div>
+<div class="hrow cnt"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Firmware baseline</span><span class="sub">128 systems · recommended release</span></span><span class="prop"><i style="flex:4;background:var(--amber)"></i><i style="flex:124;background:var(--ok)"></i></span><span class="stt">4 behind</span></div>
+        <div class="legend-inline"><span><i class="sw" style="background:var(--red)"></i>Critical</span><span><i class="sw" style="background:var(--amber)"></i>Warning</span><span><i class="sw" style="background:var(--ok)"></i>Healthy</span></div>
+        <div class="foot">
+          <p class="fine">2 critical: controller failover on Array-DAL-04, degraded drive set on Array-FRA-11.</p>
+          <span class="glink" style="white-space:nowrap;">View 55 items →</span>
+        </div>
+      </div>
+      <div class="opt-note">
+        <h3>What each row represents</h3>
+        <ul>
+          <li><strong>Systems</strong>: the arrays themselves. Health from hardware telemetry: controllers, drive sets, power, fans, temperature. Critical = redundancy lost.</li>
+          <li><strong>Volumes</strong>: logical volumes served to hosts. Warning = offline, over capacity threshold, or breaching a latency SLO.</li>
+          <li><strong>Host connectivity</strong>: initiators and paths. Warning = single-path host; critical = host with no active path.</li>
+          <li><strong>Replication</strong>: partnerships between systems. Warning = link lagging its RPO; critical = link down.</li>
+          <li><strong>Protection jobs</strong>: snapshots and backups in the last 24 hours. Red = failed runs. This overlaps the Data protection card, which shows coverage; this row shows execution.</li>
+          <li><strong>Firmware baseline</strong>: systems not on the recommended release. Never critical on its own; a warning that feeds risk.</li>
+        </ul>
+        <h3>Rules encoded</h3>
+        <p>Rows sort critical first, then warning, then healthy. The proportion bar shows counts, so a domain with 1,842 items and 33 warnings still reads mostly green; the right-hand text carries the exception so the eye does not have to judge a sliver. The card is titled <strong>Storage health</strong> because it is about the estate, not the service.</p>
+        <p class="fine">Because rows are counts, not histories, there is no 30-day bar. If a trend is wanted, it belongs on a drill-down, not in the list.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 2c OPTION C ===== -->
+  <div class="pane" id="pane-c">
+    <div class="sec-h"><h2>Option C: Layered stack</h2></div>
+    <p class="sec-sub">Both framings in one card, grouped by layer: the service the customer depends on, the infrastructure they own, and the data on it. Use this when the page has no other estate-health surface.</p>
+
+    <div class="opt">
+      <div class="card">
+        <div class="bhead">
+          <div><h2 class="bcard-title">Health</h2><div class="fine bcard-scope">Service, infrastructure and data · updated 2 min ago</div></div>
+          <span class="arrow">→</span>
+        </div>
+        <div class="grp">GreenLake service · last 30 days</div>
+        <div class="hrow up"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Object storage</span><span class="sub">EU-West</span></span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="c"></i><i class="w"></i><i class="w"></i></span><span class="stt">Degraded</span></div>
+<div class="hrow up"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">5 other services</span><span class="sub">Console, block, file, DR, identity</span></span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
+        <div class="grp">Infrastructure</div>
+        <div class="hrow cnt"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Systems</span><span class="sub">128 arrays</span></span><span class="prop"><i style="flex:2;background:var(--red)"></i><i style="flex:5;background:var(--amber)"></i><i style="flex:121;background:var(--ok)"></i></span><span class="stt">2 critical</span></div>
+<div class="hrow cnt"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Host connectivity</span><span class="sub">412 hosts</span></span><span class="prop"><i style="flex:412;background:var(--ok)"></i></span><span class="stt">All healthy</span></div>
+        <div class="grp">Data</div>
+        <div class="hrow cnt"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Volumes</span><span class="sub">1,842</span></span><span class="prop"><i style="flex:33;background:var(--amber)"></i><i style="flex:1809;background:var(--ok)"></i></span><span class="stt">33 warning</span></div>
+<div class="hrow cnt"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Protection jobs</span><span class="sub">Last 24 h</span></span><span class="prop"><i style="flex:14;background:var(--red)"></i><i style="flex:1180;background:var(--ok)"></i></span><span class="stt">14 failed</span></div>
+<div class="hrow cnt"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Replication</span><span class="sub">36 partnerships</span></span><span class="prop"><i style="flex:2;background:var(--amber)"></i><i style="flex:34;background:var(--ok)"></i></span><span class="stt">2 lagging</span></div>
+        <div class="foot">
+          <p class="fine">Most urgent: 14 protection jobs failed overnight on Finance-Prod, all against the degraded EU-West object target.</p>
+          <span class="glink" style="white-space:nowrap;">View all →</span>
+        </div>
+      </div>
+      <div class="opt-note">
+        <h3>How it reads</h3>
+        <p>Top to bottom follows the dependency chain: if the service layer is degraded, that is often the cause of the rows beneath it, which is exactly the story in this example (a degraded object target causing failed backup jobs). The footer sentence makes that link explicit rather than leaving the admin to join the dots.</p>
+        <ul>
+          <li><strong>Service</strong> keeps the uptime-bar treatment because it has a daily history. Operational services collapse into one row ("5 other services") so the group never exceeds two or three rows.</li>
+          <li><strong>Infrastructure</strong> and <strong>Data</strong> use the proportion treatment from Option B. Sub-lines shrink to the count only; the domain name carries the meaning.</li>
+          <li>Group labels are the small-caps row style already used in "Needs your attention".</li>
+        </ul>
+        <h3>Trade-offs</h3>
+        <p>Two visual encodings in one card costs some scan speed, and the card is taller (seven rows plus three group labels). It earns its place only when it replaces two cards, not when it sits beside them.</p>
+        <p class="fine">Title becomes plain <strong>Health</strong> because neither "Service" nor "Storage" describes the whole.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 3 GLOSSARY ===== -->
+  <div class="pane" id="pane-gloss">
+    <div class="sec-h"><h2>Row glossary</h2></div>
+    <p class="sec-sub">Every monitoring domain a row in this widget could represent, what signal drives its state, and which option it belongs to. Pick from this list rather than inventing rows per page.</p>
+    <table class="gl">
+      <thead><tr><th>Row</th><th>What it represents</th><th>Signal that sets the state</th><th>Turns red when</th><th>Belongs to</th></tr></thead>
+      <tbody>
+        <tr><td>Data Services console</td><td>Management UI and public API for all data services</td><td>Synthetic availability probe, API error rate</td><td>Console or API unreachable</td><td>A, C</td></tr>
+        <tr><td>Block storage</td><td>Provisioning and management plane for arrays</td><td>Control-plane API availability</td><td>Provisioning or host mapping fails</td><td>A, C</td></tr>
+        <tr><td>File storage</td><td>File service control plane</td><td>Control-plane API availability</td><td>Shares cannot be created or managed</td><td>A, C</td></tr>
+        <tr><td>Object storage</td><td>S3-compatible object service, per region</td><td>API availability, PUT/GET latency SLO</td><td>Region unavailable or latency SLO breached</td><td>A, C</td></tr>
+        <tr><td>Backup and recovery</td><td>Cloud backup targets and job scheduling</td><td>Service availability, scheduler health</td><td>Backups cannot run or restore</td><td>A, C</td></tr>
+        <tr><td>Disaster recovery</td><td>Continuous replication and failover orchestration</td><td>Service availability, journal health</td><td>Replication halted service-wide</td><td>A, C</td></tr>
+        <tr><td>Identity and access</td><td>Sign-in, SSO federation, RBAC evaluation</td><td>Auth success rate, SSO latency</td><td>Users cannot sign in</td><td>A, C</td></tr>
+        <tr><td>Systems</td><td>Customer-owned arrays</td><td>Hardware telemetry: controllers, drives, power, thermal</td><td>Redundancy lost on any component</td><td>B, C</td></tr>
+        <tr><td>Volumes</td><td>Logical volumes served to hosts</td><td>Online state, capacity threshold, latency SLO</td><td>Volume offline</td><td>B, C</td></tr>
+        <tr><td>Host connectivity</td><td>Initiators and their paths to storage</td><td>Active path count, multipath redundancy</td><td>Host has no active path</td><td>B, C</td></tr>
+        <tr><td>Replication</td><td>Partnerships between systems</td><td>Sync state, RPO lag</td><td>Link down</td><td>B, C</td></tr>
+        <tr><td>Protection jobs</td><td>Snapshot and backup runs, last 24 h</td><td>Job outcome</td><td>Any job failed</td><td>B, C</td></tr>
+        <tr><td>Firmware baseline</td><td>Systems on the recommended release</td><td>Version vs baseline</td><td>Never red on its own; warning only</td><td>B</td></tr>
+        <tr><td>Capacity headroom</td><td>Systems above the capacity threshold</td><td>Used vs total per system</td><td>Any system above 90%</td><td>B (only if no Capacity card)</td></tr>
+      </tbody>
+    </table>
+    <p class="fine" style="margin-top:16px; max-width:760px;">Rows that duplicate a neighbouring card (Capacity headroom beside a Capacity card, Protection jobs beside Data protection) should be dropped from the list or reframed so each carries a distinct fact: coverage on one card, execution on the other.</p>
+  </div>
+</div>
+
+<script>
+function setTab(id, btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pane-'+id).classList.add('on'); btn.classList.add('on');
+  history.replaceState(null,'','#'+id);
+}
+(function(){ const h=location.hash.slice(1); const b=[...document.querySelectorAll('.tabbtn')].find(x=>x.getAttribute('onclick').includes("'"+h+"'")); if(b) setTab(h,b); })();
+</script>
+<script src="livereload.js"></script>
+<script src="library-nav.js"></script>
+</body>
+</html>
