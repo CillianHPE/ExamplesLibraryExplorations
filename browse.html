@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Browse all examples · Examples library</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<link rel="stylesheet" href="/catalogue.css">
+<script src="/hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Browse</div>
+</header>
+
+<div class="cb-wrap">
+  <div class="cb-crumb"><a href="/index.html">Examples library</a> · Browse</div>
+  <div class="cb-head">
+    <div>
+      <h1 id="title">Browse all examples</h1>
+      <p class="cb-intro" id="intro">Every widget, page archetype, layout and composition in one place. Start from what you are trying to do, then narrow by family, size or source page.</p>
+    </div>
+  </div>
+
+  <div class="cb-kinds" id="kinds"></div>
+
+  <div class="cb-layout">
+    <aside class="cb-facets" id="facets" aria-label="Filters"></aside>
+
+    <main>
+      <div class="cb-toolbar">
+        <label class="cb-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg>
+          <input id="q" type="search" placeholder="Search by name, question or job" autocomplete="off">
+          <button id="q-clear" type="button" aria-label="Clear search" hidden>✕</button>
+        </label>
+        <span class="cb-count" id="count"></span>
+        <div class="cb-sort">
+          <label for="sort">Sort</label>
+          <select id="sort">
+            <option value="code">Catalogue order</option>
+            <option value="title">Name A to Z</option>
+            <option value="family">Family / category</option>
+          </select>
+        </div>
+      </div>
+      <div class="cb-active" id="active"></div>
+      <div class="cb-grid" id="grid"></div>
+    </main>
+  </div>
+</div>
+
+<script src="/catalogue-data.js"></script>
+<script src="/catalogue.js"></script>
+<script>
+(function () {
+  const { D, esc, renderCards } = Catalogue;
+  const $ = (s) => document.querySelector(s);
+
+  // Facet definitions: which field, how to label, and which kinds show it.
+  const FACETS = [
+    { key: 'job',    label: 'What are you trying to do?', field: 'jobs',     labels: D.JOBS, multi: true },
+    { key: 'family', label: 'Widget family',              field: 'family',   labels: Object.fromEntries(Object.entries(D.FAMILIES).map(([k, v]) => [k, `${v.letter} · ${v.label}`])), kinds: ['widget'] },
+    { key: 'cat',    label: 'Page category',              field: 'category', labels: { dashboards: 'Dashboards', details: 'Details', 'data-collection': 'Data collection' }, kinds: ['page'] },
+    { key: 'size',   label: 'Board size',                 field: 'sizes',    labels: { '1x1': '1×1', '2x1': '2×1', '2x2': '2×2' }, kinds: ['widget'] },
+    { key: 'source', label: 'Drills to',                  field: 'source',   labels: { t1: 'T1 Overview', t2: 'T2 Triage', t3: 'T3 Analytics', t4: 'T4 Object detail', t5: 'T5 Custom board', d1: 'D1 Inventory table', d3: 'D3 Event stream', d4: 'D4 Analytics explorer', d5: 'D5 Map' }, kinds: ['widget'] },
+  ];
+
+  // ---- State lives in the URL ----
+  function readState() {
+    const p = new URLSearchParams(location.search);
+    const s = { kind: p.get('kind') || '', q: p.get('q') || '', sort: p.get('sort') || 'code', f: {} };
+    FACETS.forEach(f => { const v = p.get(f.key); s.f[f.key] = v ? v.split(',').filter(Boolean) : []; });
+    return s;
+  }
+  function writeState() {
+    const p = new URLSearchParams();
+    if (state.kind) p.set('kind', state.kind);
+    if (state.q) p.set('q', state.q);
+    if (state.sort !== 'code') p.set('sort', state.sort);
+    FACETS.forEach(f => { if (state.f[f.key].length) p.set(f.key, state.f[f.key].join(',')); });
+    const qs = p.toString();
+    history.replaceState(null, '', location.pathname + (qs ? '?' + qs : ''));
+  }
+  let state = readState();
+
+  // ---- Filtering ----
+  const has = (item, field, v) => { const x = item[field]; return Array.isArray(x) ? x.includes(v) : x === v; };
+  function matchesFacets(item, except) {
+    return FACETS.every(f => {
+      if (f.key === except) return true;
+      const sel = state.f[f.key];
+      if (!sel.length) return true;
+      if (f.kinds && !f.kinds.includes(item.kind)) return false;
+      return sel.some(v => has(item, f.field, v));
+    });
+  }
+  function matchesSearch(item) {
+    if (!state.q) return true;
+    const hay = [item.code, item.title, item.question, item.description, item.useWhen, item.notWhen,
+      ...(item.jobs || []).map(j => D.JOBS[j]), Catalogue.groupLabel(item), Catalogue.kindLabel(item)].join(' ').toLowerCase();
+    return state.q.toLowerCase().split(/\s+/).filter(Boolean).every(t => hay.includes(t));
+  }
+  const matchesKind = (item) => !state.kind || item.kind === state.kind;
+
+  const ORDER = { widget: 0, page: 1, layout: 2, composition: 3 };
+  function sortItems(items) {
+    const byCode = (a, b) => ORDER[a.kind] - ORDER[b.kind] || D.items.indexOf(a) - D.items.indexOf(b);
+    if (state.sort === 'title') return items.sort((a, b) => a.title.localeCompare(b.title));
+    if (state.sort === 'family') return items.sort((a, b) => Catalogue.groupLabel(a).localeCompare(Catalogue.groupLabel(b)) || byCode(a, b));
+    return items.sort(byCode);
+  }
+
+  // ---- Rendering ----
+  function renderKinds() {
+    const base = D.items.filter(i => matchesSearch(i) && matchesFacets(i));
+    const opts = [['', 'All'], ...Object.entries(D.KINDS).map(([k, v]) => [k, v.label])];
+    $('#kinds').innerHTML = opts.map(([k, label]) => {
+      const n = base.filter(i => !k || i.kind === k).length;
+      return `<button class="cb-kind${state.kind === k ? ' on' : ''}" data-kind="${k}">${esc(label)}<span class="n">${n}</span></button>`;
+    }).join('');
+    $('#kinds').querySelectorAll('.cb-kind').forEach(b => b.addEventListener('click', () => {
+      state.kind = b.dataset.kind;
+      // Drop facets that do not apply to the newly chosen kind.
+      FACETS.forEach(f => { if (f.kinds && state.kind && !f.kinds.includes(state.kind)) state.f[f.key] = []; });
+      update();
+    }));
+  }
+
+  function renderFacets() {
+    const pool = D.items.filter(i => matchesKind(i) && matchesSearch(i));
+    $('#facets').innerHTML = FACETS.map(f => {
+      if (f.kinds && state.kind && !f.kinds.includes(state.kind)) return '';
+      const sel = state.f[f.key];
+      // Counts reflect every other active filter, so options show what selecting them would yield.
+      const scoped = pool.filter(i => matchesFacets(i, f.key));
+      const rows = Object.entries(f.labels).map(([v, label]) => {
+        const n = scoped.filter(i => (!f.kinds || f.kinds.includes(i.kind)) && has(i, f.field, v)).length;
+        if (!n && !sel.includes(v) && f.key === 'job') return '';
+        const on = sel.includes(v);
+        return `<label class="cb-opt${on ? ' on' : ''}${!n && !on ? ' off' : ''}">
+          <input type="checkbox" data-facet="${f.key}" value="${esc(v)}"${on ? ' checked' : ''}>
+          <span>${esc(label)}</span><span class="n">${n}</span></label>`;
+      }).join('');
+      if (!rows) return '';
+      return `<div class="cb-facet"><h3>${esc(f.label)}${sel.length ? `<button data-clear="${f.key}">Clear</button>` : ''}</h3>${rows}</div>`;
+    }).join('');
+    $('#facets').querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => {
+      const arr = state.f[cb.dataset.facet];
+      const i = arr.indexOf(cb.value);
+      if (cb.checked && i < 0) arr.push(cb.value);
+      if (!cb.checked && i >= 0) arr.splice(i, 1);
+      update();
+    }));
+    $('#facets').querySelectorAll('[data-clear]').forEach(b => b.addEventListener('click', () => { state.f[b.dataset.clear] = []; update(); }));
+  }
+
+  function renderActive() {
+    const chips = [];
+    if (state.q) chips.push({ k: 'Search', v: `“${state.q}”`, clear: () => { state.q = ''; } });
+    FACETS.forEach(f => state.f[f.key].forEach(v => chips.push({ k: f.label.replace('?', ''), v: f.labels[v] || v, clear: () => { state.f[f.key] = state.f[f.key].filter(x => x !== v); } })));
+    $('#active').innerHTML = chips.map((c, i) => `<span class="cb-chip"><span class="k">${esc(c.k)}:</span>${esc(c.v)}<button data-i="${i}" aria-label="Remove filter">✕</button></span>`).join('')
+      + (chips.length > 1 ? '<button class="cb-clear" data-all>Clear all</button>' : '');
+    $('#active').querySelectorAll('button[data-i]').forEach(b => b.addEventListener('click', () => { chips[+b.dataset.i].clear(); update(); }));
+    const all = $('#active').querySelector('[data-all]');
+    if (all) all.addEventListener('click', () => { state.q = ''; FACETS.forEach(f => state.f[f.key] = []); update(); });
+  }
+
+  function renderGrid() {
+    const items = sortItems(D.items.filter(i => matchesKind(i) && matchesSearch(i) && matchesFacets(i)));
+    const total = D.items.filter(matchesKind).length;
+    $('#count').innerHTML = items.length === total ? `<b>${items.length}</b> examples` : `<b>${items.length}</b> of ${total} examples`;
+    if (!items.length) {
+      $('#grid').innerHTML = `<div class="cb-empty" style="grid-column:1/-1"><b>No examples match</b>Try removing a filter or searching for the viewer's question instead of a chart name.<br><button class="btn secondary" data-reset>Clear filters</button></div>`;
+      $('#grid').querySelector('[data-reset]').addEventListener('click', () => { state.q = ''; state.kind = ''; FACETS.forEach(f => state.f[f.key] = []); update(); });
+      return;
+    }
+    renderCards($('#grid'), items);
+  }
+
+  function renderTitle() {
+    const k = state.kind ? D.KINDS[state.kind].label : 'all examples';
+    $('#title').textContent = state.kind ? `Browse ${k.toLowerCase()}` : 'Browse all examples';
+    document.title = `${$('#title').textContent} · Examples library`;
+    const intros = {
+      widget: 'Fourteen canonical widget types in five families, each defined by the question it answers. Filter by what you are trying to show; the visualisation follows.',
+      page: 'Ten page archetypes: five dashboard and detail types (T1 to T5) and five data-collection patterns (D1 to D5). Each states its job, when it fits and when it does not.',
+      layout: 'The structural rules under every page and widget: containers, content headers, and the widget anatomy.',
+      composition: 'Card gallery jobs and the working explorations behind them: presentation variants and required states worked through in detail.',
+    };
+    $('#intro').textContent = intros[state.kind] || 'Every widget, page archetype, layout and composition in one place. Start from what you are trying to do, then narrow by family, size or source page.';
+  }
+
+  function update() {
+    writeState();
+    renderTitle(); renderKinds(); renderFacets(); renderActive(); renderGrid();
+    $('#q-clear').hidden = !state.q;
+    $('#sort').value = state.sort;
+  }
+
+  // ---- Wiring ----
+  const q = $('#q');
+  q.value = state.q;
+  let t;
+  q.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { state.q = q.value.trim(); update(); }, 120); });
+  $('#q-clear').addEventListener('click', () => { q.value = ''; state.q = ''; update(); q.focus(); });
+  $('#sort').addEventListener('change', e => { state.sort = e.target.value; update(); });
+  window.addEventListener('popstate', () => { state = readState(); q.value = state.q; update(); });
+  document.addEventListener('keydown', e => { if (e.key === '/' && document.activeElement !== q) { e.preventDefault(); q.focus(); } });
+
+  update();
+})();
+</script>
+
+<script src="/library-nav.js"></script>
+<script src="/livereload.js"></script>
+</body>
+</html>

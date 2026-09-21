@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Example · Examples library</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<link rel="stylesheet" href="/catalogue.css">
+<script src="/hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Browse</div>
+</header>
+
+<div class="cb-wrap" id="root"></div>
+
+<script src="/catalogue-data.js"></script>
+<script src="/catalogue.js"></script>
+<script>
+(function () {
+  const { D, esc, mountPreview, renderCards, kindLabel, groupLabel, itemHref } = Catalogue;
+  const id = new URLSearchParams(location.search).get('id');
+  const item = D.byId[id];
+  const root = document.getElementById('root');
+
+  if (!item) {
+    root.innerHTML = `<div class="cb-crumb"><a href="/index.html">Examples library</a> · <a href="/browse.html">Browse</a></div>
+      <div class="cb-empty"><b>No example with id “${esc(id || '')}”</b><a href="/browse.html">Browse all examples</a></div>`;
+    return;
+  }
+
+  const kindHref = `/browse.html?kind=${item.kind}`;
+  const jobLink = (j) => `<a href="/browse.html?kind=${item.kind}&job=${j}">${esc(D.JOBS[j])}</a>`;
+  const groupHref = item.kind === 'widget' ? `${kindHref}&family=${item.family}` : item.kind === 'page' ? `${kindHref}&cat=${item.category}` : kindHref;
+  document.title = `${item.code} ${item.title} · Examples library`;
+
+  // ---- Spec grid ----
+  const ALL_SIZES = ['1x1', '2x1', '2x2'];
+  const SRC = { t1: 'T1 Overview', t2: 'T2 Triage', t3: 'T3 Analytics', t4: 'T4 Object detail', t5: 'T5 Custom board', d1: 'D1 Inventory table', d2: 'D2 Card grid', d3: 'D3 Event stream', d4: 'D4 Analytics explorer', d5: 'D5 Map' };
+  const specRows = [];
+  Object.entries(item.spec || {}).forEach(([k, v]) => specRows.push(`<div><h3>${esc(k)}</h3><p>${esc(v)}</p></div>`));
+  if (item.sizes) specRows.push(`<div><h3>Sizes</h3><p><span class="sizes">${ALL_SIZES.map(s => `<span class="sz${item.sizes.includes(s) ? '' : ' off'}">${s.replace('x', '×')}</span>`).join('')}</span> on a T5 grid.</p></div>`);
+  if (item.source && item.source.length) specRows.push(`<div class="src"><h3>Drills to</h3><p>${item.source.map(s => `<a href="${itemHref(D.byId[s])}">${esc(SRC[s])}</a>`).join(' · ')}</p></div>`);
+  if (item.gallery) specRows.push(`<div><h3>Card gallery</h3><p><a href="${item.gallery.href}">${esc(item.gallery.label)}</a>: presentation variants and required states.</p></div>`);
+  if (item.lofi) specRows.push(`<div><h3>Lo-fi spec</h3><p><a href="${item.lofi}">Open the annotated wireframe</a>.</p></div>`);
+
+  // ---- Preview actions ----
+  const openLabel = item.kind === 'widget' ? 'Open in catalogue' : item.kind === 'page' ? 'Open in viewer' : 'Open';
+  const primaryVariant = item.variants && item.variants[0];
+
+  root.innerHTML = `
+    <div class="cb-crumb"><a href="/index.html">Examples library</a> · <a href="/browse.html">Browse</a> · <a href="${kindHref}">${esc(D.KINDS[item.kind].label)}</a> · ${esc(item.title)}</div>
+
+    <div class="it-hero">
+      <div>
+        <div class="it-preview" id="preview"></div>
+        <div class="it-preview-actions">
+          <a class="btn secondary" href="${item.href}">${openLabel}</a>
+          ${primaryVariant && item.kind === 'page' ? `<a class="btn" href="${primaryVariant.href}">Open hi-fi page</a>` : ''}
+          ${item.lofi ? `<a class="btn" href="${item.lofi}">Lo-fi spec</a>` : ''}
+          <span class="fine">${item.preview && item.preview.type === 'page' ? 'Live page, scaled to fit' : 'Live markup from the catalogue'}</span>
+        </div>
+      </div>
+      <div class="it-title">
+        <div class="it-eyebrow"><a href="${kindHref}">${esc(kindLabel(item))}</a> · <a href="${groupHref}">${esc(item.code)} · ${esc(groupLabel(item))}</a></div>
+        <h1>${esc(item.title)}</h1>
+        ${item.question ? `<p class="it-q">${esc(item.question)}</p>` : ''}
+        <p class="it-desc">${esc(item.description)}</p>
+        ${item.jobs && item.jobs.length ? `<div class="it-tags">${item.jobs.map(jobLink).join('')}</div>` : ''}
+        ${item.useWhen ? `<div class="it-uw">
+          <div><h3>Use when</h3><p>${esc(item.useWhen)}</p></div>
+          <div class="not"><h3>Not when</h3><p>${esc(item.notWhen)}</p></div>
+        </div>` : ''}
+        ${specRows.length ? `<div class="it-spec">${specRows.join('')}</div>` : ''}
+      </div>
+    </div>
+
+    <div id="sections"></div>
+
+    <div class="it-nav" id="pager"></div>
+  `;
+
+  mountPreview(document.getElementById('preview'), item, { stageWidth: 400, pad: 32, maxScale: 1.15 });
+
+  // ---- Sections ----
+  const sections = document.getElementById('sections');
+  const section = (title, sub, bodyHtml, linkHtml = '') => {
+    const s = document.createElement('section');
+    s.className = 'it-sec';
+    s.innerHTML = `<div class="it-sec-h"><h2>${esc(title)}</h2>${linkHtml}</div>${sub ? `<p class="it-sec-sub">${esc(sub)}</p>` : ''}${bodyHtml}`;
+    sections.appendChild(s);
+    return s;
+  };
+  const useTile = (href, title, sub, src) => `<a class="it-use" href="${href}"><div class="pv" data-page="${esc(src || href)}"></div><div class="b"><div class="t">${esc(title)}</div>${sub ? `<div class="s">${esc(sub)}</div>` : ''}</div></a>`;
+  const mountTiles = (s) => s.querySelectorAll('.it-use .pv').forEach(el => mountPreview(el, { preview: { type: 'page', src: el.dataset.page } }));
+
+  // Variations (pages): the A to D hi-fi builds.
+  if (item.variants && item.variants.length) {
+    const s = section('Variations', 'The same archetype filled with different real use cases. Open one to toggle lo-fi and hi-fi in the viewer.',
+      `<div class="it-uses">${item.variants.map(v => useTile(v.viewer || v.href, v.label, '', v.href)).join('')}</div>`);
+    mountTiles(s);
+  }
+
+  // Seen in use: hi-fi pages that carry this widget or pattern.
+  if (item.seenIn && item.seenIn.length) {
+    const s = section('Seen in use', item.kind === 'widget'
+        ? 'Hi-fi pages where this widget type appears. The note names the widget on that page.'
+        : 'Applied exercises built on this archetype.',
+      `<div class="it-uses">${item.seenIn.map(u => { const p = D.PAGES[u.page]; return useTile(p.href, p.label, u.note); }).join('')}</div>`);
+    mountTiles(s);
+  }
+
+  // Widgets used on a page archetype.
+  if (item.widgets && item.widgets.length) {
+    const ws = item.widgets.map(w => D.byId[w]).filter(Boolean);
+    const s = section('Widgets on this page', item.id === 't5' ? 'A custom board can hold any type; these are the fourteen.' : 'Widget types that typically make up this archetype.',
+      `<div class="cb-grid cb-tight" id="widgets"></div>`, `<a href="/browse.html?kind=widget${item.id !== 't5' ? '&source=' + item.id : ''}">Browse widgets that drill here</a>`);
+    renderCards(s.querySelector('#widgets'), ws, { maxJobs: 1 });
+  }
+
+  // Alternatives and related examples.
+  if (item.related && item.related.length) {
+    const rel = item.related.map(r => D.byId[r]).filter(Boolean);
+    const s = section('Alternatives and related', 'What to reach for when this one does not fit, and the specs it depends on.',
+      `<div class="cb-grid cb-tight" id="related"></div>`);
+    renderCards(s.querySelector('#related'), rel, { maxJobs: 1, note: (r) => r.kind === item.kind && item.notWhen && item.notWhen.includes(r.code) ? `Named in “not when”` : '' });
+  }
+
+  // Everything that shares a job with this item (excluding those already shown).
+  if (item.jobs && item.jobs.length) {
+    const shown = new Set([item.id, ...(item.related || []), ...(item.widgets || [])]);
+    const same = D.items.filter(i => !shown.has(i.id) && i.jobs && i.jobs.some(j => item.jobs.includes(j)));
+    if (same.length) {
+      const s = section('Same job, different form', `Other examples tagged ${item.jobs.map(j => `“${D.JOBS[j]}”`).join(' or ')}.`,
+        `<div class="cb-grid cb-tight" id="same"></div>`, `<a href="/browse.html?job=${item.jobs[0]}">See all</a>`);
+      renderCards(s.querySelector('#same'), same.slice(0, 8), { maxJobs: 1 });
+    }
+  }
+
+  // Prev / next within the same kind, in catalogue order.
+  const siblings = D.items.filter(i => i.kind === item.kind);
+  const idx = siblings.indexOf(item);
+  const prev = siblings[idx - 1], next = siblings[idx + 1];
+  document.getElementById('pager').innerHTML =
+    (prev ? `<a href="${itemHref(prev)}"><small>Previous</small>← ${esc(prev.code)} · ${esc(prev.title)}</a>` : '<span></span>') +
+    (next ? `<a class="next" href="${itemHref(next)}"><small>Next</small>${esc(next.code)} · ${esc(next.title)} →</a>` : '<span></span>');
+})();
+</script>
+
+<script src="/library-nav.js"></script>
+<script src="/livereload.js"></script>
+</body>
+</html>

@@ -38,4 +38,5 @@
     });
   }
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', render) : render();
+  window.renderIcons = render; // for markup injected after load (catalogue previews)
 })();

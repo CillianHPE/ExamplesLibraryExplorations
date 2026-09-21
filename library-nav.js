@@ -1,8 +1,16 @@
 // Global library navigation: floating button + drawer, present on every page.
 (function () {
+  if (window.self !== window.top) return; // embedded as a preview: no chrome
   // Tree: top-level categories → expandable groups → links.
   const NAV = [
     { label: 'Home', href: '/index.html' },
+    { label: 'Browse', children: [
+      { href: '/browse.html', label: 'All examples' },
+      { href: '/browse.html?kind=widget', label: 'Widgets' },
+      { href: '/browse.html?kind=page', label: 'Pages' },
+      { href: '/browse.html?kind=layout', label: 'Layouts' },
+      { href: '/browse.html?kind=composition', label: 'UI compositions' },
+    ]},
     { label: 'Pages', children: [
       { label: 'Build specs', children: [
         { href: '/build-specs/index.html', label: 'Overview' },
@@ -177,9 +185,15 @@
   const here = location.pathname + location.search;
   const isCur = (href) => {
     const [path, hash] = href.split('#');
-    if (path !== here && path !== location.pathname) return false;
+    if (path.includes('?') ? path !== here : path !== location.pathname) return false;
+    if (!path.includes('?') && location.search && NAV_HAS_QUERY_VARIANT(path)) return false;
     return hash ? '#' + hash === location.hash : true;
   };
+  // A plain link (e.g. /browse.html) is not current when a query variant of it (/browse.html?kind=…) exists and the page has a query.
+  function NAV_HAS_QUERY_VARIANT(path) {
+    const scan = (nodes) => nodes.some(n => n.href ? n.href.startsWith(path + '?') : scan(n.children || []));
+    return scan(NAV);
+  }
 
   const root = document.createElement('div');
   const chev = '<svg class="chev" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>';

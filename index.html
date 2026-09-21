@@ -21,6 +21,11 @@
   .arch-card .open { font-size: 13.5px; font-weight: 600; color: var(--gl-green-dark); text-decoration: underline; }
   .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 14px; }
   .ex-list a { display: block; font-size: 14px; color: var(--gl-green-dark); text-decoration: underline; padding: 6px 0; }
+  .browse-bar { display: flex; align-items: center; justify-content: space-between; gap: 32px; background: var(--contained); border-radius: var(--radius); padding: 24px 28px; }
+  .browse-bar p { font-size: 13.5px; color: var(--gl-ink-soft); line-height: 1.55; max-width: 560px; }
+  .browse-links { display: flex; gap: 8px; flex: none; flex-wrap: wrap; justify-content: flex-end; }
+  .browse-links .btn { text-decoration: none; }
+  @media (max-width: 900px) { .browse-bar { flex-direction: column; align-items: flex-start; } .browse-links { justify-content: flex-start; } }
 </style>
 </head>
 <body>
@@ -36,7 +41,20 @@
   <p class="intro">Page types for the GreenLake design system, each broken into canonical archetypes. Open an archetype to see its
     low-fidelity spec and high-fidelity build side by side.</p>
 
-  <div class="sec-h" style="margin-top:8px;">Pages · Dashboards</div>
+  <div class="browse-bar">
+    <div>
+      <div class="sec-h" style="margin:0 0 4px;">Browse all examples</div>
+      <p>Search and filter every widget, page, layout and composition by what you are trying to do: show a trend, report an exception, find and manage items.</p>
+    </div>
+    <div class="browse-links">
+      <a class="btn primary" href="browse.html">Browse all</a>
+      <a class="btn secondary" href="browse.html?kind=widget">Widgets</a>
+      <a class="btn secondary" href="browse.html?kind=page">Pages</a>
+      <a class="btn secondary" href="browse.html?kind=composition">UI compositions</a>
+    </div>
+  </div>
+
+  <div class="sec-h" style="margin-top:40px;">Pages · Dashboards</div>
   <div class="arch-grid">
     <a class="arch-card" href="viewer.html?t=t1">
       <span class="tag">T1</span>
