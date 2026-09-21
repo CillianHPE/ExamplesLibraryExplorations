@@ -93,8 +93,12 @@
   .st-row .sd { width: 10px; height: 10px; border-radius: 50%; flex: none; }
   .st-row .nm { flex: 1; color: var(--gl-ink); }
   .st-row .stt { color: var(--gl-ink-soft); font-size: 12.5px; }
-  .seg-bar { display: flex; gap: 2px; flex: 0 0 90px; }
-  .seg-bar i { flex: 1; height: 12px; border-radius: 1px; background: var(--ok); }
+  /* uptime list: fixed columns so dots, names, bars and states share one axis */
+  .st-row.up { display: grid; grid-template-columns: 10px 1fr 92px 76px; gap: 10px; align-items: center; }
+  .st-row.up .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+  .st-row.up .stt { text-align: right; white-space: nowrap; line-height: 1.2; }
+  .seg-bar { display: flex; gap: 1px; height: 12px; }
+  .seg-bar i { flex: 1; min-width: 0; border-radius: 1px; background: var(--ok); }
   .seg-bar i.w { background: var(--amber); } .seg-bar i.c { background: var(--red); }
   .sev-row { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 10px; }
   .mini-tbl { width: 100%; font-size: 12.5px; }
@@ -364,12 +368,12 @@
   <div class="entry" id="w7">
     <div class="ex">
       <div class="card">
-        <div class="card-head"><div class="hgroup"><h2>Service health</h2><div class="scope">Last 30 days</div></div><span class="arrow">→</span></div>
+        <div class="card-head"><div class="hgroup"><h2>Service health</h2><div class="scope">Last 30 days · daily</div></div><span class="arrow">→</span></div>
         <div class="st-list">
-          <div class="st-row"><span class="sd" style="background:var(--red)"></span><span class="nm">Object storage · EU-W</span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="c"></i></span><span class="stt">Degraded</span></div>
-          <div class="st-row"><span class="sd" style="background:var(--amber)"></span><span class="nm">Identity</span><span class="seg-bar"><i></i><i></i><i></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Maintenance</span></div>
-          <div class="st-row"><span class="sd" style="background:var(--ok)"></span><span class="nm">Compute Ops</span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
-          <div class="st-row"><span class="sd" style="background:var(--ok)"></span><span class="nm">Data Services</span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
+          <div class="st-row up"><span class="sd" style="background:var(--red)"></span><span class="nm">Object storage</span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="c"></i><i class="c"></i><i class="c"></i></span><span class="stt">Degraded</span></div>
+          <div class="st-row up"><span class="sd" style="background:var(--amber)"></span><span class="nm">Identity</span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w"></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Maintenance</span></div>
+          <div class="st-row up"><span class="sd" style="background:var(--ok)"></span><span class="nm">Compute Ops</span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
+          <div class="st-row up"><span class="sd" style="background:var(--ok)"></span><span class="nm">Data Services</span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
         </div>
       </div>
     </div>
@@ -377,9 +381,9 @@
       <span class="tag">W7 · Monitor</span>
       <h2>Status list</h2>
       <p class="job">What is up and what is down?</p>
-      <p class="desc">A short roll of named things each with one state. Sorted by severity, so when everything is fine the eye can stop at the first row. Uptime segment bars add history without a chart.</p>
+      <p class="desc">A short roll of named things each with one state. Sorted by severity, so when everything is fine the eye can stop at the first row. Uptime bars add 30 days of history without a chart; hover a segment for the day and duration.</p>
       <div class="spec">
-        <div><h3>Body</h3><p>≤6 rows: status dot · name · optional segment bar · state word. Status order critical → warning → ok → unknown. Overflow becomes "+ 4 more" in the footer.</p></div>
+        <div><h3>Body</h3><p>≤6 rows: status dot · name · optional uptime bar · state word. Uptime bar = one segment per whole time unit (30 for 30 days, 24 for 24 hours), newest right; segment colour is the worst state in that unit, never a percentage. Scope line names the unit ("Last 30 days · daily"). Status order critical → warning → ok → unknown. Overflow becomes "+ 4 more" in the footer.</p></div>
         <div><h3>Controls</h3><p>Header arrow to the full status page or D1 filtered to these objects. Rows are links to T4.</p></div>
         <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz">2×1</span><span class="sz">2×2</span></span></p></div>
         <div><h3>Source</h3><p>D1 inventory with status column; T4 object detail per row.</p></div>
