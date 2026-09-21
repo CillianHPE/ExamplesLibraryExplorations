@@ -53,6 +53,18 @@
   .legend-inline { display: flex; gap: 14px; font-size: 12px; color: var(--gl-ink-soft); margin-top: 10px; }
   .legend-inline .sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: -1px; margin-right: 5px; }
 
+  /* healthy-row treatments */
+  .hrow.quiet { grid-template-columns: 10px 1fr auto; }
+  .hrow.quiet .nm .t { font-weight: 500; color: var(--gl-ink); }
+  .hrow.quiet .stt { text-align: right; }
+  .okline { display: flex; align-items: center; gap: 12px; padding: 12px 0 0; margin-top: 4px; border-top: 1px solid var(--contained-line); font-size: 13px; color: var(--gl-ink-soft); line-height: 1.4; }
+  .okline strong { color: var(--gl-ink); font-weight: 600; }
+  .vgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+  .vcell .card { width: auto; }
+  .vcell h3 { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .vcell .cap { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 14px; line-height: 1.5; min-height: 63px; }
+  .vcell .verdict { font-size: 12.5px; color: var(--gl-ink-soft); margin: 12px 0 0; line-height: 1.5; }
+  @media (max-width: 1100px) { .vgrid { grid-template-columns: 1fr; } }
   table.gl { width: 100%; border-collapse: collapse; font-size: 13px; }
   table.gl th { text-align: left; font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--gl-ink-soft); padding: 8px 12px 8px 0; border-bottom: 1.5px solid var(--gl-ink-soft); font-weight: 700; }
   table.gl td { padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--gl-ink); line-height: 1.45; }
@@ -73,6 +85,7 @@
     <button class="tabbtn" onclick="setTab('b', this)">2b · Option B: Estate health</button>
     <button class="tabbtn" onclick="setTab('c', this)">2c · Option C: Layered stack</button>
     <button class="tabbtn" onclick="setTab('gloss', this)">3 · Row glossary</button>
+    <button class="tabbtn" onclick="setTab('healthy', this)">4 · Fully healthy rows</button>
   </div>
 
   <!-- ===== 1 FRAME ===== -->
@@ -265,6 +278,73 @@
     <p class="fine" style="margin-top:16px; max-width:760px;">Rows that duplicate a neighbouring card (Capacity headroom beside a Capacity card, Protection jobs beside Data protection) should be dropped from the list or reframed so each carries a distinct fact: coverage on one card, execution on the other.</p>
   </div>
 </div>
+
+  <!-- ===== 4 HEALTHY ROWS ===== -->
+  <div class="pane" id="pane-healthy">
+    <div class="sec-h"><h2>What to do with a row that is fully healthy</h2></div>
+    <p class="sec-sub">A proportion bar earns its place by showing a split. When there is no split, a full green bar repeats what "All healthy" already says and gives the row the same visual weight as one with 14 failures. Four treatments, all on the Option B data.</p>
+
+    <div class="callout">
+      <strong>The test:</strong> does the viz carry a fact the text does not?
+      <ul>
+        <li><strong>Proportion bar, all green</strong>: no. "412 hosts · All healthy" is the whole fact. The bar can go.</li>
+        <li><strong>Uptime bar, all green</strong>: yes, just about. Thirty clean segments say "no incident in 30 days", which is a history the state word does not carry. Keep it in Option A, but it is the weakest case; "30 days clean" as text is an acceptable substitute if space is tight.</li>
+      </ul>
+    </div>
+
+    <div class="vgrid">
+      <div class="vcell">
+        <h3>1 · Full bar (baseline)</h3>
+        <p class="cap">Every row gets the same encoding. Consistent, and the grid stays rigid, but two of six bars carry nothing and the eye has to read the right-hand text to tell "2 critical" from "All healthy" at a glance.</p>
+        <div class="card"><div class="bhead"><div><h2 class="bcard-title">Storage health</h2><div class="fine bcard-scope">All systems · 6 domains</div></div><span class="arrow">→</span></div><div class="hrow"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Systems</span><span class="sub">128 arrays</span></span><span class="viz"><span class="prop"><i style="flex:2;background:var(--red)"></i><i style="flex:5;background:var(--amber)"></i><i style="flex:121;background:var(--ok)"></i></span><span class="stt">2 critical</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Protection jobs</span><span class="sub">Last 24 h</span></span><span class="viz"><span class="prop"><i style="flex:14;background:var(--red)"></i><i style="flex:1180;background:var(--ok)"></i></span><span class="stt">14 failed</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Volumes</span><span class="sub">1,842</span></span><span class="viz"><span class="prop"><i style="flex:33;background:var(--amber)"></i><i style="flex:1809;background:var(--ok)"></i></span><span class="stt">33 warning</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Replication</span><span class="sub">36 partnerships</span></span><span class="viz"><span class="prop"><i style="flex:2;background:var(--amber)"></i><i style="flex:34;background:var(--ok)"></i></span><span class="stt">2 lagging</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Host connectivity</span><span class="sub">412 hosts</span></span><span class="viz"><span class="prop"><i style="flex:412;background:var(--ok)"></i></span><span class="stt">All healthy</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Firmware baseline</span><span class="sub">128 systems</span></span><span class="viz"><span class="prop"><i style="flex:128;background:var(--ok)"></i></span><span class="stt">All current</span></span></div></div>
+        <p class="verdict">Keep only if the list is short (≤4) and mostly exceptions anyway.</p>
+      </div>
+      <div class="vcell">
+        <h3>2 · Quiet row</h3>
+        <p class="cap">Healthy rows drop the bar and lighten the name weight; the state sits on the same line. Exceptions keep the stacked viz. Vertical rhythm survives because the row height is still driven by the two-line name block.</p>
+        <div class="card"><div class="bhead"><div><h2 class="bcard-title">Storage health</h2><div class="fine bcard-scope">All systems · 6 domains</div></div><span class="arrow">→</span></div><div class="hrow"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Systems</span><span class="sub">128 arrays</span></span><span class="viz"><span class="prop"><i style="flex:2;background:var(--red)"></i><i style="flex:5;background:var(--amber)"></i><i style="flex:121;background:var(--ok)"></i></span><span class="stt">2 critical</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Protection jobs</span><span class="sub">Last 24 h</span></span><span class="viz"><span class="prop"><i style="flex:14;background:var(--red)"></i><i style="flex:1180;background:var(--ok)"></i></span><span class="stt">14 failed</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Volumes</span><span class="sub">1,842</span></span><span class="viz"><span class="prop"><i style="flex:33;background:var(--amber)"></i><i style="flex:1809;background:var(--ok)"></i></span><span class="stt">33 warning</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Replication</span><span class="sub">36 partnerships</span></span><span class="viz"><span class="prop"><i style="flex:2;background:var(--amber)"></i><i style="flex:34;background:var(--ok)"></i></span><span class="stt">2 lagging</span></span></div>
+<div class="hrow quiet"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Host connectivity</span><span class="sub">412 hosts</span></span><span class="stt">All healthy</span></div>
+<div class="hrow quiet"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Firmware baseline</span><span class="sub">128 systems</span></span><span class="stt">All current</span></div></div>
+        <p class="verdict">Recommended default. Weight now tracks urgency without changing order or hiding anything.</p>
+      </div>
+      <div class="vcell">
+        <h3>3 · Healthy rows fold into one line</h3>
+        <p class="cap">Only exceptions are rows. Healthy domains are named in a single closing sentence so the admin still sees they are monitored. Shortest card of the four.</p>
+        <div class="card"><div class="bhead"><div><h2 class="bcard-title">Storage health</h2><div class="fine bcard-scope">All systems · 6 domains</div></div><span class="arrow">→</span></div><div class="hrow"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Systems</span><span class="sub">128 arrays</span></span><span class="viz"><span class="prop"><i style="flex:2;background:var(--red)"></i><i style="flex:5;background:var(--amber)"></i><i style="flex:121;background:var(--ok)"></i></span><span class="stt">2 critical</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Protection jobs</span><span class="sub">Last 24 h</span></span><span class="viz"><span class="prop"><i style="flex:14;background:var(--red)"></i><i style="flex:1180;background:var(--ok)"></i></span><span class="stt">14 failed</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Volumes</span><span class="sub">1,842</span></span><span class="viz"><span class="prop"><i style="flex:33;background:var(--amber)"></i><i style="flex:1809;background:var(--ok)"></i></span><span class="stt">33 warning</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Replication</span><span class="sub">36 partnerships</span></span><span class="viz"><span class="prop"><i style="flex:2;background:var(--amber)"></i><i style="flex:34;background:var(--ok)"></i></span><span class="stt">2 lagging</span></span></div>
+<div class="okline"><span class="sd" style="background:var(--ok)"></span><span>Healthy: <strong>Host connectivity</strong> (412 hosts) and <strong>Firmware baseline</strong> (128 systems)</span></div></div>
+        <p class="verdict">Best when space is the constraint. Loses the per-domain count and drill-down target, so pair with a card-level arrow.</p>
+      </div>
+      <div class="vcell">
+        <h3>4 · Two groups</h3>
+        <p class="cap">Explicit "Needs attention" and "Healthy" groups with counts in the label. Healthy rows use the quiet treatment. The group label answers "how many things are wrong?" before a single row is read.</p>
+        <div class="card"><div class="bhead"><div><h2 class="bcard-title">Storage health</h2><div class="fine bcard-scope">All systems · 6 domains</div></div><span class="arrow">→</span></div><div class="grp">Needs attention · 4</div><div class="hrow"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Systems</span><span class="sub">128 arrays</span></span><span class="viz"><span class="prop"><i style="flex:2;background:var(--red)"></i><i style="flex:5;background:var(--amber)"></i><i style="flex:121;background:var(--ok)"></i></span><span class="stt">2 critical</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--red)"></span><span class="nm"><span class="t">Protection jobs</span><span class="sub">Last 24 h</span></span><span class="viz"><span class="prop"><i style="flex:14;background:var(--red)"></i><i style="flex:1180;background:var(--ok)"></i></span><span class="stt">14 failed</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Volumes</span><span class="sub">1,842</span></span><span class="viz"><span class="prop"><i style="flex:33;background:var(--amber)"></i><i style="flex:1809;background:var(--ok)"></i></span><span class="stt">33 warning</span></span></div>
+<div class="hrow"><span class="sd" style="background:var(--amber)"></span><span class="nm"><span class="t">Replication</span><span class="sub">36 partnerships</span></span><span class="viz"><span class="prop"><i style="flex:2;background:var(--amber)"></i><i style="flex:34;background:var(--ok)"></i></span><span class="stt">2 lagging</span></span></div><div class="grp">Healthy · 2</div><div class="hrow quiet"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Host connectivity</span><span class="sub">412 hosts</span></span><span class="stt">All healthy</span></div>
+<div class="hrow quiet"><span class="sd" style="background:var(--ok)"></span><span class="nm"><span class="t">Firmware baseline</span><span class="sub">128 systems</span></span><span class="stt">All current</span></div></div>
+        <p class="verdict">Use when the list is long (7+) or the healthy count itself is a reassurance worth stating. Group labels cost two extra lines.</p>
+      </div>
+    </div>
+
+    <div class="sec-h" style="margin-top:32px;"><h2>Rules to carry into the spec</h2></div>
+    <ul class="opt-note" style="font-size:13.5px; color:var(--gl-ink); line-height:1.5; padding-left:18px; max-width:760px;">
+      <li>A proportion bar is drawn only when it has at least two colours. All-green rows use the quiet treatment.</li>
+      <li>An uptime bar is drawn regardless, because its history is the fact; fold healthy services into one row (as Option C does) rather than removing the bar.</li>
+      <li>Sort exceptions above healthy rows. If healthy rows outnumber exceptions by more than two to one, fold them (treatment 3) or group them (treatment 4).</li>
+      <li>The right-hand state word stays in ink, never green: the dot carries the colour.</li>
+    </ul>
+  </div>
 
 <script>
 function setTab(id, btn){
