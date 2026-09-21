@@ -74,6 +74,34 @@
     { label: 'Layouts', children: [
       { href: '/layouts/containers.html', label: 'Containers' },
       { href: '/layouts/content-header.html', label: 'Content header' },
+      { href: '/layouts/widget.html', label: 'Widget' },
+    ]},
+    { label: 'Widgets', children: [
+      { href: '/widgets/index.html', label: 'Catalogue' },
+      { label: 'A · Measure', children: [
+        { href: '/widgets/index.html#w1', label: 'W1 · Stat' },
+        { href: '/widgets/index.html#w2', label: 'W2 · Stat cluster' },
+        { href: '/widgets/index.html#w3', label: 'W3 · Trend' },
+      ]},
+      { label: 'B · Compose', children: [
+        { href: '/widgets/index.html#w4', label: 'W4 · Comparison' },
+        { href: '/widgets/index.html#w5', label: 'W5 · Distribution' },
+        { href: '/widgets/index.html#w6', label: 'W6 · Capacity' },
+      ]},
+      { label: 'C · Monitor', children: [
+        { href: '/widgets/index.html#w7', label: 'W7 · Status list' },
+        { href: '/widgets/index.html#w8', label: 'W8 · Exception' },
+        { href: '/widgets/index.html#w9', label: 'W9 · Ranked table' },
+      ]},
+      { label: 'D · Explain', children: [
+        { href: '/widgets/index.html#w10', label: 'W10 · Activity' },
+        { href: '/widgets/index.html#w11', label: 'W11 · Heatmap' },
+        { href: '/widgets/index.html#w12', label: 'W12 · Insight' },
+      ]},
+      { label: 'E · Act', children: [
+        { href: '/widgets/index.html#w13', label: 'W13 · Goal' },
+        { href: '/widgets/index.html#w14', label: 'W14 · Quick actions' },
+      ]},
     ]},
     { label: 'UI compositions', children: [
       { label: 'Card / widget gallery', children: [

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Widget · Layouts</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<script src="/hifi-icons.js" defer></script>
+<style>
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 48px 40px 96px; }
+  .wrap h1 { margin-bottom: 8px; }
+  .intro { font-size: 15px; color: var(--gl-ink-soft); line-height: 1.6; margin-bottom: 12px; max-width: 720px; }
+  .crumb-nav { font-size: 13px; color: var(--gl-ink-soft); margin-bottom: 14px; }
+  .crumb-nav a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; }
+  .crumb-nav a:hover { text-decoration: underline; }
+
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
+  .sub-h { font-size: 12.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin: 32px 0 10px; }
+  .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 20px; max-width: 720px; }
+  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: #FFF; overflow-x: auto; }
+  .note { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.6; margin-top: 16px; max-width: 760px; }
+  .note code, .sec-sub code, td code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--gl-heading); background: var(--contained); border-radius: 4px; padding: 1px 6px; }
+  .note strong { color: var(--gl-heading); font-weight: 600; }
+  .tag { font-size: 12px; font-weight: 700; color: var(--gl-ink-soft); }
+
+  /* layer stack */
+  .layers { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  @media (max-width: 900px) { .layers { grid-template-columns: 1fr; } }
+  .layer-stack { display: flex; flex-direction: column; gap: 10px; }
+  .layer { border: 1.5px dashed #C9CDD1; border-radius: 8px; padding: 12px 14px; }
+  .layer .l-name { font-size: 13px; font-weight: 700; color: var(--gl-heading); display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .layer .l-name a { font-size: 12px; font-weight: 600; }
+  .layer .l-desc { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 3px; }
+  .layer.on { border-style: solid; border-color: var(--gl-green); background: #EDF6F2; }
+  .layer + .layer { position: relative; }
+
+  /* anatomy */
+  .anatomy-stage { position: relative; padding: 24px; }
+  .anatomy-card { background: var(--contained); border-radius: var(--radius); padding: 24px; position: relative; max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+  .anatomy-zone { border: 1.5px dashed #C9CDD1; border-radius: 6px; padding: 14px; position: relative; z-index: 3; }
+  .anatomy-zone .zone-lbl { position: absolute; top: -9px; left: 12px; background: var(--contained); padding: 0 6px; font-size: 10.5px; font-weight: 700;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--gl-green-dark); letter-spacing: 0.02em; }
+  .anatomy-zone.opt { border-color: #DDE1E4; }
+  .anatomy-zone.opt .zone-lbl::after { content: " · optional"; color: var(--gl-ink-faint); font-weight: 600; }
+  .anatomy-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .anatomy-head h2 { font-size: 19px; font-weight: 700; }
+  .anatomy-head .scope { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 3px; }
+  .anatomy-head .info { display: inline-block; width: 15px; height: 15px; border-radius: 50%; border: 1.5px solid var(--gl-ink-faint); font-size: 9px; text-align: center; line-height: 12px; color: var(--gl-ink-faint); vertical-align: 2px; margin-left: 6px; }
+  .trailing-slot { width: 36px; height: 36px; border-radius: 8px; border: 1.5px dashed #C9CDD1; display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--gl-ink-faint); flex: none; }
+  .anatomy-ctl { display: flex; gap: 8px; align-items: center; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; font-size: 12px; font-weight: 600; }
+  .seg span { padding: 5px 10px; color: var(--gl-ink-soft); }
+  .seg span.on { background: #EDF6F2; color: var(--gl-heading); }
+  .sel { border: 1px solid var(--line); border-radius: 6px; padding: 5px 10px; font-size: 12px; font-weight: 600; color: var(--gl-ink); background: #fff; }
+  .anatomy-viz { height: 88px; display: flex; align-items: center; justify-content: center; font-size: 12.5px; color: var(--gl-ink-faint); }
+  .anatomy-legend-zone { display: flex; gap: 16px; font-size: 12.5px; color: var(--gl-ink); }
+  .anatomy-legend-zone .lg { display: flex; align-items: center; gap: 7px; }
+  .anatomy-foot { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; }
+  .anatomy-foot .drill { color: var(--gl-green-dark); font-weight: 600; text-decoration: underline; }
+  .anatomy-foot .fresh { color: var(--gl-ink-soft); }
+  .anatomy-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 20px; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .anatomy-legend .lg { display: flex; align-items: center; gap: 7px; }
+  .anatomy-legend .sw { width: 22px; height: 0; border-top: 1.5px dashed #C9CDD1; flex: none; }
+  .anatomy-legend .sw.opt { border-top-color: #DDE1E4; }
+  .anatomy-legend .sw.fill { border: 0; height: 12px; background: var(--contained); border-radius: 3px; }
+
+  /* rules table */
+  table.rules { font-size: 13px; }
+  table.rules th { font-size: 12.5px; }
+  table.rules td { vertical-align: top; line-height: 1.5; }
+  table.rules td:first-child { font-weight: 600; color: var(--gl-heading); white-space: nowrap; }
+  table.rules td.ev { color: var(--gl-ink-soft); font-size: 12.5px; }
+
+  /* placement grid */
+  .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .signal-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 900px) { .signal-grid, .signal-grid.three { grid-template-columns: 1fr; } }
+  .signal-col .lbl-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .signal-col .card { max-width: none; }
+  .card-head h2 { font-size: 16px; }
+  .card-head .hgroup .scope { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 2px; }
+  .kebab { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; color: var(--gl-ink); letter-spacing: 1px; cursor: pointer; }
+  .kebab:hover { background: rgba(0,0,0,0.04); }
+  .w-foot { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; padding-top: 16px; }
+  .w-foot .tlink { font-size: 12.5px; }
+  .w-foot .fresh { color: var(--gl-ink-soft); }
+  .legend-inline { display: flex; gap: 14px; font-size: 12.5px; color: var(--gl-ink); padding-top: 12px; }
+  .legend-inline .lg { display: flex; align-items: center; gap: 6px; }
+  .legend-inline .sw { width: 14px; height: 3px; border-radius: 2px; background: var(--c-blue); }
+  .legend-inline .dash-sw { width: 14px; height: 0; border-top: 2px dashed var(--gl-ink-faint); }
+  .axis { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--gl-ink-soft); padding-top: 6px; }
+  svg.spark { width: 100%; height: 72px; display: block; }
+
+  /* kebab menu mock */
+  .menu { border: 1px solid var(--line); border-radius: 8px; background: #fff; width: 200px; padding: 6px; box-shadow: 0 6px 20px rgba(0,0,0,0.08); font-size: 13px; }
+  .menu div { padding: 8px 10px; border-radius: 5px; color: var(--gl-ink); }
+  .menu div.sep { border-top: 1px solid var(--line); margin: 4px 0; padding: 0; }
+  .menu div.danger { color: var(--red); }
+  .menu-row { display: flex; gap: 24px; align-items: flex-start; }
+  .menu-note { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.55; max-width: 380px; }
+  .menu-note ol { padding-left: 18px; margin-top: 6px; }
+  .menu-note li { margin-bottom: 4px; }
+
+  /* edit mode */
+  .edit-stage { background: var(--page); border-radius: var(--radius); padding: 16px; }
+  .edit-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .edit-bar .ttl { font-size: 15px; font-weight: 700; color: var(--gl-heading); }
+  .edit-bar .acts { display: flex; gap: 8px; }
+  .edit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .ew { background: var(--contained); border-radius: var(--radius); padding: 16px; position: relative; min-height: 120px; outline: 1.5px dashed #B9DECE; outline-offset: -1.5px; }
+  .ew.span2 { grid-column: span 2; }
+  .ew .e-head { display: flex; justify-content: space-between; align-items: center; }
+  .ew .e-title { font-size: 14px; font-weight: 700; color: var(--gl-heading); display: flex; align-items: center; gap: 8px; }
+  .ew .grip { color: var(--gl-ink-faint); font-size: 16px; cursor: grab; letter-spacing: -2px; }
+  .ew .e-tools { display: flex; gap: 2px; }
+  .ew .e-tools span { width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; color: var(--gl-ink); }
+  .ew .e-tools span:hover { background: rgba(0,0,0,0.05); }
+  .ew .e-body { opacity: 0.45; padding-top: 12px; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .ew .size-chip { position: absolute; right: 12px; bottom: 10px; font-size: 11px; font-weight: 700; color: var(--gl-ink-soft); border: 1px solid var(--line); border-radius: 10px; padding: 2px 8px; background: #fff; }
+  .ghost { border: 1.5px dashed var(--line); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: var(--gl-ink-soft); min-height: 120px; }
+
+  /* states */
+  .state-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 1000px) { .state-grid { grid-template-columns: 1fr 1fr; } }
+  .state-grid .card { max-width: none; min-height: 210px; display: flex; flex-direction: column; }
+  .state-grid .lbl { font-size: 11.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; padding: 12px; }
+  .empty .ic { width: 28px; height: 28px; border-radius: 50%; background: var(--grey-bg); display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--gl-ink-soft); }
+  .empty .ic.ok { background: var(--ok-bg); color: var(--ok); }
+  .empty .ic.crit { background: var(--red-bg); color: var(--red); }
+  .empty .h { font-size: 13.5px; font-weight: 600; color: var(--gl-heading); }
+  .empty .p { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; max-width: 220px; }
+  .nodata { flex: 1; border: 1.5px dashed var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12.5px; color: var(--gl-ink-soft); text-align: center; padding: 12px; }
+  .sk { background: var(--grey-bg); border-radius: 4px; height: 12px; }
+  .sk.w60 { width: 60%; } .sk.w40 { width: 40%; } .sk.w80 { width: 80%; } .sk.big { height: 34px; width: 45%; }
+  .sk-stack { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+  @keyframes shimmer { 0% { opacity: .6 } 50% { opacity: 1 } 100% { opacity: .6 } }
+  .sk { animation: shimmer 1.6s ease-in-out infinite; }
+
+  /* evidence */
+  .ev-list { columns: 3; column-gap: 24px; font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.7; }
+  @media (max-width: 900px) { .ev-list { columns: 2; } }
+  .ev-list b { color: var(--gl-heading); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Layouts</div>
+</header>
+
+<div class="wrap">
+  <div class="crumb-nav"><a href="/layouts/containers.html">Containers</a> · <a href="/layouts/content-header.html">Content header</a> · Widget</div>
+  <h1>Widget</h1>
+  <p class="intro">A widget is a container whose job is to report: one question, one answer, one place to go next. This page fixes the anatomy every widget shares, where each kind of control lives, how widgets behave in edit mode, and the states they must handle. The <a href="/widgets/index.html">Widget catalogue</a> lists the canonical types that use this anatomy.</p>
+
+  <div class="sec-h">Where it sits</div>
+  <p class="sec-sub">Widgets do not introduce a new container. They inherit <code>Container</code> and <code>Content header</code> unchanged and add three reporting slots on top: a scope line, a legend, and a footer. Anything a widget can do, a plain container can do; a widget is the reporting specialisation.</p>
+  <div class="demo">
+    <div class="layers">
+      <div class="layer-stack">
+        <div class="layer">
+          <div class="l-name">Page <span class="tag">T1–T5 · D1–D5</span></div>
+          <div class="l-desc">Owns global filters, time range, refresh, and edit mode. 64px primary/secondary split, 32px between sections.</div>
+        </div>
+        <div class="layer">
+          <div class="l-name">Section <a href="/layouts/content-header.html">Content header, uncontained</a></div>
+          <div class="l-desc">Titles a group of containers. May carry one section-level control (range select, "+ Add block"). 16px between containers inside it.</div>
+        </div>
+        <div class="layer">
+          <div class="l-name">Container <a href="/layouts/containers.html">Containers</a></div>
+          <div class="l-desc">Grey <code>var(--contained)</code>, 12px radius, 24px padding, header row + body.</div>
+        </div>
+        <div class="layer on">
+          <div class="l-name">Widget <span class="tag">this page</span></div>
+          <div class="l-desc">Container + Content header, plus scope line, body-local controls, legend, footer (drill + freshness), edit-mode chrome, and six required states.</div>
+        </div>
+        <div class="layer">
+          <div class="l-name">Widget type <a href="/widgets/index.html">Widget catalogue</a></div>
+          <div class="l-desc">The job the widget does and the viz it uses: stat, trend, distribution, status list, exception, ranked table…</div>
+        </div>
+      </div>
+      <div class="note" style="margin-top:0;">
+        <strong>Two density tiers, one anatomy.</strong> Standard widgets use the full container spec (24px padding, 19px title, 24px header gap). Wallboard tiles on <a href="/canonical-t5-custom-hifi-c.html">T5 · NOC</a> keep the same slot order at tighter spacing. Nothing on this page is unique to custom boards: the same widget can sit in a T1 overview column, a T4 detail rail, or a T5 grid.
+        <br><br>
+        <strong>What a widget is not.</strong> A page-body table (D1), a form, or a data explorer (D4) is not a widget even when it lives in a container. Widgets summarise and point; they never host the full working surface.
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-h">Anatomy</div>
+  <p class="sec-sub">Six zones, top to bottom. Only the header and body are mandatory; each optional zone has a fixed position so widgets stay scannable side by side. Vertical rhythm inside the widget is 16px between zones, with the standard 24px under the header row.</p>
+  <div class="demo">
+    <div class="anatomy-stage">
+      <div class="anatomy-card">
+        <div class="anatomy-zone anatomy-head">
+          <span class="zone-lbl">1 · Header</span>
+          <div class="hgroup">
+            <h2>Title<span class="info">i</span></h2>
+            <div class="scope">Scope line · "Last 7 days · 42 servers"</div>
+          </div>
+          <div class="trailing-slot">⋮</div>
+        </div>
+        <div class="anatomy-zone opt anatomy-ctl">
+          <span class="zone-lbl">2 · Local controls</span>
+          <span class="seg"><span class="on">Table</span><span>Heatmap</span></span>
+          <span class="sel">Group by ▾</span>
+        </div>
+        <div class="anatomy-zone anatomy-viz">
+          <span class="zone-lbl">3 · Body</span>
+          Chart, number, list, table preview, or map
+        </div>
+        <div class="anatomy-zone opt anatomy-legend-zone">
+          <span class="zone-lbl">4 · Legend</span>
+          <span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Series A</span>
+          <span class="lg"><span class="dot" style="background:var(--c-green)"></span>Series B</span>
+          <span class="lg"><span class="dash-sw" style="display:inline-block;width:14px;border-top:2px dashed var(--gl-ink-faint);"></span>Prior period</span>
+        </div>
+        <div class="anatomy-zone opt anatomy-foot">
+          <span class="zone-lbl">5 · Footer</span>
+          <span class="drill">View all servers</span>
+          <span class="fresh">Updated 2 min ago</span>
+        </div>
+      </div>
+    </div>
+    <div class="anatomy-legend">
+      <span class="lg"><span class="sw fill"></span>Container · <code style="background:none;padding:0;">var(--contained)</code>, 12px radius, 24px padding</span>
+      <span class="lg"><span class="sw"></span>Required zone</span>
+      <span class="lg"><span class="sw opt"></span>Optional zone, fixed position when present</span>
+    </div>
+  </div>
+  <div class="note">
+    <strong>1 · Header</strong> is the <a href="/layouts/content-header.html">Content header</a> unchanged: leading title, one 36×36 trailing slot. Widgets may add an <code>ⓘ</code> definition tooltip after the title and a one-line scope under it (period, population, or filter summary). The trailing slot holds exactly one thing: a drill arrow, a kebab, or a single action.<br>
+    <strong>2 · Local controls</strong> change how the body is shown, not what period it covers: view toggles (table/heatmap), group-by, series toggles, metric tabs. Never a date range.<br>
+    <strong>3 · Body</strong> is one content type. A widget that needs two charts is two widgets.<br>
+    <strong>4 · Legend</strong> sits below the body by default. Compact widgets may lift it into the header trailing area as a value-bearing legend ("4xx 0 · 5xx 2").<br>
+    <strong>5 · Footer</strong> is the drill link (left) and freshness or scope (right). If the header already uses the trailing arrow as the drill, the footer drops the link and keeps only freshness.<br>
+    <strong>6 · Edit chrome</strong> (drag grip, remove, size) appears only in edit mode and is drawn over the header row; see below.
+  </div>
+
+  <div class="sec-h">Control placement</div>
+  <p class="sec-sub">Where a control lives is decided by what it changes. Controls that change the question (period, population) belong to the page or section; controls that change the presentation belong to the widget body; navigation belongs to the header trailing slot or the footer.</p>
+  <div class="demo" style="padding:0 0 8px;">
+    <table class="rules">
+      <tr><th>Control</th><th>Lives in</th><th>Rule</th><th>Seen in</th></tr>
+      <tr><td>Time range</td><td>Page header or section header</td><td>One range governs every widget on the view. A widget shows the period it uses in its scope line; it never owns a picker. Exception: a calendar/history widget that pages through months keeps its pager in the header trailing slot.</td><td class="ev">Sentry, Supabase, Cloudflare, Snowflake, Laravel Cloud, Xero; incident.io (exception)</td></tr>
+      <tr><td>Refresh · freshness</td><td>Page (action) · widget footer (label)</td><td>Refresh is a page action. Each widget reports its own freshness as text, right-aligned in the footer.</td><td class="ev">Stripe "Updated 11:08", Jira "Last refreshed 1 min ago", Twingate</td></tr>
+      <tr><td>Global filters</td><td>Page toolbar</td><td>Filters that narrow the population apply to all widgets. Widget shows the result in its scope line ("1 filter · Tasks in 1 project").</td><td class="ev">Sentry, Asana, Gorgias</td></tr>
+      <tr><td>View toggle</td><td>Local controls, left</td><td>Segmented control for alternate presentations of the same data (Table / Heatmap, List / Events).</td><td class="ev">Gorgias, AWS Health</td></tr>
+      <tr><td>Group by · sort</td><td>Local controls, left</td><td>Select or chips directly above the body.</td><td class="ev">AWS Cost, Zoho</td></tr>
+      <tr><td>Metric tabs</td><td>Local controls, full width</td><td>When one chart serves several metrics, the KPI values are the tabs: a strip of selectable stat tiles drives the chart below.</td><td class="ev">Cloudflare, Vercel, Amplitude, PlanetScale</td></tr>
+      <tr><td>Series toggle</td><td>Legend</td><td>Legend entries are clickable to show/hide a series. No separate control.</td><td class="ev">PlanetScale, Neon</td></tr>
+      <tr><td>Drill-in</td><td>Header trailing arrow <em>or</em> footer link, never both</td><td>Arrow when the whole widget maps to one destination. Footer link when the destination needs a label ("View all 42 alerts") or the trailing slot is taken by the kebab.</td><td class="ev">AWS centred link, Stripe "View more", Asana "See all", Supabase chevron</td></tr>
+      <tr><td>Widget menu</td><td>Header trailing slot</td><td>Kebab holds secondary actions only. If a widget needs neither drill nor menu, the slot stays empty.</td><td class="ev">Amplitude, Zoho, Xero, Jira</td></tr>
+      <tr><td>Contextual action</td><td>Header, left of the kebab</td><td>At most one text button ("Create application"). Never <code>.btn.primary</code>: the page keeps the single primary.</td><td class="ev">AWS Console Home</td></tr>
+      <tr><td>Pager</td><td>Footer right (tables) · legend row (series)</td><td>"1–4 of 12 ‹ ›" for table previews. Legend pager "1/5 ‹ ›" only when series exceed the legend row.</td><td class="ev">Jira, Sentry, Twenty</td></tr>
+      <tr><td>Resize</td><td>Bottom-right grip, edit mode only</td><td>Snap to 1×1, 2×1, 2×2. No free resize.</td><td class="ev">AWS, Sentry, Salesforce</td></tr>
+    </table>
+  </div>
+
+  <div class="sub-h">Header trailing slot: three legal occupants</div>
+  <div class="signal-grid three">
+    <div class="signal-col">
+      <div class="lbl-row"><span class="tag">Drill arrow</span></div>
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Alerts</h2><div class="scope">Open · 42 servers</div></div><span class="arrow">→</span></div>
+        <span class="big-number" style="font-size:34px;">7</span>
+        <div class="big-number-sub">3 critical · 4 warning</div>
+      </div>
+    </div>
+    <div class="signal-col">
+      <div class="lbl-row"><span class="tag">Kebab + footer drill</span></div>
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Alerts</h2><div class="scope">Open · 42 servers</div></div><span class="kebab">⋮</span></div>
+        <span class="big-number" style="font-size:34px;">7</span>
+        <div class="big-number-sub">3 critical · 4 warning</div>
+        <div class="w-foot"><span class="tlink">View all alerts</span><span class="fresh">Updated 2 min ago</span></div>
+      </div>
+    </div>
+    <div class="signal-col">
+      <div class="lbl-row"><span class="tag">Value legend</span></div>
+      <div class="card">
+        <div class="card-head"><h2>Responses</h2><span class="legend-inline" style="padding:0;"><span class="lg"><span class="sw"></span>2xx 1.2k</span><span class="lg"><span class="sw" style="background:var(--c-terra)"></span>5xx 3</span></span></div>
+        <svg class="spark" viewBox="0 0 220 72" preserveAspectRatio="none">
+          <defs><linearGradient id="gA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-blue)" stop-opacity="0.22"/><stop offset="1" stop-color="var(--c-blue)" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0,50 L30,44 L60,48 L90,30 L120,34 L150,22 L180,26 L220,18 L220,72 L0,72Z" fill="url(#gA)"/>
+          <path d="M0,50 L30,44 L60,48 L90,30 L120,34 L150,22 L180,26 L220,18" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="axis"><span>Mon</span><span>Sun</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-h">Kebab contents and order</div>
+  <div class="demo">
+    <div class="menu-row">
+      <div class="menu">
+        <div>View details</div>
+        <div>Copy link</div>
+        <div>Download data</div>
+        <div class="sep"></div>
+        <div>Edit widget</div>
+        <div>Duplicate</div>
+        <div>Widget size ›</div>
+        <div class="sep"></div>
+        <div class="danger">Remove from board</div>
+      </div>
+      <div class="menu-note">
+        The order is stable across widgets so the eye learns it once:
+        <ol>
+          <li><strong>Go and share</strong>: View details, Copy link, Download data.</li>
+          <li><strong>Configure</strong>: Edit widget, Duplicate, Widget size. Only on custom boards (T5); fixed dashboards omit this group.</li>
+          <li><strong>Destructive</strong>: Remove, red, last, separated.</li>
+        </ol>
+        Verb-only labels. Anything a viewer needs every visit (drill-in, refresh) is not hidden here.
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-h">Edit mode</div>
+  <p class="sec-sub">Editing is a page state, not a widget state. Entering it changes the page header actions and overlays chrome on every widget at once. Content dims so structure reads over data. Rules from <a href="/canonical-t5-custom.html">T5 · Custom board</a> apply: 4-column grid, 16px gaps, sizes 1×1 / 2×1 / 2×2, ghost "+ Add widget" slot always last.</p>
+  <div class="demo">
+    <div class="edit-stage">
+      <div class="edit-bar">
+        <span class="ttl">Editing board</span>
+        <span class="acts"><button class="btn">Reset layout</button><button class="btn secondary">Cancel</button><button class="btn primary">Save</button></span>
+      </div>
+      <div class="edit-grid">
+        <div class="ew">
+          <div class="e-head"><span class="e-title"><span class="grip">⠿</span>Alerts</span><span class="e-tools"><span title="Edit">✎</span><span title="Remove">✕</span></span></div>
+          <div class="e-body">7 open · 3 critical</div>
+          <span class="size-chip">1×1</span>
+        </div>
+        <div class="ew span2">
+          <div class="e-head"><span class="e-title"><span class="grip">⠿</span>Power draw</span><span class="e-tools"><span title="Edit">✎</span><span title="Remove">✕</span></span></div>
+          <div class="e-body">Trend · last 7 days</div>
+          <span class="size-chip">2×1 ⤡</span>
+        </div>
+        <div class="ew">
+          <div class="e-head"><span class="e-title"><span class="grip">⠿</span>Capacity</span><span class="e-tools"><span title="Edit">✎</span><span title="Remove">✕</span></span></div>
+          <div class="e-body">71% used</div>
+          <span class="size-chip">1×1</span>
+        </div>
+        <div class="ghost span2" style="grid-column: span 2;">＋ Add widget</div>
+      </div>
+    </div>
+  </div>
+  <div class="note">
+    <strong>Page-level.</strong> "Edit board" enters the mode; the header swaps to Reset layout · Cancel · Save. "+ Add widget" opens the catalogue drawer (grouped by domain, each entry a live mini preview with Add). Save is the page's one primary.<br>
+    <strong>Widget-level.</strong> Drag grip <code>⠿</code> before the title; <code>✎</code> Edit and <code>✕</code> Remove replace the trailing slot; size chip and resize grip bottom-right. Duplicate lives in the kebab, not the toolbar. Nothing in the widget is interactive apart from the chrome.<br>
+    <strong>Outside edit mode</strong> widgets show no chrome at all. AWS and Supabase keep a permanent drag grip; we do not, because the grip competes with the title on every visit for a task done rarely.
+  </div>
+
+  <div class="sec-h">States</div>
+  <p class="sec-sub">Every widget type must design six states. They keep the header so the board stays legible; only the body changes. Copy answers "why is nothing here" and "what can I do", in that order.</p>
+  <div class="state-grid">
+    <div class="card">
+      <div class="lbl">Loading</div>
+      <div class="card-head"><h2>Power draw</h2></div>
+      <div class="sk-stack"><div class="sk big"></div><div class="sk w80"></div><div class="sk w60"></div><div class="sk w40"></div></div>
+    </div>
+    <div class="card">
+      <div class="lbl">Empty · never had data</div>
+      <div class="card-head"><h2>Budgets</h2></div>
+      <div class="empty"><span class="ic">◇</span><span class="h">No budgets yet</span><span class="p">Set a monthly credit limit to track spend here.</span><span class="tlink" style="font-size:12.5px;">Create budget</span></div>
+    </div>
+    <div class="card">
+      <div class="lbl">No data for period</div>
+      <div class="card-head"><div class="hgroup"><h2>Requests</h2><div class="scope">Last 60 minutes</div></div></div>
+      <span class="big-number" style="font-size:34px;">0</span>
+      <div class="nodata" style="margin-top:12px;min-height:56px;">No data for the selected period</div>
+    </div>
+    <div class="card">
+      <div class="lbl">Unavailable</div>
+      <div class="card-head"><h2>Cost to date</h2></div>
+      <div class="empty"><span class="ic crit">⊗</span><span class="h">Data unavailable</span><span class="p">Billing data has not synced since 03:10. Values will update automatically.</span></div>
+    </div>
+    <div class="card">
+      <div class="lbl">Invalid configuration</div>
+      <div class="card-head"><h2>Custom query</h2></div>
+      <div class="empty"><span class="pill red">Query returns no metric</span><span class="p">Choose a metric and aggregation to display this widget.</span><span class="tlink" style="font-size:12.5px;">Edit widget</span></div>
+    </div>
+    <div class="card">
+      <div class="lbl">All clear</div>
+      <div class="card-head"><div class="hgroup"><h2>Security findings</h2><div class="scope">Open · 42 servers</div></div><span class="arrow">→</span></div>
+      <div class="empty"><span class="ic ok">✓</span><span class="h">No open findings</span><span class="p">Last scan completed 14 min ago.</span></div>
+    </div>
+  </div>
+  <div class="note">
+    <strong>Loading</strong> is a skeleton in the shape of the final content, never a spinner. <strong>Empty</strong> and <strong>Invalid configuration</strong> end in a link because the viewer can act. <strong>Unavailable</strong> gives the reason and never offers a retry the viewer cannot influence. <strong>All clear</strong> is a real result, so it keeps the drill arrow. <strong>No data for period</strong> keeps the headline value (0) and replaces the chart with a dashed placeholder so the widget footprint does not collapse. Status colour appears only in the icon or pill, never in text.
+  </div>
+
+  <div class="sec-h">Research evidence</div>
+  <p class="sec-sub">Patterns above were drawn from 60+ enterprise dashboard screens on Mobbin (web). Products by what they contributed:</p>
+  <div class="demo">
+    <div class="ev-list">
+      <b>Header slot</b><br>AWS Console Home · Amplitude · Supabase · Zoho · Xero · Jira · Sentry<br><br>
+      <b>Scope and freshness</b><br>Stripe · Twingate · Asana · Amplitude · Snowflake<br><br>
+      <b>Page-level time range</b><br>Sentry · Cloudflare · Laravel Cloud · Snowflake · Supabase · Gorgias<br><br>
+      <b>Local controls</b><br>Gorgias (Table/Heatmap) · AWS (Group by) · Cloudflare, Vercel, PlanetScale (metric tabs)<br><br>
+      <b>Legend placement</b><br>Braintrust (table legend) · Twenty (pager) · Laravel Cloud, Neon (header) · Snowflake (above)<br><br>
+      <b>Edit mode</b><br>Sentry · Stripe · Salesforce · Xero · Jira · Evernote · Hotjar · Twenty<br><br>
+      <b>Catalogue</b><br>Stripe (modal previews) · Zoho, Intercom, Supabase (drawer) · Xero, Asana, Fibery (grouped menu) · Better Stack (type palette)<br><br>
+      <b>States</b><br>Neon, Frame (skeleton) · Braintrust, Cloudflare, Unity, Snowflake (empty) · Supabase, Stripe (no data) · AWS (unavailable) · Twenty (invalid) · Supabase Advisor, incident.io (all clear)
+    </div>
+  </div>
+</div>
+
+<script src="/library-nav.js"></script>
+<script src="/livereload.js"></script>
+</body>
+</html>
