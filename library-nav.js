@@ -145,10 +145,12 @@
     .libnav-scrim { position: fixed; inset: 0; z-index: 950; background: rgba(32,43,48,0.28); opacity: 0; transition: opacity .18s; }
     .libnav-drawer { position: fixed; top: 0; left: 0; bottom: 0; z-index: 960; width: 292px; background: #FFF;
       box-shadow: 4px 0 24px rgba(32,43,48,0.16); transform: translateX(-100%); transition: transform .2s ease;
-      overflow-y: auto; padding: 20px 16px 32px; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+      overflow-y: auto; padding: 0 16px 32px; font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
     .libnav-instant .libnav-drawer { transition: none; }
     .libnav-open .libnav-drawer { transform: none; }
-    .libnav-drawer .hd { display: flex; align-items: center; justify-content: space-between; margin: 0 8px 14px; }
+    .libnav-drawer .hd { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between;
+      margin: 0 -16px 8px; padding: 20px 24px 14px; background: rgba(255,255,255,0.92); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--line, #D4D8DB); }
     .libnav-drawer .hd b { font-size: 15px; font-weight: 700; color: var(--gl-heading, #202B30); }
     .libnav-drawer .x { border: none; background: none; font-size: 18px; line-height: 1; cursor: pointer; color: var(--gl-ink, #444E54); padding: 4px 6px; border-radius: 6px; }
     .libnav-drawer .x:hover { background: #F0F1F2; }
