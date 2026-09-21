@@ -13,7 +13,7 @@ Pages use absolute paths (`/hifi-shared.css`, `/library-nav.js`), so serve from 
 ## Browsing
 
 - `index.html` — home, with a "Browse all examples" entry point and the archetype list.
-- `browse.html` — catalogue view of every example as a card. Filter by kind (widgets, pages, layouts, compositions), by the job it does ("Show a trend", "Report an exception", …), family, page category, size and what it drills to. Search with the box (press `/`). State is kept in the URL, e.g. `browse.html?kind=widget&job=show-trend`.
+- `browse.html` — catalogue view of every example as a card. Filter by kind (widgets, pages, layouts, compositions), by the job it does ("Show a trend", "Report an exception", …), family, space on the dashboard and where it takes you. Search with the box (press `/`). State is kept in the URL, e.g. `browse.html?kind=widget&job=show-trend`.
 - `item.html?id=w3` — detail page for one example: live preview, use when / not when, spec, where it is seen in use, alternatives and related items, and other examples doing the same job.
 
 ## Adding or editing examples

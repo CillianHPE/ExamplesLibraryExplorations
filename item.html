@@ -42,8 +42,8 @@
   const SRC = { t1: 'T1 Overview', t2: 'T2 Triage', t3: 'T3 Analytics', t4: 'T4 Object detail', t5: 'T5 Custom board', d1: 'D1 Inventory table', d2: 'D2 Card grid', d3: 'D3 Event stream', d4: 'D4 Analytics explorer', d5: 'D5 Map' };
   const specRows = [];
   Object.entries(item.spec || {}).forEach(([k, v]) => specRows.push(`<div><h3>${esc(k)}</h3><p>${esc(v)}</p></div>`));
-  if (item.sizes) specRows.push(`<div><h3>Sizes</h3><p><span class="sizes">${ALL_SIZES.map(s => `<span class="sz${item.sizes.includes(s) ? '' : ' off'}">${s.replace('x', '×')}</span>`).join('')}</span> on a T5 grid.</p></div>`);
-  if (item.source && item.source.length) specRows.push(`<div class="src"><h3>Drills to</h3><p>${item.source.map(s => `<a href="${itemHref(D.byId[s])}">${esc(SRC[s])}</a>`).join(' · ')}</p></div>`);
+  if (item.sizes) specRows.push(`<div><h3>Space on the dashboard</h3><p><span class="sizes">${ALL_SIZES.map(s => `<span class="sz${item.sizes.includes(s) ? '' : ' off'}">${s.replace('x', '×')}</span>`).join('')}</span> on a T5 grid.</p></div>`);
+  if (item.source && item.source.length) specRows.push(`<div class="src"><h3>Where it takes you</h3><p>${item.source.map(s => `<a href="${itemHref(D.byId[s])}">${esc(SRC[s])}</a>`).join(' · ')}</p></div>`);
   if (item.gallery) specRows.push(`<div><h3>Card gallery</h3><p><a href="${item.gallery.href}">${esc(item.gallery.label)}</a>: presentation variants and required states.</p></div>`);
   if (item.lofi) specRows.push(`<div><h3>Lo-fi spec</h3><p><a href="${item.lofi}">Open the annotated wireframe</a>.</p></div>`);
 

@@ -27,8 +27,6 @@
   <div class="cb-kinds" id="kinds"></div>
 
   <div class="cb-layout">
-    <aside class="cb-facets" id="facets" aria-label="Filters"></aside>
-
     <main>
       <div class="cb-toolbar">
         <label class="cb-search">
@@ -49,6 +47,8 @@
       <div class="cb-active" id="active"></div>
       <div class="cb-grid" id="grid"></div>
     </main>
+
+    <aside class="cb-facets" id="facets" aria-label="Filters"></aside>
   </div>
 </div>
 
@@ -61,12 +61,19 @@
 
   // Facet definitions: which field, how to label, and which kinds show it.
   const FACETS = [
-    { key: 'job',    label: 'What are you trying to do?', field: 'jobs',     labels: D.JOBS, multi: true },
+    { key: 'job',    label: 'What are you trying to do?', field: 'jobs',     labels: D.JOBS, multi: true, groups: D.JOB_GROUPS },
     { key: 'family', label: 'Widget family',              field: 'family',   labels: Object.fromEntries(Object.entries(D.FAMILIES).map(([k, v]) => [k, `${v.letter} · ${v.label}`])), kinds: ['widget'] },
     { key: 'cat',    label: 'Page category',              field: 'category', labels: { dashboards: 'Dashboards', details: 'Details', 'data-collection': 'Data collection' }, kinds: ['page'] },
-    { key: 'size',   label: 'Board size',                 field: 'sizes',    labels: { '1x1': '1×1', '2x1': '2×1', '2x2': '2×2' }, kinds: ['widget'] },
-    { key: 'source', label: 'Drills to',                  field: 'source',   labels: { t1: 'T1 Overview', t2: 'T2 Triage', t3: 'T3 Analytics', t4: 'T4 Object detail', t5: 'T5 Custom board', d1: 'D1 Inventory table', d3: 'D3 Event stream', d4: 'D4 Analytics explorer', d5: 'D5 Map' }, kinds: ['widget'] },
+    { key: 'size',   label: 'Space on the dashboard',     hint: 'Grid cells the widget occupies', field: 'sizes', labels: { '1x1': 'Compact, 1×1', '2x1': 'Wide, 2×1', '2x2': 'Large, 2×2' }, kinds: ['widget'] },
+    { key: 'source', label: 'Where it takes you',         hint: 'The page opened when the widget is clicked', field: 'source', labels: { t1: 'T1 Overview', t2: 'T2 Triage', t3: 'T3 Analytics', t4: 'T4 Object detail', t5: 'T5 Custom board', d1: 'D1 Inventory table', d3: 'D3 Event stream', d4: 'D4 Analytics explorer', d5: 'D5 Map' }, kinds: ['widget'] },
   ];
+
+  // Collapsed / expanded state of facet sections, remembered across visits.
+  const OPEN_KEY = 'catalogue.facets.open';
+  let open = {};
+  try { open = JSON.parse(localStorage.getItem(OPEN_KEY) || '{}'); } catch (e) { open = {}; }
+  const isOpen = (k) => open[k] !== false;
+  function setOpen(k, v) { open[k] = v; try { localStorage.setItem(OPEN_KEY, JSON.stringify(open)); } catch (e) {} }
 
   // ---- State lives in the URL ----
   function readState() {
@@ -129,6 +136,15 @@
     }));
   }
 
+  const CHEV = '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+  // Header badge: a collapsed section still signals that it is narrowing results.
+  const badge = (n) => n ? `<span class="cb-applied" title="${n} applied">${n}</span>` : '';
+  const section = (cls, id, label, applied, body, extra = '') => `
+    <details class="${cls}${applied ? ' has-sel' : ''}" data-open="${id}"${isOpen(id) ? ' open' : ''}>
+      <summary><span class="cb-facet-title">${esc(label)}${badge(applied)}</span>${extra}${CHEV}</summary>
+      <div class="cb-facet-body">${body}</div>
+    </details>`;
+
   function renderFacets() {
     const pool = D.items.filter(i => matchesKind(i) && matchesSearch(i));
     $('#facets').innerHTML = FACETS.map(f => {
@@ -136,16 +152,24 @@
       const sel = state.f[f.key];
       // Counts reflect every other active filter, so options show what selecting them would yield.
       const scoped = pool.filter(i => matchesFacets(i, f.key));
-      const rows = Object.entries(f.labels).map(([v, label]) => {
+      const option = (v) => {
         const n = scoped.filter(i => (!f.kinds || f.kinds.includes(i.kind)) && has(i, f.field, v)).length;
-        if (!n && !sel.includes(v) && f.key === 'job') return '';
         const on = sel.includes(v);
+        if (!n && !on && f.key === 'job') return '';
         return `<label class="cb-opt${on ? ' on' : ''}${!n && !on ? ' off' : ''}">
           <input type="checkbox" data-facet="${f.key}" value="${esc(v)}"${on ? ' checked' : ''}>
-          <span>${esc(label)}</span><span class="n">${n}</span></label>`;
-      }).join('');
-      if (!rows) return '';
-      return `<div class="cb-facet"><h3>${esc(f.label)}${sel.length ? `<button data-clear="${f.key}">Clear</button>` : ''}</h3>${rows}</div>`;
+          <span>${esc(f.labels[v])}</span><span class="n">${n}</span></label>`;
+      };
+      let body = f.groups
+        ? f.groups.map(g => {
+            const rows = g.jobs.map(option).join('');
+            return rows ? section('cb-subfacet', `${f.key}.${g.key}`, g.label, g.jobs.filter(v => sel.includes(v)).length, rows) : '';
+          }).join('')
+        : Object.keys(f.labels).map(option).join('');
+      if (!body) return '';
+      if (f.hint) body = `<p class="cb-hint">${esc(f.hint)}</p>` + body;
+      const clear = sel.length ? `<button type="button" data-clear="${f.key}">Clear</button>` : '';
+      return section('cb-facet', f.key, f.label, sel.length, body, clear);
     }).join('');
     $('#facets').querySelectorAll('input').forEach(cb => cb.addEventListener('change', () => {
       const arr = state.f[cb.dataset.facet];
@@ -154,7 +178,10 @@
       if (!cb.checked && i >= 0) arr.splice(i, 1);
       update();
     }));
-    $('#facets').querySelectorAll('[data-clear]').forEach(b => b.addEventListener('click', () => { state.f[b.dataset.clear] = []; update(); }));
+    $('#facets').querySelectorAll('[data-clear]').forEach(b => b.addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation(); state.f[b.dataset.clear] = []; update();
+    }));
+    $('#facets').querySelectorAll('details[data-open]').forEach(d => d.addEventListener('toggle', () => setOpen(d.dataset.open, d.open)));
   }
 
   function renderActive() {

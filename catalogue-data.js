@@ -29,6 +29,16 @@ window.CATALOGUE = (function () {
     'structure':         'Structure a page',
   };
 
+  // Jobs grouped by the outcome the reader is after, so the filter reads as jobs to be done.
+  const JOB_GROUPS = [
+    { key: 'understand', label: 'Understand a number', jobs: ['headline-figure', 'show-trend', 'capacity', 'track-goal'] },
+    { key: 'compare',    label: 'Compare and break down', jobs: ['compare', 'distribution', 'rank', 'hot-spots'] },
+    { key: 'watch',      label: 'Stay on top of problems', jobs: ['monitor-status', 'report-exception', 'recent-activity'] },
+    { key: 'explain',    label: 'Explain and investigate', jobs: ['explain-insight', 'investigate', 'analyse'] },
+    { key: 'act',        label: 'Find and act on items', jobs: ['find-manage', 'browse-pick', 'work-queue', 'inspect-object', 'locate', 'navigate'] },
+    { key: 'frame',      label: 'Shape the page', jobs: ['overview', 'custom-board', 'structure'] },
+  ];
+
   const FAMILIES = {
     measure: { label: 'Measure', letter: 'A', q: 'Where is this number, and which way is it going?' },
     compose: { label: 'Compose', letter: 'B', q: 'What is it made of, and how do the parts compare?' },
@@ -706,5 +716,5 @@ window.CATALOGUE = (function () {
 
   const items = [...widgets, ...pages, ...layouts, ...compositions];
   const byId = Object.fromEntries(items.map(i => [i.id, i]));
-  return { JOBS, FAMILIES, CATEGORIES, KINDS, PAGES, items, byId };
+  return { JOBS, JOB_GROUPS, FAMILIES, CATEGORIES, KINDS, PAGES, items, byId };
 })();
