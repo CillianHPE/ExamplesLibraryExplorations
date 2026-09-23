@@ -151,7 +151,7 @@
 </header>
 
 <div class="wrap">
-  <div class="crumb-nav"><a href="/layouts/containers.html">Containers</a> · <a href="/layouts/content-header.html">Content header</a> · Widget</div>
+  <div class="crumb-nav"><a href="/layouts/containers.html">Containers</a> · <a href="/layouts/content-header.html">Content header</a> · Widget · <a href="/layouts/visualisation.html">Visualisation</a></div>
   <h1>Widget</h1>
   <p class="intro">A widget is a container whose job is to report: one question, one answer, one place to go next. This page fixes the anatomy every widget shares, where each kind of control lives, how widgets behave in edit mode, and the states they must handle. The <a href="/widgets/index.html">Widget catalogue</a> lists the canonical types that use this anatomy.</p>
 
@@ -233,8 +233,8 @@
   <div class="note">
     <strong>1 · Header</strong> is the <a href="/layouts/content-header.html">Content header</a> unchanged: leading title, one 36×36 trailing slot. Widgets may add an <code>ⓘ</code> definition tooltip after the title and a one-line scope under it (period, population, or filter summary). The trailing slot holds exactly one thing: a drill arrow, a kebab, or a single action.<br>
     <strong>2 · Local controls</strong> change how the body is shown, not what period it covers: view toggles (table/heatmap), group-by, series toggles, metric tabs. Never a date range.<br>
-    <strong>3 · Body</strong> is one content type. A widget that needs two charts is two widgets.<br>
-    <strong>4 · Legend</strong> sits below the body by default. Compact widgets may lift it into the header trailing area as a value-bearing legend ("4xx 0 · 5xx 2").<br>
+    <strong>3 · Body</strong> is one content type: a single <a href="/layouts/visualisation.html">visualisation</a> (mark plus furniture), a list, a table preview, or a map. A widget that needs two charts is two widgets.<br>
+    <strong>4 · Legend</strong> is owned by the <a href="/layouts/visualisation.html">Visualisation</a> spec and sits below the body by default. Compact widgets may lift it into the header trailing area as a value-bearing legend ("4xx 0 · 5xx 2").<br>
     <strong>5 · Footer</strong> is the drill link (left) and freshness or scope (right). If the header already uses the trailing arrow as the drill, the footer drops the link and keeps only freshness.<br>
     <strong>6 · Edit chrome</strong> (drag grip, remove, size) appears only in edit mode and is drawn over the header row; see below.
   </div>

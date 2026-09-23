@@ -75,6 +75,7 @@
       { href: '/layouts/containers.html', label: 'Containers' },
       { href: '/layouts/content-header.html', label: 'Content header' },
       { href: '/layouts/widget.html', label: 'Widget' },
+      { href: '/layouts/visualisation.html', label: 'Visualisation' },
     ]},
     { label: 'Widgets', children: [
       { href: '/widgets/index.html', label: 'Catalogue' },

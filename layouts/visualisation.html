@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Visualisation · Layouts</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<script src="/hifi-icons.js" defer></script>
+<style>
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 48px 40px 96px; }
+  .wrap h1 { margin-bottom: 8px; }
+  .intro { font-size: 15px; color: var(--gl-ink-soft); line-height: 1.6; margin-bottom: 12px; max-width: 720px; }
+  .crumb-nav { font-size: 13px; color: var(--gl-ink-soft); margin-bottom: 14px; }
+  .crumb-nav a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; }
+  .crumb-nav a:hover { text-decoration: underline; }
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
+  .sub-h { font-size: 12.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin: 32px 0 10px; }
+  .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 20px; max-width: 720px; }
+  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: #FFF; overflow-x: auto; }
+  .note { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.6; margin-top: 16px; max-width: 760px; }
+  .note code, .sec-sub code, td code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--gl-heading); background: var(--contained); border-radius: 4px; padding: 1px 6px; }
+  .note strong { color: var(--gl-heading); font-weight: 600; }
+
+  .layer-stack { display: flex; flex-direction: column; gap: 10px; max-width: 560px; }
+  .layer { border: 1.5px dashed #C9CDD1; border-radius: 8px; padding: 12px 14px; }
+  .layer .l-name { font-size: 13px; font-weight: 700; color: var(--gl-heading); display: flex; justify-content: space-between; gap: 12px; }
+  .layer .l-name a, .layer .l-name span { font-size: 12px; font-weight: 600; }
+  .layer .l-desc { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 3px; }
+  .layer.on { border-style: solid; border-color: var(--gl-green); background: #EDF6F2; }
+  .layer.sub { margin-left: 24px; }
+
+  .anatomy-card { background: var(--contained); border-radius: var(--radius); padding: 24px; max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+  .anatomy-zone { border: 1.5px dashed #C9CDD1; border-radius: 6px; padding: 14px; position: relative; }
+  .anatomy-zone .zone-lbl { position: absolute; top: -9px; left: 12px; background: var(--contained); padding: 0 6px; font-size: 10.5px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--gl-green-dark); }
+  .anatomy-zone.opt { border-color: #DDE1E4; }
+  .anatomy-zone.opt .zone-lbl::after { content: " · optional"; color: var(--gl-ink-faint); font-weight: 600; }
+  .anatomy-zone.mark { border-color: var(--gl-green); border-style: solid; }
+  .frame-hint { font-size: 12px; color: var(--gl-ink-faint); text-align: center; }
+  .anatomy-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 20px; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .anatomy-legend .lg { display: flex; align-items: center; gap: 7px; }
+  .anatomy-legend .sw { width: 22px; height: 0; border-top: 1.5px dashed #C9CDD1; }
+  .anatomy-legend .sw.opt { border-top-color: #DDE1E4; }
+  .anatomy-legend .sw.mark { border-top: 1.5px solid var(--gl-green); }
+
+  .value-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .value-row .big-number { font-size: 34px; letter-spacing: -0.6px; line-height: 1; }
+  .value-row .unit { font-size: 15px; font-weight: 600; color: var(--gl-ink-soft); margin-left: 3px; letter-spacing: 0; }
+  .caption { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; }
+  .caption strong { color: var(--gl-heading); font-weight: 600; }
+  svg.spark { width: 100%; height: 72px; display: block; overflow: visible; }
+  .axis { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--gl-ink-soft); padding-top: 6px; }
+  .legend-inline { display: flex; gap: 14px; font-size: 12.5px; color: var(--gl-ink); flex-wrap: wrap; }
+  .legend-inline .lg { display: flex; align-items: center; gap: 6px; }
+  .legend-inline .sw { width: 14px; height: 3px; border-radius: 2px; background: var(--c-blue); }
+  .legend-inline .dash-sw { width: 14px; height: 0; border-top: 2px dashed var(--gl-ink-faint); }
+  .legend-inline .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend-inline .val { color: var(--gl-ink-soft); font-weight: 600; margin-left: 2px; font-variant-numeric: tabular-nums; }
+  .meter { height: 8px; background: var(--grey-bg); border-radius: 4px; overflow: hidden; margin-top: 0; position: relative; }
+  .meter i { display: block; height: 100%; background: var(--c-blue); }
+  .meter i.warn { background: var(--amber); }
+  .meter .tick { position: absolute; top: -3px; bottom: -3px; width: 0; border-left: 2px dashed var(--gl-ink-faint); }
+  .meter-row { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--gl-ink-soft); padding-top: 6px; }
+  .prop { display: flex; gap: 2px; height: 10px; border-radius: 2px; overflow: hidden; }
+  .prop i { display: block; height: 100%; min-width: 3px; }
+  .seg-bar { display: flex; gap: 2px; height: 12px; }
+  .seg-bar i { flex: 1; min-width: 0; border-radius: 1px; background: var(--ok); }
+  .seg-bar i.w { background: var(--amber); } .seg-bar i.c { background: var(--red); }
+  .donut-row { display: flex; align-items: center; gap: 20px; }
+  .donut { width: 96px; height: 96px; flex: none; border-radius: 50%; position: relative; }
+  .donut::after { content: attr(data-center); position: absolute; inset: 14px; background: var(--contained); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--gl-heading); }
+  .legend-stack { flex: 1; min-width: 0; }
+  .legend-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 4px 0; }
+  .legend-row .lg { display: flex; align-items: center; gap: 8px; }
+  .legend-row .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend-row .pct { color: var(--gl-ink-soft); font-weight: 600; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  .hbars { display: flex; flex-direction: column; gap: 10px; }
+  .hbar { display: grid; grid-template-columns: 110px 1fr 56px; gap: 10px; align-items: center; font-size: 13px; }
+  .hbar .nm { color: var(--gl-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hbar .track { height: 10px; background: var(--grey-bg); border-radius: 2px; overflow: hidden; }
+  .hbar .track i { display: block; height: 100%; background: var(--c-blue); }
+  .hbar .v { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; font-size: 12.5px; }
+  .cols { display: flex; align-items: flex-end; gap: 4px; height: 72px; }
+  .cols i { flex: 1; background: var(--c-blue); border-radius: 2px 2px 0 0; }
+
+  .mark-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  @media (max-width: 900px) { .mark-grid { grid-template-columns: 1fr; } }
+  .mark-entry .card { max-width: none; display: flex; flex-direction: column; gap: 14px; }
+  .mark-entry .card .title { font-size: 16px; font-weight: 700; color: var(--gl-heading); }
+  .mark-entry .card .scope { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 2px; }
+  .mark-entry .m-name { font-size: 14px; font-weight: 700; color: var(--gl-heading); margin: 14px 0 4px; display: flex; gap: 8px; align-items: baseline; }
+  .mark-entry .m-name .code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; color: var(--gl-green-dark); }
+  .mark-entry .m-q { font-size: 13px; font-style: italic; color: var(--gl-ink); margin: 0 0 8px; }
+  .mark-entry dl { display: grid; grid-template-columns: 90px 1fr; gap: 4px 12px; font-size: 12.5px; margin: 0; line-height: 1.5; }
+  .mark-entry dt { color: var(--gl-ink-soft); font-weight: 600; }
+  .mark-entry dd { margin: 0; color: var(--gl-ink); }
+
+  table.rules { font-size: 13px; }
+  table.rules th { font-size: 12.5px; }
+  table.rules td { vertical-align: top; line-height: 1.5; }
+  table.rules td:first-child { font-weight: 600; color: var(--gl-heading); white-space: nowrap; }
+  table.rules td.ev { color: var(--gl-ink-soft); font-size: 12.5px; }
+
+  .delta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 1000px) { .delta-grid { grid-template-columns: 1fr 1fr; } }
+  .dcell { background: var(--contained); border-radius: var(--radius); padding: 18px; }
+  .dcell .lbl { font-size: 11.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
+  .dcell .why { font-size: 12px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 10px; }
+  .delta.plain { background: transparent; padding: 0; color: var(--gl-ink-soft); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Layouts</div>
+</header>
+
+<div class="wrap">
+  <div class="crumb-nav"><a href="/layouts/containers.html">Containers</a> · <a href="/layouts/content-header.html">Content header</a> · <a href="/layouts/widget.html">Widget</a> · Visualisation</div>
+  <h1>Visualisation</h1>
+  <p class="intro">A visualisation is what fills a widget's body: one <strong>mark</strong> (the chart, number, or bar) and the <strong>furniture</strong> around it (value, unit, delta, axis, legend, caption). This page names those parts, fixes where each one sits relative to the mark, and lists the workhorse marks with their allowed configurations. The <a href="/layouts/widget.html">Widget</a> spec owns the frame; this page owns what goes inside it.</p>
+
+  <div class="sec-h">Where it sits</div>
+  <p class="sec-sub">One layer below the widget. A widget type chooses a visualisation; the visualisation is the reusable unit, so the same stat-with-sparkline reads identically in a W1 tile, a T4 detail rail, or an uncontained page section.</p>
+  <div class="demo">
+    <div class="layer-stack">
+      <div class="layer"><div class="l-name">Container <a href="/layouts/containers.html">Containers</a></div><div class="l-desc">Grey surface, 12px radius, 24px padding.</div></div>
+      <div class="layer"><div class="l-name">Widget <a href="/layouts/widget.html">Widget</a></div><div class="l-desc">Container that reports. Header, scope, local controls, body slot, footer, states.</div></div>
+      <div class="layer"><div class="l-name">Widget type <a href="/widgets/index.html">Widget catalogue</a></div><div class="l-desc">The job (stat, trend, status list…). Each type names the visualisation it uses.</div></div>
+      <div class="layer on"><div class="l-name">Visualisation <span>this page</span></div><div class="l-desc">Fills the body slot. Mark + furniture, with fixed relative positions.</div></div>
+      <div class="layer sub"><div class="l-name">Mark</div><div class="l-desc">The encoding: big number, sparkline, meter, proportion bar, segments, donut, ranked bars, columns.</div></div>
+      <div class="layer sub"><div class="l-name">Furniture</div><div class="l-desc">Text and keys that make the mark readable: value, unit, delta, axis row, legend, caption.</div></div>
+    </div>
+    <p class="note"><strong>Boundary with the widget.</strong> The widget's title and scope line say <em>what</em> is measured and over <em>what</em> population and period. Furniture never repeats that: an axis row gives endpoints, not the period name; a caption interprets, it does not restate the title. The legend zone the widget spec reserves is populated by, and follows the rules of, this page.</p>
+  </div>
+
+  <div class="sec-h">Anatomy</div>
+  <p class="sec-sub">Five slots, top to bottom, drawn inside a widget body. Only the mark is mandatory. Every other slot is optional but has one fixed position, so two visualisations side by side always line up. Slot gap is 6px between value row and mark, 6px between mark and axis row, 12px above legend and caption.</p>
+  <div class="demo">
+    <div class="anatomy-card">
+      <div class="frame-hint">Widget header and scope line sit above (owned by the Widget spec)</div>
+      <div class="anatomy-zone opt"><span class="zone-lbl">1 · Value row</span>
+        <div class="value-row"><span class="big-number">18.4<span class="unit">kW</span></span><span class="delta down">↓ 2.1% vs yesterday</span></div>
+      </div>
+      <div class="anatomy-zone mark"><span class="zone-lbl">2 · Mark</span>
+        <svg class="spark" viewBox="0 0 220 72" preserveAspectRatio="none">
+  <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-blue)" stop-opacity="0.22"/><stop offset="1" stop-color="var(--c-blue)" stop-opacity="0"/></linearGradient></defs>
+  <path d="M0,30 L40,36 L80,28 L120,40 L160,34 L200,44 L220,42 L220,70 L0,70Z" fill="url(#ga)"/>
+  <path d="M0,40 L220,40" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="1 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="M0,30 L40,36 L80,28 L120,40 L160,34 L200,44 L220,42" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+  <path d="M220 42 h0.01" stroke="var(--c-blue)" stroke-width="12" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+</svg>
+      </div>
+      <div class="anatomy-zone opt"><span class="zone-lbl">3 · Axis row</span>
+        <div class="axis" style="padding-top:0;"><span>Yesterday · 18.8 kW</span><span>Now · 18.4 kW</span></div>
+      </div>
+      <div class="anatomy-zone opt"><span class="zone-lbl">4 · Legend</span>
+        <div class="legend-inline"><span class="lg"><span class="sw"></span>This period</span><span class="lg"><span class="dash-sw"></span>Prior period</span></div>
+      </div>
+      <div class="anatomy-zone opt"><span class="zone-lbl">5 · Caption</span>
+        <div class="caption">Below the 20 kW budget for the third day; the dip at 14:00 is the scheduled rack rebalance.</div>
+      </div>
+      <div class="frame-hint">Widget footer (drill link · freshness) sits below</div>
+    </div>
+    <div class="anatomy-legend">
+      <span class="lg"><span class="sw mark"></span>Mandatory</span>
+      <span class="lg"><span class="sw opt"></span>Optional slot, fixed position when present</span>
+    </div>
+    <p class="note">
+      <strong>1 · Value row</strong> holds the headline number, its unit, and the delta on one baseline. It sits above the mark so the eye reads answer first, evidence second. Omit it when the mark carries its own values (ranked bars, status list).<br>
+      <strong>2 · Mark</strong> is exactly one encoding. Text never appears inside the plot area of a chart; annotations live in the axis row or caption. The donut centre total is the one exception.<br>
+      <strong>3 · Axis row</strong> is the minimal axis: two endpoints as "label · value". Used by time marks (sparkline, columns) and meters (0 · capacity). Never a full tick axis inside a widget.<br>
+      <strong>4 · Legend</strong> appears only when the mark has two or more series or categories that colour alone cannot name. Single solid series never get one. Legend entries may carry values ("Critical 2").<br>
+      <strong>5 · Caption</strong> is one sentence of interpretation or the single most important exception, in ink. It is the only slot allowed to contain prose.<br>
+      <strong>Unit</strong> is not a slot: it attaches to the value (same baseline, smaller, softer) or to the axis-row values, never floating on its own.
+    </p>
+  </div>
+
+  <div class="sec-h">Furniture rules</div>
+  <p class="sec-sub">Where each piece of furniture lives and how it is written. Position is relative to the mark; the widget frame does not move it.</p>
+  <div class="demo" style="padding:0; border:0;">
+    <table class="rules">
+      <thead><tr><th>Furniture</th><th>Position</th><th>Rule</th><th>Copy form</th></tr></thead>
+      <tbody>
+        <tr><td>Value</td><td>Value row, leading</td><td>Largest type in the widget (34px standard, 46px hero). Tabular numerals. One value per visualisation; a second number is a second visualisation or a legend value.</td><td>"18.4", "71%", "1,842"</td></tr>
+        <tr><td>Unit</td><td>Baseline of the value, trailing</td><td>Smaller (15px), <code>--gl-ink-soft</code>, tight to the number. Percent and currency symbols may set at value size. Unit repeats in axis-row values so endpoints are self-contained.</td><td>"18.4 kW", "3.4 PB", "71%"</td></tr>
+        <tr><td>Delta</td><td>Value row, after the unit</td><td>Pill with arrow and magnitude, plus the comparison basis in the pill or the caption. Tint carries the judgement (down is red only when down is bad). Text stays ink. No delta when there is no meaningful prior period.</td><td>"↑ 2% vs last month", "↓ 2.1% vs yesterday"</td></tr>
+        <tr><td>Axis row</td><td>Directly under the mark, full width</td><td>Two endpoints, justified to the mark's edges. Left = start or zero, right = end or capacity. Optional centre label only for a threshold ("Threshold · 90%").</td><td>"1 Sep · 3.1 PB" ··· "Today · 3.4 PB"</td></tr>
+        <tr><td>Legend</td><td>Below the mark (after the axis row) by default</td><td>Inline swatches for series; stacked rows with values for parts of a whole (beside a donut). Order follows the mark: series order for lines, status order critical → warning → ok → unknown for categories. Zero-count entries are omitted. Compact widgets may lift a value-bearing legend into the header trailing area.</td><td>"— This period · ┄ Prior period", "● Critical 2"</td></tr>
+        <tr><td>Caption</td><td>Last slot, full width</td><td>One sentence, at most two lines, <code>--gl-ink-soft</code>. Interprets or names the top exception; never restates the value or title. Bold is allowed for one figure.</td><td>"14 new volumes in Finance-Prod have no snapshot schedule."</td></tr>
+        <tr><td>Threshold</td><td>Inside the mark as a dashed line, named in the axis row</td><td>Dashed <code>var(--line)</code>, 2px, "1 4" dasharray. Gets a legend entry only when it is a series (prior period); a fixed budget is named in the axis row instead.</td><td>"Threshold · 90%"</td></tr>
+        <tr><td>Status dot</td><td>Leading the row label</td><td>10px circle, semantic colour. The only colour carrier for status text, which stays ink.</td><td>"● Object storage"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub-h">Delta configurations</div>
+  <p class="sec-sub">Same slot, four situations. The tinted pill is the default; the others exist for a reason and are not stylistic alternatives.</p>
+  <div class="delta-grid">
+    <div class="dcell"><div class="lbl">Default · judged</div>
+      <div class="value-row"><span class="big-number">71<span class="unit">%</span></span><span class="delta down">↑ 2% vs last month</span></div>
+      <div class="why">Direction has a known good side. Tint is the judgement (up is bad for capacity used); text is the fact.</div></div>
+    <div class="dcell"><div class="lbl">Neutral · not judged</div>
+      <div class="value-row"><span class="big-number">128</span><span class="delta neutral">+4 this quarter</span></div>
+      <div class="why">Change with no good or bad side (system count). Grey pill, no arrow.</div></div>
+    <div class="dcell"><div class="lbl">Absolute exception</div>
+      <div class="value-row"><span class="big-number">98<span class="unit">%</span></span><span class="delta neutral">14 unprotected</span></div>
+      <div class="why">The gap matters more than the trend. The delta slot carries the count to act on instead of a percentage change.</div></div>
+    <div class="dcell"><div class="lbl">No comparison</div>
+      <div class="value-row"><span class="big-number">3.4<span class="unit">PB</span></span><span class="delta plain">of 4.8 PB</span></div>
+      <div class="why">No prior period, so no pill. Plain soft text gives the denominator; a meter below shows the ratio.</div></div>
+  </div>
+
+  <div class="sec-h">Mark catalogue</div>
+  <p class="sec-sub">Eight marks cover every canonical widget type. Each entry gives the question the mark answers, its furniture, allowed configurations, and the degenerate case: what to draw when the data collapses to one value or one colour.</p>
+
+  <div class="mark-grid">
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Power draw</div><div class="scope">Last 24 hours · 42 servers</div></div>
+        <div class="value-row"><span class="big-number">18.4<span class="unit">kW</span></span><span class="delta down">↓ 2.1% vs yesterday</span></div>
+        <div><svg class="spark" viewBox="0 0 220 72" preserveAspectRatio="none">
+  <defs><linearGradient id="gm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-blue)" stop-opacity="0.22"/><stop offset="1" stop-color="var(--c-blue)" stop-opacity="0"/></linearGradient></defs>
+  <path d="M0,30 L40,36 L80,28 L120,40 L160,34 L200,44 L220,42 L220,70 L0,70Z" fill="url(#gm1)"/>
+  <path d="M0,30 L40,36 L80,28 L120,40 L160,34 L200,44 L220,42" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+  <path d="M220 42 h0.01" stroke="var(--c-blue)" stroke-width="12" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+</svg><div class="axis"><span>Yesterday · 18.8 kW</span><span>Now · 18.4 kW</span></div></div>
+      </div>
+      <div class="m-name"><span class="code">M1</span>Stat with sparkline</div>
+      <p class="m-q">Is this metric where it should be, and which way is it heading?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Value row (value, unit, delta), axis row. Legend only if a dashed prior period is drawn.</dd>
+        <dt>Configs</dt><dd>Value + sparkline · value + sparkline + prior-period reference. (Value without a mark is M8.)</dd>
+        <dt>Spec</dt><dd>Sparkline per the <a href="/card-gallery.html#trend">canonical trend spec</a>: 72px, 2px blue, gradient fill, 12px endpoint dot.</dd>
+        <dt>Degenerate</dt><dd>Flat series: still draw it; a flat line is the fact. Missing prior period: drop the delta, keep the value.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Capacity</div><div class="scope">All systems</div></div>
+        <div class="value-row"><span class="big-number">71<span class="unit">%</span></span><span class="delta plain">3.4 of 4.8 PB</span></div>
+        <div><div class="meter"><i class="warn" style="width:71%"></i><span class="tick" style="left:90%"></span></div><div class="meter-row"><span>0</span><span>Threshold · 90%</span><span>4.8 PB</span></div></div>
+        <div class="caption">At current growth, 90% is reached in about 9 months.</div>
+      </div>
+      <div class="m-name"><span class="code">M2</span>Meter</div>
+      <p class="m-q">How full is it, and how close to the limit?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Value row, axis row (0 · threshold · capacity), caption for the projection.</dd>
+        <dt>Configs</dt><dd>Plain fill · fill with threshold tick · fill coloured by band (blue below threshold, amber above warning, red above critical).</dd>
+        <dt>Rule</dt><dd>Fill colour is the only semantic colour; the value text stays ink. Track is <code>--grey-bg</code>.</dd>
+        <dt>Degenerate</dt><dd>0% or 100%: draw the meter anyway; the empty or full track is the message.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Environment health</div><div class="scope">128 systems · 4 regions</div></div>
+        <div class="donut-row">
+          <div class="donut" style="background: conic-gradient(var(--red) 0 1.6%, var(--amber) 1.6% 5.5%, var(--ok) 5.5% 100%);" data-center="128"></div>
+          <div class="legend-stack">
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">2</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">5</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy</span><span class="pct">121</span></div>
+          </div>
+        </div>
+        <div class="caption">2 critical: controller failover on Array-DAL-04, degraded drive set on Array-FRA-11.</div>
+      </div>
+      <div class="m-name"><span class="code">M3</span>Donut with legend</div>
+      <p class="m-q">How is the population split, and what is the total?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Total in the donut centre. Stacked legend with counts beside it. Caption names the exception.</dd>
+        <dt>Configs</dt><dd>Status split (fixed severity order) · category split (at most 5 slices, sorted by size, "Other" last).</dd>
+        <dt>Rule</dt><dd>Legend order equals slice order from 12 o'clock. Zero-count statuses are omitted from the legend.</dd>
+        <dt>Degenerate</dt><dd>All one status: do not draw a solid green ring. Fall back to M8 ("128 · All healthy") with a status dot.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Volumes</div><div class="scope">1,842 · online, thresholds, latency</div></div>
+        <div><span class="prop"><i style="flex:33;background:var(--amber)"></i><i style="flex:1809;background:var(--ok)"></i></span></div>
+        <div class="legend-inline"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning<span class="val">33</span></span><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy<span class="val">1,809</span></span></div>
+      </div>
+      <div class="m-name"><span class="code">M4</span>Proportion bar</div>
+      <p class="m-q">What share of this group is in each state?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Value-bearing legend beneath, or the exception count right-aligned when the bar sits in a list row.</dd>
+        <dt>Configs</dt><dd>Standalone with legend · list-row variant stacked over its state text (see <a href="/health-widget-options.html#b">health widget options</a>).</dd>
+        <dt>Rule</dt><dd>Segments in status order, worst first, 2px gaps, 3px minimum width so a single failure stays visible.</dd>
+        <dt>Degenerate</dt><dd>One colour: do not draw. A bar with no split repeats the text. Use the quiet row treatment.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Object storage</div><div class="scope">Last 30 days · daily · EU-West</div></div>
+        <div><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="c"></i><i class="w"></i><i class="w"></i></span><div class="axis"><span>22 Aug</span><span>Today</span></div></div>
+        <div class="legend-inline"><span class="lg"><span class="dot" style="background:var(--red)"></span>Outage</span><span class="lg"><span class="dot" style="background:var(--amber)"></span>Degraded</span><span class="lg"><span class="dot" style="background:var(--ok)"></span>Operational</span></div>
+      </div>
+      <div class="m-name"><span class="code">M5</span>Uptime segments</div>
+      <p class="m-q">Has this been reliable over the period?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Axis row with the period endpoints. Legend once per widget, not per row. Hover gives date and duration.</dd>
+        <dt>Configs</dt><dd>30 daily · 24 hourly · 12 weekly. Segment count always equals the unit count; the scope line names the unit.</dd>
+        <dt>Rule</dt><dd>One segment per whole unit, newest right, colour = worst state in that unit. Never encodes a percentage.</dd>
+        <dt>Degenerate</dt><dd>All operational: still draw it. Thirty clean segments say "no incident in 30 days", which the state word does not.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Top consumers</div><div class="scope">By capacity used · this month</div></div>
+        <div class="hbars">
+          <div class="hbar"><span class="nm">Finance-Prod</span><span class="track"><i style="width:100%"></i></span><span class="v">812 TB</span></div>
+          <div class="hbar"><span class="nm">Analytics</span><span class="track"><i style="width:71%"></i></span><span class="v">576 TB</span></div>
+          <div class="hbar"><span class="nm">VDI</span><span class="track"><i style="width:44%"></i></span><span class="v">358 TB</span></div>
+          <div class="hbar"><span class="nm">Backup landing</span><span class="track"><i style="width:31%"></i></span><span class="v">251 TB</span></div>
+          <div class="hbar"><span class="nm">Other · 14</span><span class="track"><i style="width:22%;background:var(--c-grey)"></i></span><span class="v">180 TB</span></div>
+        </div>
+      </div>
+      <div class="m-name"><span class="code">M6</span>Ranked bars</div>
+      <p class="m-q">Who or what is biggest, and by how much?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Label left, value right on every row; no axis row, no legend. Bars are relative to the top row, not to a total.</dd>
+        <dt>Configs</dt><dd>Top 5 + "Other · n" in grey · Top 5 with a highlighted row (the object this page is about) · paired bars for this period vs last.</dd>
+        <dt>Rule</dt><dd>Single hue for like-for-like comparison. Colour changes only when the row is the page subject or is "Other".</dd>
+        <dt>Degenerate</dt><dd>Fewer than three rows: use a key-value list; ranking needs a field to rank.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Alerts raised</div><div class="scope">Last 14 days · daily</div></div>
+        <div class="value-row"><span class="big-number">37</span><span class="delta up">↓ 18% vs prior 14 days</span></div>
+        <div><div class="cols"><i style="height:40%"></i><i style="height:55%"></i><i style="height:30%"></i><i style="height:70%"></i><i style="height:45%"></i><i style="height:20%"></i><i style="height:25%"></i><i style="height:60%"></i><i style="height:35%"></i><i style="height:15%"></i><i style="height:30%"></i><i style="height:50%"></i><i style="height:20%"></i><i style="height:28%"></i></div><div class="axis"><span>8 Sep</span><span>Today</span></div></div>
+      </div>
+      <div class="m-name"><span class="code">M7</span>Columns</div>
+      <p class="m-q">How much happened in each interval?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Value row with the period total and delta. Axis row endpoints. Legend only when stacked by category.</dd>
+        <dt>Configs</dt><dd>Single series · stacked by status (severity order, worst on top) · with a dashed average line named in the axis row.</dd>
+        <dt>Rule</dt><dd>Use for counts and discrete events; use a sparkline for continuous measures. 4px gaps, 2px top radius, no value labels on bars.</dd>
+        <dt>Degenerate</dt><dd>All zero: show the total "0" and a caption; no ghost bars.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Host connectivity</div><div class="scope">412 hosts · path redundancy</div></div>
+        <div class="value-row"><span class="big-number">412</span><span class="delta neutral">All healthy</span></div>
+        <div class="caption">Every host has at least two active paths. Last single-path event: 14 Aug, resolved in 22 min.</div>
+      </div>
+      <div class="m-name"><span class="code">M8</span>Value only</div>
+      <p class="m-q">What is the number right now?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Value row and caption. Nothing else.</dd>
+        <dt>Configs</dt><dd>Value + delta · value + status pill · 2×2 grid of small value rows (label / value / caption) for related figures.</dd>
+        <dt>Rule</dt><dd>This is the fallback every other mark degenerates to when its data collapses. It is not a lesser mark; a widget that only needs a number should use it on purpose.</dd>
+        <dt>Degenerate</dt><dd>None. If the value itself is unavailable, the widget's no-data state takes over.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="sec-h">Choosing a mark</div>
+  <p class="sec-sub">Pick by the question, then check the data has the shape the mark needs. If it does not, fall to the degenerate case rather than drawing a mark that carries no information.</p>
+  <div class="demo" style="padding:0; border:0;">
+    <table class="rules">
+      <thead><tr><th>Question</th><th>Data shape needed</th><th>Mark</th><th>Used by</th></tr></thead>
+      <tbody>
+        <tr><td>Where is it, which way is it going?</td><td>Continuous measure over time</td><td>M1 Stat with sparkline</td><td class="ev">W1 Stat, W3 Trend</td></tr>
+        <tr><td>How full, how close to the limit?</td><td>Value with a known capacity or threshold</td><td>M2 Meter</td><td class="ev">W1 Stat (capacity), W13 Deadline</td></tr>
+        <tr><td>How is the whole split?</td><td>Counts in 2 to 5 categories, total matters</td><td>M3 Donut with legend</td><td class="ev">W5 Distribution</td></tr>
+        <tr><td>What share is in each state?</td><td>Counts by status, total need not be stated</td><td>M4 Proportion bar</td><td class="ev">W7 Status list (estate rows)</td></tr>
+        <tr><td>Has it been reliable?</td><td>State per whole time unit</td><td>M5 Uptime segments</td><td class="ev">W7 Status list (service rows)</td></tr>
+        <tr><td>Which is biggest?</td><td>3 to 8 named items with one measure</td><td>M6 Ranked bars</td><td class="ev">W6 Ranked table, W9 Top N</td></tr>
+        <tr><td>How much per interval?</td><td>Counts per bucket</td><td>M7 Columns</td><td class="ev">W3 Trend (events), W8 Exception</td></tr>
+        <tr><td>What is the number?</td><td>One value, optional comparison</td><td>M8 Value only</td><td class="ev">W1 Stat, W2 Multi-stat, any degenerate case</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-h">Rules carried from elsewhere</div>
+  <p class="note" style="margin-top:0;">
+    <strong>Colour.</strong> Text is always ink. Semantic colour lives in fills, dots, pills and marks only. Single-series marks use <code>--c-blue</code>; multi-series use the viz palette in order; status uses <code>--red / --amber / --ok / --unknown</code>.<br>
+    <strong>Zero counts</strong> are never listed in a legend; the mark shows absence.<br>
+    <strong>Status order</strong> is critical → warning → ok → unknown in legends, segments and slices.<br>
+    <strong>One mark per visualisation, one visualisation per widget body.</strong> A second chart is a second widget.<br>
+    <strong>Copy.</strong> Axis-row and legend fragments join with " · ". No spaced em dashes anywhere.
+  </p>
+
+</div>
+
+<script src="/livereload.js"></script>
+<script src="/library-nav.js"></script>
+</body>
+</html>
