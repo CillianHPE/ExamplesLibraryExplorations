@@ -103,10 +103,10 @@
   .vbox .num { font-size: 36px; font-weight: 500; letter-spacing: 0; line-height: 46px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
   .vbox .num.sm { font-size: 28px; letter-spacing: -0.5px; }
   .vbox .side { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; padding: 0 0 12px; }
-  .vbox .side .unit { font-size: 14px; font-weight: 400; color: var(--gl-ink); line-height: .74; margin: 0; }
-  .vbox .delta, .dopt .delta { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 2px 6px; border-radius: 4px; font-size: 14px; font-weight: 500; color: var(--gl-heading); white-space: nowrap; line-height: 20px; }
+  .vbox .side .unit { font-size: 12px; font-weight: 400; color: var(--gl-ink); line-height: .74; margin: 0; }
+  .vbox .delta, .dopt .delta { display: inline-flex; align-items: center; gap: 6px; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; color: var(--gl-heading); white-space: nowrap; line-height: 16px; }
   .vbox.inline { align-items: baseline; } .vbox.inline .num { line-height: 1; }
-  .vbox.inline .unit { font-size: 14px; font-weight: 400; color: var(--gl-ink); margin-left: -4px; }
+  .vbox.inline .unit { font-size: 12px; font-weight: 400; color: var(--gl-ink); margin-left: -4px; }
   .delta .ti { width: 14px; height: 14px; flex: none; }
   .delta.amber { background: var(--amber-bg); }
   .vbox .delta.plain, .dopt .delta.plain { padding: 2px 0; background: none; }
@@ -226,8 +226,8 @@
       <div class="vbox"><span class="num">98</span><span class="side"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="unit">%</span></span></div>
       <div class="anat-notes">
         <div><b>Number</b> text/3xlarge/medium: 36px / 500, line-height 46px, tabular numerals, color/text/strong. The 46px line box defines the box height.</div>
-        <div><b>Delta</b> text/small/medium: 14px / 500, line-height 20px, color/text/strong. Trend icon 14×14, 6px gap to the text. Contained variant adds 2px vertical and 6px horizontal padding, 4px radius (24px tall). Top edge on the number's line box (the 46px line-height), 10px gap to the number.</div>
-        <div><b>Unit</b> text/small/regular: 14px / 400, color/text/default, baseline aligned to the number's baseline.</div>
+        <div><b>Delta</b> text/xsmall/medium: 12px / 500, line-height 16px, color/text/strong. Trend icon 14×14, 6px gap to the text. Contained variant adds 2px vertical and 6px horizontal padding, 4px radius (20px tall). Top edge on the number's line box (the 46px line-height), 10px gap to the number.</div>
+        <div><b>Unit</b> text/xsmall/regular: 12px / 400, color/text/default, baseline aligned to the number's baseline.</div>
         <div><b>Box</b> is height-locked to the number. The side column grows only in width. Nothing wraps; long delta text is shortened, not stacked.</div>
       </div>
     </div>
@@ -246,7 +246,7 @@
   </div>
 
   <div class="sub-h">Delta presentation · candidates</div>
-  <p class="sec-sub">How the delta itself is drawn is not yet locked. These are the candidates, each shown rising and falling. The choice is independent of the presence configurations above; whichever wins slots into the same 24px delta position.</p>
+  <p class="sec-sub">How the delta itself is drawn is not yet locked. These are the candidates, each shown rising and falling. The choice is independent of the presence configurations above; whichever wins slots into the same 20px delta position.</p>
   <div class="dopt-grid">
     <div class="dopt "><div class="lbl">1 · Ink + trend icon</div><div class="pair"><span class="delta plain ink"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta plain ink"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Quietest. Direction only, no judgement. Fits B and D where nothing is good or bad. Candidate for the default when judgement is not needed.</div></div>
 <div class="dopt rejected"><div class="lbl">2 · Coloured text</div><div class="pair"><span class="delta plain" style="color:var(--ok)"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta plain" style="color:var(--red)"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Ruled out. Colour in typography breaks the ink rule and fails contrast at 12px. Shown for completeness.</div></div>
@@ -254,7 +254,7 @@
 <div class="dopt "><div class="lbl">4 · Tinted pill + simple arrow</div><div class="pair"><span class="delta up">↑ 7%</span><span class="delta down">↓ 7%</span></div><div class="why">Same semantics as 3 with a lighter glyph. Reads faster at 12px, loses the "trend" feel. Either 3 or 4 becomes the default, not both.</div></div>
 <div class="dopt "><div class="lbl">5 · Amber pill · attention</div><div class="pair"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="delta amber">14 unprotected</span></div><div class="why">Not a direction. Used when the delta slot carries an exception count or a state that needs attention rather than a comparison.</div></div>
   </div>
-  <p class="note">Two decisions remain: <strong>pill or plain</strong> as the default when a judgement exists, and <strong>trend icon or simple arrow</strong> for direction. The ink rule and the 24px slot are fixed regardless.</p>
+  <p class="note">Two decisions remain: <strong>pill or plain</strong> as the default when a judgement exists, and <strong>trend icon or simple arrow</strong> for direction. The ink rule and the 20px slot are fixed regardless.</p>
 
   <div class="sub-h">Delta content</div>
   <p class="sec-sub">What the delta says, independent of how it is drawn. Four situations; they are not stylistic alternatives.</p>
