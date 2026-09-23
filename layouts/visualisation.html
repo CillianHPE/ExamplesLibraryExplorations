@@ -105,10 +105,10 @@
   .vbox .num { font-size: 36px; font-weight: 500; letter-spacing: 0; line-height: 46px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
   .vbox .num.sm { font-size: 28px; letter-spacing: -0.5px; }
   .vbox .side { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; padding: 10px 0 13px; }
-  .vbox .side .unit { font-size: 15px; font-weight: 500; color: var(--gl-ink-soft); line-height: .74; margin: 0; }
+  .vbox .side .unit { font-size: 14px; font-weight: 400; color: var(--gl-ink); line-height: .74; margin: 0; }
   .vbox .delta { display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 9px; font-size: 12px; white-space: nowrap; line-height: 1; }
   .vbox.inline { align-items: baseline; } .vbox.inline .num { line-height: 1; }
-  .vbox.inline .unit { font-size: 15px; font-weight: 600; color: var(--gl-ink-soft); margin-left: -4px; }
+  .vbox.inline .unit { font-size: 14px; font-weight: 400; color: var(--gl-ink); margin-left: -4px; }
   .delta .ti { width: 14px; height: 14px; flex: none; }
   .delta.amber { background: var(--amber-bg); color: var(--gl-ink); }
   .delta.plain.ink { color: var(--gl-ink); }
@@ -231,7 +231,7 @@
       <div class="anat-notes">
         <div><b>Number</b> text/3xlarge/medium: 36px / 500, line-height 46px, tabular numerals, color/text/strong. The glyph (cap line to baseline) defines the box height.</div>
         <div><b>Delta</b> 18px tall pill (or 18px line of plain text), top edge on the number's cap line. 10px gap to the number.</div>
-        <div><b>Unit</b> 15px / 500, <code>--gl-ink-soft</code>, baseline aligned to the number's baseline.</div>
+        <div><b>Unit</b> text/small/regular: 14px / 400, color/text/default, baseline aligned to the number's baseline.</div>
         <div><b>Box</b> is height-locked to the number. The side column grows only in width. Nothing wraps; long delta text is shortened, not stacked.</div>
       </div>
     </div>
