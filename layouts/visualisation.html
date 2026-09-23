@@ -107,7 +107,7 @@
   .vbox .side > span:empty { height: 16px; }
   .vbox .delta, .dopt .delta { display: inline-flex; align-items: center; gap: 6px; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; color: var(--gl-heading); white-space: nowrap; line-height: 16px; }
   .vbox.inline { align-items: baseline; } .vbox.inline .num { line-height: 1; }
-  .vbox.inline .unit { font-size: 12px; font-weight: 400; color: var(--gl-ink); margin-left: -4px; }
+  .vbox.inline .unit { font-size: 12px; font-weight: 400; color: var(--gl-ink); }
   .delta .ti { width: 14px; height: 14px; flex: none; }
   .delta.amber { background: var(--amber-bg); }
   .vbox .delta.plain, .dopt .delta.plain { padding: 0; height: 16px; background: none; }
@@ -125,7 +125,37 @@
   .dopt { background: var(--contained); border-radius: var(--radius); padding: 18px; }
   .dopt.rejected { opacity: .6; }
   .dopt .pair { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-      .delta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    
+  .tabs { display: flex; gap: 8px; margin: 24px 0 32px; flex-wrap: wrap; }
+  .tabbtn { border: 1px solid var(--line); border-radius: 20px; background: #fff; padding: 8px 18px; font-size: 13px; font-weight: 600; color: var(--gl-ink-soft); cursor: pointer; font-family: inherit; }
+  .tabbtn.on { background: #EDF6F2; border-color: var(--gl-green-dark); box-shadow: inset 0 0 0 1px var(--gl-green-dark); color: var(--gl-heading); }
+  .pane { display: none; } .pane.on { display: block; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  @media (max-width: 1000px) { .two { grid-template-columns: 1fr; } }
+  ul.tight { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; }
+  ul.tight.big { font-size: 13.5px; gap: 10px; }
+  ul.tight b { color: var(--gl-heading); font-weight: 600; margin-right: 6px; }
+  .opt-grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+  .opt-grid.one { grid-template-columns: 1fr; }
+  @media (max-width: 1000px) { .opt-grid.three { grid-template-columns: 1fr; } }
+  .opt { background: var(--contained); border-radius: var(--radius); padding: 18px; border: 1.5px solid transparent; }
+  .opt.is-rec { border-color: var(--gl-green); background: #EDF6F2; }
+  .opt.is-bad { opacity: .7; }
+  .opt .lbl { font-size: 11.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 14px; display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+  .tag { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+  .tag.rec { background: var(--gl-green-dark); color: #fff; }
+  .tag.no { background: var(--grey-bg); color: var(--gl-ink-soft); }
+  .opt .why { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 14px; }
+  .opt .demo-in { min-height: 46px; display: flex; align-items: center; }
+  .seq { display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
+  .seq .step .lbl { font-size: 11px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
+  .seq .arr { font-size: 22px; color: var(--gl-ink-faint); padding-bottom: 8px; }
+  .reco { background: var(--contained); border-radius: var(--radius); padding: 18px 20px; display: grid; gap: 8px; font-size: 13px; color: var(--gl-ink-soft); line-height: 1.5; }
+  .reco b { color: var(--gl-heading); font-weight: 600; margin-right: 6px; }
+  .vbox .side.one { justify-content: center; }
+  .vbox .unit.base { align-self: flex-end; font-size: 12px; color: var(--gl-ink); line-height: 16px; padding-bottom: 8px; margin-left: -2px; }
+  .dopt-grid.four { grid-template-columns: repeat(4, 1fr); }
+  .delta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
   @media (max-width: 1000px) { .delta-grid { grid-template-columns: 1fr 1fr; } }
   .dcell { background: var(--contained); border-radius: var(--radius); padding: 18px; }
   .dcell .lbl { font-size: 11.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
@@ -144,11 +174,22 @@
 <div class="wrap">
   <div class="crumb-nav"><a href="/layouts/containers.html">Containers</a> · <a href="/layouts/content-header.html">Content header</a> · <a href="/layouts/widget.html">Widget</a> · Visualisation</div>
   <h1>Visualisation</h1>
-  <p class="intro">A visualisation is what fills a widget's body: one <strong>mark</strong> (the chart, number, or bar) and the <strong>furniture</strong> around it (value, unit, delta, axis, legend, caption). This page names those parts, fixes where each one sits relative to the mark, and lists the workhorse marks with their allowed configurations. The <a href="/layouts/widget.html">Widget</a> spec owns the frame; this page owns what goes inside it.</p>
+  <p class="intro">What fills a widget body: one <strong>mark</strong> (the chart, number or bar) plus the <strong>furniture</strong> that makes it readable (value, unit, delta, axis, legend, caption). The <a href="/layouts/widget.html">Widget</a> spec owns the frame; this page owns the inside.</p>
 
-  <div class="sec-h">Where it sits</div>
-  <p class="sec-sub">One layer below the widget. A widget type chooses a visualisation; the visualisation is the reusable unit, so the same stat-with-sparkline reads identically in a W1 tile, a T4 detail rail, or an uncontained page section.</p>
-  <div class="demo">
+  <div class="tabs">
+    <button class="tabbtn on" onclick="setTab('over', this)">1 · Overview</button>
+    <button class="tabbtn" onclick="setTab('value', this)">2 · Value row</button>
+    <button class="tabbtn" onclick="setTab('furn', this)">3 · Furniture</button>
+    <button class="tabbtn" onclick="setTab('marks', this)">4 · Marks</button>
+    <button class="tabbtn" onclick="setTab('rules', this)">5 · Rules</button>
+  </div>
+
+  <!-- 1 OVERVIEW -->
+  <div class="pane on" id="pane-over">
+    <div class="two">
+      <div>
+        <div class="sec-h" style="margin-top:0">Where it sits</div>
+        <p class="sec-sub">One layer below the widget. The same visualisation reads identically in a W1 tile, a detail rail or an uncontained section.</p>
     <div class="layer-stack">
       <div class="layer"><div class="l-name">Container <a href="/layouts/containers.html">Containers</a></div><div class="l-desc">Grey surface, 12px radius, 24px padding.</div></div>
       <div class="layer"><div class="l-name">Widget <a href="/layouts/widget.html">Widget</a></div><div class="l-desc">Container that reports. Header, scope, local controls, body slot, footer, states.</div></div>
@@ -157,12 +198,13 @@
       <div class="layer sub"><div class="l-name">Mark</div><div class="l-desc">The encoding: big number, sparkline, meter, proportion bar, segments, donut, ranked bars, columns.</div></div>
       <div class="layer sub"><div class="l-name">Furniture</div><div class="l-desc">Text and keys that make the mark readable: value, unit, delta, axis row, legend, caption.</div></div>
     </div>
-    <p class="note"><strong>Boundary with the widget.</strong> The widget's title and scope line say <em>what</em> is measured and over <em>what</em> population and period. Furniture never repeats that: an axis row gives endpoints, not the period name; a caption interprets, it does not restate the title. The legend zone the widget spec reserves is populated by, and follows the rules of, this page.</p>
-  </div>
 
-  <div class="sec-h">Anatomy</div>
-  <p class="sec-sub">Five slots, top to bottom, drawn inside a widget body. Only the mark is mandatory. Every other slot is optional but has one fixed position, so two visualisations side by side always line up. Slot gap is 6px between value row and mark, 6px between mark and axis row, 12px above legend and caption.</p>
-  <div class="demo">
+        <p class="note"><strong>Boundary.</strong> Widget title and scope say what is measured and over what. Furniture never repeats it.</p>
+      </div>
+      <div>
+        <div class="sec-h" style="margin-top:0">Anatomy</div>
+        <p class="sec-sub">Five slots, top to bottom. Only the mark is mandatory; the others are optional but have one fixed position.</p>
+        <div class="demo">
     <div class="anatomy-card">
       <div class="frame-hint">Widget header and scope line sit above (owned by the Widget spec)</div>
       <div class="anatomy-zone opt"><span class="zone-lbl">1 · Value row</span>
@@ -187,96 +229,144 @@
       </div>
       <div class="frame-hint">Widget footer (drill link · freshness) sits below</div>
     </div>
-    <div class="anatomy-legend">
-      <span class="lg"><span class="sw mark"></span>Mandatory</span>
-      <span class="lg"><span class="sw opt"></span>Optional slot, fixed position when present</span>
+
+        </div>
+        <ul class="tight">
+          <li><b>1 Value row</b> answer first: number, unit, delta. Omit when the mark carries its own values.</li>
+          <li><b>2 Mark</b> exactly one encoding. No text inside the plot (donut centre excepted).</li>
+          <li><b>3 Axis row</b> two endpoints as "label · value". Never a full tick axis.</li>
+          <li><b>4 Legend</b> only for two or more series or categories. Zero counts omitted.</li>
+          <li><b>5 Caption</b> one sentence of interpretation. The only slot allowed prose.</li>
+        </ul>
+      </div>
     </div>
-    <p class="note">
-      <strong>1 · Value row</strong> holds the headline number, its unit, and the delta on one baseline. It sits above the mark so the eye reads answer first, evidence second. Omit it when the mark carries its own values (ranked bars, status list).<br>
-      <strong>2 · Mark</strong> is exactly one encoding. Text never appears inside the plot area of a chart; annotations live in the axis row or caption. The donut centre total is the one exception.<br>
-      <strong>3 · Axis row</strong> is the minimal axis: two endpoints as "label · value". Used by time marks (sparkline, columns) and meters (0 · capacity). Never a full tick axis inside a widget.<br>
-      <strong>4 · Legend</strong> appears only when the mark has two or more series or categories that colour alone cannot name. Single solid series never get one. Legend entries may carry values ("Critical 2").<br>
-      <strong>5 · Caption</strong> is one sentence of interpretation or the single most important exception, in ink. It is the only slot allowed to contain prose.<br>
-      <strong>Unit</strong> is not a slot: it attaches to the value (same baseline, smaller, softer) or to the axis-row values, never floating on its own.
-    </p>
   </div>
 
-  <div class="sec-h">Furniture rules</div>
-  <p class="sec-sub">Where each piece of furniture lives and how it is written. Position is relative to the mark; the widget frame does not move it.</p>
+  <!-- 2 VALUE ROW -->
+  <div class="pane" id="pane-value">
+    <div class="sec-h" style="margin-top:0">One box</div>
+    <p class="sec-sub">The number's 46px line box sets the height. Delta and unit form a 32px stack (two 16px lines, no gap) centred on it, 4px to the right. Missing pieces leave their line empty; nothing reflows.</p>
+    <div class="demo">
+      <div class="vbox-anat">
+        <div class="vbox "><span class="num">98</span><span class="side"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="unit">%</span></span></div>
+        <div class="anat-notes">
+          <div><b>Number</b> text/3xlarge/medium · 36/46 · color/text/strong</div>
+          <div><b>Delta</b> text/xsmall/medium · 12/16 · color/text/strong · 14px trend icon, 6px gap · uncontained by default; contained adds 2px/6px padding, 4px radius</div>
+          <div><b>Unit</b> text/xsmall/regular · 12/16 · color/text/default</div>
+          <div><b>Gaps</b> 4px number to stack · 0 inside the stack · nothing wraps</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-h">Stack order</div>
+    <p class="sec-sub">Which line does the unit take? Three ways to arrange the same three pieces.</p>
+    <div class="opt-grid three">
+      <div class="opt is-rec"><div class="lbl">S1 · Delta over unit<span class="tag rec">Recommended</span></div><div class="demo-in"><div class="vbox "><span class="num">98</span><span class="side"><span class="delta plain"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7% vs last month</span><span class="unit">%</span></span></div></div><div class="why">Unit sits low, beside the baseline, so "98" and "%" still read as one token. Delta floats above as an annotation. Matches the Figma component.</div></div>
+      <div class="opt"><div class="lbl">S2 · Unit over delta</div><div class="demo-in"><div class="vbox"><span class="num">98</span><span class="side"><span class="unit">%</span><span class="delta plain"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7% vs last month</span></span></div></div><div class="why">Unit at cap height reads like an exponent (98<sup>%</sup>). The delta drops to the baseline where a unit is expected.</div></div>
+      <div class="opt"><div class="lbl">S3 · Unit inline, delta beside</div><div class="demo-in"><div class="vbox"><span class="num">98</span><span class="unit base">%</span><span class="side one"><span class="delta plain"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7% vs last month</span></span></div></div><div class="why">Most natural read for the unit, but the row grows a third column and the delta position moves with unit width, so a strip of stats stops lining up.</div></div>
+    </div>
+
+    <div class="sec-h">When pieces are missing</div>
+    <p class="sec-sub">Same box, fewer pieces. The stack keeps its two lines so a strip of stats stays aligned.</p>
+    <div class="demo">
+      <div class="seq">
+        <div class="step"><div class="lbl">A · All three</div><div class="vbox "><span class="num">98</span><span class="side"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="unit">%</span></span></div></div><span class="arr">→</span>
+        <div class="step"><div class="lbl">B · No unit</div><div class="vbox "><span class="num">128</span><span class="side"><span class="delta neutral"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>+4 this quarter</span></span></div></div><span class="arr">→</span>
+        <div class="step"><div class="lbl">C · No delta</div><div class="vbox "><span class="num">3.4</span><span class="side"><span></span><span class="unit">PB</span></span></div></div><span class="arr">→</span>
+        <div class="step"><div class="lbl">D · Number only</div><div class="vbox "><span class="num">412</span></div></div>
+      </div>
+    </div>
+
+    <div class="sub-h">No unit: where does the delta go?</div>
+    <div class="opt-grid three">
+      <div class="opt is-rec"><div class="lbl">U1 · Keep the top line<span class="tag rec">Recommended</span></div><div class="demo-in"><div class="vbox "><span class="num">128</span><span class="side"><span class="delta neutral"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>+4 this quarter</span></span></div></div><div class="why">Bottom line stays empty. Deltas line up across a strip whether or not their neighbours have units. One rule, no exceptions.</div></div>
+      <div class="opt"><div class="lbl">U2 · Centre the delta alone</div><div class="demo-in"><div class="vbox"><span class="num">128</span><span class="side one"><span class="delta neutral"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>+4 this quarter</span></span></div></div><div class="why">Tidier as a single stat, but 8px off every other delta in a strip. Acceptable only for a lone value-only widget (M8).</div></div>
+      <div class="opt is-bad"><div class="lbl">U3 · Inline on the baseline<span class="tag no">Not this</span></div><div class="demo-in"><div class="vbox inline"><span class="num sm">128</span><span class="delta neutral"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>+4 this quarter</span></div></div><div class="why">Belongs to the compact inline row (E) only. Mixing it with stacked rows breaks the box.</div></div>
+    </div>
+
+    <div class="sub-h">No delta: where does the unit go?</div>
+    <div class="opt-grid three">
+      <div class="opt is-rec"><div class="lbl">N1 · Bottom line, top empty<span class="tag rec">Recommended</span></div><div class="demo-in"><div class="vbox "><span class="num">3.4</span><span class="side"><span></span><span class="unit">PB</span></span></div></div><div class="why">Unit keeps its baseline position. Top line stays empty; nothing is promoted into it.</div></div>
+      <div class="opt is-bad"><div class="lbl">N2 · Lift the unit to the top<span class="tag no">Not this</span></div><div class="demo-in"><div class="vbox"><span class="num">3.4</span><span class="side"><span class="unit">PB</span><span></span></span></div></div><div class="why">Exponent problem again, and the unit changes line depending on whether a delta exists.</div></div>
+      <div class="opt is-bad"><div class="lbl">N3 · Promote the denominator<span class="tag no">Not this</span></div><div class="demo-in"><div class="vbox "><span class="num">3.4</span><span class="side"><span class="delta plain">of 4.8 PB</span><span class="unit">PB</span></span></div></div><div class="why">Tempting for capacity, but "of 4.8 PB" is not a delta. Keep it in the axis row or caption; a meter shows the ratio.</div></div>
+    </div>
+
+    <div class="sub-h">E · Compact inline</div>
+    <div class="opt-grid one">
+      <div class="opt"><div class="lbl">Everything on one baseline · 28px number</div><div class="demo-in"><div class="vbox inline"><span class="num sm">18.4</span><span class="unit">kW</span><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>2.1% vs yesterday</span></div></div><div class="why">For W2 multi-stat grids and T5 wallboard tiles where height is scarce. Never mixed with stacked rows in the same strip.</div></div>
+    </div>
+
+    <div class="sec-h">Recommendation</div>
+    <div class="reco">
+      <div><b>Order</b> delta on the top line, unit on the bottom line (S1).</div>
+      <div><b>Slots are fixed</b> a missing unit or delta leaves its line empty (U1, N1). Never re-centre, never swap lines.</div>
+      <div><b>Inline</b> is a separate row type for compact tiles (E), not a fallback for missing pieces.</div>
+      <div><b>Denominators</b> go to the axis row or caption, never the delta slot.</div>
+    </div>
+
+    <div class="sec-h">Delta drawing · candidates</div>
+    <p class="sec-sub">Not yet locked. Each shown rising and falling; whichever wins uses the same 16px line (20px contained).</p>
+    <div class="dopt-grid">
+      <div class="dopt"><div class="lbl">1 · Ink + trend icon</div><div class="pair"><span class="delta plain"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta plain"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Direction only, no judgement. Quietest.</div></div>
+      <div class="dopt rejected"><div class="lbl">2 · Coloured text</div><div class="pair"><span class="delta plain" style="color:var(--ok)"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta plain" style="color:var(--red)"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Ruled out: colour in type, weak contrast at 12px.</div></div>
+      <div class="dopt"><div class="lbl">3 · Tinted pill + trend icon</div><div class="pair"><span class="delta up"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Tint = judgement, icon = direction. Current spec.</div></div>
+      <div class="dopt"><div class="lbl">4 · Tinted pill + arrow</div><div class="pair"><span class="delta up">↑ 7%</span><span class="delta down">↓ 7%</span></div><div class="why">Same meaning, lighter glyph. 3 or 4, not both.</div></div>
+      <div class="dopt"><div class="lbl">5 · Amber pill · attention</div><div class="pair"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="delta amber">14 unprotected</span></div><div class="why">Not a direction: an exception count.</div></div>
+    </div>
+    <p class="note">Open: <strong>pill or plain</strong> when a judgement exists; <strong>trend icon or arrow</strong> for direction.</p>
+
+    <div class="sec-h">Delta content</div>
+    <p class="sec-sub">What the delta says. Four situations, not styles.</p>
+    <div class="dopt-grid four">
+      <div class="dopt"><div class="lbl">Judged</div><div class="pair"><div class="vbox "><span class="num">71</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>2% vs last month</span><span class="unit">%</span></span></div></div><div class="why">Direction has a good side. Tint judges (up is bad for capacity).</div></div>
+      <div class="dopt"><div class="lbl">Neutral</div><div class="pair"><div class="vbox "><span class="num">128</span><span class="side"><span class="delta neutral">+4 this quarter</span></span></div></div><div class="why">No good or bad side. Grey, no icon.</div></div>
+      <div class="dopt"><div class="lbl">Exception count</div><div class="pair"><div class="vbox "><span class="num">98</span><span class="side"><span class="delta amber">14 unprotected</span><span class="unit">%</span></span></div></div><div class="why">The gap matters more than the trend.</div></div>
+      <div class="dopt"><div class="lbl">No comparison</div><div class="pair"><div class="vbox "><span class="num">3.4</span><span class="side"><span></span><span class="unit">PB</span></span></div></div><div class="why">No prior period, no delta. The denominator goes below.</div></div>
+    </div>
+  </div>
+
+  <!-- 3 FURNITURE -->
+  <div class="pane" id="pane-furn">
+    <div class="sec-h" style="margin-top:0">Furniture rules</div>
+    <p class="sec-sub">Where each piece lives, relative to the mark, and how it is written.</p>
+    <table class="rules">
+      <thead><tr><th>Furniture</th><th>Position</th><th>Rule</th><th>Copy</th></tr></thead>
+      <tbody>
+        <tr><td>Value</td><td>Value row, leading</td><td>36/46 medium, color/text/strong. One value per visualisation.</td><td>"18.4", "71%"</td></tr>
+        <tr><td>Unit</td><td>Bottom line of the stack</td><td>12/16 regular, color/text/default. Repeated in axis-row values.</td><td>"kW", "PB"</td></tr>
+        <tr><td>Delta</td><td>Top line of the stack</td><td>12/16 medium, ink. Tint carries judgement; text stays ink. None without a prior period.</td><td>"↑ 2% vs last month"</td></tr>
+        <tr><td>Axis row</td><td>Under the mark, full width</td><td>Two endpoints justified to the mark's edges. Optional centre label for a threshold.</td><td>"1 Sep · 3.1 PB" ··· "Today · 3.4 PB"</td></tr>
+        <tr><td>Legend</td><td>Below the mark</td><td>Inline swatches for series; stacked rows with values for parts of a whole. Status order. Zero counts omitted.</td><td>"● Critical 2"</td></tr>
+        <tr><td>Caption</td><td>Last slot, full width</td><td>One sentence, ink-soft. Interprets or names the top exception. Never restates the value.</td><td>"14 volumes have no snapshot schedule."</td></tr>
+        <tr><td>Threshold</td><td>Dashed line in the mark, named in the axis row</td><td>2px <code>var(--line)</code>, "1 4" dasharray. Legend entry only if it is a series.</td><td>"Threshold · 90%"</td></tr>
+        <tr><td>Status dot</td><td>Leading the row label</td><td>10px circle. The only colour carrier for status; the word stays ink.</td><td>"● Object storage"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4 MARKS -->
+  <div class="pane" id="pane-marks">
+    <div class="sec-h" style="margin-top:0">Choosing a mark</div>
+    <p class="sec-sub">Pick by the question, then check the data has the shape. If not, fall to the degenerate case.</p>
   <div class="demo" style="padding:0; border:0;">
     <table class="rules">
-      <thead><tr><th>Furniture</th><th>Position</th><th>Rule</th><th>Copy form</th></tr></thead>
+      <thead><tr><th>Question</th><th>Data shape needed</th><th>Mark</th><th>Used by</th></tr></thead>
       <tbody>
-        <tr><td>Value</td><td>Value row, leading</td><td>Largest type in the widget (34px standard, 46px hero). Tabular numerals. One value per visualisation; a second number is a second visualisation or a legend value.</td><td>"18.4", "71%", "1,842"</td></tr>
-        <tr><td>Unit</td><td>Baseline of the value, trailing</td><td>Smaller (15px), <code>--gl-ink-soft</code>, tight to the number. Percent and currency symbols may set at value size. Unit repeats in axis-row values so endpoints are self-contained.</td><td>"18.4 kW", "3.4 PB", "71%"</td></tr>
-        <tr><td>Delta</td><td>Value row, after the unit</td><td>Pill with arrow and magnitude, plus the comparison basis in the pill or the caption. Tint carries the judgement (down is red only when down is bad). Text stays ink. No delta when there is no meaningful prior period.</td><td>"↑ 2% vs last month", "↓ 2.1% vs yesterday"</td></tr>
-        <tr><td>Axis row</td><td>Directly under the mark, full width</td><td>Two endpoints, justified to the mark's edges. Left = start or zero, right = end or capacity. Optional centre label only for a threshold ("Threshold · 90%").</td><td>"1 Sep · 3.1 PB" ··· "Today · 3.4 PB"</td></tr>
-        <tr><td>Legend</td><td>Below the mark (after the axis row) by default</td><td>Inline swatches for series; stacked rows with values for parts of a whole (beside a donut). Order follows the mark: series order for lines, status order critical → warning → ok → unknown for categories. Zero-count entries are omitted. Compact widgets may lift a value-bearing legend into the header trailing area.</td><td>"— This period · ┄ Prior period", "● Critical 2"</td></tr>
-        <tr><td>Caption</td><td>Last slot, full width</td><td>One sentence, at most two lines, <code>--gl-ink-soft</code>. Interprets or names the top exception; never restates the value or title. Bold is allowed for one figure.</td><td>"14 new volumes in Finance-Prod have no snapshot schedule."</td></tr>
-        <tr><td>Threshold</td><td>Inside the mark as a dashed line, named in the axis row</td><td>Dashed <code>var(--line)</code>, 2px, "1 4" dasharray. Gets a legend entry only when it is a series (prior period); a fixed budget is named in the axis row instead.</td><td>"Threshold · 90%"</td></tr>
-        <tr><td>Status dot</td><td>Leading the row label</td><td>10px circle, semantic colour. The only colour carrier for status text, which stays ink.</td><td>"● Object storage"</td></tr>
+        <tr><td>Where is it, which way is it going?</td><td>Continuous measure over time</td><td>M1 Stat with sparkline</td><td class="ev">W1 Stat, W3 Trend</td></tr>
+        <tr><td>How full, how close to the limit?</td><td>Value with a known capacity or threshold</td><td>M2 Meter</td><td class="ev">W1 Stat (capacity), W13 Deadline</td></tr>
+        <tr><td>How is the whole split?</td><td>Counts in 2 to 5 categories, total matters</td><td>M3 Donut with legend</td><td class="ev">W5 Distribution</td></tr>
+        <tr><td>What share is in each state?</td><td>Counts by status, total need not be stated</td><td>M4 Proportion bar</td><td class="ev">W7 Status list (estate rows)</td></tr>
+        <tr><td>Has it been reliable?</td><td>State per whole time unit</td><td>M5 Uptime segments</td><td class="ev">W7 Status list (service rows)</td></tr>
+        <tr><td>Which is biggest?</td><td>3 to 8 named items with one measure</td><td>M6 Ranked bars</td><td class="ev">W6 Ranked table, W9 Top N</td></tr>
+        <tr><td>How much per interval?</td><td>Counts per bucket</td><td>M7 Columns</td><td class="ev">W3 Trend (events), W8 Exception</td></tr>
+        <tr><td>What is the number?</td><td>One value, optional comparison</td><td>M8 Value only</td><td class="ev">W1 Stat, W2 Multi-stat, any degenerate case</td></tr>
       </tbody>
     </table>
   </div>
 
 
-  <div class="sec-h">Value row configurations</div>
-  <p class="sec-sub">The value row is one box: the number's 46px line box sets the height, and the delta and unit form a 32px stack (two 16px lines, no gap) centred against it, 4px to the right of the number. Whatever is missing leaves its 16px slot empty rather than reflowing, so a strip of stats keeps every number, delta and unit on shared lines.</p>
-  <div class="demo">
-    <div class="vbox-anat">
-      <div class="vbox"><span class="num">98</span><span class="side"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="unit">%</span></span></div>
-      <div class="anat-notes">
-        <div><b>Number</b> text/3xlarge/medium: 36px / 500, line-height 46px, color/text/strong. The 46px line box defines the row height.</div>
-        <div><b>Delta</b> text/xsmall/medium: 12px / 500, line-height 16px, color/text/strong. Trend icon 14×14, 6px gap to the text. Uncontained by default (16px line). Contained variant adds 2px vertical and 6px horizontal padding, 4px radius (20px tall). Top line of the stack.</div>
-        <div><b>Unit</b> text/xsmall/regular: 12px / 400, line-height 16px, color/text/default. Bottom line of the stack.</div>
-        <div><b>Box</b> is height-locked to the number; the 32px stack is vertically centred (spacing/4xsmall gap, spacing/3xsmall inside the delta). Nothing wraps; long delta text is shortened, not stacked.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sub-h">Presence configurations</div>
-  <p class="sec-sub">Which furniture is available decides the configuration. Four stacked cases and one inline case for compact tiles.</p>
-  <div class="vcfg-grid">
-    <div class="vcfg"><div class="lbl">A · Number + unit + delta</div><div class="vbox"><span class="num">98</span><span class="side"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="unit">%</span></span></div><div class="why">The full box. Delta on the top line, unit on the bottom line; the stack is centred on the number.</div></div>
-<div class="vcfg"><div class="lbl">B · Number + delta</div><div class="vbox"><span class="num">128</span><span class="side"><span class="delta neutral"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>+4 this quarter</span></span></div><div class="why">No unit. The delta keeps the top line; the empty bottom slot stays empty so deltas across a strip of stats line up.</div></div>
-<div class="vcfg"><div class="lbl">C · Number + unit</div><div class="vbox"><span class="num">3.4</span><span class="side"><span></span><span class="unit">PB</span></span></div><div class="why">No comparison. Unit alone on the bottom line. A denominator does not get promoted into the delta slot; it goes in the caption.</div></div>
-<div class="vcfg"><div class="lbl">D · Number only</div><div class="vbox"><span class="num">412</span></div><div class="why">Counts with no unit and no prior period. The number fills the row alone; a status pill, if any, is furniture on the caption line.</div></div>
-    <div class="vcfg wide"><div class="lbl">E · Inline (compact tiles only)</div>
-  <div class="vbox inline"><span class="num sm">18.4</span><span class="unit">kW</span><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>2.1% vs yesterday</span></div>
-  <div class="why">Everything on one baseline at 28px. Used in W2 Multi-stat grids and T5 wallboard tiles where height is scarce. Not mixed with A to D in the same strip.</div></div>
-  </div>
-
-  <div class="sub-h">Delta presentation · candidates</div>
-  <p class="sec-sub">How the delta itself is drawn is not yet locked. These are the candidates, each shown rising and falling. The choice is independent of the presence configurations above; whichever wins slots into the same 20px delta position.</p>
-  <div class="dopt-grid">
-    <div class="dopt "><div class="lbl">1 · Ink + trend icon</div><div class="pair"><span class="delta plain ink"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta plain ink"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Quietest. Direction only, no judgement. Fits B and D where nothing is good or bad. Candidate for the default when judgement is not needed.</div></div>
-<div class="dopt rejected"><div class="lbl">2 · Coloured text</div><div class="pair"><span class="delta plain" style="color:var(--ok)"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta plain" style="color:var(--red)"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Ruled out. Colour in typography breaks the ink rule and fails contrast at 12px. Shown for completeness.</div></div>
-<div class="dopt "><div class="lbl">3 · Tinted pill + trend icon</div><div class="pair"><span class="delta up"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Current spec. Tint carries the judgement, text stays ink, the icon carries direction so tint and direction can disagree (up can be red).</div></div>
-<div class="dopt "><div class="lbl">4 · Tinted pill + simple arrow</div><div class="pair"><span class="delta up">↑ 7%</span><span class="delta down">↓ 7%</span></div><div class="why">Same semantics as 3 with a lighter glyph. Reads faster at 12px, loses the "trend" feel. Either 3 or 4 becomes the default, not both.</div></div>
-<div class="dopt "><div class="lbl">5 · Amber pill · attention</div><div class="pair"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="delta amber">14 unprotected</span></div><div class="why">Not a direction. Used when the delta slot carries an exception count or a state that needs attention rather than a comparison.</div></div>
-  </div>
-  <p class="note">Two decisions remain: <strong>pill or plain</strong> as the default when a judgement exists, and <strong>trend icon or simple arrow</strong> for direction. The ink rule and the 20px slot are fixed regardless.</p>
-
-  <div class="sub-h">Delta content</div>
-  <p class="sec-sub">What the delta says, independent of how it is drawn. Four situations; they are not stylistic alternatives.</p>
-  <div class="delta-grid">
-    <div class="dcell"><div class="lbl">Default · judged</div>
-      <div class="value-row"><div class="vbox"><span class="num">71</span><span class="side"><span class="delta down">↑ 2% vs last month</span><span class="unit">%</span></span></div></div>
-      <div class="why">Direction has a known good side. Tint is the judgement (up is bad for capacity used); text is the fact.</div></div>
-    <div class="dcell"><div class="lbl">Neutral · not judged</div>
-      <div class="value-row"><div class="vbox"><span class="num">128</span><span class="side"><span class="delta neutral">+4 this quarter</span></span></div></div>
-      <div class="why">Change with no good or bad side (system count). Grey pill, no arrow.</div></div>
-    <div class="dcell"><div class="lbl">Absolute exception</div>
-      <div class="value-row"><div class="vbox"><span class="num">98</span><span class="side"><span class="delta neutral">14 unprotected</span><span class="unit">%</span></span></div></div>
-      <div class="why">The gap matters more than the trend. The delta slot carries the count to act on instead of a percentage change.</div></div>
-    <div class="dcell"><div class="lbl">No comparison</div>
-      <div class="value-row"><div class="vbox"><span class="num">3.4</span><span class="side"><span class="delta plain">of 4.8 PB</span><span class="unit">PB</span></span></div></div>
-      <div class="why">No prior period, so no pill. Plain soft text gives the denominator; a meter below shows the ratio.</div></div>
-  </div>
-
-  <div class="sec-h">Mark catalogue</div>
-  <p class="sec-sub">Eight marks cover every canonical widget type. Each entry gives the question the mark answers, its furniture, allowed configurations, and the degenerate case: what to draw when the data collapses to one value or one colour.</p>
-
+    <div class="sec-h">Mark catalogue</div>
+    <p class="sec-sub">Eight marks cover every canonical widget type.</p>
   <div class="mark-grid">
 
     <div class="mark-entry">
@@ -293,23 +383,20 @@
       <p class="m-q">Is this metric where it should be, and which way is it heading?</p>
       <dl>
         <dt>Furniture</dt><dd>Value row (value, unit, delta), axis row. Legend only if a dashed prior period is drawn.</dd>
-        <dt>Configs</dt><dd>Value + sparkline · value + sparkline + prior-period reference. (Value without a mark is M8.)</dd>
-        <dt>Spec</dt><dd>Sparkline per the <a href="/card-gallery.html#trend">canonical trend spec</a>: 72px, 2px blue, gradient fill, 12px endpoint dot.</dd>
         <dt>Degenerate</dt><dd>Flat series: still draw it; a flat line is the fact. Missing prior period: drop the delta, keep the value.</dd>
       </dl>
     </div>
 
     <div class="mark-entry">
       <div class="card"><div><div class="title">Capacity</div><div class="scope">All systems</div></div>
-        <div class="value-row"><div class="vbox"><span class="num">71</span><span class="side"><span class="delta plain">3.4 of 4.8 PB</span><span class="unit">%</span></span></div></div>
-        <div><div class="meter"><i class="warn" style="width:71%"></i><span class="tick" style="left:90%"></span></div><div class="meter-row"><span>0</span><span>Threshold · 90%</span><span>4.8 PB</span></div></div>
+        <div class="value-row"><div class="vbox"><span class="num">71</span><span class="side"><span></span><span class="unit">%</span></span></div></div>
+        <div><div class="meter"><i class="warn" style="width:71%"></i><span class="tick" style="left:90%"></span></div><div class="meter-row"><span>0</span><span>Threshold · 90%</span><span>3.4 of 4.8 PB</span></div></div>
         <div class="caption">At current growth, 90% is reached in about 9 months.</div>
       </div>
       <div class="m-name"><span class="code">M2</span>Meter</div>
       <p class="m-q">How full is it, and how close to the limit?</p>
       <dl>
         <dt>Furniture</dt><dd>Value row, axis row (0 · threshold · capacity), caption for the projection.</dd>
-        <dt>Configs</dt><dd>Plain fill · fill with threshold tick · fill coloured by band (blue below threshold, amber above warning, red above critical).</dd>
         <dt>Rule</dt><dd>Fill colour is the only semantic colour; the value text stays ink. Track is <code>--grey-bg</code>.</dd>
         <dt>Degenerate</dt><dd>0% or 100%: draw the meter anyway; the empty or full track is the message.</dd>
       </dl>
@@ -331,7 +418,6 @@
       <p class="m-q">How is the population split, and what is the total?</p>
       <dl>
         <dt>Furniture</dt><dd>Total in the donut centre. Stacked legend with counts beside it. Caption names the exception.</dd>
-        <dt>Configs</dt><dd>Status split (fixed severity order) · category split (at most 5 slices, sorted by size, "Other" last).</dd>
         <dt>Rule</dt><dd>Legend order equals slice order from 12 o'clock. Zero-count statuses are omitted from the legend.</dd>
         <dt>Degenerate</dt><dd>All one status: do not draw a solid green ring. Fall back to M8 ("128 · All healthy") with a status dot.</dd>
       </dl>
@@ -346,7 +432,6 @@
       <p class="m-q">What share of this group is in each state?</p>
       <dl>
         <dt>Furniture</dt><dd>Value-bearing legend beneath, or the exception count right-aligned when the bar sits in a list row.</dd>
-        <dt>Configs</dt><dd>Standalone with legend · list-row variant stacked over its state text (see <a href="/health-widget-options.html#b">health widget options</a>).</dd>
         <dt>Rule</dt><dd>Segments in status order, worst first, 2px gaps, 3px minimum width so a single failure stays visible.</dd>
         <dt>Degenerate</dt><dd>One colour: do not draw. A bar with no split repeats the text. Use the quiet row treatment.</dd>
       </dl>
@@ -361,7 +446,6 @@
       <p class="m-q">Has this been reliable over the period?</p>
       <dl>
         <dt>Furniture</dt><dd>Axis row with the period endpoints. Legend once per widget, not per row. Hover gives date and duration.</dd>
-        <dt>Configs</dt><dd>30 daily · 24 hourly · 12 weekly. Segment count always equals the unit count; the scope line names the unit.</dd>
         <dt>Rule</dt><dd>One segment per whole unit, newest right, colour = worst state in that unit. Never encodes a percentage.</dd>
         <dt>Degenerate</dt><dd>All operational: still draw it. Thirty clean segments say "no incident in 30 days", which the state word does not.</dd>
       </dl>
@@ -381,7 +465,6 @@
       <p class="m-q">Who or what is biggest, and by how much?</p>
       <dl>
         <dt>Furniture</dt><dd>Label left, value right on every row; no axis row, no legend. Bars are relative to the top row, not to a total.</dd>
-        <dt>Configs</dt><dd>Top 5 + "Other · n" in grey · Top 5 with a highlighted row (the object this page is about) · paired bars for this period vs last.</dd>
         <dt>Rule</dt><dd>Single hue for like-for-like comparison. Colour changes only when the row is the page subject or is "Other".</dd>
         <dt>Degenerate</dt><dd>Fewer than three rows: use a key-value list; ranking needs a field to rank.</dd>
       </dl>
@@ -396,7 +479,6 @@
       <p class="m-q">How much happened in each interval?</p>
       <dl>
         <dt>Furniture</dt><dd>Value row with the period total and delta. Axis row endpoints. Legend only when stacked by category.</dd>
-        <dt>Configs</dt><dd>Single series · stacked by status (severity order, worst on top) · with a dashed average line named in the axis row.</dd>
         <dt>Rule</dt><dd>Use for counts and discrete events; use a sparkline for continuous measures. 4px gaps, 2px top radius, no value labels on bars.</dd>
         <dt>Degenerate</dt><dd>All zero: show the total "0" and a caption; no ghost bars.</dd>
       </dl>
@@ -411,39 +493,36 @@
       <p class="m-q">What is the number right now?</p>
       <dl>
         <dt>Furniture</dt><dd>Value row and caption. Nothing else.</dd>
-        <dt>Configs</dt><dd>Value + delta · value + status pill · 2×2 grid of small value rows (label / value / caption) for related figures.</dd>
         <dt>Rule</dt><dd>This is the fallback every other mark degenerates to when its data collapses. It is not a lesser mark; a widget that only needs a number should use it on purpose.</dd>
         <dt>Degenerate</dt><dd>None. If the value itself is unavailable, the widget's no-data state takes over.</dd>
       </dl>
     </div>
   </div>
 
-  <div class="sec-h">Choosing a mark</div>
-  <p class="sec-sub">Pick by the question, then check the data has the shape the mark needs. If it does not, fall to the degenerate case rather than drawing a mark that carries no information.</p>
-  <div class="demo" style="padding:0; border:0;">
-    <table class="rules">
-      <thead><tr><th>Question</th><th>Data shape needed</th><th>Mark</th><th>Used by</th></tr></thead>
-      <tbody>
-        <tr><td>Where is it, which way is it going?</td><td>Continuous measure over time</td><td>M1 Stat with sparkline</td><td class="ev">W1 Stat, W3 Trend</td></tr>
-        <tr><td>How full, how close to the limit?</td><td>Value with a known capacity or threshold</td><td>M2 Meter</td><td class="ev">W1 Stat (capacity), W13 Deadline</td></tr>
-        <tr><td>How is the whole split?</td><td>Counts in 2 to 5 categories, total matters</td><td>M3 Donut with legend</td><td class="ev">W5 Distribution</td></tr>
-        <tr><td>What share is in each state?</td><td>Counts by status, total need not be stated</td><td>M4 Proportion bar</td><td class="ev">W7 Status list (estate rows)</td></tr>
-        <tr><td>Has it been reliable?</td><td>State per whole time unit</td><td>M5 Uptime segments</td><td class="ev">W7 Status list (service rows)</td></tr>
-        <tr><td>Which is biggest?</td><td>3 to 8 named items with one measure</td><td>M6 Ranked bars</td><td class="ev">W6 Ranked table, W9 Top N</td></tr>
-        <tr><td>How much per interval?</td><td>Counts per bucket</td><td>M7 Columns</td><td class="ev">W3 Trend (events), W8 Exception</td></tr>
-        <tr><td>What is the number?</td><td>One value, optional comparison</td><td>M8 Value only</td><td class="ev">W1 Stat, W2 Multi-stat, any degenerate case</td></tr>
-      </tbody>
-    </table>
+
   </div>
 
-  <div class="sec-h">Rules carried from elsewhere</div>
-  <p class="note" style="margin-top:0;">
-    <strong>Colour.</strong> Text is always ink. Semantic colour lives in fills, dots, pills and marks only. Single-series marks use <code>--c-blue</code>; multi-series use the viz palette in order; status uses <code>--red / --amber / --ok / --unknown</code>.<br>
-    <strong>Zero counts</strong> are never listed in a legend; the mark shows absence.<br>
-    <strong>Status order</strong> is critical → warning → ok → unknown in legends, segments and slices.<br>
-    <strong>One mark per visualisation, one visualisation per widget body.</strong> A second chart is a second widget.<br>
-    <strong>Copy.</strong> Axis-row and legend fragments join with " · ". No spaced em dashes anywhere.
-  </p>
+  <!-- 5 RULES -->
+  <div class="pane" id="pane-rules">
+    <div class="sec-h" style="margin-top:0">Rules carried from elsewhere</div>
+    <ul class="tight big">
+      <li><b>Colour</b> text is always ink. Semantic colour lives in fills, dots, pills and marks. Single series <code>--c-blue</code>; status <code>--red / --amber / --ok / --unknown</code>.</li>
+      <li><b>Zero counts</b> never listed in a legend.</li>
+      <li><b>Status order</b> critical → warning → ok → unknown.</li>
+      <li><b>One mark per visualisation</b>, one visualisation per widget body.</li>
+      <li><b>Copy</b> fragments join with " · ". No spaced em dashes.</li>
+    </ul>
+  </div>
+
+<script>
+function setTab(id, btn) {
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pane-'+id).classList.add('on'); btn.classList.add('on');
+  history.replaceState(null,'','#'+id);
+}
+(function(){ const h=location.hash.slice(1); const b=[...document.querySelectorAll('.tabbtn')].find(x=>x.getAttribute('onclick').includes("'"+h+"'")); if(b) setTab(h,b); })();
+</script>
 
 </div>
 
