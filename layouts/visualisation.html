@@ -104,14 +104,14 @@
   .vbox { display: inline-flex; align-items: stretch; gap: 10px; }
   .vbox .num { font-size: 36px; font-weight: 500; letter-spacing: 0; line-height: 46px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
   .vbox .num.sm { font-size: 28px; letter-spacing: -0.5px; }
-  .vbox .side { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; padding: 10px 0 13px; }
+  .vbox .side { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; padding: 0 0 12px; }
   .vbox .side .unit { font-size: 14px; font-weight: 400; color: var(--gl-ink); line-height: .74; margin: 0; }
-  .vbox .delta { display: inline-flex; align-items: center; gap: 4px; height: 18px; padding: 0 9px; font-size: 12px; white-space: nowrap; line-height: 1; }
+  .vbox .delta, .dopt .delta { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 2px 6px; border-radius: 4px; font-size: 14px; font-weight: 500; color: var(--gl-heading); white-space: nowrap; line-height: 20px; }
   .vbox.inline { align-items: baseline; } .vbox.inline .num { line-height: 1; }
   .vbox.inline .unit { font-size: 14px; font-weight: 400; color: var(--gl-ink); margin-left: -4px; }
   .delta .ti { width: 14px; height: 14px; flex: none; }
-  .delta.amber { background: var(--amber-bg); color: var(--gl-ink); }
-  .delta.plain.ink { color: var(--gl-ink); }
+  .delta.amber { background: var(--amber-bg); }
+  .vbox .delta.plain, .dopt .delta.plain { padding: 2px 0; background: none; }
   .vbox-anat { display: grid; grid-template-columns: 260px 1fr; gap: 32px; align-items: center; }
   .anat-notes { display: grid; gap: 8px; font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; }
   .anat-notes b { color: var(--gl-heading); font-weight: 600; margin-right: 4px; }
@@ -126,9 +126,7 @@
   .dopt { background: var(--contained); border-radius: var(--radius); padding: 18px; }
   .dopt.rejected { opacity: .6; }
   .dopt .pair { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-  .dopt .delta { display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 9px; font-size: 12px; line-height: 1; }
-  .dopt .delta.plain { padding: 0; }
-  .delta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      .delta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
   @media (max-width: 1000px) { .delta-grid { grid-template-columns: 1fr 1fr; } }
   .dcell { background: var(--contained); border-radius: var(--radius); padding: 18px; }
   .dcell .lbl { font-size: 11.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
@@ -224,13 +222,13 @@
 
 
   <div class="sec-h">Value row configurations</div>
-  <p class="sec-sub">The value row is designed as one box: the number sets the height, and the delta and unit are sized and placed to fill exactly that height. Delta on the cap line, unit on the baseline. Whatever is missing leaves its slot empty rather than reflowing, so a strip of stats keeps every number, delta and unit on shared lines.</p>
+  <p class="sec-sub">The value row is designed as one box: the number's 46px line box sets the height, and the delta and unit are placed to fill exactly that height. Delta at the top, unit on the number's baseline. Whatever is missing leaves its slot empty rather than reflowing, so a strip of stats keeps every number, delta and unit on shared lines.</p>
   <div class="demo">
     <div class="vbox-anat">
       <div class="vbox"><span class="num">98</span><span class="side"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="unit">%</span></span></div>
       <div class="anat-notes">
-        <div><b>Number</b> text/3xlarge/medium: 36px / 500, line-height 46px, tabular numerals, color/text/strong. The glyph (cap line to baseline) defines the box height.</div>
-        <div><b>Delta</b> 18px tall pill (or 18px line of plain text), top edge on the number's cap line. 10px gap to the number.</div>
+        <div><b>Number</b> text/3xlarge/medium: 36px / 500, line-height 46px, tabular numerals, color/text/strong. The 46px line box defines the box height.</div>
+        <div><b>Delta</b> text/small/medium: 14px / 500, line-height 20px, color/text/strong. Trend icon 14×14, 6px gap to the text. Contained variant adds 2px vertical and 6px horizontal padding, 4px radius (24px tall). Top edge on the number's line box (the 46px line-height), 10px gap to the number.</div>
         <div><b>Unit</b> text/small/regular: 14px / 400, color/text/default, baseline aligned to the number's baseline.</div>
         <div><b>Box</b> is height-locked to the number. The side column grows only in width. Nothing wraps; long delta text is shortened, not stacked.</div>
       </div>
@@ -240,8 +238,8 @@
   <div class="sub-h">Presence configurations</div>
   <p class="sec-sub">Which furniture is available decides the configuration. Four stacked cases and one inline case for compact tiles.</p>
   <div class="vcfg-grid">
-    <div class="vcfg"><div class="lbl">A · Number + unit + delta</div><div class="vbox"><span class="num">98</span><span class="side"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="unit">%</span></span></div><div class="why">The full box. Delta sits on the cap line, unit on the baseline; together they span the number's height.</div></div>
-<div class="vcfg"><div class="lbl">B · Number + delta</div><div class="vbox"><span class="num">128</span><span class="side"><span class="delta neutral"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>+4 this quarter</span></span></div><div class="why">No unit. The delta keeps the cap line; the empty baseline slot stays empty so deltas across a strip of stats line up.</div></div>
+    <div class="vcfg"><div class="lbl">A · Number + unit + delta</div><div class="vbox"><span class="num">98</span><span class="side"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="unit">%</span></span></div><div class="why">The full box. Delta at the top, unit on the baseline; together they span the number's line box.</div></div>
+<div class="vcfg"><div class="lbl">B · Number + delta</div><div class="vbox"><span class="num">128</span><span class="side"><span class="delta neutral"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>+4 this quarter</span></span></div><div class="why">No unit. The delta keeps its top position; the empty baseline slot stays empty so deltas across a strip of stats line up.</div></div>
 <div class="vcfg"><div class="lbl">C · Number + unit</div><div class="vbox"><span class="num">3.4</span><span class="side"><span></span><span class="unit">PB</span></span></div><div class="why">No comparison. Unit alone on the baseline. A denominator does not get promoted into the delta slot; it goes in the caption.</div></div>
 <div class="vcfg"><div class="lbl">D · Number only</div><div class="vbox"><span class="num">412</span></div><div class="why">Counts with no unit and no prior period. The number fills the row alone; a status pill, if any, is furniture on the caption line.</div></div>
     <div class="vcfg wide"><div class="lbl">E · Inline (compact tiles only)</div>
@@ -250,7 +248,7 @@
   </div>
 
   <div class="sub-h">Delta presentation · candidates</div>
-  <p class="sec-sub">How the delta itself is drawn is not yet locked. These are the candidates, each shown rising and falling. The choice is independent of the presence configurations above; whichever wins slots into the same 18px delta position.</p>
+  <p class="sec-sub">How the delta itself is drawn is not yet locked. These are the candidates, each shown rising and falling. The choice is independent of the presence configurations above; whichever wins slots into the same 24px delta position.</p>
   <div class="dopt-grid">
     <div class="dopt "><div class="lbl">1 · Ink + trend icon</div><div class="pair"><span class="delta plain ink"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta plain ink"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Quietest. Direction only, no judgement. Fits B and D where nothing is good or bad. Candidate for the default when judgement is not needed.</div></div>
 <div class="dopt rejected"><div class="lbl">2 · Coloured text</div><div class="pair"><span class="delta plain" style="color:var(--ok)"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta plain" style="color:var(--red)"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Ruled out. Colour in typography breaks the ink rule and fails contrast at 12px. Shown for completeness.</div></div>
@@ -258,7 +256,7 @@
 <div class="dopt "><div class="lbl">4 · Tinted pill + simple arrow</div><div class="pair"><span class="delta up">↑ 7%</span><span class="delta down">↓ 7%</span></div><div class="why">Same semantics as 3 with a lighter glyph. Reads faster at 12px, loses the "trend" feel. Either 3 or 4 becomes the default, not both.</div></div>
 <div class="dopt "><div class="lbl">5 · Amber pill · attention</div><div class="pair"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="delta amber">14 unprotected</span></div><div class="why">Not a direction. Used when the delta slot carries an exception count or a state that needs attention rather than a comparison.</div></div>
   </div>
-  <p class="note">Two decisions remain: <strong>pill or plain</strong> as the default when a judgement exists, and <strong>trend icon or simple arrow</strong> for direction. The ink rule and the 18px slot are fixed regardless.</p>
+  <p class="note">Two decisions remain: <strong>pill or plain</strong> as the default when a judgement exists, and <strong>trend icon or simple arrow</strong> for direction. The ink rule and the 24px slot are fixed regardless.</p>
 
   <div class="sub-h">Delta content</div>
   <p class="sec-sub">What the delta says, independent of how it is drawn. Four situations; they are not stylistic alternatives.</p>
