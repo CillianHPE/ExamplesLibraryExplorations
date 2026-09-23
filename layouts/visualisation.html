@@ -41,9 +41,7 @@
   .anatomy-legend .sw.opt { border-top-color: #DDE1E4; }
   .anatomy-legend .sw.mark { border-top: 1.5px solid var(--gl-green); }
 
-  .value-row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-  .value-row .big-number { font-size: 34px; letter-spacing: -0.6px; line-height: 1; }
-  .value-row .unit { font-size: 15px; font-weight: 600; color: var(--gl-ink-soft); margin-left: 3px; letter-spacing: 0; }
+  .value-row { display: flex; }
   .caption { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; }
   .caption strong { color: var(--gl-heading); font-weight: 600; }
   svg.spark { width: 100%; height: 72px; display: block; overflow: visible; }
@@ -167,7 +165,7 @@
     <div class="anatomy-card">
       <div class="frame-hint">Widget header and scope line sit above (owned by the Widget spec)</div>
       <div class="anatomy-zone opt"><span class="zone-lbl">1 · Value row</span>
-        <div class="value-row"><span class="big-number">18.4<span class="unit">kW</span></span><span class="delta down">↓ 2.1% vs yesterday</span></div>
+        <div class="value-row"><div class="vbox"><span class="num">18.4</span><span class="side"><span class="delta down">↓ 2.1% vs yesterday</span><span class="unit">kW</span></span></div></div>
       </div>
       <div class="anatomy-zone mark"><span class="zone-lbl">2 · Mark</span>
         <svg class="spark" viewBox="0 0 220 72" preserveAspectRatio="none">
@@ -262,16 +260,16 @@
   <p class="sec-sub">What the delta says, independent of how it is drawn. Four situations; they are not stylistic alternatives.</p>
   <div class="delta-grid">
     <div class="dcell"><div class="lbl">Default · judged</div>
-      <div class="value-row"><span class="big-number">71<span class="unit">%</span></span><span class="delta down">↑ 2% vs last month</span></div>
+      <div class="value-row"><div class="vbox"><span class="num">71</span><span class="side"><span class="delta down">↑ 2% vs last month</span><span class="unit">%</span></span></div></div>
       <div class="why">Direction has a known good side. Tint is the judgement (up is bad for capacity used); text is the fact.</div></div>
     <div class="dcell"><div class="lbl">Neutral · not judged</div>
-      <div class="value-row"><span class="big-number">128</span><span class="delta neutral">+4 this quarter</span></div>
+      <div class="value-row"><div class="vbox"><span class="num">128</span><span class="side"><span class="delta neutral">+4 this quarter</span></span></div></div>
       <div class="why">Change with no good or bad side (system count). Grey pill, no arrow.</div></div>
     <div class="dcell"><div class="lbl">Absolute exception</div>
-      <div class="value-row"><span class="big-number">98<span class="unit">%</span></span><span class="delta neutral">14 unprotected</span></div>
+      <div class="value-row"><div class="vbox"><span class="num">98</span><span class="side"><span class="delta neutral">14 unprotected</span><span class="unit">%</span></span></div></div>
       <div class="why">The gap matters more than the trend. The delta slot carries the count to act on instead of a percentage change.</div></div>
     <div class="dcell"><div class="lbl">No comparison</div>
-      <div class="value-row"><span class="big-number">3.4<span class="unit">PB</span></span><span class="delta plain">of 4.8 PB</span></div>
+      <div class="value-row"><div class="vbox"><span class="num">3.4</span><span class="side"><span class="delta plain">of 4.8 PB</span><span class="unit">PB</span></span></div></div>
       <div class="why">No prior period, so no pill. Plain soft text gives the denominator; a meter below shows the ratio.</div></div>
   </div>
 
@@ -282,7 +280,7 @@
 
     <div class="mark-entry">
       <div class="card"><div><div class="title">Power draw</div><div class="scope">Last 24 hours · 42 servers</div></div>
-        <div class="value-row"><span class="big-number">18.4<span class="unit">kW</span></span><span class="delta down">↓ 2.1% vs yesterday</span></div>
+        <div class="value-row"><div class="vbox"><span class="num">18.4</span><span class="side"><span class="delta down">↓ 2.1% vs yesterday</span><span class="unit">kW</span></span></div></div>
         <div><svg class="spark" viewBox="0 0 220 72" preserveAspectRatio="none">
   <defs><linearGradient id="gm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-blue)" stop-opacity="0.22"/><stop offset="1" stop-color="var(--c-blue)" stop-opacity="0"/></linearGradient></defs>
   <path d="M0,30 L40,36 L80,28 L120,40 L160,34 L200,44 L220,42 L220,70 L0,70Z" fill="url(#gm1)"/>
@@ -302,7 +300,7 @@
 
     <div class="mark-entry">
       <div class="card"><div><div class="title">Capacity</div><div class="scope">All systems</div></div>
-        <div class="value-row"><span class="big-number">71<span class="unit">%</span></span><span class="delta plain">3.4 of 4.8 PB</span></div>
+        <div class="value-row"><div class="vbox"><span class="num">71</span><span class="side"><span class="delta plain">3.4 of 4.8 PB</span><span class="unit">%</span></span></div></div>
         <div><div class="meter"><i class="warn" style="width:71%"></i><span class="tick" style="left:90%"></span></div><div class="meter-row"><span>0</span><span>Threshold · 90%</span><span>4.8 PB</span></div></div>
         <div class="caption">At current growth, 90% is reached in about 9 months.</div>
       </div>
@@ -390,7 +388,7 @@
 
     <div class="mark-entry">
       <div class="card"><div><div class="title">Alerts raised</div><div class="scope">Last 14 days · daily</div></div>
-        <div class="value-row"><span class="big-number">37</span><span class="delta up">↓ 18% vs prior 14 days</span></div>
+        <div class="value-row"><div class="vbox"><span class="num">37</span><span class="side"><span class="delta up">↓ 18% vs prior 14 days</span></span></div></div>
         <div><div class="cols"><i style="height:40%"></i><i style="height:55%"></i><i style="height:30%"></i><i style="height:70%"></i><i style="height:45%"></i><i style="height:20%"></i><i style="height:25%"></i><i style="height:60%"></i><i style="height:35%"></i><i style="height:15%"></i><i style="height:30%"></i><i style="height:50%"></i><i style="height:20%"></i><i style="height:28%"></i></div><div class="axis"><span>8 Sep</span><span>Today</span></div></div>
       </div>
       <div class="m-name"><span class="code">M7</span>Columns</div>
@@ -405,7 +403,7 @@
 
     <div class="mark-entry">
       <div class="card"><div><div class="title">Host connectivity</div><div class="scope">412 hosts · path redundancy</div></div>
-        <div class="value-row"><span class="big-number">412</span><span class="delta neutral">All healthy</span></div>
+        <div class="value-row"><div class="vbox"><span class="num">412</span><span class="side"><span class="delta neutral">All healthy</span></span></div></div>
         <div class="caption">Every host has at least two active paths. Last single-path event: 14 Aug, resolved in 22 min.</div>
       </div>
       <div class="m-name"><span class="code">M8</span>Value only</div>
