@@ -115,6 +115,15 @@
   .flist .fl:first-child { border-top: 0; }
   .flist .fl .pillx { display: inline-flex; justify-content: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
   .flist .fl b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .kvlist { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--line); display: block; }
+  .kvlist .kvr { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .kvlist .kvr:first-child { border-top: 0; }
+  .kvlist .kvr b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .kvlist .kvr b small { font-weight: 400; color: var(--gl-ink-soft); margin-left: 4px; }
+  .chips { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips .chip { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 2px 8px; border-radius: 4px; font-size: 12px; line-height: 16px; color: var(--gl-ink); }
+  .chips .chip b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .chips .chip .dot { width: 8px; height: 8px; border-radius: 50%; }
 </style>
 </head>
 <body>
@@ -268,7 +277,7 @@
   </div>
 
   <div class="sec-h">Driver presentation</div>
-  <p class="sec-sub">The Health card from A and B, with three other ways to show the three drivers beneath the score. The headline is unchanged in each.</p>
+  <p class="sec-sub">The Health card from A and B, with five other ways to show the three drivers beneath the score. D4 and D5 use no bars. The headline is unchanged in each.</p>
   <div class="vgrid">
     <div>
       <div class="card">
@@ -312,11 +321,39 @@
       </div>
       <p class="vn"><b>D3 · Findings list</b>Each driver as a finding with a rating pill, name and value. Closest to the original sentences, and the only variant that names the judgement ("Low"). Best when the drivers link to a fix.</p>
     </div>
+    <div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Health</div><div class="cscope">Score out of 100 · updated daily</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="vbox"><span class="num">45</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">Neutral</span><span class="unit">of 100</span></span></div>
+        <div class="meter" style="background:var(--grey-bg)"><i class="warn" style="width:45%"></i></div>
+        <div class="axis"><span>0</span><span>100</span></div>
+        <div class="kvlist">
+          <div class="kvr"><span>Devices active</span><b>1 of 9<small>11%</small></b></div>
+          <div class="kvr"><span>Users active, last 30 days</span><b>6 of 38<small>16%</small></b></div>
+          <div class="kvr"><span>Configuration complete</span><b>33%</b></div>
+        </div>
+      </div>
+      <p class="vn"><b>D4 · Plain key and value</b>No marks at all. Label left, value right, percentage as a quiet suffix so the ratios compare. Quietest and shortest; severity is left to the reader, which suits a card where the score meter already carries the judgement.</p>
+    </div>
+    <div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Health</div><div class="cscope">Score out of 100 · updated daily</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="vbox"><span class="num">45</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">Neutral</span><span class="unit">of 100</span></span></div>
+        <div class="meter" style="background:var(--grey-bg)"><i class="warn" style="width:45%"></i></div>
+        <div class="axis"><span>0</span><span>100</span></div>
+        <div class="chips">
+          <span class="chip" style="background:var(--red-bg)"><span class="dot" style="background:var(--red)"></span>Devices active <b>1 of 9</b></span>
+          <span class="chip" style="background:var(--red-bg)"><span class="dot" style="background:var(--red)"></span>Users active <b>6 of 38</b></span>
+          <span class="chip" style="background:var(--amber-bg)"><span class="dot" style="background:var(--amber)"></span>Configured <b>33%</b></span>
+        </div>
+      </div>
+      <p class="vn"><b>D5 · Badges</b>Each driver as one tinted chip holding label and value, wrapping as space allows. Severity in the tint, worst first. Most compact, but the chips look clickable and long labels must be cut, so "last 30 days" goes to the tooltip.</p>
+    </div>
   </div>
 
   <div class="sec-h">Recommendation</div>
   <p class="callout"><b>Go with B.</b> The pair earns two frames once each has a different job: Health explains a score, Account states facts. Removing the duplicated device ratio and the doubled-up status lines fixes most of what is wrong, and the key-facts list stops dates being set at headline size.</p>
-  <p class="callout">For the drivers, D2 bar list: it keeps full labels, sorts worst first, and ties each bar to the score meter above it. Use D3 when each driver has an action behind it.</p>
+  <p class="callout">For the drivers, D2 bar list: it keeps full labels, sorts worst first, and ties each bar to the score meter above it. Use D3 when each driver has an action behind it. If bars are out, D4 plain text over D5 badges: it keeps full labels and does not look like a row of buttons.</p>
   <p class="callout">Whichever wins: the score gets a meter, the drivers sort worst first with colour in the fill or pill only, status words live in a pill not a dot-plus-text line, and the "How is this calculated?" link stays as the widget's single action.</p>
 </div>
 
