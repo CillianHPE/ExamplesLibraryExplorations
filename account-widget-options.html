@@ -96,6 +96,25 @@
   .was .line:first-of-type { border-top: 0; }
   .was .hd { display: flex; justify-content: space-between; align-items: center; }
   .was .hd a { color: var(--gl-green-dark); font-weight: 600; font-size: 14px; text-decoration: none; }
+  /* driver variants */
+  .vgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+  .vgrid .vn { font-size: 13.5px; color: var(--gl-ink); line-height: 1.5; margin-top: 12px; }
+  .vgrid .vn b { color: var(--gl-heading); display: block; margin-bottom: 2px; }
+  .vgrid .vn .tag { margin-left: 6px; vertical-align: middle; }
+  .dtrio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .dtrio .lbl { font-size: 12px; color: var(--gl-ink-soft); margin-bottom: 2px; }
+  .dtrio .sv { font-size: 20px; font-weight: 500; line-height: 24px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .dtrio .sv small { font-size: 12px; font-weight: 400; color: var(--gl-ink); margin-left: 3px; }
+  .dtrio .meter { margin-top: 8px; height: 4px; }
+  .blist { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
+  .blist .bl .t { display: flex; justify-content: space-between; font-size: 13px; color: var(--gl-ink); margin-bottom: 4px; }
+  .blist .bl .t b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .blist .meter { margin: 0; height: 6px; }
+  .flist { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--line); }
+  .flist .fl { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .flist .fl:first-child { border-top: 0; }
+  .flist .fl .pillx { display: inline-flex; justify-content: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .flist .fl b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
 </style>
 </head>
 <body>
@@ -248,9 +267,57 @@
     </div>
   </div>
 
+  <div class="sec-h">Driver presentation</div>
+  <p class="sec-sub">The Health card from A and B, with three other ways to show the three drivers beneath the score. The headline is unchanged in each.</p>
+  <div class="vgrid">
+    <div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Health</div><div class="cscope">Score out of 100 · updated daily</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="vbox"><span class="num">45</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">Neutral</span><span class="unit">of 100</span></span></div>
+        <div class="meter" style="background:var(--grey-bg)"><i class="warn" style="width:45%"></i></div>
+        <div class="axis"><span>0</span><span>100</span></div>
+        <div class="dtrio">
+          <div><div class="lbl">Devices active</div><div class="sv">1<small>of 9</small></div><div class="meter" style="background:var(--grey-bg)"><i class="crit" style="width:11%"></i></div></div>
+          <div><div class="lbl">Users active</div><div class="sv">6<small>of 38</small></div><div class="meter" style="background:var(--grey-bg)"><i class="crit" style="width:16%"></i></div></div>
+          <div><div class="lbl">Configured</div><div class="sv">33<small>%</small></div><div class="meter" style="background:var(--grey-bg)"><i class="warn" style="width:33%"></i></div></div>
+        </div>
+      </div>
+      <p class="vn"><b>D1 · Stat trio</b>Three small value rows side by side, each with a hairline meter. Fast to scan left to right; reads as a dashboard. Labels must be short, so "last 30 days" moves to the tooltip or scope line.</p>
+    </div>
+    <div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Health</div><div class="cscope">Score out of 100 · updated daily</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="vbox"><span class="num">45</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">Neutral</span><span class="unit">of 100</span></span></div>
+        <div class="meter" style="background:var(--grey-bg)"><i class="warn" style="width:45%"></i></div>
+        <div class="axis"><span>0</span><span>100</span></div>
+        <div class="blist">
+          <div class="bl"><div class="t"><span>Devices active</span><b>1 of 9</b></div><div class="meter" style="background:var(--grey-bg)"><i class="crit" style="width:11%"></i></div></div>
+          <div class="bl"><div class="t"><span>Users active, last 30 days</span><b>6 of 38</b></div><div class="meter" style="background:var(--grey-bg)"><i class="crit" style="width:16%"></i></div></div>
+          <div class="bl"><div class="t"><span>Configuration complete</span><b>33%</b></div><div class="meter" style="background:var(--grey-bg)"><i class="warn" style="width:33%"></i></div></div>
+        </div>
+      </div>
+      <p class="vn"><b>D2 · Bar list <span class="tag rec">Recommended</span></b>Label and value on one line, a full-width meter beneath. The three bars echo the score meter above, so the drivers visibly belong to it. Room for full labels; no dividers needed.</p>
+    </div>
+    <div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Health</div><div class="cscope">Score out of 100 · updated daily</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="vbox"><span class="num">45</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">Neutral</span><span class="unit">of 100</span></span></div>
+        <div class="meter" style="background:var(--grey-bg)"><i class="warn" style="width:45%"></i></div>
+        <div class="axis"><span>0</span><span>100</span></div>
+        <div class="flist">
+          <div class="fl"><span class="pillx" style="background:var(--red-bg)">Low</span><span>Devices active</span><b>1 of 9</b></div>
+          <div class="fl"><span class="pillx" style="background:var(--red-bg)">Low</span><span>Users active, last 30 days</span><b>6 of 38</b></div>
+          <div class="fl"><span class="pillx" style="background:var(--amber-bg)">Partial</span><span>Configuration complete</span><b>33%</b></div>
+        </div>
+      </div>
+      <p class="vn"><b>D3 · Findings list</b>Each driver as a finding with a rating pill, name and value. Closest to the original sentences, and the only variant that names the judgement ("Low"). Best when the drivers link to a fix.</p>
+    </div>
+  </div>
+
   <div class="sec-h">Recommendation</div>
   <p class="callout"><b>Go with B.</b> The pair earns two frames once each has a different job: Health explains a score, Account states facts. Removing the duplicated device ratio and the doubled-up status lines fixes most of what is wrong, and the key-facts list stops dates being set at headline size.</p>
-  <p class="callout">Whichever wins: the score gets a meter, the drivers are ratio rows sorted worst first with a mini meter each, status words live in a pill not a dot-plus-text line, and the "How is this calculated?" link stays as the widget's single action.</p>
+  <p class="callout">For the drivers, D2 bar list: it keeps full labels, sorts worst first, and ties each bar to the score meter above it. Use D3 when each driver has an action behind it.</p>
+  <p class="callout">Whichever wins: the score gets a meter, the drivers sort worst first with colour in the fill or pill only, status words live in a pill not a dot-plus-text line, and the "How is this calculated?" link stays as the widget's single action.</p>
 </div>
 
 <script src="livereload.js"></script>
