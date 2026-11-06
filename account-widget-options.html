@@ -124,6 +124,23 @@
   .chips .chip { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 2px 8px; border-radius: 4px; font-size: 12px; line-height: 16px; color: var(--gl-ink); }
   .chips .chip b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
   .chips .chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+  /* score emphasis variants */
+  .vgrid.four { grid-template-columns: repeat(2, 1fr); max-width: 900px; }
+  .drv { margin: 16px 0 0; padding-left: 18px; font-size: 13px; color: var(--gl-ink); line-height: 1.6; }
+  .drv b { font-weight: 600; color: var(--gl-heading); }
+  .inset { background: #fff; border-radius: 8px; padding: 16px; margin-top: 12px; }
+  .inset .meter { margin-top: 8px; }
+  .band { background: var(--amber-bg); border-radius: 8px; padding: 14px 16px; margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .band .vbox .pillx { background: #fff; }
+  .band .meter { flex: 1; margin: 0; max-width: 200px; background: rgba(255,255,255,.7); }
+  .gauge { display: flex; align-items: center; gap: 16px; margin-top: 12px; }
+  .gauge svg { width: 96px; height: 56px; flex: none; overflow: visible; }
+  .big-meter .meter { height: 12px; border-radius: 6px; margin-top: 12px; }
+  .big-meter .meter i { border-radius: 6px; }
+  .dim .drv { color: var(--gl-ink-soft); }
+  .dim .drv b { color: var(--gl-ink); font-weight: 500; }
+  .dim .vbox .num { font-weight: 600; }
+  .status-edge { border-left: 4px solid var(--amber); border-radius: 12px; }
 </style>
 </head>
 <body>
@@ -351,9 +368,75 @@
     </div>
   </div>
 
+  <div class="sec-h">Emphasising the score</div>
+  <p class="sec-sub">Four ways to give 45 and its status more weight without changing the type size: containment, a heavier mark, colour on a surface, and contrast with the rest of the card.</p>
+  <div class="vgrid four">
+    <div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Health</div><div class="cscope">Score out of 100 · updated daily</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="inset">
+          <div class="vbox"><span class="num">45</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">Neutral</span><span class="unit">of 100</span></span></div>
+          <div class="meter" style="background:var(--grey-bg)"><i class="warn" style="width:45%"></i></div>
+        <div class="axis"><span>0</span><span>100</span></div>
+        </div>
+        <ul class="drv">
+          <li>Only <b>6 of 38</b> users active in the last 30 days</li>
+          <li>Only <b>1 of 9</b> devices active</li>
+          <li>Workspace configuration incomplete <b>33 of 100</b></li>
+        </ul>
+      </div>
+      <p class="vn"><b>E1 · Inset panel</b>The value row and meter sit on a white panel inside the grey card. Containment says "this is the module"; the drivers read as notes beneath it.</p>
+    </div>
+    <div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Health</div><div class="cscope">Score out of 100 · updated daily</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="gauge">
+          <svg viewBox="0 0 96 56" fill="none" stroke-linecap="round"><path d="M8 48 A40 40 0 0 1 88 48" stroke="var(--grey-bg)" stroke-width="10"/><path d="M8 48 A40 40 0 0 1 41.7 8.5" stroke="var(--amber)" stroke-width="10"/></svg>
+          <div class="vbox"><span class="num">45</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">Neutral</span><span class="unit">of 100</span></span></div>
+        </div>
+        <ul class="drv">
+          <li>Only <b>6 of 38</b> users active in the last 30 days</li>
+          <li>Only <b>1 of 9</b> devices active</li>
+          <li>Workspace configuration incomplete <b>33 of 100</b></li>
+        </ul>
+      </div>
+      <p class="vn"><b>E2 · Gauge arc</b>The meter becomes a half-ring beside the value row. A bigger mark carries more weight than a bigger number, and the arc shape signals "score" at a glance.</p>
+    </div>
+    <div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Health</div><div class="cscope">Score out of 100 · updated daily</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="band">
+          <div class="vbox"><span class="num">45</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">Neutral</span><span class="unit">of 100</span></span></div>
+          <div class="meter"><i class="warn" style="width:45%"></i></div>
+        </div>
+        <ul class="drv">
+          <li>Only <b>6 of 38</b> users active in the last 30 days</li>
+          <li>Only <b>1 of 9</b> devices active</li>
+          <li>Workspace configuration incomplete <b>33 of 100</b></li>
+        </ul>
+      </div>
+      <p class="vn"><b>E3 · Status band</b>The status tint moves off the pill and onto a surface that holds the value row and meter. Colour at this size is the loudest cue on the card; the pill goes white so it still reads.</p>
+    </div>
+    <div>
+      <div class="card dim big-meter">
+        <div class="chead"><div><div class="ctitle">Health</div><div class="cscope">Score out of 100 · updated daily</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="vbox"><span class="num">45</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">Neutral</span><span class="unit">of 100</span></span></div>
+        <div class="meter" style="background:var(--grey-bg)"><i class="warn" style="width:45%"></i></div>
+        <div class="axis"><span>0</span><span>100</span></div>
+        <ul class="drv">
+          <li>Only <b>6 of 38</b> users active in the last 30 days</li>
+          <li>Only <b>1 of 9</b> devices active</li>
+          <li>Workspace configuration incomplete <b>33 of 100</b></li>
+        </ul>
+      </div>
+      <p class="vn"><b>E4 · Contrast</b>Nothing added. The meter thickens to 12px, the number goes to weight 600, and the driver list drops to soft ink. Emphasis by quieting everything else.</p>
+    </div>
+  </div>
+
   <div class="sec-h">Recommendation</div>
   <p class="callout"><b>Go with B.</b> The pair earns two frames once each has a different job: Health explains a score, Account states facts. Removing the duplicated device ratio and the doubled-up status lines fixes most of what is wrong, and the key-facts list stops dates being set at headline size.</p>
   <p class="callout">For the drivers, D2 bar list: it keeps full labels, sorts worst first, and ties each bar to the score meter above it. Use D3 when each driver has an action behind it. If bars are out, D4 plain text over D5 badges: it keeps full labels and does not look like a row of buttons.</p>
+  <p class="callout">To make the score louder, E1 inset panel first: it uses the containment rule we already have and leaves colour where it belongs. E4 is the fallback when a white panel would clash with neighbouring cards. E3 is reserved for warning or critical, where a tinted surface is earned.</p>
   <p class="callout">Whichever wins: the score gets a meter, the drivers sort worst first with colour in the fill or pill only, status words live in a pill not a dot-plus-text line, and the "How is this calculated?" link stays as the widget's single action.</p>
 </div>
 
