@@ -115,6 +115,7 @@
       { href: '/exception-card-options.html', label: 'Status card exploration' },
       { href: '/trend-card-options.html', label: 'Trend card options' },
       { href: '/health-widget-options.html', label: 'Service health widget content' },
+      { href: '/workspace-stats-options.html', label: 'Workspace stat cards' },
       { href: '/needs-attention/needs-attention-exploration.html', label: 'Needs attention exploration' },
     ]},
     { label: 'Applied exercises', children: [
