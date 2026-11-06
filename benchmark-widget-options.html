@@ -129,6 +129,9 @@
   .legend-inline { display: flex; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--gl-ink-soft); align-items: center; }
   .legend-inline .sw { width: 2px; height: 12px; background: var(--gl-ink-soft); border-radius: 1px; display: inline-block; margin-right: 6px; vertical-align: middle; }
   .legend-inline .sw.fill { width: 12px; height: 6px; border-radius: 3px; background: var(--gl-green); }
+  .mlbl { font-size: 12.5px; color: var(--gl-ink-soft); margin-bottom: 2px; display: flex; align-items: center; gap: 8px; }
+  .mlbl .pillx, .mstat .lbl .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .mstat .lbl { display: flex; align-items: center; gap: 8px; }
   .ctitle .pillx { margin-left: 8px; vertical-align: middle; display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
   .cmp { margin-top: 16px; display: grid; gap: 10px; max-width: 480px; }
   .cmp .row { display: grid; grid-template-columns: 110px 1fr 56px; gap: 12px; align-items: center; font-size: 13px; color: var(--gl-ink); }
@@ -176,7 +179,7 @@
     <div class="opt-note callout">
       <ul>
         <li><b>No headline.</b> The answer, 60.4%, sits in the third column of a bar row at body size. Nothing on the card is the value row.</li>
-        <li><b>Title outside the frame.</b> An uppercase section label above the card instead of a widget title inside it. The metric name only appears mid-sentence.</li>
+        <li><b>Title outside the frame.</b> "Industry peer benchmarking" is the right name for the card, but it sits above the frame as an uppercase section label rather than inside as the widget title. The metric name only appears mid-sentence.</li>
         <li><b>Labels as prose.</b> "Industry: X · Sector: Y" and "status: pill · Rank #2 of 4" are two sentences doing the job of a scope line and a caption.</li>
         <li><b>Empty bars.</b> Both tracks are grey with no visible fill, so 60.4% and 32.8% look identical.</li>
         <li><b>Colour in type.</b> "+27.6 pts" is green text and "On track" is amber text. The rule is ink on a tinted pill.</li>
@@ -194,7 +197,8 @@
   <div class="opt">
     <div class="strip c1">
       <div class="card">
-        <div class="chead"><div><div class="ctitle">Ever-logged-in rate <span class="pillx" style="background:var(--ok-bg)">On track</span></div><div class="cscope">Peer benchmark · Technology and Digital · Software and SaaS</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="chead"><div><div class="ctitle">Industry peer benchmarking</div><div class="cscope">Technology and Digital · Software and SaaS</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="mlbl">Ever-logged-in rate <span class="pillx" style="background:var(--ok-bg)">On track</span></div>
         <div class="vbox"><span class="num">60.4%</span><span class="side"><span class="delta up"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>27.6 pts vs sector</span><span class="unit">of invited users</span></span></div>
         <div class="cmp">
           <div class="row"><span>This account</span><div class="meter" style="background:var(--grey-bg)"><i style="width:60.4%"></i></div><b>60.4%</b></div>
@@ -207,7 +211,8 @@
       <h3>A · Comparison bars</h3>
       <p>Closest to the original. The two bars stay, but filled, with a value row above them and the labels moved into their slots.</p>
       <ul>
-        <li>Title carries the metric and the status pill; scope line carries industry and sector.</li>
+        <li>"Industry peer benchmarking" becomes the widget title; industry and sector become the scope line.</li>
+        <li>The metric name sits as a label over the value row with the status pill beside it, the same slot a W2 stat label uses.</li>
         <li>Delta becomes the top line of the value row, in a tinted pill.</li>
         <li>Trade-off: the headline and the first bar say 60.4% twice.</li>
       </ul>
@@ -218,7 +223,8 @@
   <div class="opt">
     <div class="strip c1">
       <div class="card">
-        <div class="chead"><div><div class="ctitle">Ever-logged-in rate <span class="pillx" style="background:var(--ok-bg)">On track</span></div><div class="cscope">Peer benchmark · Technology and Digital · Software and SaaS</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="chead"><div><div class="ctitle">Industry peer benchmarking</div><div class="cscope">Technology and Digital · Software and SaaS</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="mlbl">Ever-logged-in rate <span class="pillx" style="background:var(--ok-bg)">On track</span></div>
         <div class="vbox"><span class="num">60.4%</span><span class="side"><span class="delta up"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>27.6 pts vs sector</span><span class="unit">of invited users</span></span></div>
         <div class="meter" style="background:var(--grey-bg);max-width:480px"><i style="width:60.4%"></i><span class="mk" style="left:32.8%"></span></div>
         <div class="axis" style="max-width:480px"><span>0</span><span>100%</span></div>
@@ -241,9 +247,9 @@
   <div class="opt">
     <div class="strip c1">
       <div class="card">
-        <div class="chead"><div><div class="ctitle">Ever-logged-in rate <span class="pillx" style="background:var(--ok-bg)">On track</span></div><div class="cscope">Peer benchmark · Technology and Digital · Software and SaaS</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="chead"><div><div class="ctitle">Industry peer benchmarking</div><div class="cscope">Technology and Digital · Software and SaaS</div></div><a class="glink" href="#">How is this calculated?</a></div>
         <div class="mstats">
-          <div class="mstat"><div class="lbl">This account</div><div class="vbox"><span class="num">60.4%</span><span class="side"><span class="delta up"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>27.6 pts</span><span class="unit">of invited users</span></span></div></div>
+          <div class="mstat"><div class="lbl">Ever-logged-in rate · this account <span class="pillx" style="background:var(--ok-bg)">On track</span></div><div class="vbox"><span class="num">60.4%</span><span class="side"><span class="delta up"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>27.6 pts</span><span class="unit">of invited users</span></span></div></div>
           <div class="mstat"><div class="lbl">Sector average</div><div class="vbox"><span class="num">32.8%</span><span class="side"><span></span><span class="unit">of invited users</span></span></div></div>
           <div class="mstat"><div class="lbl">Rank in sector</div><div class="vbox"><span class="num">2</span><span class="side"><span></span><span class="unit">of 4 accounts</span></span></div></div>
         </div>
@@ -260,8 +266,8 @@
   </div>
 
   <div class="sec-h">Recommendation</div>
-  <p class="callout"><b>Go with B.</b> It is the existing M2 meter with a reference marker, so the card looks like every other metric widget: title with status pill, scope line, value row with the delta as a pill, one mark, a one-line caption and a single "How is this calculated?" action holding the method text.</p>
-  <p class="callout">Whichever wins: the section label moves inside as the title, the definition leaves the card, bars get a visible fill, the status pill is green when the status is good, and the card is sized to its content rather than the page.</p>
+  <p class="callout"><b>Go with B.</b> It is the existing M2 meter with a reference marker, so the card looks like every other metric widget: "Industry peer benchmarking" as title, industry and sector as scope line, metric label with status pill, value row with the delta as a pill, one mark, a one-line caption and a single "How is this calculated?" action holding the method text.</p>
+  <p class="callout">Whichever wins: the section label moves inside as the title and the metric gets a label of its own, the definition leaves the card, bars get a visible fill, the status pill is green when the status is good, and the card is sized to its content rather than the page.</p>
 </div>
 
 <script src="livereload.js"></script>
