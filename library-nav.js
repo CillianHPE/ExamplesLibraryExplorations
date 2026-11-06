@@ -117,6 +117,7 @@
       { href: '/health-widget-options.html', label: 'Service health widget content' },
       { href: '/workspace-stats-options.html', label: 'Workspace stat cards' },
       { href: '/account-widget-options.html', label: 'Account health and snapshot' },
+      { href: '/benchmark-widget-options.html', label: 'Peer benchmarking widget' },
       { href: '/needs-attention/needs-attention-exploration.html', label: 'Needs attention exploration' },
     ]},
     { label: 'Applied exercises', children: [

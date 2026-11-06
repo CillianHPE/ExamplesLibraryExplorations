@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Peer benchmarking widget: layout options</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<style>
+  body { background: var(--page); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 40px 32px 80px; }
+  .wrap > h1 { font-size: 24px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .intro { font-size: 14px; color: var(--gl-ink-soft); margin: 0 0 40px; max-width: 760px; line-height: 1.55; }
+  .sec-h { font-size: 19px; font-weight: 700; color: var(--gl-heading); margin: 64px 0 6px; }
+  .sec-h:first-of-type { margin-top: 0; }
+  .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: 0 0 24px; max-width: 720px; line-height: 1.5; }
+
+  .opt { margin-bottom: 32px; display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; }
+  .opt-note h3 { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; display: flex; gap: 10px; align-items: center; }
+  .opt-note p { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; line-height: 1.5; }
+  .opt-note ul { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; padding-left: 18px; line-height: 1.5; }
+  .tag { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+  .tag.rec { background: var(--gl-green-dark); color: #fff; }
+  @media (max-width: 1100px) { .opt { grid-template-columns: 1fr; } }
+
+  /* strips of cards */
+  .strip { display: grid; gap: 16px; }
+  .strip.c3 { grid-template-columns: 1fr 1fr 2fr; }
+  .strip.c2 { grid-template-columns: 1fr 1fr; }
+  .strip.c1 { grid-template-columns: 1fr; }
+  .card { padding: 20px 24px; }
+  .ctitle { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 2px; }
+  .cscope { font-size: 12.5px; color: var(--gl-ink-soft); margin: 0 0 14px; }
+  .chead { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .chead .glink { font-size: 13px; }
+
+  /* value row, per the Visualisation spec */
+  .vbox { display: inline-flex; align-items: center; gap: 4px; }
+  .vbox .num { font-size: 36px; font-weight: 500; line-height: 46px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .vbox .side { display: flex; flex-direction: column; align-items: flex-start; }
+  .vbox .side > span:empty { height: 16px; }
+  .vbox .unit { font-size: 12px; font-weight: 400; line-height: 16px; color: var(--gl-ink); }
+  .vbox .delta { display: inline-flex; align-items: center; gap: 6px; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
+  .vbox .delta.plain { padding: 0; height: 16px; background: none; }
+  .ti { width: 14px; height: 14px; flex: none; }
+
+  /* marks */
+  .meter { height: 8px; border-radius: 4px; margin-top: 10px; position: relative; overflow: visible; }
+  .meter i { border-radius: 4px; }
+  .axis { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--gl-ink-soft); padding-top: 6px; }
+  .prop { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; margin-top: 10px; }
+  .prop i { display: block; height: 100%; min-width: 3px; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; font-size: 13px; color: var(--gl-ink); }
+  .legend .lg { display: flex; align-items: center; gap: 7px; }
+  .legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend .val { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .caption { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 12px; }
+  .caption b { color: var(--gl-heading); font-weight: 600; }
+
+  /* current-state reproduction */
+  .was { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; }
+  .was .lbl { font-size: 14px; font-weight: 700; color: var(--gl-heading); }
+  .was .big { font-size: 28px; font-weight: 700; color: var(--gl-heading); line-height: 1.2; margin-top: 4px; }
+  .was .big.red { color: var(--red); }
+  .was .four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .was .four .lbl { display: flex; align-items: center; gap: 6px; }
+  .was .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .callout { font-size: 13.5px; color: var(--gl-ink); line-height: 1.55; }
+  .callout ul { margin: 6px 0 0; padding-left: 18px; }
+  .callout li { margin-bottom: 4px; }
+
+  /* multi-stat strip inside a card */
+  .mstats { display: grid; grid-template-columns: repeat(3, auto); gap: 40px; justify-content: start; align-items: start; }
+  .mstat .lbl { font-size: 12.5px; color: var(--gl-ink-soft); margin-bottom: 2px; display: flex; align-items: center; gap: 7px; }
+  .mstat .lbl .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* factor rows: label · mini meter · value */
+  .frows { margin-top: 16px; max-width: 420px; }
+  .frow { display: grid; grid-template-columns: 1fr 96px 64px; gap: 16px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .frow:first-child { border-top: 0; padding-top: 0; }
+  .frow .meter { margin: 0; height: 6px; }
+  .frow .fv { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .frow .fs { font-size: 12px; color: var(--gl-ink-soft); display: block; }
+  /* key facts list */
+  .facts { margin-top: 16px; display: grid; grid-template-columns: auto 1fr; column-gap: 24px; row-gap: 8px; font-size: 13px; }
+  .facts dt { color: var(--gl-ink-soft); margin: 0; }
+  .facts dd { color: var(--gl-heading); font-weight: 600; margin: 0; font-variant-numeric: tabular-nums; }
+  .facts dd small { font-weight: 400; color: var(--gl-ink-soft); }
+  .meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--gl-ink-soft); }
+  .meta b { color: var(--gl-heading); font-weight: 600; }
+  .mstats.two { grid-template-columns: repeat(2, auto); }
+  .vbox .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
+  .was .row { display: flex; align-items: baseline; gap: 8px; }
+  .was .row .big { font-size: 30px; }
+  .was .sub { font-size: 14px; color: var(--gl-ink-soft); }
+  .was .stat { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--gl-ink); margin: 2px 0 14px; }
+  .was .line { font-size: 14px; color: var(--gl-ink); padding: 10px 0; border-top: 1px solid var(--line); }
+  .was .line:first-of-type { border-top: 0; }
+  .was .hd { display: flex; justify-content: space-between; align-items: center; }
+  .was .hd a { color: var(--gl-green-dark); font-weight: 600; font-size: 14px; text-decoration: none; }
+  /* driver variants */
+  .vgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+  .vgrid .vn { font-size: 13.5px; color: var(--gl-ink); line-height: 1.5; margin-top: 12px; }
+  .vgrid .vn b { color: var(--gl-heading); display: block; margin-bottom: 2px; }
+  .vgrid .vn .tag { margin-left: 6px; vertical-align: middle; }
+  .dtrio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .dtrio .lbl { font-size: 12px; color: var(--gl-ink-soft); margin-bottom: 2px; }
+  .dtrio .sv { font-size: 20px; font-weight: 500; line-height: 24px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .dtrio .sv small { font-size: 12px; font-weight: 400; color: var(--gl-ink); margin-left: 3px; }
+  .dtrio .meter { margin-top: 8px; height: 4px; }
+  .blist { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
+  .blist .bl .t { display: flex; justify-content: space-between; font-size: 13px; color: var(--gl-ink); margin-bottom: 4px; }
+  .blist .bl .t b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .blist .meter { margin: 0; height: 6px; }
+  .flist { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--line); }
+  .flist .fl { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .flist .fl:first-child { border-top: 0; }
+  .flist .fl .pillx { display: inline-flex; justify-content: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .flist .fl b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .kvlist { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--line); display: block; }
+  .kvlist .kvr { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .kvlist .kvr:first-child { border-top: 0; }
+  .kvlist .kvr b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .kvlist .kvr b small { font-weight: 400; color: var(--gl-ink-soft); margin-left: 4px; }
+  .chips { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips .chip { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 2px 8px; border-radius: 4px; font-size: 12px; line-height: 16px; color: var(--gl-ink); }
+  .chips .chip b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .chips .chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+  /* benchmark marker on a meter */
+  .meter .mk { position: absolute; top: -4px; width: 2px; height: 16px; background: var(--gl-ink-soft); border-radius: 1px; transform: translateX(-1px); }
+  .legend-inline { display: flex; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--gl-ink-soft); align-items: center; }
+  .legend-inline .sw { width: 2px; height: 12px; background: var(--gl-ink-soft); border-radius: 1px; display: inline-block; margin-right: 6px; vertical-align: middle; }
+  .legend-inline .sw.fill { width: 12px; height: 6px; border-radius: 3px; background: var(--gl-green); }
+  .ctitle .pillx { margin-left: 8px; vertical-align: middle; display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .cmp { margin-top: 16px; display: grid; gap: 10px; max-width: 480px; }
+  .cmp .row { display: grid; grid-template-columns: 110px 1fr 56px; gap: 12px; align-items: center; font-size: 13px; color: var(--gl-ink); }
+  .cmp .row .meter { margin: 0; }
+  .cmp .row b { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .vbox .delta.up { background: var(--ok-bg); }
+  /* current state */
+  .was .sh { font-size: 15px; font-weight: 700; letter-spacing: .04em; color: var(--gl-ink-soft); text-transform: uppercase; margin: 0 0 12px; }
+  .was .p { font-size: 14px; color: var(--gl-ink); margin-bottom: 6px; }
+  .was .p b { color: var(--gl-heading); }
+  .was .pil { display: inline-block; background: var(--amber-bg); color: var(--amber); font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
+  .was .br { display: grid; grid-template-columns: 180px 240px 60px; gap: 16px; align-items: center; font-size: 14px; color: var(--gl-ink-soft); margin: 10px 0; }
+  .was .br i { display: block; height: 8px; background: #E8EAED; border-radius: 4px; }
+  .was .br b { color: var(--gl-heading); }
+  .was .gd { color: var(--ok); font-weight: 700; font-size: 14px; margin: 8px 0; }
+  .was .fn { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 8px; line-height: 1.5; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Explorations</div>
+</header>
+
+<div class="wrap">
+  <h1>Peer benchmarking widget</h1>
+  <p class="intro">An account metric compared against its sector. The content is right; the question is how it maps onto the widget anatomy we already use: title and scope, one value row, one mark, a caption and a single action.</p>
+
+  <div class="sec-h">What is there now</div>
+  <p class="sec-sub">Reproduced for comparison, with the issues it carries.</p>
+  <div class="opt">
+    <div>
+      <div class="was" style="border:0;padding:0;background:none"><div class="sh">Industry peer benchmarking</div></div>
+      <div class="was">
+        <div class="p">Industry: <b>Technology and Digital</b> · Sector: <b>Software and SaaS</b></div>
+        <div class="p">Ever-logged-in rate status: <span class="pil">On track</span> · Rank <b>#2</b> of 4</div>
+        <div class="br"><span>This account</span><i></i><b>60.4%</b></div>
+        <div class="br"><span>Sector average</span><i></i><b>32.8%</b></div>
+        <div class="gd">+27.6 pts vs sector avg</div>
+        <div class="fn">Ever-logged-in rate = invited users who have logged in at least once ÷ invited users (Activation benchmarking pull; not the 30-day active count). Peer status = within sector Mean ± 1 SD; rank is within the same Google-tier sector.</div>
+      </div>
+    </div>
+    <div class="opt-note callout">
+      <ul>
+        <li><b>No headline.</b> The answer, 60.4%, sits in the third column of a bar row at body size. Nothing on the card is the value row.</li>
+        <li><b>Title outside the frame.</b> An uppercase section label above the card instead of a widget title inside it. The metric name only appears mid-sentence.</li>
+        <li><b>Labels as prose.</b> "Industry: X · Sector: Y" and "status: pill · Rank #2 of 4" are two sentences doing the job of a scope line and a caption.</li>
+        <li><b>Empty bars.</b> Both tracks are grey with no visible fill, so 60.4% and 32.8% look identical.</li>
+        <li><b>Colour in type.</b> "+27.6 pts" is green text and "On track" is amber text. The rule is ink on a tinted pill.</li>
+        <li><b>Status colour mismatch.</b> "On track" on an amber pill reads as a warning.</li>
+        <li><b>Method as footnote.</b> Two lines of definition inside the card; that belongs behind "How is this calculated?".</li>
+        <li><b>Full width, third used.</b> The card spans the page while the content stops at 600px.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h">Options</div>
+  <p class="sec-sub">Same facts, mapped onto the widget anatomy three ways.</p>
+
+  <!-- A -->
+  <div class="opt">
+    <div class="strip c1">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Ever-logged-in rate <span class="pillx" style="background:var(--ok-bg)">On track</span></div><div class="cscope">Peer benchmark · Technology and Digital · Software and SaaS</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="vbox"><span class="num">60.4%</span><span class="side"><span class="delta up"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>27.6 pts vs sector</span><span class="unit">of invited users</span></span></div>
+        <div class="cmp">
+          <div class="row"><span>This account</span><div class="meter" style="background:var(--grey-bg)"><i style="width:60.4%"></i></div><b>60.4%</b></div>
+          <div class="row"><span>Sector average</span><div class="meter" style="background:var(--grey-bg)"><i style="width:32.8%;background:var(--unknown)"></i></div><b>32.8%</b></div>
+        </div>
+        <div class="caption">Ranked <b>2 of 4</b> accounts in the sector. Rate is users who have logged in at least once, not 30-day actives.</div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>A · Comparison bars</h3>
+      <p>Closest to the original. The two bars stay, but filled, with a value row above them and the labels moved into their slots.</p>
+      <ul>
+        <li>Title carries the metric and the status pill; scope line carries industry and sector.</li>
+        <li>Delta becomes the top line of the value row, in a tinted pill.</li>
+        <li>Trade-off: the headline and the first bar say 60.4% twice.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="opt">
+    <div class="strip c1">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Ever-logged-in rate <span class="pillx" style="background:var(--ok-bg)">On track</span></div><div class="cscope">Peer benchmark · Technology and Digital · Software and SaaS</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="vbox"><span class="num">60.4%</span><span class="side"><span class="delta up"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>27.6 pts vs sector</span><span class="unit">of invited users</span></span></div>
+        <div class="meter" style="background:var(--grey-bg);max-width:480px"><i style="width:60.4%"></i><span class="mk" style="left:32.8%"></span></div>
+        <div class="axis" style="max-width:480px"><span>0</span><span>100%</span></div>
+        <div class="legend-inline"><span><span class="sw"></span>Sector average 32.8%</span></div>
+        <div class="caption">Ranked <b>2 of 4</b> accounts in the sector.</div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>B · Meter with benchmark marker <span class="tag rec">Recommended</span></h3>
+      <p>One mark. The account is the fill; the sector average is a reference tick, named in the inline legend the same way a dashed prior-period line is on a sparkline.</p>
+      <ul>
+        <li>Nothing is said twice: 60.4% is the headline, the bar shows how far above the tick it lands.</li>
+        <li>Fits the M2 meter spec already in the Visualisation page, so it sits beside health meters without a new pattern.</li>
+        <li>Trade-off: the sector value is in a legend, not a bold figure. Fine for a benchmark, where the gap is the point.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="opt">
+    <div class="strip c1">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Ever-logged-in rate <span class="pillx" style="background:var(--ok-bg)">On track</span></div><div class="cscope">Peer benchmark · Technology and Digital · Software and SaaS</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="mstats">
+          <div class="mstat"><div class="lbl">This account</div><div class="vbox"><span class="num">60.4%</span><span class="side"><span class="delta up"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>27.6 pts</span><span class="unit">of invited users</span></span></div></div>
+          <div class="mstat"><div class="lbl">Sector average</div><div class="vbox"><span class="num">32.8%</span><span class="side"><span></span><span class="unit">of invited users</span></span></div></div>
+          <div class="mstat"><div class="lbl">Rank in sector</div><div class="vbox"><span class="num">2</span><span class="side"><span></span><span class="unit">of 4 accounts</span></span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>C · Multi-stat, no mark</h3>
+      <p>Three value rows in a W2 strip: account, sector, rank. For readers who want the numbers, not the picture.</p>
+      <ul>
+        <li>Rank gets equal billing, which the original buried in a sentence.</li>
+        <li>Trade-off: no sense of scale; 60.4 against 32.8 is a mental subtraction rather than a glance.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h">Recommendation</div>
+  <p class="callout"><b>Go with B.</b> It is the existing M2 meter with a reference marker, so the card looks like every other metric widget: title with status pill, scope line, value row with the delta as a pill, one mark, a one-line caption and a single "How is this calculated?" action holding the method text.</p>
+  <p class="callout">Whichever wins: the section label moves inside as the title, the definition leaves the card, bars get a visible fill, the status pill is green when the status is good, and the card is sized to its content rather than the page.</p>
+</div>
+
+<script src="livereload.js"></script>
+<script src="library-nav.js"></script>
+</body>
+</html>
