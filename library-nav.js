@@ -119,6 +119,7 @@
       { href: '/account-widget-options.html', label: 'Account health and snapshot' },
       { href: '/benchmark-widget-options.html', label: 'Peer benchmarking widget' },
       { href: '/user-stats-options.html', label: 'User stat cards' },
+      { href: '/adoption-checks-options.html', label: 'Adoption checks widget' },
       { href: '/needs-attention/needs-attention-exploration.html', label: 'Needs attention exploration' },
     ]},
     { label: 'Applied exercises', children: [
