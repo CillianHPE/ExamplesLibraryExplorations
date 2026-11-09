@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>User stat cards: layout options</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<style>
+  body { background: var(--page); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 40px 32px 80px; }
+  .wrap > h1 { font-size: 24px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .intro { font-size: 14px; color: var(--gl-ink-soft); margin: 0 0 40px; max-width: 760px; line-height: 1.55; }
+  .sec-h { font-size: 19px; font-weight: 700; color: var(--gl-heading); margin: 64px 0 6px; }
+  .sec-h:first-of-type { margin-top: 0; }
+  .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: 0 0 24px; max-width: 720px; line-height: 1.5; }
+
+  .opt { margin-bottom: 32px; display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; }
+  .opt-note h3 { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; display: flex; gap: 10px; align-items: center; }
+  .opt-note p { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; line-height: 1.5; }
+  .opt-note ul { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; padding-left: 18px; line-height: 1.5; }
+  .tag { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+  .tag.rec { background: var(--gl-green-dark); color: #fff; }
+  @media (max-width: 1100px) { .opt { grid-template-columns: 1fr; } }
+
+  /* strips of cards */
+  .strip { display: grid; gap: 16px; }
+  .strip.c3 { grid-template-columns: 1fr 1fr 2fr; }
+  .strip.c2 { grid-template-columns: 1fr 1fr; }
+  .strip.c1 { grid-template-columns: 1fr; }
+  .card { padding: 20px 24px; }
+  .ctitle { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 2px; }
+  .cscope { font-size: 12.5px; color: var(--gl-ink-soft); margin: 0 0 14px; }
+  .chead { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .chead .glink { font-size: 13px; white-space: nowrap; }
+
+  /* value row, per the Visualisation spec */
+  .vbox { display: inline-flex; align-items: center; gap: 4px; }
+  .vbox .num { font-size: 36px; font-weight: 500; line-height: 46px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .vbox .side { display: flex; flex-direction: column; align-items: flex-start; }
+  .vbox .side > span:empty { height: 16px; }
+  .vbox .unit { font-size: 12px; font-weight: 400; line-height: 16px; color: var(--gl-ink); }
+  .vbox .delta { display: inline-flex; align-items: center; gap: 6px; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
+  .vbox .delta.plain { padding: 0; height: 16px; background: none; }
+  .ti { width: 14px; height: 14px; flex: none; }
+
+  /* marks */
+  .meter { height: 8px; border-radius: 4px; margin-top: 10px; position: relative; overflow: visible; }
+  .meter i { border-radius: 4px; }
+  .axis { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--gl-ink-soft); padding-top: 6px; }
+  .prop { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; margin-top: 10px; }
+  .prop i { display: block; height: 100%; min-width: 3px; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; font-size: 13px; color: var(--gl-ink); }
+  .legend .lg { display: flex; align-items: center; gap: 7px; }
+  .legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend .val { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .caption { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 12px; }
+  .caption b { color: var(--gl-heading); font-weight: 600; }
+
+  /* current-state reproduction */
+  .was { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; }
+  .was .lbl { font-size: 14px; font-weight: 700; color: var(--gl-heading); }
+  .was .big { font-size: 28px; font-weight: 700; color: var(--gl-heading); line-height: 1.2; margin-top: 4px; }
+  .was .big.red { color: var(--red); }
+  .was .four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .was .four .lbl { display: flex; align-items: center; gap: 6px; }
+  .was .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .callout { font-size: 13.5px; color: var(--gl-ink); line-height: 1.55; }
+  .callout ul { margin: 6px 0 0; padding-left: 18px; }
+  .callout li { margin-bottom: 4px; }
+
+  /* multi-stat strip inside a card */
+  .mstats { display: grid; grid-template-columns: repeat(3, auto); gap: 40px; justify-content: start; align-items: start; }
+  .mstat .lbl { font-size: 12.5px; color: var(--gl-ink-soft); margin-bottom: 2px; display: flex; align-items: center; gap: 7px; }
+  .mstat .lbl .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* factor rows: label · mini meter · value */
+  .frows { margin-top: 16px; max-width: 420px; }
+  .frow { display: grid; grid-template-columns: 1fr 96px 64px; gap: 16px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .frow:first-child { border-top: 0; padding-top: 0; }
+  .frow .meter { margin: 0; height: 6px; }
+  .frow .fv { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .frow .fs { font-size: 12px; color: var(--gl-ink-soft); display: block; }
+  /* key facts list */
+  .facts { margin-top: 16px; display: grid; grid-template-columns: auto 1fr; column-gap: 24px; row-gap: 8px; font-size: 13px; }
+  .facts dt { color: var(--gl-ink-soft); margin: 0; }
+  .facts dd { color: var(--gl-heading); font-weight: 600; margin: 0; font-variant-numeric: tabular-nums; }
+  .facts dd small { font-weight: 400; color: var(--gl-ink-soft); }
+  .meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--gl-ink-soft); }
+  .meta b { color: var(--gl-heading); font-weight: 600; }
+  .mstats.two { grid-template-columns: repeat(2, auto); }
+  .vbox .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
+  .was .row { display: flex; align-items: baseline; gap: 8px; }
+  .was .row .big { font-size: 30px; }
+  .was .sub { font-size: 14px; color: var(--gl-ink-soft); }
+  .was .stat { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--gl-ink); margin: 2px 0 14px; }
+  .was .line { font-size: 14px; color: var(--gl-ink); padding: 10px 0; border-top: 1px solid var(--line); }
+  .was .line:first-of-type { border-top: 0; }
+  .was .hd { display: flex; justify-content: space-between; align-items: center; }
+  .was .hd a { color: var(--gl-green-dark); font-weight: 600; font-size: 14px; text-decoration: none; }
+  /* driver variants */
+  .vgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+  .vgrid .vn { font-size: 13.5px; color: var(--gl-ink); line-height: 1.5; margin-top: 12px; }
+  .vgrid .vn b { color: var(--gl-heading); display: block; margin-bottom: 2px; }
+  .vgrid .vn .tag { margin-left: 6px; vertical-align: middle; }
+  .dtrio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .dtrio .lbl { font-size: 12px; color: var(--gl-ink-soft); margin-bottom: 2px; }
+  .dtrio .sv { font-size: 20px; font-weight: 500; line-height: 24px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .dtrio .sv small { font-size: 12px; font-weight: 400; color: var(--gl-ink); margin-left: 3px; }
+  .dtrio .meter { margin-top: 8px; height: 4px; }
+  .blist { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
+  .blist .bl .t { display: flex; justify-content: space-between; font-size: 13px; color: var(--gl-ink); margin-bottom: 4px; }
+  .blist .bl .t b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .blist .meter { margin: 0; height: 6px; }
+  .flist { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--line); }
+  .flist .fl { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .flist .fl:first-child { border-top: 0; }
+  .flist .fl .pillx { display: inline-flex; justify-content: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .flist .fl b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .kvlist { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--line); display: block; }
+  .kvlist .kvr { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .kvlist .kvr:first-child { border-top: 0; }
+  .kvlist .kvr b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .kvlist .kvr b small { font-weight: 400; color: var(--gl-ink-soft); margin-left: 4px; }
+  .chips { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips .chip { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 2px 8px; border-radius: 4px; font-size: 12px; line-height: 16px; color: var(--gl-ink); }
+  .chips .chip b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .chips .chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+  /* benchmark marker on a meter */
+  .meter .mk { position: absolute; top: -4px; width: 2px; height: 16px; background: var(--gl-ink-soft); border-radius: 1px; transform: translateX(-1px); }
+  .legend-inline { display: flex; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--gl-ink-soft); align-items: center; }
+  .legend-inline .sw { width: 2px; height: 12px; background: var(--gl-ink-soft); border-radius: 1px; display: inline-block; margin-right: 6px; vertical-align: middle; }
+  .legend-inline .sw.fill { width: 12px; height: 6px; border-radius: 3px; background: var(--gl-green); }
+  .mlbl { font-size: 12.5px; color: var(--gl-ink-soft); margin-bottom: 2px; display: flex; align-items: center; gap: 8px; }
+  .mlbl .pillx, .mstat .lbl .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .mstat .lbl { display: flex; align-items: center; gap: 8px; }
+  .ctitle .pillx { margin-left: 8px; vertical-align: middle; display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .cmp { margin-top: 16px; display: grid; gap: 10px; max-width: 480px; }
+  .cmp .row { display: grid; grid-template-columns: 110px 1fr 56px; gap: 12px; align-items: center; font-size: 13px; color: var(--gl-ink); }
+  .cmp .row .meter { margin: 0; }
+  .cmp .row b { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .vbox .delta.up { background: var(--ok-bg); }
+  /* current state */
+  .was .sh { font-size: 15px; font-weight: 700; letter-spacing: .04em; color: var(--gl-ink-soft); text-transform: uppercase; margin: 0 0 12px; }
+  .was .p { font-size: 14px; color: var(--gl-ink); margin-bottom: 6px; }
+  .was .p b { color: var(--gl-heading); }
+  .was .pil { display: inline-block; background: var(--amber-bg); color: var(--amber); font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
+  .was .br { display: grid; grid-template-columns: 180px 240px 60px; gap: 16px; align-items: center; font-size: 14px; color: var(--gl-ink-soft); margin: 10px 0; }
+  .was .br i { display: block; height: 8px; background: #E8EAED; border-radius: 4px; }
+  .was .br b { color: var(--gl-heading); }
+  .was .gd { color: var(--ok); font-weight: 700; font-size: 14px; margin: 8px 0; }
+  .was .fn { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 8px; line-height: 1.5; }
+  .strip.c4 { grid-template-columns: repeat(4, 1fr); }
+  .was .t { font-size: 15px; font-weight: 700; color: var(--gl-heading); }
+  .was .s { font-size: 12.5px; color: var(--gl-ink-soft); margin: 2px 0 14px; }
+  .was .n { font-size: 30px; font-weight: 600; color: var(--gl-heading); line-height: 1.1; }
+  .was .n small { font-size: 14px; font-weight: 400; color: var(--gl-ink); margin-left: 6px; }
+  .mstats.four { grid-template-columns: repeat(4, auto); gap: 32px; }
+  .mstat .meter { margin-top: 8px; height: 4px; width: 120px; }
+  .mstat .lbl .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; color: var(--gl-heading); }
+  .vgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: start; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Explorations</div>
+</header>
+
+<div class="wrap">
+  <h1>User stat cards</h1>
+  <p class="intro">Four stat cards about one population of users. The frames are consistent and the type is right; the question is what each card is for, which slots are filled with the wrong thing, and whether four frames are needed.</p>
+
+  <div class="sec-h">What is there now</div>
+  <p class="sec-sub">Reproduced for comparison, with the issues it carries.</p>
+  <div class="opt" style="grid-template-columns:1fr">
+    <div class="strip c4">
+      <div class="was"><div class="t">User scored</div><div class="s">Across 15 workspaces</div><div class="n">114</div></div>
+      <div class="was"><div class="t">Power users</div><div class="s">0.0% of users</div><div class="n">0</div></div>
+      <div class="was"><div class="t">At-risk or inactive</div><div class="s">Subtitle</div><div class="n">87<small>%</small></div></div>
+      <div class="was"><div class="t">Users with Amplitude</div><div class="s">vs ~28% platform-wide</div><div class="n">10<small>of 114</small></div></div>
+    </div>
+    <div class="opt-note callout" style="max-width:none;columns:2;column-gap:32px">
+      <ul style="margin:0">
+        <li><b>Population as a card.</b> "114 users scored" is the denominator for the other three; as a peer card it says "114" once, then "of 114" again in the last card.</li>
+        <li><b>Zero said twice.</b> "Power users: 0.0% of users" and "0". A zero headline is a non-event; it wants a quiet statement, not a 30px number.</li>
+        <li><b>Placeholder shipped.</b> "Subtitle" under At-risk or inactive.</li>
+        <li><b>The right slot, wrong content.</b> "0.0% of users" and "vs ~28% platform-wide" are a unit and a delta sitting in the scope line. The value row has slots for both.</li>
+        <li><b>Comparison without a direction.</b> 10 of 114 is 8.8%, against 28% platform-wide: 19 points behind. The card makes the reader do the arithmetic and never says which way it points.</li>
+        <li><b>Percent floating.</b> "87 %" with a space; and 87% of what is never stated (99 of 114 users).</li>
+        <li><b>No marks, no status.</b> 87% at risk and 0 power users are alarming. Nothing on the strip signals it; four identical grey cards read as neutral.</li>
+        <li><b>Label grammar.</b> "User scored" should be "Users scored"; "At-risk" is hyphenated here and not elsewhere.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h">Options</div>
+  <p class="sec-sub">Same facts, three layouts, from least to most change.</p>
+
+  <!-- A -->
+  <div class="opt" style="grid-template-columns:1fr">
+    <div class="strip c4">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Users scored</div><div class="cscope">Across 15 workspaces</div></div></div>
+        <div class="vbox"><span class="num">114</span><span class="side"><span></span><span class="unit">users</span></span></div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">At risk or inactive</div><div class="cscope">Low or no activity, 30 days</div></div></div>
+        <div class="vbox"><span class="num">87%</span><span class="side"><span class="pillx" style="background:var(--red-bg)">High</span><span class="unit">99 of 114</span></span></div>
+        <div class="meter" style="background:var(--grey-bg)"><i class="crit" style="width:87%"></i></div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Power users</div><div class="cscope">Daily active, 30 days</div></div></div>
+        <div class="vbox"><span class="num">0</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">None yet</span><span class="unit">of 114</span></span></div>
+        <div class="meter" style="background:var(--grey-bg)"></div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Users with Amplitude</div><div class="cscope">Platform-wide 28%</div></div></div>
+        <div class="vbox"><span class="num">8.8%</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>19 pts vs platform</span><span class="unit">10 of 114</span></span></div>
+        <div class="meter" style="background:var(--grey-bg)"><i style="width:8.8%"></i><span class="mk" style="left:28%"></span></div>
+      </div>
+    </div>
+    <div class="opt-note" style="max-width:720px">
+      <h3>A · Four cards, slots corrected</h3>
+      <p>Same strip. Units and deltas move from the scope line into the value row; each ratio gets a meter; status words become pills. Order changes to put the bad news second.</p>
+      <ul>
+        <li>Amplitude is shown as the rate (8.8%) so the delta against 28% is a real subtraction; the count becomes the unit.</li>
+        <li>Zero gets a "None yet" pill and an empty track, so the absence is deliberate rather than a missing number.</li>
+        <li>Trade-off: the population card is still a frame spent on a denominator.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="opt">
+    <div class="strip c1">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">User engagement</div><div class="cscope">114 users scored across 15 workspaces · last 30 days</div></div><a class="glink" href="#">View users</a></div>
+        <div class="mstats four" style="grid-template-columns:repeat(3,auto)">
+          <div class="mstat"><div class="lbl">At risk or inactive <span class="pillx" style="background:var(--red-bg)">High</span></div><div class="vbox"><span class="num">87%</span><span class="side"><span></span><span class="unit">99 users</span></span></div><div class="meter" style="background:var(--grey-bg)"><i class="crit" style="width:87%"></i></div></div>
+          <div class="mstat"><div class="lbl">Power users</div><div class="vbox"><span class="num">0</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">None yet</span><span class="unit">of 114</span></span></div><div class="meter" style="background:var(--grey-bg)"></div></div>
+          <div class="mstat"><div class="lbl">Using Amplitude</div><div class="vbox"><span class="num">8.8%</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>19 pts vs platform</span><span class="unit">10 users</span></span></div><div class="meter" style="background:var(--grey-bg)"><i style="width:8.8%"></i><span class="mk" style="left:28%"></span></div></div>
+        </div>
+        <div class="legend-inline"><span><span class="sw"></span>Platform-wide 28%</span></div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>B · One widget, multi-stat <span class="tag rec">Recommended</span></h3>
+      <p>The population moves to the scope line where a denominator belongs, and the three real metrics share one frame as a W2 strip.</p>
+      <ul>
+        <li>One title names the subject; "114" is said once and "of 114" becomes "99 users", "10 users".</li>
+        <li>Each stat keeps the locked value row, a hairline meter and, where it has one, a status pill or delta.</li>
+        <li>Trade-off: three stats in one card need horizontal room; below 900px they stack.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="opt">
+    <div class="strip c2">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">User engagement</div><div class="cscope">114 users scored across 15 workspaces · last 30 days</div></div><a class="glink" href="#">View users</a></div>
+        <div class="vbox"><span class="num">87%</span><span class="side"><span class="pillx" style="background:var(--red-bg)">High</span><span class="unit">at risk or inactive</span></span></div>
+        <div class="prop"><i style="flex:99;background:var(--red)"></i><i style="flex:15;background:var(--ok)"></i></div>
+        <div class="legend">
+          <span class="lg"><span class="dot" style="background:var(--red)"></span>At risk or inactive <span class="val">99</span></span>
+          <span class="lg"><span class="dot" style="background:var(--ok)"></span>Active <span class="val">15</span></span>
+        </div>
+        <div class="caption">No power users yet. Power user means daily active over 30 days.</div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Amplitude adoption</div><div class="cscope">Users with Amplitude enabled</div></div><a class="glink" href="#">How is this calculated?</a></div>
+        <div class="vbox"><span class="num">8.8%</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>19 pts vs platform</span><span class="unit">10 of 114 users</span></span></div>
+        <div class="meter" style="background:var(--grey-bg)"><i style="width:8.8%"></i><span class="mk" style="left:28%"></span></div>
+        <div class="axis"><span>0</span><span>100%</span></div>
+        <div class="legend-inline"><span><span class="sw"></span>Platform-wide 28%</span></div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>C · Two widgets by question</h3>
+      <p>"How engaged are users?" and "Are they on Amplitude?" are different questions, so they get a frame each. Engagement becomes a proportion bar; the zero count drops to a caption.</p>
+      <ul>
+        <li>Engagement gains a picture: 99 against 15 is visible, not read.</li>
+        <li>Amplitude gets the same benchmark meter as the peer benchmarking widget.</li>
+        <li>Trade-off: power users lose their own number. Right while it is zero; revisit once it is not.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h">Recommendation</div>
+  <p class="callout"><b>Go with B.</b> It fixes every slot error (units and deltas in the value row, population in the scope line), gives each ratio a meter so 87% looks as bad as it is, and uses one frame for one subject. Move to C when the page has room for a proportion bar and the engagement split matters more than the individual counts.</p>
+  <p class="callout">Whichever wins: the denominator is said once, zero gets a "None yet" pill rather than a headline, every ratio shows a mark, comparisons state direction and size, and no card ships with "Subtitle".</p>
+</div>
+
+<script src="livereload.js"></script>
+<script src="library-nav.js"></script>
+</body>
+</html>
