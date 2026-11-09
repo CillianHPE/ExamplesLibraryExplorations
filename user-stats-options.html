@@ -153,6 +153,16 @@
   .was .s { font-size: 12.5px; color: var(--gl-ink-soft); margin: 2px 0 14px; }
   .was .n { font-size: 30px; font-weight: 600; color: var(--gl-heading); line-height: 1.1; }
   .was .n small { font-size: 14px; font-weight: 400; color: var(--gl-ink); margin-left: 6px; }
+  .was .f { font-size: 14px; color: var(--gl-ink); margin-top: 14px; }
+  .was .f b { color: var(--gl-heading); font-weight: 700; }
+  /* copy table */
+  .ctab { width: 100%; border-collapse: collapse; font-size: 13px; color: var(--gl-ink); margin-top: 16px; }
+  .ctab th { text-align: left; font-size: 12px; color: var(--gl-ink-soft); font-weight: 600; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); vertical-align: bottom; }
+  .ctab td { padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.45; }
+  .ctab td:first-child, .ctab th:first-child { width: 150px; color: var(--gl-heading); font-weight: 600; }
+  .ctab .mute { color: var(--gl-ink-soft); }
+  .ctab s { color: var(--gl-ink-soft); text-decoration: line-through; }
+  .ctab .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
   .mstats.four { grid-template-columns: repeat(4, auto); gap: 32px; }
   .mstat .meter { margin-top: 8px; height: 4px; width: 120px; }
   .mstat .lbl .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; color: var(--gl-heading); }
@@ -283,6 +293,70 @@
         <li>Engagement gains a picture: 99 against 15 is visible, not read.</li>
         <li>Amplitude gets the same benchmark meter as the peer benchmarking widget.</li>
         <li>Trade-off: power users lose their own number. Right while it is zero; revisit once it is not.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h">Second pass: copy and hierarchy</div>
+  <p class="sec-sub">The strip came back with a footer line under each number. The layout is now title, scope, number, footer; the question is what each line is for.</p>
+  <div class="opt" style="grid-template-columns:1fr">
+    <div class="strip c4">
+      <div class="was"><div class="t">User scored</div><div class="s">Across 15 workspaces</div><div class="n">114</div><div class="f">Across <b>15</b> workspaces</div></div>
+      <div class="was"><div class="t">Power users</div><div class="s">0.0% of users</div><div class="n">0</div><div class="f"><b>0.0%</b> of users</div></div>
+      <div class="was"><div class="t">At-risk or inactive</div><div class="s">Subtitle</div><div class="n">87<small>%</small></div><div class="f"><b>87.7%</b> of users</div></div>
+      <div class="was"><div class="t">Users with Amplitude</div><div class="s">vs ~28% platform-wide</div><div class="n">10<small>of 114</small></div><div class="f">vs <b>~28%</b> platform-wide</div></div>
+    </div>
+    <div class="opt-note callout" style="max-width:none;columns:2;column-gap:32px">
+      <ul style="margin:0">
+        <li><b>Every card says its subtitle twice.</b> "Across 15 workspaces" sits above the number and again below it; so do "0.0% of users" and "vs ~28% platform-wide". The footer is the scope line with a bold word.</li>
+        <li><b>Three things compete for the eye.</b> A bold title, a 30px number and a bold footer fragment. A stat card has one headline; everything else is quieter than it.</li>
+        <li><b>The footer carries the unit.</b> "87.7% of users" and "of 114" are units; "vs 28%" is a delta. They belong in the value row beside the number, not in a sentence below it.</li>
+        <li><b>Numbers disagree.</b> The headline says 87%, the footer says 87.7%. One rounding per card.</li>
+        <li><b>Noise in the figures.</b> "0.0%" puts a decimal on nothing; "~28%" puts an approximation mark in a UI; "vs" is an abbreviation where "below" says the direction.</li>
+        <li><b>Still there from the first pass.</b> "User scored", the "Subtitle" placeholder, a population shown as a peer card, and no status on 87%.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="opt" style="grid-template-columns:1fr">
+    <div>
+      <div class="strip c4">
+        <div class="card">
+          <div class="chead"><div><div class="ctitle">Users scored</div><div class="cscope">Across 15 workspaces</div></div></div>
+          <div class="vbox"><span class="num">114</span><span class="side"><span></span><span class="unit">users</span></span></div>
+        </div>
+        <div class="card">
+          <div class="chead"><div><div class="ctitle">At risk or inactive</div><div class="cscope">No activity in 30 days</div></div></div>
+          <div class="vbox"><span class="num">87%</span><span class="side"><span class="pillx" style="background:var(--red-bg)">High</span><span class="unit">99 of 114 users</span></span></div>
+        </div>
+        <div class="card">
+          <div class="chead"><div><div class="ctitle">Power users</div><div class="cscope">Active daily, 30 days</div></div></div>
+          <div class="vbox"><span class="num">0</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">None yet</span><span class="unit">of 114 users</span></span></div>
+        </div>
+        <div class="card">
+          <div class="chead"><div><div class="ctitle">Users with Amplitude</div><div class="cscope">Amplitude enabled</div></div></div>
+          <div class="vbox"><span class="num">8.8%</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>19 pts below platform</span><span class="unit">10 of 114 users</span></span></div>
+        </div>
+      </div>
+      <table class="ctab">
+        <tr><th>Slot</th><th>Users scored</th><th>At risk or inactive</th><th>Power users</th><th>Users with Amplitude</th></tr>
+        <tr><td>Title <span class="mute">15/700</span></td><td>Users scored <s>User scored</s></td><td>At risk or inactive <s>At-risk</s></td><td>Power users</td><td>Users with Amplitude</td></tr>
+        <tr><td>Scope <span class="mute">12.5 soft</span></td><td>Across 15 workspaces</td><td>No activity in 30 days <s>Subtitle</s></td><td>Active daily, 30 days <s>0.0% of users</s></td><td>Amplitude enabled <s>vs ~28% platform-wide</s></td></tr>
+        <tr><td>Value <span class="mute">36/500</span></td><td>114</td><td>87%</td><td>0</td><td>8.8% <s>10</s></td></tr>
+        <tr><td>Top line <span class="mute">pill or delta</span></td><td class="mute">empty</td><td><span class="pillx" style="background:var(--red-bg)">High</span></td><td><span class="pillx" style="background:var(--amber-bg)">None yet</span></td><td><span class="pillx" style="background:var(--red-bg)">19 pts below platform</span></td></tr>
+        <tr><td>Unit <span class="mute">12/400</span></td><td>users</td><td>99 of 114 users <s>87.7% of users</s></td><td>of 114 users <s>0.0% of users</s></td><td>10 of 114 users <s>of 114</s></td></tr>
+        <tr><td>Footer</td><td class="mute">none</td><td class="mute">none</td><td class="mute">none</td><td class="mute">none</td></tr>
+      </table>
+    </div>
+    <div class="opt-note" style="max-width:760px">
+      <h3>Copy corrected, layout unchanged</h3>
+      <p>Four levels, in reading order: title says what is counted, scope says over what, the value is the only loud thing, and the small type beside it says the unit and, where there is one, the judgement. Nothing is said twice; the footer line goes.</p>
+      <ul>
+        <li>Scope lines describe the population, not restate the number: "No activity in 30 days", "Active daily, 30 days", "Amplitude enabled".</li>
+        <li>Units are counts with the noun: "99 of 114 users". The reader gets the percentage from the headline and the size from the unit.</li>
+        <li>Deltas state direction in words: "19 pts below platform", not "vs ~28%". The reference value lives in the delta, not the scope line.</li>
+        <li>Zero has no decimals and no percentage; it has a pill that says it is expected to change.</li>
+        <li>Word count drops from 34 to 28 while adding two status words and a direction. Marks (meters, benchmark tick) are shown in option A above and stack straight under this value row.</li>
       </ul>
     </div>
   </div>
