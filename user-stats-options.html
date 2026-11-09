@@ -318,46 +318,31 @@
     </div>
   </div>
 
-  <div class="opt" style="grid-template-columns:1fr">
-    <div>
-      <div class="strip c4">
-        <div class="card">
-          <div class="chead"><div><div class="ctitle">Users scored</div><div class="cscope">Across 15 workspaces</div></div></div>
-          <div class="vbox"><span class="num">114</span><span class="side"><span></span><span class="unit">users</span></span></div>
-        </div>
-        <div class="card">
-          <div class="chead"><div><div class="ctitle">At risk or inactive</div><div class="cscope">No activity in 30 days</div></div></div>
-          <div class="vbox"><span class="num">87%</span><span class="side"><span class="pillx" style="background:var(--red-bg)">High</span><span class="unit">99 of 114 users</span></span></div>
-        </div>
-        <div class="card">
-          <div class="chead"><div><div class="ctitle">Power users</div><div class="cscope">Active daily, 30 days</div></div></div>
-          <div class="vbox"><span class="num">0</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">None yet</span><span class="unit">of 114 users</span></span></div>
-        </div>
-        <div class="card">
-          <div class="chead"><div><div class="ctitle">Users with Amplitude</div><div class="cscope">Amplitude enabled</div></div></div>
-          <div class="vbox"><span class="num">8.8%</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>19 pts below platform</span><span class="unit">10 of 114 users</span></span></div>
-        </div>
-      </div>
-      <table class="ctab">
-        <tr><th>Slot</th><th>Users scored</th><th>At risk or inactive</th><th>Power users</th><th>Users with Amplitude</th></tr>
-        <tr><td>Title <span class="mute">15/700</span></td><td>Users scored <s>User scored</s></td><td>At risk or inactive <s>At-risk</s></td><td>Power users</td><td>Users with Amplitude</td></tr>
-        <tr><td>Scope <span class="mute">12.5 soft</span></td><td>Across 15 workspaces</td><td>No activity in 30 days <s>Subtitle</s></td><td>Active daily, 30 days <s>0.0% of users</s></td><td>Amplitude enabled <s>vs ~28% platform-wide</s></td></tr>
-        <tr><td>Value <span class="mute">36/500</span></td><td>114</td><td>87%</td><td>0</td><td>8.8% <s>10</s></td></tr>
-        <tr><td>Top line <span class="mute">pill or delta</span></td><td class="mute">empty</td><td><span class="pillx" style="background:var(--red-bg)">High</span></td><td><span class="pillx" style="background:var(--amber-bg)">None yet</span></td><td><span class="pillx" style="background:var(--red-bg)">19 pts below platform</span></td></tr>
-        <tr><td>Unit <span class="mute">12/400</span></td><td>users</td><td>99 of 114 users <s>87.7% of users</s></td><td>of 114 users <s>0.0% of users</s></td><td>10 of 114 users <s>of 114</s></td></tr>
-        <tr><td>Footer</td><td class="mute">none</td><td class="mute">none</td><td class="mute">none</td><td class="mute">none</td></tr>
-      </table>
+  <p class="sec-sub" style="margin-top:32px"><b>Copy updated, same layout.</b> Title, scope, number, footer kept; each line now says a different thing.</p>
+  <div class="strip c4" style="margin-bottom:32px">
+    <div class="was"><div class="t">Users scored</div><div class="s">Across 15 workspaces</div><div class="n">114</div><div class="f">All users with an activity score</div></div>
+    <div class="was"><div class="t">At risk or inactive</div><div class="s">No activity in 30 days</div><div class="n">87<small>%</small></div><div class="f"><b>99</b> of 114 users</div></div>
+    <div class="was"><div class="t">Power users</div><div class="s">Active daily, 30 days</div><div class="n">0</div><div class="f">None yet, of 114 users</div></div>
+    <div class="was"><div class="t">Users with Amplitude</div><div class="s">Amplitude enabled</div><div class="n">8.8<small>%</small></div><div class="f"><b>10</b> of 114 users · 19 pts below platform</div></div>
+  </div>
+
+  <p class="sec-sub"><b>Copy updated, value-row layout.</b> The footer's content moves into the slots beside the number.</p>
+  <div class="strip c4">
+    <div class="card">
+      <div class="chead"><div><div class="ctitle">Users scored</div><div class="cscope">Across 15 workspaces</div></div></div>
+      <div class="vbox"><span class="num">114</span><span class="side"><span></span><span class="unit">users</span></span></div>
     </div>
-    <div class="opt-note" style="max-width:760px">
-      <h3>Copy corrected, layout unchanged</h3>
-      <p>Four levels, in reading order: title says what is counted, scope says over what, the value is the only loud thing, and the small type beside it says the unit and, where there is one, the judgement. Nothing is said twice; the footer line goes.</p>
-      <ul>
-        <li>Scope lines describe the population, not restate the number: "No activity in 30 days", "Active daily, 30 days", "Amplitude enabled".</li>
-        <li>Units are counts with the noun: "99 of 114 users". The reader gets the percentage from the headline and the size from the unit.</li>
-        <li>Deltas state direction in words: "19 pts below platform", not "vs ~28%". The reference value lives in the delta, not the scope line.</li>
-        <li>Zero has no decimals and no percentage; it has a pill that says it is expected to change.</li>
-        <li>Word count drops from 34 to 28 while adding two status words and a direction. Marks (meters, benchmark tick) are shown in option A above and stack straight under this value row.</li>
-      </ul>
+    <div class="card">
+      <div class="chead"><div><div class="ctitle">At risk or inactive</div><div class="cscope">No activity in 30 days</div></div></div>
+      <div class="vbox"><span class="num">87%</span><span class="side"><span class="pillx" style="background:var(--red-bg)">High</span><span class="unit">99 of 114 users</span></span></div>
+    </div>
+    <div class="card">
+      <div class="chead"><div><div class="ctitle">Power users</div><div class="cscope">Active daily, 30 days</div></div></div>
+      <div class="vbox"><span class="num">0</span><span class="side"><span class="pillx" style="background:var(--amber-bg)">None yet</span><span class="unit">of 114 users</span></span></div>
+    </div>
+    <div class="card">
+      <div class="chead"><div><div class="ctitle">Users with Amplitude</div><div class="cscope">Amplitude enabled</div></div></div>
+      <div class="vbox"><span class="num">8.8%</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>19 pts below platform</span><span class="unit">10 of 114 users</span></span></div>
     </div>
   </div>
 
