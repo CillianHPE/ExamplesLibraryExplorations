@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Collapse, dismiss, fixed · Summary sections</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<link rel="stylesheet" href="summary.css">
+<style>
+  .dm { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0 0; }
+  .dm div { background: var(--contained); border-radius: 12px; padding: 20px 24px; font-size: 13.5px; line-height: 1.5; color: var(--gl-ink); }
+  .dm h2 { font-size: 16px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .dm p { margin: 0 0 8px; }
+  .dm .w { font-weight: 600; color: var(--gl-heading); }
+  .try { font-size: 12px; color: var(--gl-ink-soft); margin: 0 0 12px; }
+  .try b { color: var(--gl-heading); font-weight: 600; }
+  .exframe, .stabs, .dm { max-width: 848px; }
+  /* dismiss */
+  .fr .xb { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; color: var(--gl-ink-soft); border-radius: 4px; font-size: 14px; opacity: 0; transition: opacity .1s; }
+  .fr .xb:hover { background: rgba(0,0,0,0.06); color: var(--gl-heading); }
+  .fr:hover .xb, .fr:focus-within .xb { opacity: 1; }
+  .fr .xb.off { visibility: hidden; }
+  .fr.gone { display: none; }
+  .fr.shown { color: var(--gl-ink-soft); }
+  .fr.shown .ft { color: var(--gl-ink-soft); font-weight: 500; }
+  .fr.shown .pillx { opacity: .6; }
+  .sum .trail .tbtn[hidden] { display: none; }
+  .undo { display: none; align-items: center; justify-content: space-between; gap: 16px; font-size: 13px; color: var(--gl-ink); padding: 10px 12px; border-radius: 8px; background: var(--contained); margin-top: 12px; }
+  .undo.on { display: flex; }
+  .undo .tbtn { margin-right: -8px; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Summary sections</div>
+</header>
+<div class="wrap">
+  <p class="crumb"><a href="index.html">Summary sections</a> · How a section leaves</p>
+  <h1>Collapse, dismiss, or neither</h1>
+  <p class="intro">Three different behaviours, three different words. "Hide" is not one of them: it promises the thing can come back but does not say where it went or how. Each example below is live; click the controls.</p>
+
+  <div class="dm">
+    <div><h2>Collapse</h2><p>The section stays on the page. The body folds up; the content header stays so the reader still knows what was there and its scope.</p><p><span class="w">Reversible in place:</span> the same chevron expands it. Persists per user.</p><p><span class="w">For:</span> digests and anything that describes state. Nothing is lost by folding it.</p></div>
+    <div><h2>Dismiss</h2><p>One item leaves the list. The section stays. The item is not deleted: it goes to a known place.</p><p><span class="w">Reversible elsewhere:</span> "Show dismissed (n)" in the trailing slot brings it back, greyed. Undo for a few seconds after.</p><p><span class="w">For:</span> findings and recommendations the reader can judge for themselves. Never critical.</p></div>
+    <div><h2>Neither</h2><p>No control on the section. It changes or leaves only when the data does: the finding is fixed, the deadline passes, the step is done.</p><p><span class="w">Not reversible because nothing happens:</span> the trailing slot holds only navigation or a refresh.</p><p><span class="w">For:</span> critical findings, compliance, billing, anything with a cost to not seeing it.</p></div>
+  </div>
+
+  <div class="sec-h">1 · Collapse</div>
+  <p class="try">Try it: click the <b>chevron</b>. The header row stays, so the collapsed state is still useful.</p>
+  <div class="exframe" data-w="800 × hug">
+    <div class="sum contained" id="col">
+      <div class="shead"><div class="lead"><h2 class="stitle">Summary</h2><div class="sscope">As of today · 15 workspaces, 1,240 devices</div></div><div class="trail"><button class="chev" aria-expanded="true" aria-label="Collapse"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button></div></div>
+      <div class="sbody">
+      <div class="digest">
+        <div class="dl"><span class="dot" style="background:var(--ok)"></span><span><b>All 15 workspaces</b> are active and <b>1,198 of 1,240 devices</b> reported in the last 24 hours.</span><span></span></div>
+        <div class="dl"><span class="dot" style="background:var(--amber)"></span><span><b>42 devices</b> have not reported for more than 7 days, most of them in Edge-North-Fleet.</span><a class="glink" href="#">View devices</a></div>
+        <div class="dl"><span class="dot" style="background:var(--unknown)"></span><span><b>No subscriptions</b> are due for renewal in the next 90 days.</span><span></span></div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="spec stabs">
+    <div class="tabbar"><button class="tab on" data-t="0">Behaviour</button><button class="tab" data-t="1">Anatomy</button><button class="tab" data-t="2">Rules</button><button class="tab" data-t="3">Figma</button></div>
+    <div class="pane on" data-t="0"><ul><li>Click folds the body (and footer) up; header stays in place at the same width</li><li>Second click unfolds. No animation needed beyond the chevron turning</li><li>State persists per user, per page. Reload keeps it folded</li><li>Content keeps updating while folded; unfolding shows the current state, not a stale one</li></ul></div>
+    <div class="pane" data-t="1"><ol><li>Trailing slot: one 36×36 icon button, chevron 16px, <code>--gl-ink</code></li><li>Expanded: chevron points down. Collapsed: points right (rotate -90)</li><li>Accessible name "Collapse" / "Expand"; <code>aria-expanded</code> on the button</li><li>Collapsed height = header only (header padding 2 0 + heading 32 + gap 2 + subtitle 20)</li></ol></div>
+    <div class="pane" data-t="2"><ul><li>Only for sections that describe state. Never on a section that contains a critical item</li><li>The subtitle stays visible, so it must still make sense on its own ("As of today · 15 workspaces")</li><li>If the trailing slot also needs a navigation link, the link sits before the chevron</li><li>Do not add a count or preview to the collapsed header. Folded means folded</li></ul></div>
+    <div class="pane" data-t="3"><ul><li>Container variant prop: <code>state = expanded | collapsed</code>; collapsed hides Body and Footer layers</li><li>Chevron is the DS icon button, 36 size, ghost tone</li><li>Reuse the Container instance; do not build a second "collapsed summary" component</li></ul></div>
+  </div>
+
+  <div class="sec-h" style="margin-top:64px">2 · Dismiss</div>
+  <p class="try">Try it: hover a row and click <b>✕</b>. Then use <b>Show dismissed</b> in the header to bring it back. The critical row has no ✕.</p>
+  <div class="exframe" data-w="800 × hug">
+    <div class="sum" id="dis">
+      <div class="shead"><div class="lead"><h2 class="stitle">Needs attention <span class="cnt" id="dcnt">4</span></h2><div class="sscope">Checked 5 minutes ago · 15 workspaces</div></div><div class="trail"><button class="tbtn quiet" id="showd" hidden>Show dismissed (0)</button></div></div>
+      <div class="sbody">
+      <div class="findings">
+        <div class="fr"><span class="pillx" style="background:var(--red-bg)">Critical</span><span><span class="ft">Compute Ops Management expires in 6 days on Alpha Bank</span><span class="fs">240 devices lose management when it lapses.</span></span><a class="glink" href="#">Renew</a><button class="xb off" aria-label="Dismiss" disabled>✕</button></div>
+        <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">12 workspaces do not enforce MFA</span><span class="fs">No SSO or IP allow list either, so password is the only control.</span></span><a class="glink" href="#">Review security</a><button class="xb" aria-label="Dismiss">✕</button></div>
+        <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">42 devices silent for more than 7 days</span><span class="fs">Mostly in Edge-North-Fleet; may be offline or decommissioned.</span></span><a class="glink" href="#">View devices</a><button class="xb" aria-label="Dismiss">✕</button></div>
+        <div class="fr"><span class="pillx" style="background:var(--unknown-bg)">Low</span><span><span class="ft">3 invitations pending for more than 30 days</span><span class="fs">Invited users have not signed in.</span></span><button class="tbtn">Resend</button><button class="xb" aria-label="Dismiss">✕</button></div>
+      </div>
+      <div class="undo" id="undo"><span></span><button class="tbtn">Undo</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="spec stabs">
+    <div class="tabbar"><button class="tab on" data-t="0">Behaviour</button><button class="tab" data-t="1">Anatomy</button><button class="tab" data-t="2">Rules</button><button class="tab" data-t="3">Figma</button></div>
+    <div class="pane on" data-t="0"><ul><li>✕ removes the row at once; count pill drops by one</li><li>An undo bar appears under the list for 6 seconds, then goes</li><li>"Show dismissed (n)" appears in the trailing slot the first time anything is dismissed, and stays while n &gt; 0</li><li>Showing dismissed rows puts them back at their severity position, greyed, with "Restore" in the ✕ slot</li><li>A dismissed finding comes back on its own if its severity goes up</li></ul></div>
+    <div class="pane" data-t="1"><ol><li>✕ is a 24×24 icon button in the last column; visible on hover and focus, always visible on touch</li><li>Critical rows have the column but no button, so the action column stays aligned</li><li>Undo bar: contained surface, 10 12, r8, message left ("Dismissed: 12 workspaces do not enforce MFA"), "Undo" button right</li><li>Dismissed rows shown: text <code>--gl-ink-soft</code>, pill at 60% opacity, action link stays live</li></ol></div>
+    <div class="pane" data-t="2"><ul><li>Dismiss is per item, never per section. There is no ✕ on the content header</li><li>Critical is never dismissible. It leaves when it is fixed</li><li>Dismissed means "I have judged this", not "delete". Nothing is lost</li><li>Dismissed is per user, not per account; a colleague still sees the finding</li><li>When the last visible item is dismissed, the section shows one line: "Nothing needs attention. Show dismissed (n)"</li></ul></div>
+    <div class="pane" data-t="3"><ul><li>Row variant prop: <code>dismissible = true | false</code> (false for critical) and <code>state = default | dismissed</code></li><li>Container trailing slot: text button "Show dismissed (n)", quiet tone, present only when n &gt; 0</li><li>Undo bar is a separate component placed in Body below the list; 6 s auto-dismiss</li></ul></div>
+  </div>
+
+  <div class="sec-h" style="margin-top:64px">3 · Neither</div>
+  <p class="try">Nothing to try. The trailing slot holds navigation only. Items leave when the data changes.</p>
+  <div class="exframe" data-w="800 × hug">
+    <div class="sum">
+      <div class="shead"><div class="lead"><h2 class="stitle">Coming up <span class="cnt">3</span></h2><div class="sscope">Next 90 days · 15 workspaces</div></div><div class="trail"><a class="glink" href="#">View all subscriptions</a></div></div>
+      <div class="sbody">
+      <div class="findings">
+        <div class="fr dt"><span class="pillx" style="background:var(--red-bg)">6 days</span><span><span class="ft">Compute Ops Management expires on Alpha Bank</span><span class="fs">240 devices lose management.</span></span><a class="glink" href="#">Renew</a><span></span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--amber-bg)">34 days</span><span><span class="ft">Aruba Central evaluation ends on Optima Bank</span><span class="fs">18 access points revert to unmanaged.</span></span><a class="glink" href="#">Choose a plan</a><span></span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--unknown-bg)">71 days</span><span><span class="ft">Support contract ends for 12 ProLiant servers</span><span class="fs">Hardware support only; management is unaffected.</span></span><a class="glink" href="#">Renew</a><span></span></div>
+      </div>
+      </div>
+    </div>
+  </div>
+  <div class="spec stabs">
+    <div class="tabbar"><button class="tab on" data-t="0">Behaviour</button><button class="tab" data-t="1">Anatomy</button><button class="tab" data-t="2">Rules</button><button class="tab" data-t="3">Figma</button></div>
+    <div class="pane on" data-t="0"><ul><li>Rows appear when a date enters the window and leave when it passes or the thing is renewed</li><li>The section disappears when it has nothing to show; it is never shown empty</li><li>No per-user state at all. Everyone on the account sees the same list</li></ul></div>
+    <div class="pane" data-t="1"><ol><li>Trailing slot: navigation link only ("View all subscriptions"), or nothing</li><li>Last column is present but empty, so the action column lines up with the other list shapes</li><li>Otherwise identical to the Container anatomy; no extra affordances</li></ol></div>
+    <div class="pane" data-t="2"><ul><li>Use when not seeing the item has a cost: money, compliance, loss of management</li><li>Use when the list is driven by facts the user cannot judge away (a date, a lapsed contract)</li><li>If users ask to "get rid of" one of these, the answer is to fix or renew it, not to add a ✕</li><li>Pair with a stat or filter elsewhere on the page so the list is not the only route to the data</li></ul></div>
+    <div class="pane" data-t="3"><ul><li>Container with Trailing = link or empty; Row with <code>dismissible = false</code></li><li>No collapsed or dismissed variants needed; fewer states to maintain</li></ul></div>
+  </div>
+
+  <div class="sec-h" style="margin-top:64px">Which one, when</div>
+  <table class="mtab" style="max-width:848px">
+    <tr><th>Section</th><th>Leaves by</th><th>Why</th></tr>
+    <tr><td>S1a Status digest, S1b Change digest</td><td>Collapse</td><td>Describes state; folding loses nothing, header still names scope</td></tr>
+    <tr><td>S1c Generated narrative</td><td>Neither (Regenerate replaces the body)</td><td>Already transient; a collapse would compete with Regenerate in the trailing slot</td></tr>
+    <tr><td>S2a Triage list, S3a Action cards</td><td>Dismiss per item, critical excepted</td><td>User can judge warnings away; critical has a cost</td></tr>
+    <tr><td>S2b Deadline list</td><td>Neither</td><td>Driven by dates; only fixing it removes it</td></tr>
+    <tr><td>S2c Progress checklist, S3c Getting-started steps</td><td>Neither, with "Skip setup" to remove the whole thing once</td><td>Steps leave when done; skipping is a one-time choice with confirmation, not a dismiss</td></tr>
+    <tr><td>S3b Opportunity cards</td><td>Dismiss per item</td><td>Everything in it is optional</td></tr>
+  </table>
+</div>
+<script>
+document.querySelectorAll('.stabs').forEach(t=>t.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+  t.querySelectorAll('.tab,.pane').forEach(e=>e.classList.toggle('on',e.dataset.t===b.dataset.t));})));
+// collapse
+var col=document.getElementById('col'), chev=col.querySelector('.chev');
+chev.addEventListener('click',function(){var f=col.classList.toggle('folded');chev.setAttribute('aria-expanded',String(!f));chev.setAttribute('aria-label',f?'Expand':'Collapse');});
+// dismiss
+var dis=document.getElementById('dis'), showd=document.getElementById('showd'), dcnt=document.getElementById('dcnt'), undo=document.getElementById('undo'), showing=false, last=null, timer;
+function refresh(){var rows=[...dis.querySelectorAll('.fr')], gone=rows.filter(r=>r.dataset.d==='1');
+  dcnt.textContent=rows.length-gone.length; showd.hidden=gone.length===0; showd.textContent=(showing?'Hide dismissed (':'Show dismissed (')+gone.length+')';
+  rows.forEach(r=>{var d=r.dataset.d==='1'; r.classList.toggle('gone',d&&!showing); r.classList.toggle('shown',d&&showing); var x=r.querySelector('.xb'); if(x&&!x.disabled){x.textContent=d?'↺':'✕'; x.setAttribute('aria-label',d?'Restore':'Dismiss');}});}
+dis.addEventListener('click',function(e){var x=e.target.closest('.xb'); if(!x||x.disabled) return; var r=x.closest('.fr');
+  if(r.dataset.d==='1'){r.dataset.d='0'; refresh(); return;}
+  r.dataset.d='1'; last=r; refresh(); undo.querySelector('span').textContent='Dismissed: '+r.querySelector('.ft').textContent; undo.classList.add('on'); clearTimeout(timer); timer=setTimeout(()=>undo.classList.remove('on'),6000);});
+undo.querySelector('.tbtn').addEventListener('click',function(){if(last){last.dataset.d='0';} undo.classList.remove('on'); refresh();});
+showd.addEventListener('click',function(){showing=!showing; refresh();});
+</script>
+<script src="/livereload.js"></script>
+<script src="/library-nav.js"></script>
+</body>
+</html>

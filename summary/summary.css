@@ -175,6 +175,12 @@
   .sum .tbtn.quiet { color: var(--gl-ink-soft); font-weight: 500; }
   .sum .tbtn.quiet:hover { color: var(--gl-heading); }
   .sum .trail .tbtn { margin-right: -12px; }
+  /* collapse: chevron icon button in the trailing slot */
+  .sum .chev { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; appearance: none; border: 0; background: transparent; cursor: pointer; color: var(--gl-ink); margin-right: -6px; }
+  .sum .chev:hover { background: rgba(0,0,0,0.06); }
+  .sum .chev svg { width: 16px; height: 16px; transition: transform .15s; }
+  .sum.folded .chev svg { transform: rotate(-90deg); }
+  .sum.folded .sbody, .sum.folded .sfoot { display: none; }
   .sum .kebab, .sum .xb { appearance: none; border: 0; background: transparent; cursor: pointer; font-family: inherit; }
   .sum .sfoot { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 14px; line-height: 20px; color: var(--gl-ink); }
   .sum .sfoot .fb { display: inline-flex; align-items: center; gap: 2px; }

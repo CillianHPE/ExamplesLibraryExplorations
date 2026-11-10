@@ -125,6 +125,7 @@
         { href: '/summary/digest.html', label: 'S1 · Digest' },
         { href: '/summary/findings.html', label: 'S2 · Findings list' },
         { href: '/summary/cards.html', label: 'S3 · Recommendation cards' },
+        { href: '/summary/leaving.html', label: 'Collapse, dismiss, or neither' },
         { href: '/summary-section-options.html', label: 'Research and exploration' },
       ]},
       { href: '/needs-attention/needs-attention-exploration.html', label: 'Needs attention exploration' },
