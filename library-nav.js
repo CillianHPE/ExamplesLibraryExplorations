@@ -8,6 +8,7 @@
       { href: '/browse.html', label: 'All examples' },
       { href: '/browse.html?kind=widget', label: 'Widgets' },
       { href: '/browse.html?kind=page', label: 'Pages' },
+      { href: '/browse.html?kind=section', label: 'Sections' },
       { href: '/browse.html?kind=layout', label: 'Layouts' },
       { href: '/browse.html?kind=composition', label: 'UI compositions' },
     ]},

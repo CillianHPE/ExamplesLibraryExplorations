@@ -34,7 +34,7 @@
 
   const kindHref = `/browse.html?kind=${item.kind}`;
   const jobLink = (j) => `<a href="/browse.html?kind=${item.kind}&job=${j}">${esc(D.JOBS[j])}</a>`;
-  const groupHref = item.kind === 'widget' ? `${kindHref}&family=${item.family}` : item.kind === 'page' ? `${kindHref}&cat=${item.category}` : kindHref;
+  const groupHref = item.kind === 'widget' ? `${kindHref}&family=${item.family}` : item.kind === 'page' ? `${kindHref}&cat=${item.category}` : item.kind === 'section' ? `${kindHref}&sec=${item.category}` : kindHref;
   document.title = `${item.code} ${item.title} · Examples library`;
 
   // ---- Spec grid ----
@@ -49,7 +49,7 @@
   if (item.specLink) specRows.push(`<div><h3>Full spec</h3><p><a href="${item.specLink.href}">${esc(item.specLink.label)}</a>: variants, states and the full-width section form.</p></div>`);
 
   // ---- Preview actions ----
-  const openLabel = item.kind === 'widget' ? 'Open in catalogue' : item.kind === 'page' ? 'Open in viewer' : 'Open';
+  const openLabel = item.kind === 'widget' ? 'Open in catalogue' : item.kind === 'page' ? 'Open in viewer' : item.kind === 'section' ? 'Open spec' : 'Open';
   const primaryVariant = item.variants && item.variants[0];
 
   root.innerHTML = `
@@ -96,20 +96,26 @@
     sections.appendChild(s);
     return s;
   };
-  const useTile = (href, title, sub, src) => `<a class="it-use" href="${href}"><div class="pv" data-page="${esc(src || href)}"></div><div class="b"><div class="t">${esc(title)}</div>${sub ? `<div class="s">${esc(sub)}</div>` : ''}</div></a>`;
-  const mountTiles = (s) => s.querySelectorAll('.it-use .pv').forEach(el => mountPreview(el, { preview: { type: 'page', src: el.dataset.page } }));
+  const useTile = (href, title, sub, src, idx) => `<a class="it-use" href="${href}"><div class="pv${idx != null ? ' pv-wide' : ''}" ${idx != null ? `data-variant="${idx}"` : `data-page="${esc(src || href)}"`}></div><div class="b"><div class="t">${esc(title)}</div>${sub ? `<div class="s">${esc(sub)}</div>` : ''}</div></a>`;
+  const mountTiles = (s) => s.querySelectorAll('.it-use .pv').forEach(el => {
+    if (el.dataset.variant != null) mountPreview(el, item.variants[+el.dataset.variant], { pad: 12 });
+    else mountPreview(el, { preview: { type: 'page', src: el.dataset.page } });
+  });
 
-  // Variations (pages): the A to D hi-fi builds.
+  // Variations: page archetypes show the A to D hi-fi builds; sections show their live variant markup.
   if (item.variants && item.variants.length) {
-    const s = section('Variations', 'The same archetype filled with different real use cases. Open one to toggle lo-fi and hi-fi in the viewer.',
-      `<div class="it-uses">${item.variants.map(v => useTile(v.viewer || v.href, v.label, '', v.href)).join('')}</div>`);
+    const isSection = item.kind === 'section';
+    const s = section('Variations', isSection
+        ? 'Same shape, different job. Open one for its anatomy, content rules, states and dismissal behaviour.'
+        : 'The same archetype filled with different real use cases. Open one to toggle lo-fi and hi-fi in the viewer.',
+      `<div class="it-uses">${item.variants.map((v, i) => isSection ? useTile(v.href, v.label, v.note, null, i) : useTile(v.viewer || v.href, v.label, '', v.href)).join('')}</div>`);
     mountTiles(s);
   }
 
   // Seen in use: hi-fi pages that carry this widget or pattern.
   if (item.seenIn && item.seenIn.length) {
-    const s = section('Seen in use', item.kind === 'widget'
-        ? 'Hi-fi pages where this widget type appears. The note names the widget on that page.'
+    const s = section('Seen in use', item.kind === 'widget' || item.kind === 'section'
+        ? 'Hi-fi pages where this appears. The note names the section or widget on that page.'
         : 'Applied exercises built on this archetype.',
       `<div class="it-uses">${item.seenIn.map(u => { const p = D.PAGES[u.page]; return useTile(p.href, p.label, u.note); }).join('')}</div>`);
     mountTiles(s);

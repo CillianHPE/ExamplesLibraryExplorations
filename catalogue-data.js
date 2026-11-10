@@ -57,6 +57,7 @@ window.CATALOGUE = (function () {
     'data-collection': 'Data collection',
     layouts:           'Layouts',
     compositions:      'UI compositions',
+    summary:           'Summary',
   };
 
   const KINDS = {
@@ -64,6 +65,7 @@ window.CATALOGUE = (function () {
     page:        { label: 'Pages', one: 'Page' },
     layout:      { label: 'Layouts', one: 'Layout' },
     composition: { label: 'UI compositions', one: 'UI composition' },
+    section:     { label: 'Sections', one: 'Section' },
   };
 
   // Hi-fi pages, referenced by id from widget `seenIn` lists.
@@ -422,7 +424,7 @@ window.CATALOGUE = (function () {
       },
       useWhen: 'The page has more than one section and the reader needs a reason to scroll, or to leave.',
       notWhen: 'The items need acting on individually (W16) or the figures already sit in a KPI strip (W2).',
-      related: ['w16', 'w2', 'w11'],
+      related: ['s1', 'w16', 'w2', 'w11'],
       specLink: { href: '/summary/digest.html', label: 'S1 Digest' },
       seenIn: [
         { page: 't5-b', note: 'Exec summary' },
@@ -442,7 +444,7 @@ window.CATALOGUE = (function () {
       },
       useWhen: 'Items have an owner and a next step, and the order carries meaning.',
       notWhen: 'Items are a fixed set that is mostly healthy (W7), a count is enough (W8), or nothing in the list can be acted on (W10).',
-      related: ['w7', 'w8', 'w10', 'w15'],
+      related: ['s2', 'w7', 'w8', 'w10', 'w15'],
       specLink: { href: '/summary/findings.html', label: 'S2 Findings list' },
       seenIn: [
         { page: 'com-a', note: 'Needs attention' },
@@ -463,7 +465,7 @@ window.CATALOGUE = (function () {
       },
       useWhen: 'The action is optional and you can state what the reader gains.',
       notWhen: 'The action is required (W16 checklist) or there is no evidence beyond "best practice".',
-      related: ['w16', 'w11', 'w14'],
+      related: ['s3', 'w16', 'w11', 'w14'],
       specLink: { href: '/summary/cards.html', label: 'S3 Recommendation cards' },
       seenIn: [
         { page: 'com-a', note: 'Recommended' },
@@ -779,7 +781,89 @@ window.CATALOGUE = (function () {
     }),
   ];
 
-  const items = [...widgets, ...pages, ...layouts, ...compositions];
+  // Recurring page sections: full-width regions that appear across archetypes (a summary at the
+  // top of an overview, for example). `variants` preview live markup from the spec page.
+  const SV = (src, id, label, note) => ({ id, label, note, href: src + '#' + id,
+    preview: { type: 'catalogue', src, selector: '#' + id + ' .sum', outer: true, width: 800 } });
+  const S = (code, id, title, o) => Object.assign({
+    kind: 'section', code, id, title, category: 'summary',
+  }, o);
+  const sections = [
+    S('S1', 's1', 'Digest', {
+      question: 'How do things stand right now?',
+      description: 'Sentences, for reading rather than working through. Three or four lines that say what is fine and what is not, so the reader can decide whether to read the rest of the page. Nothing in it is dismissible because it describes state; it can collapse, regenerate, or go away on its own.',
+      jobs: ['digest', 'explain-insight', 'recent-activity'],
+      href: '/summary/digest.html',
+      specLink: { href: '/summary/digest.html', label: 'S1 Digest spec' },
+      preview: { type: 'catalogue', src: '/summary/digest.html', selector: '#s1a .sum', outer: true, width: 800 },
+      spec: {
+        Header: 'Content header "Summary", subtitle "As of today · population". Trailing: collapse chevron that folds the body and persists per user.',
+        Body: 'Status dot 10px · sentence with the subject in bold · optional link right-aligned. Three to four lines, status order, never more than one ok line.',
+        Leaving: 'Not dismissible. Lines leave when the condition clears; the section is dropped if the only line is ok.',
+        Frame: '800 wide, hug height; line grid 10px | 1fr | auto, gap 12. Full-width on T1 and T4; the 2×1 widget form is W15.',
+      },
+      useWhen: 'Someone lands on an overview after a gap and needs the state of play before the widgets. Mixed news: some good, some not.',
+      notWhen: 'Something is on fire. A critical finding wants a pill and a row (S2), not a sentence between two calm ones.',
+      variants: [
+        SV('/summary/digest.html', 's1a', 'S1a · Status digest', 'How things stand'),
+        SV('/summary/digest.html', 's1b', 'S1b · Change digest', 'What changed since last visit'),
+        SV('/summary/digest.html', 's1c', 'S1c · Generated narrative', 'Prose from an assistant, with regenerate'),
+      ],
+      related: ['w15', 's2', 'w2'],
+      seenIn: [{ page: 't5-b', note: 'Exec summary' }],
+    }),
+    S('S2', 's2', 'Findings list', {
+      question: 'What is wrong, worst first?',
+      description: 'Everything that currently fails a rule or is coming due, ranked, each row with the one place to go and fix it. Same row shape across triage, deadline and checklist; only the marker, sort and exit condition change.',
+      jobs: ['digest', 'report-exception', 'track-goal', 'rank', 'work-queue'],
+      href: '/summary/findings.html',
+      specLink: { href: '/summary/findings.html', label: 'S2 Findings list spec' },
+      preview: { type: 'catalogue', src: '/summary/findings.html', selector: '#s2a .sum', outer: true, width: 800 },
+      spec: {
+        Header: 'Heading plus count pill, subtitle "Checked N minutes ago · population". Trailing: "Show dismissed (n)" or "View all (n)".',
+        Body: 'Row: marker (severity pill, countdown or tick) · lead with count · reason · link · kebab on warning rows only. Hairlines between rows.',
+        Interaction: 'Three row patterns: action column, clickable row with chevron, or card rows (uncontained, five or fewer). Never two in one list.',
+        Volume: '0: one line or remove. 1 to 5: all rows. 6 to 12: five + "Show n more". 13 to 30: grouped by window. 30+: one row per window. Critical never behind a fold.',
+      },
+      useWhen: 'Health, security and compliance overviews. Operators who open the page to find out what to do next.',
+      notWhen: 'There is nothing wrong most of the time; an empty triage list is a sad widget. Use S1a and let the strip show green.',
+      variants: [
+        SV('/summary/findings.html', 's2a', 'S2a · Triage list', 'Ranked by severity'),
+        SV('/summary/findings.html', 's2b', 'S2b · Deadline list', 'Ranked by date'),
+        SV('/summary/findings.html', 's2c', 'S2c · Progress checklist', 'Fixed order, ticks off'),
+      ],
+      related: ['w16', 'w7', 's3'],
+      seenIn: [
+        { page: 'com-a', note: 'Needs attention' },
+        { page: 'storage-b', note: 'Needs attention' },
+      ],
+    }),
+    S('S3', 's3', 'Recommendation cards', {
+      question: 'What should I do, and what do I gain?',
+      description: 'Two or three cards, each a task or an opportunity with its consequence spelled out and one way to start. Optional by nature, so warning cards can be dismissed and the section removes itself when empty.',
+      jobs: ['recommend', 'navigate', 'track-goal'],
+      href: '/summary/cards.html',
+      specLink: { href: '/summary/cards.html', label: 'S3 Recommendation cards spec' },
+      preview: { type: 'catalogue', src: '/summary/cards.html', selector: '#s3a .sum', outer: true, width: 800 },
+      spec: {
+        Header: 'Heading plus count pill, subtitle "Generated today · population". Trailing: "View all" when more than three.',
+        Body: 'Card: severity or value pill · imperative title · consequence sentence with a figure · one link · "Mark as done" and ✕ on warning cards only. Max three cards.',
+        Leaving: 'Critical cards leave when fixed. Warning cards dismiss with undo; recoverable from "Show dismissed (n)". Empty section is removed.',
+        Frame: 'Cards 16 20 padding, r12, grey tiles on an uncontained section, white inside a contained one. The 2×2 widget form is W17.',
+      },
+      useWhen: 'Three or fewer must-do or worth-doing items with a clear owner, on a page the owner visits. Each card is a task, not a fact.',
+      notWhen: 'More than three; it becomes a carousel. Or when the items are findings to read rather than tasks to finish, which is S2a.',
+      variants: [
+        SV('/summary/cards.html', 's3a', 'S3a · Action cards', 'Must-do tasks, ranked'),
+        SV('/summary/cards.html', 's3b', 'S3b · Opportunity cards', 'Savings and improvements'),
+        SV('/summary/cards.html', 's3c', 'S3c · Getting-started steps', 'Setup checklist as cards'),
+      ],
+      related: ['w17', 's2', 'w14'],
+      seenIn: [{ page: 'com-a', note: 'Recommended' }],
+    }),
+  ];
+
+  const items = [...widgets, ...pages, ...sections, ...layouts, ...compositions];
   const byId = Object.fromEntries(items.map(i => [i.id, i]));
   return { JOBS, JOB_GROUPS, FAMILIES, CATEGORIES, KINDS, PAGES, items, byId };
 })();

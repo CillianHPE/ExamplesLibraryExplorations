@@ -20,7 +20,7 @@
   <div class="cb-head">
     <div>
       <h1 id="title">Browse all examples</h1>
-      <p class="cb-intro" id="intro">Every widget, page archetype, layout and composition in one place. Start from what you are trying to do, then narrow by family, size or source page.</p>
+      <p class="cb-intro" id="intro">Every widget, page archetype, section, layout and composition in one place. Start from what you are trying to do, then narrow by family, size or source page.</p>
     </div>
   </div>
 
@@ -64,6 +64,7 @@
     { key: 'job',    label: 'What are you trying to do?', field: 'jobs',     labels: D.JOBS, multi: true, groups: D.JOB_GROUPS },
     { key: 'family', label: 'Widget family',              field: 'family',   labels: Object.fromEntries(Object.entries(D.FAMILIES).map(([k, v]) => [k, `${v.letter} · ${v.label}`])), kinds: ['widget'] },
     { key: 'cat',    label: 'Page category',              field: 'category', labels: { dashboards: 'Dashboards', details: 'Details', 'data-collection': 'Data collection' }, kinds: ['page'] },
+    { key: 'sec',    label: 'Section type',               hint: 'Where on the page the section recurs', field: 'category', labels: { summary: 'Summary, top of page' }, kinds: ['section'] },
     { key: 'size',   label: 'Space on the dashboard',     hint: 'Grid cells the widget occupies', field: 'sizes', labels: { '1x1': 'Compact, 1×1', '2x1': 'Wide, 2×1', '2x2': 'Large, 2×2' }, kinds: ['widget'] },
     { key: 'source', label: 'Where it takes you',         hint: 'The page opened when the widget is clicked', field: 'source', labels: { t1: 'T1 Overview', t2: 'T2 Triage', t3: 'T3 Analytics', t4: 'T4 Object detail', t5: 'T5 Custom board', d1: 'D1 Inventory table', d3: 'D3 Event stream', d4: 'D4 Analytics explorer', d5: 'D5 Map' }, kinds: ['widget'] },
   ];
@@ -112,7 +113,7 @@
   }
   const matchesKind = (item) => !state.kind || item.kind === state.kind;
 
-  const ORDER = { widget: 0, page: 1, layout: 2, composition: 3 };
+  const ORDER = { widget: 0, page: 1, section: 2, layout: 3, composition: 4 };
   function sortItems(items) {
     const byCode = (a, b) => ORDER[a.kind] - ORDER[b.kind] || D.items.indexOf(a) - D.items.indexOf(b);
     if (state.sort === 'title') return items.sort((a, b) => a.title.localeCompare(b.title));
@@ -123,7 +124,7 @@
   // ---- Rendering ----
   function renderKinds() {
     const base = D.items.filter(i => matchesSearch(i) && matchesFacets(i));
-    const opts = [['', 'All'], ...Object.entries(D.KINDS).map(([k, v]) => [k, v.label])];
+    const opts = [['', 'All'], ...Object.entries(D.KINDS).sort((a, b) => (ORDER[a[0]] ?? 9) - (ORDER[b[0]] ?? 9)).map(([k, v]) => [k, v.label])];
     $('#kinds').innerHTML = opts.map(([k, label]) => {
       const n = base.filter(i => !k || i.kind === k).length;
       return `<button class="cb-kind${state.kind === k ? ' on' : ''}" data-kind="${k}">${esc(label)}<span class="n">${n}</span></button>`;
@@ -214,10 +215,11 @@
     const intros = {
       widget: 'Seventeen canonical widget types in six families, each defined by the question it answers. Filter by what you are trying to show; the visualisation follows.',
       page: 'Ten page archetypes: five dashboard and detail types (T1 to T5) and five data-collection patterns (D1 to D5). Each states its job, when it fits and when it does not.',
+      section: 'Recurring full-width regions that appear across page archetypes, such as the summary at the top of an overview. Each has a few variants that share one shape.',
       layout: 'The structural rules under every page and widget: containers, content headers, and the widget anatomy.',
       composition: 'Card gallery jobs and the working explorations behind them: presentation variants and required states worked through in detail.',
     };
-    $('#intro').textContent = intros[state.kind] || 'Every widget, page archetype, layout and composition in one place. Start from what you are trying to do, then narrow by family, size or source page.';
+    $('#intro').textContent = intros[state.kind] || 'Every widget, page archetype, section, layout and composition in one place. Start from what you are trying to do, then narrow by family, size or source page.';
   }
 
   function update() {

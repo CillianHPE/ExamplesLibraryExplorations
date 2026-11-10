@@ -7,23 +7,28 @@ window.Catalogue = (function () {
   const docCache = {};
   function fetchDoc(src) {
     if (!docCache[src]) {
-      docCache[src] = fetch(src).then(r => r.text()).then(html => {
+      docCache[src] = fetch(src).then(r => r.text()).then(async html => {
         const doc = new DOMParser().parseFromString(html, 'text/html');
-        adoptStyles(src, doc);
+        await adoptStyles(src, doc);
         return doc;
       });
     }
     return docCache[src];
   }
 
-  // Scope a source page's inline <style> rules under .pv[data-src="..."] so
-  // widget markup renders exactly as it does at home without leaking styles.
+  // Scope a source page's <style> rules (and any page-specific linked stylesheet) under
+  // .pv[data-src="..."] so markup renders exactly as it does at home without leaking styles.
+  // hifi-shared.css is already loaded globally, so it is skipped.
   const adopted = new Set();
-  function adoptStyles(src, doc) {
+  async function adoptStyles(src, doc) {
     if (adopted.has(src)) return;
     adopted.add(src);
     const scope = `.pv[data-src="${src}"]`;
-    const css = [...doc.querySelectorAll('style')].map(s => s.textContent).join('\n');
+    const links = [...doc.querySelectorAll('link[rel="stylesheet"]')]
+      .map(l => new URL(l.getAttribute('href'), location.origin + src).pathname)
+      .filter(h => !/\/hifi-shared\.css$/.test(h));
+    const linked = await Promise.all(links.map(h => fetch(h).then(r => r.ok ? r.text() : '').catch(() => '')));
+    const css = [...linked, ...[...doc.querySelectorAll('style')].map(s => s.textContent)].join('\n');
     const sheet = new CSSStyleSheet();
     try { sheet.replaceSync(css); } catch (e) { return; }
     const out = [];
@@ -69,8 +74,8 @@ window.Catalogue = (function () {
         if (!node) { host.classList.add('pv-missing'); return; }
         const stage = document.createElement('div');
         stage.className = 'pv-stage';
-        stage.style.width = (opts.stageWidth || 360) + 'px';
-        stage.innerHTML = node.matches('.card') ? node.outerHTML : node.innerHTML;
+        stage.style.width = (p.width || opts.stageWidth || 360) + 'px';
+        stage.innerHTML = (p.outer || node.matches('.card')) ? node.outerHTML : node.innerHTML;
         host.appendChild(stage);
         if (window.renderIcons) window.renderIcons();
         const fit = () => {
