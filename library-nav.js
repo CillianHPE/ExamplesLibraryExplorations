@@ -103,6 +103,11 @@
         { href: '/widgets/index.html#w13', label: 'W13 · Goal' },
         { href: '/widgets/index.html#w14', label: 'W14 · Quick actions' },
       ]},
+      { label: 'F · Summarise', children: [
+        { href: '/widgets/index.html#w15', label: 'W15 · Digest' },
+        { href: '/widgets/index.html#w16', label: 'W16 · Actionable list' },
+        { href: '/widgets/index.html#w17', label: 'W17 · Recommendation cards' },
+      ]},
     ]},
     { label: 'UI compositions', children: [
       { label: 'Card / widget gallery', children: [

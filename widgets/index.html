@@ -19,6 +19,26 @@
   .note strong { color: var(--gl-heading); font-weight: 600; }
   code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--gl-heading); background: var(--contained); border-radius: 4px; padding: 1px 6px; }
 
+  /* family F */
+  .dg p { font-size: 14px; line-height: 1.5; color: var(--gl-ink); margin: 0 0 14px; }
+  .dg-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.6; }
+  .dg-strip b { font-size: 20px; font-weight: 700; color: var(--gl-heading); margin-right: 4px; }
+  .cntx { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--grey-bg); font-size: 11px; font-weight: 600; color: var(--gl-heading); vertical-align: 3px; margin-left: 4px; }
+  .alist .ar { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-top: 1px solid var(--contained-line); font-size: 13px; }
+  .alist .ar:first-child { border-top: 0; padding-top: 0; }
+  .alist .ar .pill { justify-self: start; font-size: 11px; white-space: nowrap; }
+  .alist .al { display: block; font-weight: 600; color: var(--gl-heading); line-height: 1.3; }
+  .alist .as { display: block; font-size: 12px; color: var(--gl-ink-soft); }
+  .alist .glink, .rc .glink { font-size: 12.5px; white-space: nowrap; }
+  .afoot { margin-top: 12px; font-size: 12.5px; }
+  .rcx { display: grid; gap: 12px; }
+  .rc { background: #fff; border-radius: 10px; padding: 14px; display: grid; gap: 4px; font-size: 13px; }
+  .rc .pill { justify-self: start; font-size: 11px; margin-bottom: 4px; }
+  .rc .rl { font-weight: 600; color: var(--gl-heading); }
+  .rc .rs { font-size: 12px; color: var(--gl-ink-soft); }
+  .rc .ra { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+  .rc .xb { appearance: none; border: 0; background: none; color: var(--gl-ink-soft); cursor: pointer; font-size: 12px; width: 24px; height: 24px; border-radius: 6px; }
+  .rc .xb:hover { background: rgba(0,0,0,0.06); }
   /* family index */
   .fam-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
   @media (max-width: 1000px) { .fam-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -143,7 +163,7 @@
 <div class="wrap">
   <div class="crumb-nav"><a href="/layouts/widget.html">Widget anatomy</a> · Catalogue</div>
   <h1>Widget catalogue</h1>
-  <p class="intro">Fourteen canonical widget types in five families, each defined by the question it answers rather than the chart it draws. Every type uses the shared <a href="/layouts/widget.html">widget anatomy</a>, maps to a source page (T1–T5, D1–D5), and states when it fits and when it does not. Pick the type from the viewer's question first; the visualisation follows.</p>
+  <p class="intro">Seventeen canonical widget types in six families, each defined by the question it answers rather than the chart it draws. Every type uses the shared <a href="/layouts/widget.html">widget anatomy</a>, maps to a source page (T1–T5, D1–D5), and states when it fits and when it does not. Pick the type from the viewer's question first; the visualisation follows.</p>
 
   <div class="fam-grid">
     <a class="fam" href="#measure"><span class="tag">Family A</span><h2>Measure</h2><span class="q">"Where is this number, and which way is it going?"</span><p>W1 Stat · W2 Stat cluster · W3 Trend</p></a>
@@ -151,6 +171,7 @@
     <a class="fam" href="#monitor"><span class="tag">Family C</span><h2>Monitor</h2><span class="q">"What is healthy, what is not, and what needs me?"</span><p>W7 Status list · W8 Exception · W9 Ranked table</p></a>
     <a class="fam" href="#explain"><span class="tag">Family D</span><h2>Explain</h2><span class="q">"What happened, where does it concentrate, and why?"</span><p>W10 Activity · W11 Heatmap · W12 Insight</p></a>
     <a class="fam" href="#act"><span class="tag">Family E</span><h2>Act</h2><span class="q">"Am I on track, and where do I go next?"</span><p>W13 Goal · W14 Quick actions</p></a>
+    <a class="fam" href="#summarise"><span class="tag">Family F</span><h2>Summarise</h2><span class="q">"Tell me the state of things, and what to do about it."</span><p>W15 Digest · W16 Actionable list · W17 Recommendation cards</p></a>
   </div>
 
   <div class="sec-h">At a glance</div>
@@ -171,8 +192,11 @@
     <tr><td class="code"><a href="#w12">W12 Insight</a></td><td>Why is this happening, and what should I do?</td><td>Callout: finding · evidence · one action</td><td>1×1 · 2×1</td><td>T3 chart or T4 object</td><td><a href="/card-gallery.html#insight">Explain an insight</a></td></tr>
     <tr><td class="code"><a href="#w13">W13 Goal</a></td><td>Am I on track, and how long is left?</td><td>Progress ring or date countdown + target stats</td><td>1×1</td><td>T4 subscription · target</td><td><a href="/card-gallery.html#deadline">Prompt a deadline</a></td></tr>
     <tr><td class="code"><a href="#w14">W14 Quick actions</a></td><td>Where do I go next?</td><td>Link list, ≤6 rows</td><td>1×1</td><td>Anywhere</td><td>—</td></tr>
+    <tr><td class="code"><a href="#w15">W15 Digest</a></td><td>How are things, in one breath?</td><td>Stat strip or 2 to 4 plain sentences, one link</td><td>2×1 · full-width section</td><td>T1 overview · T3</td><td><a href="/summary/digest.html">Digest spec</a></td></tr>
+    <tr><td class="code"><a href="#w16">W16 Actionable list</a></td><td>What needs doing, worst or soonest first?</td><td>Rows: marker · lead + reason · one verb; capped at 5</td><td>2×1 · 2×2 · full-width section</td><td>T2 triage · D1 filtered</td><td><a href="/summary/findings.html">Findings spec</a></td></tr>
+    <tr><td class="code"><a href="#w17">W17 Recommendation cards</a></td><td>What could I improve, and is it worth it?</td><td>2 to 3 cards: finding · evidence · action · dismiss</td><td>2×2 · full-width section</td><td>T4 object · setup flow</td><td><a href="/summary/cards.html">Cards spec</a></td></tr>
   </table>
-  <div class="note"><strong>Fourteen types is the full vocabulary, not a target for any one page.</strong> A T1 overview typically uses four or five types. If a widget cannot be named from this list, it is either two widgets or a page.</div>
+  <div class="note"><strong>Seventeen types is the full vocabulary, not a target for any one page.</strong> A T1 overview typically uses four or five types. If a widget cannot be named from this list, it is either two widgets or a page.</div>
 
   <!-- ============ A · MEASURE ============ -->
   <div class="fam-h" id="measure">Family A · Measure</div>
@@ -606,6 +630,95 @@
         <div><h3>Source</h3><p>Any page; the destination list is per persona.</p></div>
         <div><h3>Use when</h3><p>A T5 board replaces the T1 secondary rail and needs its entry points back.</p></div>
         <div><h3>Not when</h3><p>The page already has a rail or a primary action for the task; a widget never carries <code>.btn.primary</code>.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ F · SUMMARISE ============ -->
+  <div class="fam-h" id="summarise">Family F · Summarise</div>
+  <p class="sec-sub" style="margin-top:-4px">Summary sections double as widgets. On a T1 or T4 page they are full-width, uncontained sections using the <a href="/summary/index.html">Container anatomy</a>; on a T5 board the same content fits a 2×1 or 2×2 card. Full specs, variants and Figma notes live under <a href="/summary/index.html">Summary sections</a>; the entries here fix the widget-sized form.</p>
+
+  <div class="entry" id="w15">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>This week</h2><div class="scope">Generated Mon 10 Nov · 15 workspaces</div></div><span class="arrow">→</span></div>
+        <div class="dg">
+          <p>All 542 devices reported in the last 24 hours. Compute Ops Management on Alpha Bank expires in 4 days with auto-renew off. Spend is tracking 6% under last month.</p>
+        </div>
+        <div class="dg-strip">
+          <span><b>542</b> devices<br><span class="pill green">Reporting</span></span>
+          <span><b>1</b> expiring<br><span class="pill red">4 days</span></span>
+          <span><b>−6%</b> spend<br><span class="pill grey">vs Oct</span></span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W15 · Summarise</span>
+      <h2>Digest</h2>
+      <p class="job">How are things, in one breath?</p>
+      <p class="desc">Two to four plain sentences, or a strip of three to five stats, that let the reader decide whether to read the rest of the page. Nothing in it is a control except one link to the full report. Variants S1a Stat strip, S1b Narrative, S1c Insight live in the <a href="/summary/digest.html">Digest spec</a>.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Sentences in ink only (no colour in type), each naming a number and a subject; or stat tiles value / label / pill. Max four sentences or five stats.</p></div>
+        <div><h3>Controls</h3><p>Header arrow or "View report" link. Chevron collapse when the section is long. Regenerate as a <code>.tbtn</code> on insight digests. Never dismissible.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz">2×1</span><span class="sz off">2×2</span></span> Full-width section on T1 and T4.</p></div>
+        <div><h3>Source</h3><p>T1 overview; T3 report; the page it summarises.</p></div>
+        <div><h3>Use when</h3><p>The page has more than one section and the reader needs a reason to scroll, or to leave.</p></div>
+        <div><h3>Not when</h3><p>The items need acting on individually (W16) or the figures already sit in a KPI strip (W2).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w16">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Coming up <span class="cntx">20</span></h2><div class="scope">Next 90 days · 15 workspaces</div></div><span class="arrow">→</span></div>
+        <div class="alist">
+          <div class="ar"><span class="pill red">Overdue</span><span><span class="al">Aruba Central lapsed for Harbour Trust</span><span class="as">12 access points unlicensed</span></span><a class="glink" href="#">Renew</a></div>
+          <div class="ar"><span class="pill red">In 4 days</span><span><span class="al">Compute Ops expires on Alpha Bank</span><span class="as">240 devices · auto-renew off</span></span><a class="glink" href="#">Renew</a></div>
+          <div class="ar"><span class="pill amber">In 11 days</span><span><span class="al">TLS certificate expires on api</span><span class="as">Used by 3 integrations</span></span><a class="glink" href="#">Replace</a></div>
+          <div class="ar"><span class="pill amber">In 23 days</span><span><span class="al">Private Cloud renews for Alpha Bank</span><span class="as">Auto-renew on</span></span><span></span></div>
+        </div>
+        <div class="afoot"><a class="glink" href="#">Show 16 more</a></div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W16 · Summarise</span>
+      <h2>Actionable list</h2>
+      <p class="job">What needs doing, worst or soonest first?</p>
+      <p class="desc">A short list where every row is a thing with a reason and, where one exists, a single verb. Ranked by severity (triage), date (deadline) or fixed order (checklist). Variants S2a, S2b, S2c, three row-interaction patterns and the volume rule live in the <a href="/summary/findings.html">Findings spec</a>.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Rows: marker (severity or countdown pill, tick, or urgency glyph) · bold lead + one-line reason · action slot. Hairlines between rows only. Card rows (grey tiles) only on an uncontained section with five or fewer items.</p></div>
+        <div><h3>Controls</h3><p>Action slot: link when it navigates, <code>.tbtn</code> when it acts in place, kebab for dismiss or snooze (never on critical), empty when there is nothing to do. Or the whole row is the link with a trailing chevron; never both in one list. Header: count pill, "View all" link, "Show dismissed (n)".</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz">2×1</span><span class="sz">2×2</span></span> 2×1 shows 3 rows, 2×2 shows 5. Full-width section on T1, T2, T4.</p></div>
+        <div><h3>Volume</h3><p>0: one line. 1 to 5: all rows. 6 to 12: five + "Show n more". 13 to 30: group by window, far group folded. 30+: roll up to one row per window. Header count is always the full total; critical never behind a fold.</p></div>
+        <div><h3>Use when</h3><p>Items have an owner and a next step, and the order carries meaning.</p></div>
+        <div><h3>Not when</h3><p>Items are a fixed set that is mostly healthy (W7), a count is enough (W8), or nothing in the list can be acted on (W10).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w17">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Recommended</h2><div class="scope">Based on the last 30 days</div></div><span class="kebab">⋮</span></div>
+        <div class="rcx">
+          <div class="rc"><span class="pill amber">Save ~$1,900/mo</span><span class="rl">Right-size 6 idle instances</span><span class="rs">Under 5% CPU for 30 days in Optima Bank</span><span class="ra"><a class="glink" href="#">Review instances</a><button class="xb" aria-label="Dismiss">✕</button></span></div>
+          <div class="rc"><span class="pill grey">Security</span><span class="rl">Turn on MFA for 3 admin accounts</span><span class="rs">Northline, Pinecrest, Coastal Credit</span><span class="ra"><a class="glink" href="#">Set policy</a><button class="xb" aria-label="Dismiss">✕</button></span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W17 · Summarise</span>
+      <h2>Recommendation cards</h2>
+      <p class="job">What could I improve, and is it worth it?</p>
+      <p class="desc">Two or three cards, each a finding with evidence, the size of the prize, one action and a way to say no. Optional by definition, so every card is dismissible and the section removes itself when empty. Variants S3a Setup, S3b Optimise, S3c Insight live in the <a href="/summary/cards.html">Cards spec</a>.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Card: value or category pill · lead as an imperative · one line of evidence · action row. White cards inside a contained section, grey tiles on an uncontained one. Max three visible.</p></div>
+        <div><h3>Controls</h3><p>Per card: one link or <code>.tbtn</code>, plus ✕ dismiss (undo 6s, recoverable from "Show dismissed (n)"). Section kebab: Show dismissed, Turn off recommendations. Never a <code>.btn.primary</code>.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz off">2×1</span><span class="sz">2×2</span></span> Full-width section on T1 and T4, cards side by side.</p></div>
+        <div><h3>Source</h3><p>T4 object detail; setup or policy flow the card links to.</p></div>
+        <div><h3>Use when</h3><p>The action is optional and you can state what the reader gains.</p></div>
+        <div><h3>Not when</h3><p>The action is required (W16 checklist) or there is no evidence beyond "best practice".</p></div>
       </div>
     </div>
   </div>
