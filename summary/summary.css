@@ -258,6 +258,9 @@
   .use dd { margin: 0; }
   .cards { display: flex; flex-direction: column; gap: 12px; }
   .crow { display: grid; grid-template-columns: 36px 1fr auto; gap: 16px; align-items: center; padding: 16px; background: #F7F7F7; border-radius: 12px; color: var(--gl-ink); font-size: 14px; }
+  .crow.pl { grid-template-columns: 96px 1fr auto; }
+  .crow.nl { grid-template-columns: 1fr auto; }
+  .vh4 { font-size: 14px; font-weight: 600; color: var(--gl-heading); margin: 24px 0 6px; }
   .crow .cact { display: inline-flex; align-items: center; gap: 12px; }
   .crow .cact .glink { font-size: 13px; white-space: nowrap; }
   .crow .xbtn { width: 28px; height: 28px; border: 0; background: none; border-radius: 6px; color: var(--gl-ink-soft); font-size: 13px; cursor: pointer; }
