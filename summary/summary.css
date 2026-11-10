@@ -276,3 +276,17 @@
   .variant .ex-h { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--gl-ink-soft); margin: 0 0 12px; }
   .exframe { border: 1px dashed var(--line); border-radius: 4px; padding: 24px; position: relative; }
   .exframe::after { content: attr(data-w); position: absolute; right: 8px; top: -9px; background: var(--page); padding: 0 6px; font-size: 11px; color: var(--gl-ink-soft); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  /* stacked variant with tabs */
+  .variant { max-width: 848px; }
+  .variant .vh { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 0 0 12px; }
+  .stabs { margin-top: 16px; }
+  .stabs .tabbar { display: flex; gap: 4px; border-bottom: 1px solid var(--line); }
+  .stabs .tab { appearance: none; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 8px 12px; font: 600 13px/1.4 inherit; font-family: inherit; color: var(--gl-ink-soft); cursor: pointer; }
+  .stabs .tab.on { color: var(--gl-heading); border-bottom-color: var(--gl-heading); }
+  .stabs .tab:hover { color: var(--gl-heading); }
+  .stabs .pane { display: none; padding: 16px 4px 0; max-width: 680px; }
+  .stabs .pane.on { display: block; }
+  .stabs .pane .job { margin-bottom: 12px; }
+  .stabs .pane ol, .pane ul { font-size: 13.5px; line-height: 1.55; }
+  .stabs .pane li { margin-bottom: 4px; }

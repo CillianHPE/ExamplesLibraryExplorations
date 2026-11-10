@@ -43,8 +43,8 @@
   <div class="sec-h">Variants</div>
   <p class="sec-sub">Same row; different marker, sort and exit condition.</p>
   <div class="variant" id="s2a">
-    <div class="opt">
-      <div><div class="ex-h">Example</div><div class="exframe" data-w="800 × hug">
+    <h3 class="vh">S2a · Triage list</h3>
+    <div class="exframe" data-w="800 × hug">
     <div class="sum">
       <div class="shead"><div><div class="stitle">Needs attention <span class="cnt">4</span></div><div class="sscope">Checked 5 minutes ago · 15 workspaces</div></div><div class="sactions"><a class="glink" href="#">Show dismissed (2)</a></div></div>
       <div class="findings">
@@ -54,22 +54,15 @@
         <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">3 users have not signed in for 90 days</span><span class="fs">All hold administrator roles</span></span><a class="glink" href="#">Review users</a><span class="kebab">···</span></div>
       </div>
     </div>
-      </div></div>
-    <div class="spec">
-      <h3>S2a · Triage list</h3>
-      <p class="job"><b>Job:</b> <span class="q">"Show me what is wrong, worst first."</span> Everything that currently fails a rule, ranked by severity, each with the one place to go and fix it.</p>
-      <dl class="use"><dt>Use when</dt><dd>Health, security and compliance overviews. Operators who open the page to find out what to do next.</dd><dt>Not when</dt><dd>There is nothing wrong most of the time; an empty triage list is a sad widget. Use S1a and let the strip show green.</dd></dl>
-      <h4>Anatomy</h4><ol><li>Header: "Needs attention" + count pill, scope "Checked N minutes ago · population"</li><li>Right action: "Show dismissed (n)" when anything has been dismissed</li><li>Row: severity pill · lead with count · reason · link · kebab (warning rows only)</li></ol>
-      <h4>Content rules</h4><ul><li>Sort: critical, then warning; within a level, larger count first</li><li>Lead names the finding and its size: "42 devices silent for more than 7 days"</li><li>Reason gives where or why, not a restatement</li><li>Pill copy is the level word only: Critical, Warning. Never "High" or "Sev 1"</li><li>Max 5 rows visible; the sixth onward goes behind "View all (n)" in the header</li></ul>
-      <h4>States</h4><ul><li>Default: 2 to 5 rows</li><li>Single row: still a list, no special layout</li><li>Empty: section is removed; the stat strip shows the all-clear</li><li>Overflow: 5 rows + "View all (n)"</li></ul>
-      <h4>Dismissal</h4><ul><li>Per row from the kebab: Dismiss, Snooze 7 days. Not on critical rows</li><li>Dismissed rows are recoverable from "Show dismissed (n)" in the header</li><li>A dismissed row returns if its severity rises</li></ul>
-      <h4>Figma</h4><ul><li>Pill column 84</li><li>Variants: row × severity (critical / warning) × overflow (none / kebab)</li><li>Component props: count, checked-at, rows (1–5), dismissed count</li></ul>
     </div>
+    <div class="spec stabs">
+      <div class="tabbar"><button class="tab on" data-t="0">Job</button><button class="tab" data-t="1">Anatomy</button><button class="tab" data-t="2">Content rules</button><button class="tab" data-t="3">States</button><button class="tab" data-t="4">Dismissal</button><button class="tab" data-t="5">Figma</button></div>
+      <div class="pane on" data-t="0"><p class="job"><b>Job:</b> <span class="q">"Show me what is wrong, worst first."</span> Everything that currently fails a rule, ranked by severity, each with the one place to go and fix it.</p><dl class="use"><dt>Use when</dt><dd>Health, security and compliance overviews. Operators who open the page to find out what to do next.</dd><dt>Not when</dt><dd>There is nothing wrong most of the time; an empty triage list is a sad widget. Use S1a and let the strip show green.</dd></dl></div><div class="pane" data-t="1"><ol><li>Header: "Needs attention" + count pill, scope "Checked N minutes ago · population"</li><li>Right action: "Show dismissed (n)" when anything has been dismissed</li><li>Row: severity pill · lead with count · reason · link · kebab (warning rows only)</li></ol></div><div class="pane" data-t="2"><ul><li>Sort: critical, then warning; within a level, larger count first</li><li>Lead names the finding and its size: "42 devices silent for more than 7 days"</li><li>Reason gives where or why, not a restatement</li><li>Pill copy is the level word only: Critical, Warning. Never "High" or "Sev 1"</li><li>Max 5 rows visible; the sixth onward goes behind "View all (n)" in the header</li></ul></div><div class="pane" data-t="3"><ul><li>Default: 2 to 5 rows</li><li>Single row: still a list, no special layout</li><li>Empty: section is removed; the stat strip shows the all-clear</li><li>Overflow: 5 rows + "View all (n)"</li></ul></div><div class="pane" data-t="4"><ul><li>Per row from the kebab: Dismiss, Snooze 7 days. Not on critical rows</li><li>Dismissed rows are recoverable from "Show dismissed (n)" in the header</li><li>A dismissed row returns if its severity rises</li></ul></div><div class="pane" data-t="5"><ul><li>Pill column 84</li><li>Variants: row × severity (critical / warning) × overflow (none / kebab)</li><li>Component props: count, checked-at, rows (1–5), dismissed count</li></ul></div>
     </div>
   </div>
   <div class="variant" id="s2b">
-    <div class="opt">
-      <div><div class="ex-h">Example</div><div class="exframe" data-w="800 × hug">
+    <h3 class="vh">S2b · Deadline list</h3>
+    <div class="exframe" data-w="800 × hug">
     <div class="sum">
       <div class="shead"><div><div class="stitle">Coming up <span class="cnt">4</span></div><div class="sscope">Next 90 days · 15 workspaces</div></div><div class="sactions"><a class="glink" href="#">View all subscriptions</a></div></div>
       <div class="findings">
@@ -79,22 +72,15 @@
         <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">In 88 days</span><span><span class="ft">Support contract renews for Edge-North-Fleet</span><span class="fs">Auto-renew on; no action needed</span></span><span></span><span class="kebab">···</span></div>
       </div>
     </div>
-      </div></div>
-    <div class="spec">
-      <h3>S2b · Deadline list</h3>
-      <p class="job"><b>Job:</b> <span class="q">"What runs out, and when?"</span> Things with a date on them, sorted by the date, so the reader sees how much runway there is.</p>
-      <dl class="use"><dt>Use when</dt><dd>Subscriptions, licences, certificates, trials, contracts. Pages where time, not severity, is the ranking.</dd><dt>Not when</dt><dd>The items have no date, or they all share one. If nothing is inside 90 days, show the count and nothing else.</dd></dl>
-      <h4>Anatomy</h4><ol><li>Header: "Coming up" + count pill, scope "Next 90 days · population"</li><li>Right action: "View all subscriptions" (or the relevant object)</li><li>Row: countdown pill · lead ("X expires on Y") · reason (what it covers, auto-renew state) · link · kebab</li></ol>
-      <h4>Content rules</h4><ul><li>Sort by date, soonest first</li><li>Pill copy is the countdown: "In 6 days", "In 23 days". Tint red inside 7 days, amber inside 30, grey beyond</li><li>Lead names the object and the owner: "Compute Ops Management expires on Alpha Bank"</li><li>Reason carries the consequence or the auto-renew state</li><li>Rows that need no action still appear (so the reader can trust the list is complete) but have no link</li></ul>
-      <h4>States</h4><ul><li>Default: 3 to 5 rows inside the window</li><li>Empty: a single line "Nothing due in the next 90 days", no rows, no count</li><li>Past due: pill reads "Overdue", red, sorted to the top</li></ul>
-      <h4>Dismissal</h4><ul><li>Per row from the kebab: Hide until 7 days before</li><li>Not on rows inside 7 days</li><li>Rows leave when renewed or when the date passes and the item is resolved</li></ul>
-      <h4>Figma</h4><ul><li>Pill column 96 (countdown is wider than a level word)</li><li>Variants: pill × window (week / month / beyond / overdue)</li><li>Component props: window label, rows (0–5) with date, object, owner, consequence, link?</li></ul>
     </div>
+    <div class="spec stabs">
+      <div class="tabbar"><button class="tab on" data-t="0">Job</button><button class="tab" data-t="1">Anatomy</button><button class="tab" data-t="2">Content rules</button><button class="tab" data-t="3">States</button><button class="tab" data-t="4">Dismissal</button><button class="tab" data-t="5">Figma</button></div>
+      <div class="pane on" data-t="0"><p class="job"><b>Job:</b> <span class="q">"What runs out, and when?"</span> Things with a date on them, sorted by the date, so the reader sees how much runway there is.</p><dl class="use"><dt>Use when</dt><dd>Subscriptions, licences, certificates, trials, contracts. Pages where time, not severity, is the ranking.</dd><dt>Not when</dt><dd>The items have no date, or they all share one. If nothing is inside 90 days, show the count and nothing else.</dd></dl></div><div class="pane" data-t="1"><ol><li>Header: "Coming up" + count pill, scope "Next 90 days · population"</li><li>Right action: "View all subscriptions" (or the relevant object)</li><li>Row: countdown pill · lead ("X expires on Y") · reason (what it covers, auto-renew state) · link · kebab</li></ol></div><div class="pane" data-t="2"><ul><li>Sort by date, soonest first</li><li>Pill copy is the countdown: "In 6 days", "In 23 days". Tint red inside 7 days, amber inside 30, grey beyond</li><li>Lead names the object and the owner: "Compute Ops Management expires on Alpha Bank"</li><li>Reason carries the consequence or the auto-renew state</li><li>Rows that need no action still appear (so the reader can trust the list is complete) but have no link</li></ul></div><div class="pane" data-t="3"><ul><li>Default: 3 to 5 rows inside the window</li><li>Empty: a single line "Nothing due in the next 90 days", no rows, no count</li><li>Past due: pill reads "Overdue", red, sorted to the top</li></ul></div><div class="pane" data-t="4"><ul><li>Per row from the kebab: Hide until 7 days before</li><li>Not on rows inside 7 days</li><li>Rows leave when renewed or when the date passes and the item is resolved</li></ul></div><div class="pane" data-t="5"><ul><li>Pill column 96 (countdown is wider than a level word)</li><li>Variants: pill × window (week / month / beyond / overdue)</li><li>Component props: window label, rows (0–5) with date, object, owner, consequence, link?</li></ul></div>
     </div>
   </div>
   <div class="variant" id="s2c">
-    <div class="opt">
-      <div><div class="ex-h">Example</div><div class="exframe" data-w="800 × hug">
+    <h3 class="vh">S2c · Progress checklist</h3>
+    <div class="exframe" data-w="800 × hug">
     <div class="sum">
       <div class="shead"><div><div class="stitle">Set up this account <span class="cnt">3 of 5</span></div><div class="sscope">Done when every workspace has a subscription and a security policy</div></div><div class="sactions"><a class="glink" href="#">Skip setup</a></div></div>
       <div class="findings">
@@ -105,20 +91,17 @@
         <div class="fr chk"><span class="tick todo">✓</span><span><span class="ft">Enforce a security policy</span><span class="fs">0 of 15 workspaces enforce MFA or SSO</span></span><a class="glink" href="#">Set policy</a><span></span></div>
       </div>
     </div>
-      </div></div>
-    <div class="spec">
-      <h3>S2c · Progress checklist</h3>
-      <p class="job"><b>Job:</b> <span class="q">"What is left to finish?"</span> A fixed set of steps toward a known end state, with the finished ones ticked so the count climbs.</p>
-      <dl class="use"><dt>Use when</dt><dd>Onboarding, rollouts, migrations. Any time the list is the same for everyone and ends. Finished items stay visible until the whole thing is done.</dd><dt>Not when</dt><dd>The set is open-ended or keeps refilling; that is a triage list. Also not for optional improvements, which are S3b.</dd></dl>
-      <h4>Anatomy</h4><ol><li>Header: "Set up this account" + "3 of 5" pill, scope "Done when …" (the end state in one line)</li><li>Right action: "Skip setup"</li><li>Row: tick circle (done or empty) · lead · reason (evidence: "15 created") · link on open rows and on done rows that can be revisited</li></ol>
-      <h4>Content rules</h4><ul><li>Fixed order; the same steps for every account</li><li>Done rows stay, struck through in soft ink, with their evidence</li><li>Open rows show the gap as the reason: "9 of 15 workspaces have none"</li><li>The count in the title is done-of-total, never a percentage</li><li>Lead is the step as an imperative: "Assign subscriptions"</li></ul>
-      <h4>States</h4><ul><li>Default: all steps visible, done first</li><li>All done: section removes itself on the next visit (optionally a one-time "Setup complete" line)</li><li>Skipped: section hidden; reachable from account settings</li></ul>
-      <h4>Dismissal</h4><ul><li>No per-row dismiss; steps are not optional</li><li>"Skip setup" hides the whole section, persists per account</li></ul>
-      <h4>Figma</h4><ul><li>Tick 20 r10, <code>--ok-bg</code> with ✓ 12/700; empty 1.5px <code>--line</code> border</li><li>Done lead: 14/500 <code>--gl-ink-soft</code>, line-through in <code>--line</code></li><li>Component props: done, total, end-state text, rows with state (done / open)</li></ul>
     </div>
+    <div class="spec stabs">
+      <div class="tabbar"><button class="tab on" data-t="0">Job</button><button class="tab" data-t="1">Anatomy</button><button class="tab" data-t="2">Content rules</button><button class="tab" data-t="3">States</button><button class="tab" data-t="4">Dismissal</button><button class="tab" data-t="5">Figma</button></div>
+      <div class="pane on" data-t="0"><p class="job"><b>Job:</b> <span class="q">"What is left to finish?"</span> A fixed set of steps toward a known end state, with the finished ones ticked so the count climbs.</p><dl class="use"><dt>Use when</dt><dd>Onboarding, rollouts, migrations. Any time the list is the same for everyone and ends. Finished items stay visible until the whole thing is done.</dd><dt>Not when</dt><dd>The set is open-ended or keeps refilling; that is a triage list. Also not for optional improvements, which are S3b.</dd></dl></div><div class="pane" data-t="1"><ol><li>Header: "Set up this account" + "3 of 5" pill, scope "Done when …" (the end state in one line)</li><li>Right action: "Skip setup"</li><li>Row: tick circle (done or empty) · lead · reason (evidence: "15 created") · link on open rows and on done rows that can be revisited</li></ol></div><div class="pane" data-t="2"><ul><li>Fixed order; the same steps for every account</li><li>Done rows stay, struck through in soft ink, with their evidence</li><li>Open rows show the gap as the reason: "9 of 15 workspaces have none"</li><li>The count in the title is done-of-total, never a percentage</li><li>Lead is the step as an imperative: "Assign subscriptions"</li></ul></div><div class="pane" data-t="3"><ul><li>Default: all steps visible, done first</li><li>All done: section removes itself on the next visit (optionally a one-time "Setup complete" line)</li><li>Skipped: section hidden; reachable from account settings</li></ul></div><div class="pane" data-t="4"><ul><li>No per-row dismiss; steps are not optional</li><li>"Skip setup" hides the whole section, persists per account</li></ul></div><div class="pane" data-t="5"><ul><li>Tick 20 r10, <code>--ok-bg</code> with ✓ 12/700; empty 1.5px <code>--line</code> border</li><li>Done lead: 14/500 <code>--gl-ink-soft</code>, line-through in <code>--line</code></li><li>Component props: done, total, end-state text, rows with state (done / open)</li></ul></div>
     </div>
   </div>
 </div>
+<script>
+document.querySelectorAll('.stabs').forEach(t=>t.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+  t.querySelectorAll('.tab,.pane').forEach(e=>e.classList.toggle('on',e.dataset.t===b.dataset.t));})));
+</script>
 <script src="/livereload.js"></script>
 <script src="/library-nav.js"></script>
 </body>
