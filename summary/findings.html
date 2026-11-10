@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Findings list · Summary sections</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<link rel="stylesheet" href="summary.css">
+</head>
+<body>
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Summary sections</div>
+</header>
+<div class="wrap">
+  <p class="crumb"><a href="index.html">Summary sections</a> · Findings list</p>
+  <h1>S2 · Findings list</h1>
+  <p class="intro">Rows with a marker and one action each, for working through. The marker (a severity pill, a countdown pill, or a tick) and the sort order are the whole difference between the three variants. This is the default shape for an overview page: it has the same anatomy as every other widget and can be read or acted on.</p>
+  <div class="sec-h">Shared anatomy</div>
+  <p class="sec-sub">Every summary section, whatever its job, is built from the same four parts. Build these once in Figma as the base component; the variants below only change what goes in the item slot.</p>
+  <table class="mtab">
+    <tr><th>Part</th><th>Spec</th><th>Token / value</th></tr>
+    <tr><td>1 · Header row</td><td>Title left, actions right, top-aligned. Title is the <b>job</b> ("Needs attention", "Coming up"), never the shape ("Summary", "Insights" aside). Optional count pill after the title.</td><td>Title 15/700 <code>--gl-heading</code> · count pill 20h, 0 6, r10, <code>--grey-bg</code>, 12/600 · header gap 16</td></tr>
+    <tr><td>2 · Scope line</td><td>One line under the title: what was checked, the population, and when. Middot separators.</td><td>12.5/400 <code>--gl-ink-soft</code> · margin-top 2</td></tr>
+    <tr><td>3 · Item slot</td><td>The only part that changes per variant: a sentence, a row, or a card. Items sit 12 to 14px below the scope line.</td><td>Body 14/400 <code>--gl-ink</code> · lead 14/600 <code>--gl-heading</code> · reason 12.5 <code>--gl-ink-soft</code> · link 13/600 <code>--gl-green-dark</code></td></tr>
+    <tr><td>4 · Footer (optional)</td><td>Hairline above; source or comparison point left, feedback or "View all" right. Only digests use it.</td><td>12/400 <code>--gl-ink-soft</code> · hairline <code>--line</code> · padding-top 10, margin-top 14</td></tr>
+    <tr><td>Frame</td><td>Uncontained on the page body (hairlines only). Inside a dashboard column, the grey container. Sits under the content header and above the stat strip.</td><td>Width 800 (min 640) · section gap 32 · contained <code>#F7F7F7</code> r12 p20 24</td></tr>
+    <tr><td>Header actions</td><td>At most two, text links. The right-most is the section-level action ("Hide", "View all", "Show dismissed (n)"). Never an X on the section when any item is critical.</td><td>13/600 link · gap 16 · "Hide" uses <code>--gl-ink-soft</code> 13/400</td></tr>
+    <tr><td>Status marks</td><td>Colour never in text. Dot for digests, pill for lists and cards. Order critical → warning → ok → unknown.</td><td>Dot 10 r5 · pill 20h, 2 6, r4, 12/500, bg <code>--red-bg</code> / <code>--amber-bg</code> / <code>--ok-bg</code> / <code>--unknown-bg</code> / <code>--grey-bg</code></td></tr>
+  </table>
+
+  <div class="sec-h">Row anatomy</div>
+  <p class="sec-sub">The row is the shared sub-component. Four columns on one 12px-padded hairline grid.</p>
+  <table class="mtab">
+    <tr><th>Column</th><th>Spec</th><th>Value</th></tr>
+    <tr><td>1 · Marker</td><td>Pill (severity or countdown) or tick circle. Fixed width so leads align across rows.</td><td>Pill column 84 (severity) / 96 (countdown) · tick 20 r10</td></tr>
+    <tr><td>2 · Lead + reason</td><td>Bold lead, 14/600, with the count in it. Reason below, 12.5 soft, one line, no full stop.</td><td><code>1fr</code> · reason margin-top 1</td></tr>
+    <tr><td>3 · Action</td><td>One text link, verb-first, same column on every row. Empty when there is nowhere to go.</td><td>13/600 <code>--gl-green-dark</code>, nowrap</td></tr>
+    <tr><td>4 · Overflow</td><td>Kebab for per-row dismiss and snooze. Absent on critical rows and on completed rows.</td><td>24 × 24 hit area</td></tr>
+    <tr><td>Row</td><td>Hairline above each row and below the last; 12px vertical padding; 16px column gap.</td><td>grid <code>84px 1fr auto auto</code> · <code>--line</code></td></tr>
+  </table>
+
+  <div class="sec-h">Variants</div>
+  <p class="sec-sub">Same row; different marker, sort and exit condition.</p>
+  <div class="variant" id="s2a">
+    <div class="opt">
+      <div><div class="ex-h">Example</div><div class="exframe" data-w="800 × hug">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Needs attention <span class="cnt">4</span></div><div class="sscope">Checked 5 minutes ago · 15 workspaces</div></div><div class="sactions"><a class="glink" href="#">Show dismissed (2)</a></div></div>
+      <div class="findings">
+        <div class="fr"><span class="pillx" style="background:var(--red-bg)">Critical</span><span><span class="ft">Security gaps in all 15 workspaces</span><span class="fs">MFA, SSO or an IP allow list is not enforced</span></span><a class="glink" href="#">Review security</a><span></span></div>
+        <div class="fr"><span class="pillx" style="background:var(--red-bg)">Critical</span><span><span class="ft">2 subscriptions expired</span><span class="fs">Compute Ops Management on Alpha Bank and Edge-North-Fleet</span></span><a class="glink" href="#">Renew</a><span></span></div>
+        <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">42 devices silent for more than 7 days</span><span class="fs">Mostly in Edge-North-Fleet</span></span><a class="glink" href="#">View devices</a><span class="kebab">···</span></div>
+        <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">3 users have not signed in for 90 days</span><span class="fs">All hold administrator roles</span></span><a class="glink" href="#">Review users</a><span class="kebab">···</span></div>
+      </div>
+    </div>
+      </div></div>
+    <div class="spec">
+      <h3>S2a · Triage list</h3>
+      <p class="job"><b>Job:</b> <span class="q">"Show me what is wrong, worst first."</span> Everything that currently fails a rule, ranked by severity, each with the one place to go and fix it.</p>
+      <dl class="use"><dt>Use when</dt><dd>Health, security and compliance overviews. Operators who open the page to find out what to do next.</dd><dt>Not when</dt><dd>There is nothing wrong most of the time; an empty triage list is a sad widget. Use S1a and let the strip show green.</dd></dl>
+      <h4>Anatomy</h4><ol><li>Header: "Needs attention" + count pill, scope "Checked N minutes ago · population"</li><li>Right action: "Show dismissed (n)" when anything has been dismissed</li><li>Row: severity pill · lead with count · reason · link · kebab (warning rows only)</li></ol>
+      <h4>Content rules</h4><ul><li>Sort: critical, then warning; within a level, larger count first</li><li>Lead names the finding and its size: "42 devices silent for more than 7 days"</li><li>Reason gives where or why, not a restatement</li><li>Pill copy is the level word only: Critical, Warning. Never "High" or "Sev 1"</li><li>Max 5 rows visible; the sixth onward goes behind "View all (n)" in the header</li></ul>
+      <h4>States</h4><ul><li>Default: 2 to 5 rows</li><li>Single row: still a list, no special layout</li><li>Empty: section is removed; the stat strip shows the all-clear</li><li>Overflow: 5 rows + "View all (n)"</li></ul>
+      <h4>Dismissal</h4><ul><li>Per row from the kebab: Dismiss, Snooze 7 days. Not on critical rows</li><li>Dismissed rows are recoverable from "Show dismissed (n)" in the header</li><li>A dismissed row returns if its severity rises</li></ul>
+      <h4>Figma</h4><ul><li>Pill column 84</li><li>Variants: row × severity (critical / warning) × overflow (none / kebab)</li><li>Component props: count, checked-at, rows (1–5), dismissed count</li></ul>
+    </div>
+    </div>
+  </div>
+  <div class="variant" id="s2b">
+    <div class="opt">
+      <div><div class="ex-h">Example</div><div class="exframe" data-w="800 × hug">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Coming up <span class="cnt">4</span></div><div class="sscope">Next 90 days · 15 workspaces</div></div><div class="sactions"><a class="glink" href="#">View all subscriptions</a></div></div>
+      <div class="findings">
+        <div class="fr dt"><span class="pillx" style="background:var(--red-bg)">In 6 days</span><span><span class="ft">Compute Ops Management expires on Alpha Bank</span><span class="fs">240 devices covered · auto-renew off</span></span><a class="glink" href="#">Renew</a><span></span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--amber-bg)">In 23 days</span><span><span class="ft">Evaluation ends for 3 workspaces</span><span class="fs">Optima Bank, Northline, Harbour Trust</span></span><a class="glink" href="#">Choose a plan</a><span class="kebab">···</span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">In 61 days</span><span><span class="ft">TLS certificate expires on the console</span><span class="fs">console.greenlake.example</span></span><a class="glink" href="#">Replace</a><span class="kebab">···</span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">In 88 days</span><span><span class="ft">Support contract renews for Edge-North-Fleet</span><span class="fs">Auto-renew on; no action needed</span></span><span></span><span class="kebab">···</span></div>
+      </div>
+    </div>
+      </div></div>
+    <div class="spec">
+      <h3>S2b · Deadline list</h3>
+      <p class="job"><b>Job:</b> <span class="q">"What runs out, and when?"</span> Things with a date on them, sorted by the date, so the reader sees how much runway there is.</p>
+      <dl class="use"><dt>Use when</dt><dd>Subscriptions, licences, certificates, trials, contracts. Pages where time, not severity, is the ranking.</dd><dt>Not when</dt><dd>The items have no date, or they all share one. If nothing is inside 90 days, show the count and nothing else.</dd></dl>
+      <h4>Anatomy</h4><ol><li>Header: "Coming up" + count pill, scope "Next 90 days · population"</li><li>Right action: "View all subscriptions" (or the relevant object)</li><li>Row: countdown pill · lead ("X expires on Y") · reason (what it covers, auto-renew state) · link · kebab</li></ol>
+      <h4>Content rules</h4><ul><li>Sort by date, soonest first</li><li>Pill copy is the countdown: "In 6 days", "In 23 days". Tint red inside 7 days, amber inside 30, grey beyond</li><li>Lead names the object and the owner: "Compute Ops Management expires on Alpha Bank"</li><li>Reason carries the consequence or the auto-renew state</li><li>Rows that need no action still appear (so the reader can trust the list is complete) but have no link</li></ul>
+      <h4>States</h4><ul><li>Default: 3 to 5 rows inside the window</li><li>Empty: a single line "Nothing due in the next 90 days", no rows, no count</li><li>Past due: pill reads "Overdue", red, sorted to the top</li></ul>
+      <h4>Dismissal</h4><ul><li>Per row from the kebab: Hide until 7 days before</li><li>Not on rows inside 7 days</li><li>Rows leave when renewed or when the date passes and the item is resolved</li></ul>
+      <h4>Figma</h4><ul><li>Pill column 96 (countdown is wider than a level word)</li><li>Variants: pill × window (week / month / beyond / overdue)</li><li>Component props: window label, rows (0–5) with date, object, owner, consequence, link?</li></ul>
+    </div>
+    </div>
+  </div>
+  <div class="variant" id="s2c">
+    <div class="opt">
+      <div><div class="ex-h">Example</div><div class="exframe" data-w="800 × hug">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Set up this account <span class="cnt">3 of 5</span></div><div class="sscope">Done when every workspace has a subscription and a security policy</div></div><div class="sactions"><a class="glink" href="#">Skip setup</a></div></div>
+      <div class="findings">
+        <div class="fr chk done"><span class="tick">✓</span><span><span class="ft">Create workspaces</span><span class="fs">15 created</span></span><span></span><span></span></div>
+        <div class="fr chk done"><span class="tick">✓</span><span><span class="ft">Add devices</span><span class="fs">1,240 added</span></span><span></span><span></span></div>
+        <div class="fr chk done"><span class="tick">✓</span><span><span class="ft">Invite administrators</span><span class="fs">9 invited, 7 accepted</span></span><a class="glink" href="#">Resend</a><span></span></div>
+        <div class="fr chk"><span class="tick todo">✓</span><span><span class="ft">Assign subscriptions</span><span class="fs">9 of 15 workspaces have none</span></span><a class="glink" href="#">Assign</a><span></span></div>
+        <div class="fr chk"><span class="tick todo">✓</span><span><span class="ft">Enforce a security policy</span><span class="fs">0 of 15 workspaces enforce MFA or SSO</span></span><a class="glink" href="#">Set policy</a><span></span></div>
+      </div>
+    </div>
+      </div></div>
+    <div class="spec">
+      <h3>S2c · Progress checklist</h3>
+      <p class="job"><b>Job:</b> <span class="q">"What is left to finish?"</span> A fixed set of steps toward a known end state, with the finished ones ticked so the count climbs.</p>
+      <dl class="use"><dt>Use when</dt><dd>Onboarding, rollouts, migrations. Any time the list is the same for everyone and ends. Finished items stay visible until the whole thing is done.</dd><dt>Not when</dt><dd>The set is open-ended or keeps refilling; that is a triage list. Also not for optional improvements, which are S3b.</dd></dl>
+      <h4>Anatomy</h4><ol><li>Header: "Set up this account" + "3 of 5" pill, scope "Done when …" (the end state in one line)</li><li>Right action: "Skip setup"</li><li>Row: tick circle (done or empty) · lead · reason (evidence: "15 created") · link on open rows and on done rows that can be revisited</li></ol>
+      <h4>Content rules</h4><ul><li>Fixed order; the same steps for every account</li><li>Done rows stay, struck through in soft ink, with their evidence</li><li>Open rows show the gap as the reason: "9 of 15 workspaces have none"</li><li>The count in the title is done-of-total, never a percentage</li><li>Lead is the step as an imperative: "Assign subscriptions"</li></ul>
+      <h4>States</h4><ul><li>Default: all steps visible, done first</li><li>All done: section removes itself on the next visit (optionally a one-time "Setup complete" line)</li><li>Skipped: section hidden; reachable from account settings</li></ul>
+      <h4>Dismissal</h4><ul><li>No per-row dismiss; steps are not optional</li><li>"Skip setup" hides the whole section, persists per account</li></ul>
+      <h4>Figma</h4><ul><li>Tick 20 r10, <code>--ok-bg</code> with ✓ 12/700; empty 1.5px <code>--line</code> border</li><li>Done lead: 14/500 <code>--gl-ink-soft</code>, line-through in <code>--line</code></li><li>Component props: done, total, end-state text, rows with state (done / open)</li></ul>
+    </div>
+    </div>
+  </div>
+</div>
+<script src="/livereload.js"></script>
+<script src="/library-nav.js"></script>
+</body>
+</html>

@@ -120,7 +120,13 @@
       { href: '/benchmark-widget-options.html', label: 'Peer benchmarking widget' },
       { href: '/user-stats-options.html', label: 'User stat cards' },
       { href: '/adoption-checks-options.html', label: 'Adoption checks widget' },
-      { href: '/summary-section-options.html', label: 'Summary section' },
+      { label: 'Summary sections', children: [
+        { href: '/summary/index.html', label: 'Overview and picker' },
+        { href: '/summary/digest.html', label: 'S1 · Digest' },
+        { href: '/summary/findings.html', label: 'S2 · Findings list' },
+        { href: '/summary/cards.html', label: 'S3 · Recommendation cards' },
+        { href: '/summary-section-options.html', label: 'Research and exploration' },
+      ]},
       { href: '/needs-attention/needs-attention-exploration.html', label: 'Needs attention exploration' },
     ]},
     { label: 'Applied exercises', children: [
