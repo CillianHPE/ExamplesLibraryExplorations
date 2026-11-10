@@ -155,26 +155,35 @@
   .was .dis { font-size: 14px; color: var(--gl-heading); font-weight: 500; }
   .was ul { margin: 16px 0 0; padding-left: 22px; font-size: 15px; color: var(--gl-ink); line-height: 1.7; }
   .was ul b { color: var(--gl-heading); }
-  /* summary section variants */
-  .sum { }
-  .sum .shead { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
-  .sum .stitle { font-size: 15px; font-weight: 700; color: var(--gl-heading); display: flex; align-items: center; gap: 8px; }
-  .sum .sscope { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 2px; }
-  .sum .sactions { display: flex; gap: 16px; align-items: center; font-size: 13px; white-space: nowrap; }
-  .sum .sactions .glink { font-size: 13px; }
-  .sum .sactions .x { color: var(--gl-ink-soft); font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+  /* summary section variants: follow the Figma "Container" component.
+     Props: contained (bg #F7F7F7, r12, p24) | uncontained (no bg, no padding).
+     Regions: .shead (Leading = h2 + optional subtitle; Trailing = 36px action slot),
+     .sbody, .sfoot. Column gap 24 between regions. */
+  .sum { display: flex; flex-direction: column; gap: 24px; }
+  .sum.contained { background: var(--contained); border-radius: 12px; padding: 24px; }
+  .sum .shead { display: flex; align-items: center; gap: 12px; }
+  .sum .shead .lead { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 2px; padding: 2px 0; }
+  .sum .stitle { font-size: 24px; line-height: 32px; font-weight: 700; color: var(--gl-heading); margin: 0; display: flex; align-items: center; gap: 10px; }
+  .sum .sscope { font-size: 14px; line-height: 20px; color: var(--gl-ink); }
+  .sum .shead .trail { flex: none; min-width: 36px; min-height: 36px; display: flex; gap: 16px; align-items: center; justify-content: flex-end; font-size: 13px; white-space: nowrap; }
+  .sum .trail .glink { font-size: 13px; }
+  .sum .trail .x { color: var(--gl-ink-soft); font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+  .sum .sbody { min-width: 0; }
+  .sum .sfoot { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; line-height: 20px; color: var(--gl-ink); }
+  .sum .sfoot a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; }
+  .ctog { display: inline-flex; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: 16px; margin-bottom: 16px; }
+  .ctog button { appearance: none; border: 0; background: none; border-radius: 12px; padding: 3px 10px; font: 600 12px/1.4 inherit; font-family: inherit; color: var(--gl-ink-soft); cursor: pointer; }
+  .ctog button.on { background: var(--gl-heading); color: #fff; }
   .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
-  .cnt { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--grey-bg); font-size: 12px; font-weight: 600; color: var(--gl-heading); }
+  .cnt { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; padding: 0 8px; border-radius: 12px; background: var(--grey-bg); font-size: 13px; font-weight: 600; color: var(--gl-heading); }
   /* S1 digest */
-  .digest { margin-top: 14px; display: grid; gap: 10px; }
+  .digest { display: grid; gap: 10px; }
   .digest .dl { display: grid; grid-template-columns: 10px 1fr auto; gap: 12px; align-items: baseline; font-size: 14px; color: var(--gl-ink); line-height: 1.5; }
   .digest .dl .dot { width: 10px; height: 10px; border-radius: 50%; position: relative; top: 1px; }
   .digest .dl b { color: var(--gl-heading); font-weight: 600; }
   .digest .dl .glink { font-size: 13px; white-space: nowrap; }
-  .sfoot { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 12px; color: var(--gl-ink-soft); }
-  .sfoot a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; }
   /* S2 findings */
-  .findings { margin-top: 12px; }
+  .findings { }
   .fr { display: grid; grid-template-columns: 84px 1fr auto auto; gap: 16px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--gl-ink); }
   .fr:last-child { border-bottom: 1px solid var(--line); }
   .fr .ft { color: var(--gl-heading); font-weight: 600; }
@@ -182,8 +191,9 @@
   .fr .glink { font-size: 13px; white-space: nowrap; }
   .fr .kebab { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; color: var(--gl-ink-soft); border-radius: 4px; font-size: 16px; letter-spacing: 1px; }
   /* S3 cards */
-  .rcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 14px; }
+  .rcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .rcard { background: var(--contained); border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 6px; }
+  .sum.contained .rcard { background: #fff; }
   .rcard .rh { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
   .rcard .rt { font-size: 14px; font-weight: 600; color: var(--gl-heading); margin-top: 6px; }
   .rcard .rp { font-size: 13px; color: var(--gl-ink); line-height: 1.5; flex: 1; }
@@ -240,7 +250,7 @@
   .digest .dl.nod { grid-template-columns: 1fr; }
   .digest .dl.nod b.ch { font-weight: 600; }
   .ti-up, .ti-dn { display: inline-block; width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px; }
-  .sum .stitle .beta { font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 4px; background: var(--info-bg); color: var(--gl-heading); letter-spacing: .2px; }
+  .sum .stitle .beta { font-size: 12px; line-height: 16px; font-weight: 600; padding: 1px 6px; border-radius: 4px; background: var(--info-bg); color: var(--gl-heading); letter-spacing: .2px; }
   .sprompt { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
   .sprompt span { font-size: 12.5px; color: var(--gl-heading); padding: 4px 10px; border: 1px solid var(--line); border-radius: 14px; }
   .scen-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 40px 0 2px; }
