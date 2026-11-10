@@ -206,7 +206,7 @@
   .fr .ft { color: var(--gl-heading); font-weight: 600; }
   .fr .fs { display: block; font-size: 12.5px; color: var(--gl-ink-soft); font-weight: 400; margin-top: 1px; }
   .fr .glink { font-size: 13px; white-space: nowrap; }
-  .fr .kebab { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; color: var(--gl-ink-soft); border-radius: 4px; font-size: 16px; letter-spacing: 1px; }
+  .fr .kebab, .crow .kebab { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; color: var(--gl-ink-soft); border-radius: 4px; font-size: 16px; letter-spacing: 1px; }
   /* S3 cards */
   .rcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .rcard { background: var(--contained); border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 6px; }
@@ -257,14 +257,16 @@
   .use dt { color: var(--gl-ink-soft); font-weight: 600; }
   .use dd { margin: 0; }
   .cards { display: flex; flex-direction: column; gap: 12px; }
-  .crow { display: grid; grid-template-columns: 36px 1fr auto; gap: 16px; align-items: center; padding: 16px; background: #fff; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; color: var(--gl-ink); font-size: 14px; transition: border-color .12s; }
-  .crow:hover { border-color: var(--gl-ink-soft); }
-  .crow .cico { width: 36px; height: 36px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; color: var(--gl-ink); }
+  .crow { display: grid; grid-template-columns: 36px 1fr auto; gap: 16px; align-items: center; padding: 16px; background: #F7F7F7; border-radius: 12px; color: var(--gl-ink); font-size: 14px; }
+  .crow .cact { display: inline-flex; align-items: center; gap: 12px; }
+  .crow .cact .glink { font-size: 13px; white-space: nowrap; }
+  .crow .xbtn { width: 28px; height: 28px; border: 0; background: none; border-radius: 6px; color: var(--gl-ink-soft); font-size: 13px; cursor: pointer; }
+  .crow .xbtn:hover, .crow .kebab:hover { background: rgba(0,0,0,0.06); color: var(--gl-ink); }
+  .crow .cico { width: 36px; height: 36px; border-radius: 8px; align-self: start; display: inline-flex; align-items: center; justify-content: center; color: var(--gl-ink); }
   .crow .cico svg { width: 16px; height: 16px; }
   .crow .ft { color: var(--gl-heading); font-weight: 600; }
   .crow .fs { display: block; font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 1px; }
-  .crow .cdate { font-size: 12.5px; color: var(--gl-ink-soft); white-space: nowrap; align-self: start; padding-top: 2px; }
-  .sum.contained .crow { border-color: transparent; }
+  .sum.contained .crow { background: #fff; }
   .fr.done .ft { color: var(--gl-ink-soft); font-weight: 500; text-decoration: line-through; text-decoration-color: var(--line); }
   .fr.done .fs { color: var(--gl-ink-soft); }
   .tick { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--gl-heading); background: var(--ok-bg); }
