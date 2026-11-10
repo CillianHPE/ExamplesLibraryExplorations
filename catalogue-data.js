@@ -27,6 +27,8 @@ window.CATALOGUE = (function () {
     'investigate':       'Investigate what happened',
     'locate':            'Locate on a map',
     'structure':         'Structure a page',
+    'digest':            'Sum up the state of things',
+    'recommend':         'Recommend an improvement',
   };
 
   // Jobs grouped by the outcome the reader is after, so the filter reads as jobs to be done.
@@ -36,6 +38,7 @@ window.CATALOGUE = (function () {
     { key: 'watch',      label: 'Stay on top of problems', jobs: ['monitor-status', 'report-exception', 'recent-activity'] },
     { key: 'explain',    label: 'Explain and investigate', jobs: ['explain-insight', 'investigate', 'analyse'] },
     { key: 'act',        label: 'Find and act on items', jobs: ['find-manage', 'browse-pick', 'work-queue', 'inspect-object', 'locate', 'navigate'] },
+    { key: 'summarise',  label: 'Summarise and advise', jobs: ['digest', 'recommend'] },
     { key: 'frame',      label: 'Shape the page', jobs: ['overview', 'custom-board', 'structure'] },
   ];
 
@@ -45,6 +48,7 @@ window.CATALOGUE = (function () {
     monitor: { label: 'Monitor', letter: 'C', q: 'What is healthy, what is not, and what needs me?' },
     explain: { label: 'Explain', letter: 'D', q: 'What happened, where does it concentrate, and why?' },
     act:     { label: 'Act',     letter: 'E', q: 'Am I on track, and where do I go next?' },
+    summarise: { label: 'Summarise', letter: 'F', q: 'Tell me the state of things, and what to do about it.' },
   };
 
   const CATEGORIES = {
@@ -402,6 +406,67 @@ window.CATALOGUE = (function () {
         { page: 't1-b', note: 'Quick actions' },
         { page: 'storage-a', note: 'Quick actions' },
         { page: 'com-a', note: 'Quick links' },
+      ],
+    }),
+    W('W15', 'w15', 'Digest', 'summarise', {
+      question: 'How are things, in one breath?',
+      description: 'Two to four plain sentences, or a strip of three to five stats, that let the reader decide whether to read the rest of the page. Nothing in it is a control except one link to the full report. On T1 and T4 it is a full-width summary section; on a T5 board the same content fits a 2×1 card.',
+      jobs: ['digest', 'headline-figure', 'explain-insight'],
+      sizes: ['2x1'],
+      source: ['t1', 't3'],
+      spec: {
+        Body: 'Sentences in ink only, each naming a number and a subject; or stat tiles value / label / pill. Max four sentences or five stats.',
+        Controls: 'Header arrow or "View report" link. Chevron collapse when the section is long. Regenerate as a .tbtn on insight digests. Never dismissible.',
+        Source: 'T1 overview; T3 report; the page it summarises.',
+        Variants: 'S1a Stat strip, S1b Narrative, S1c Insight.',
+      },
+      useWhen: 'The page has more than one section and the reader needs a reason to scroll, or to leave.',
+      notWhen: 'The items need acting on individually (W16) or the figures already sit in a KPI strip (W2).',
+      related: ['w16', 'w2', 'w11'],
+      specLink: { href: '/summary/digest.html', label: 'S1 Digest' },
+      seenIn: [
+        { page: 't5-b', note: 'Exec summary' },
+      ],
+    }),
+    W('W16', 'w16', 'Actionable list', 'summarise', {
+      question: 'What needs doing, worst or soonest first?',
+      description: 'A short list where every row is a thing with a reason and, where one exists, a single verb. Ranked by severity (triage), date (deadline) or fixed order (checklist). Three row-interaction patterns and a volume rule keep it honest as the count grows.',
+      jobs: ['digest', 'report-exception', 'track-goal', 'rank'],
+      sizes: ['2x1', '2x2'],
+      source: ['t2', 't4'],
+      spec: {
+        Body: 'Rows: marker (severity or countdown pill, tick, or urgency glyph) · bold lead + one-line reason · action slot. Hairlines between rows only. Card rows only on an uncontained section with five or fewer items.',
+        Controls: 'Action slot: link when it navigates, .tbtn when it acts in place, kebab for dismiss or snooze (never on critical), empty when there is nothing to do. Or the whole row is the link with a trailing chevron; never both. Header: count pill, "View all", "Show dismissed (n)".',
+        Volume: '0: one line. 1 to 5: all rows. 6 to 12: five + "Show n more". 13 to 30: group by window, far group folded. 30+: roll up to one row per window. Critical never behind a fold.',
+        Variants: 'S2a Triage, S2b Deadline, S2c Checklist. 2×1 shows 3 rows, 2×2 shows 5.',
+      },
+      useWhen: 'Items have an owner and a next step, and the order carries meaning.',
+      notWhen: 'Items are a fixed set that is mostly healthy (W7), a count is enough (W8), or nothing in the list can be acted on (W10).',
+      related: ['w7', 'w8', 'w10', 'w15'],
+      specLink: { href: '/summary/findings.html', label: 'S2 Findings list' },
+      seenIn: [
+        { page: 'com-a', note: 'Needs attention' },
+        { page: 'storage-b', note: 'Needs attention' },
+      ],
+    }),
+    W('W17', 'w17', 'Recommendation cards', 'summarise', {
+      question: 'What could I improve, and is it worth it?',
+      description: 'Two or three cards, each a finding with evidence, the size of the prize, one action and a way to say no. Optional by definition, so every card is dismissible and the section removes itself when empty.',
+      jobs: ['recommend', 'explain-insight', 'navigate'],
+      sizes: ['2x2'],
+      source: ['t4'],
+      spec: {
+        Body: 'Card: value or category pill · lead as an imperative · one line of evidence · action row. White cards inside a contained section, grey tiles on an uncontained one. Max three visible.',
+        Controls: 'Per card: one link or .tbtn, plus ✕ dismiss (undo 6s, recoverable from "Show dismissed (n)"). Section kebab: Show dismissed, Turn off recommendations. Never a .btn.primary.',
+        Source: 'T4 object detail; setup or policy flow the card links to.',
+        Variants: 'S3a Setup, S3b Optimise, S3c Insight.',
+      },
+      useWhen: 'The action is optional and you can state what the reader gains.',
+      notWhen: 'The action is required (W16 checklist) or there is no evidence beyond "best practice".',
+      related: ['w16', 'w11', 'w14'],
+      specLink: { href: '/summary/cards.html', label: 'S3 Recommendation cards' },
+      seenIn: [
+        { page: 'com-a', note: 'Recommended' },
       ],
     }),
   ];

@@ -46,6 +46,7 @@
   if (item.source && item.source.length) specRows.push(`<div class="src"><h3>Where it takes you</h3><p>${item.source.map(s => `<a href="${itemHref(D.byId[s])}">${esc(SRC[s])}</a>`).join(' · ')}</p></div>`);
   if (item.gallery) specRows.push(`<div><h3>Card gallery</h3><p><a href="${item.gallery.href}">${esc(item.gallery.label)}</a>: presentation variants and required states.</p></div>`);
   if (item.lofi) specRows.push(`<div><h3>Lo-fi spec</h3><p><a href="${item.lofi}">Open the annotated wireframe</a>.</p></div>`);
+  if (item.specLink) specRows.push(`<div><h3>Full spec</h3><p><a href="${item.specLink.href}">${esc(item.specLink.label)}</a>: variants, states and the full-width section form.</p></div>`);
 
   // ---- Preview actions ----
   const openLabel = item.kind === 'widget' ? 'Open in catalogue' : item.kind === 'page' ? 'Open in viewer' : 'Open';
@@ -61,6 +62,7 @@
           <a class="btn secondary" href="${item.href}">${openLabel}</a>
           ${primaryVariant && item.kind === 'page' ? `<a class="btn" href="${primaryVariant.href}">Open hi-fi page</a>` : ''}
           ${item.lofi ? `<a class="btn" href="${item.lofi}">Lo-fi spec</a>` : ''}
+          ${item.specLink ? `<a class="btn" href="${item.specLink.href}">Full spec</a>` : ''}
           <span class="fine">${item.preview && item.preview.type === 'page' ? 'Live page, scaled to fit' : 'Live markup from the catalogue'}</span>
         </div>
       </div>
