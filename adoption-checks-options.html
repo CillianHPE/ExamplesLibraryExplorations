@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Adoption checks widget: layout options</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<style>
+  body { background: var(--page); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 40px 32px 80px; }
+  .wrap > h1 { font-size: 24px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .intro { font-size: 14px; color: var(--gl-ink-soft); margin: 0 0 40px; max-width: 760px; line-height: 1.55; }
+  .sec-h { font-size: 19px; font-weight: 700; color: var(--gl-heading); margin: 64px 0 6px; }
+  .sec-h:first-of-type { margin-top: 0; }
+  .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: 0 0 24px; max-width: 720px; line-height: 1.5; }
+
+  .opt { margin-bottom: 32px; display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; }
+  .opt-note h3 { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; display: flex; gap: 10px; align-items: center; }
+  .opt-note p { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; line-height: 1.5; }
+  .opt-note ul { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; padding-left: 18px; line-height: 1.5; }
+  .tag { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+  .tag.rec { background: var(--gl-green-dark); color: #fff; }
+  @media (max-width: 1100px) { .opt { grid-template-columns: 1fr; } }
+
+  /* strips of cards */
+  .strip { display: grid; gap: 16px; }
+  .strip.c3 { grid-template-columns: 1fr 1fr 2fr; }
+  .strip.c2 { grid-template-columns: 1fr 1fr; }
+  .strip.c1 { grid-template-columns: 1fr; }
+  .card { padding: 20px 24px; }
+  .ctitle { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 2px; }
+  .cscope { font-size: 12.5px; color: var(--gl-ink-soft); margin: 0 0 14px; }
+  .chead { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .chead .glink { font-size: 13px; }
+
+  /* value row, per the Visualisation spec */
+  .vbox { display: inline-flex; align-items: center; gap: 4px; }
+  .vbox .num { font-size: 36px; font-weight: 500; line-height: 46px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .vbox .side { display: flex; flex-direction: column; align-items: flex-start; }
+  .vbox .side > span:empty { height: 16px; }
+  .vbox .unit { font-size: 12px; font-weight: 400; line-height: 16px; color: var(--gl-ink); }
+  .vbox .delta { display: inline-flex; align-items: center; gap: 6px; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
+  .vbox .delta.plain { padding: 0; height: 16px; background: none; }
+  .ti { width: 14px; height: 14px; flex: none; }
+
+  /* marks */
+  .meter { height: 8px; border-radius: 4px; margin-top: 10px; position: relative; overflow: visible; }
+  .meter i { border-radius: 4px; }
+  .axis { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--gl-ink-soft); padding-top: 6px; }
+  .prop { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; margin-top: 10px; }
+  .prop i { display: block; height: 100%; min-width: 3px; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; font-size: 13px; color: var(--gl-ink); }
+  .legend .lg { display: flex; align-items: center; gap: 7px; }
+  .legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend .val { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .caption { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 12px; }
+  .caption b { color: var(--gl-heading); font-weight: 600; }
+
+  /* current-state reproduction */
+  .was { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; }
+  .was .lbl { font-size: 14px; font-weight: 700; color: var(--gl-heading); }
+  .was .big { font-size: 28px; font-weight: 700; color: var(--gl-heading); line-height: 1.2; margin-top: 4px; }
+  .was .big.red { color: var(--red); }
+  .was .four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .was .four .lbl { display: flex; align-items: center; gap: 6px; }
+  .was .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .callout { font-size: 13.5px; color: var(--gl-ink); line-height: 1.55; }
+  .callout ul { margin: 6px 0 0; padding-left: 18px; }
+  .callout li { margin-bottom: 4px; }
+
+  /* multi-stat strip inside a card */
+  .mstats { display: grid; grid-template-columns: repeat(3, auto); gap: 40px; justify-content: start; align-items: start; }
+  .mstat .lbl { font-size: 12.5px; color: var(--gl-ink-soft); margin-bottom: 2px; display: flex; align-items: center; gap: 7px; }
+  .mstat .lbl .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* factor rows: label · mini meter · value */
+  .frows { margin-top: 16px; max-width: 420px; }
+  .frow { display: grid; grid-template-columns: 1fr 96px 64px; gap: 16px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .frow:first-child { border-top: 0; padding-top: 0; }
+  .frow .meter { margin: 0; height: 6px; }
+  .frow .fv { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .frow .fs { font-size: 12px; color: var(--gl-ink-soft); display: block; }
+  /* key facts list */
+  .facts { margin-top: 16px; display: grid; grid-template-columns: auto 1fr; column-gap: 24px; row-gap: 8px; font-size: 13px; }
+  .facts dt { color: var(--gl-ink-soft); margin: 0; }
+  .facts dd { color: var(--gl-heading); font-weight: 600; margin: 0; font-variant-numeric: tabular-nums; }
+  .facts dd small { font-weight: 400; color: var(--gl-ink-soft); }
+  .meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--gl-ink-soft); }
+  .meta b { color: var(--gl-heading); font-weight: 600; }
+  .mstats.two { grid-template-columns: repeat(2, auto); }
+  .vbox .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
+  .was .row { display: flex; align-items: baseline; gap: 8px; }
+  .was .row .big { font-size: 30px; }
+  .was .sub { font-size: 14px; color: var(--gl-ink-soft); }
+  .was .stat { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--gl-ink); margin: 2px 0 14px; }
+  .was .line { font-size: 14px; color: var(--gl-ink); padding: 10px 0; border-top: 1px solid var(--line); }
+  .was .line:first-of-type { border-top: 0; }
+  .was .hd { display: flex; justify-content: space-between; align-items: center; }
+  .was .hd a { color: var(--gl-green-dark); font-weight: 600; font-size: 14px; text-decoration: none; }
+  /* driver variants */
+  .vgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+  .vgrid .vn { font-size: 13.5px; color: var(--gl-ink); line-height: 1.5; margin-top: 12px; }
+  .vgrid .vn b { color: var(--gl-heading); display: block; margin-bottom: 2px; }
+  .vgrid .vn .tag { margin-left: 6px; vertical-align: middle; }
+  .dtrio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .dtrio .lbl { font-size: 12px; color: var(--gl-ink-soft); margin-bottom: 2px; }
+  .dtrio .sv { font-size: 20px; font-weight: 500; line-height: 24px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .dtrio .sv small { font-size: 12px; font-weight: 400; color: var(--gl-ink); margin-left: 3px; }
+  .dtrio .meter { margin-top: 8px; height: 4px; }
+  .blist { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
+  .blist .bl .t { display: flex; justify-content: space-between; font-size: 13px; color: var(--gl-ink); margin-bottom: 4px; }
+  .blist .bl .t b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .blist .meter { margin: 0; height: 6px; }
+  .flist { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--line); }
+  .flist .fl { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .flist .fl:first-child { border-top: 0; }
+  .flist .fl .pillx { display: inline-flex; justify-content: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .flist .fl b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .kvlist { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--line); display: block; }
+  .kvlist .kvr { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .kvlist .kvr:first-child { border-top: 0; }
+  .kvlist .kvr b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .kvlist .kvr b small { font-weight: 400; color: var(--gl-ink-soft); margin-left: 4px; }
+  .chips { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips .chip { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 2px 8px; border-radius: 4px; font-size: 12px; line-height: 16px; color: var(--gl-ink); }
+  .chips .chip b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .chips .chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+  /* benchmark marker on a meter */
+  .meter .mk { position: absolute; top: -4px; width: 2px; height: 16px; background: var(--gl-ink-soft); border-radius: 1px; transform: translateX(-1px); }
+  .legend-inline { display: flex; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--gl-ink-soft); align-items: center; }
+  .legend-inline .sw { width: 2px; height: 12px; background: var(--gl-ink-soft); border-radius: 1px; display: inline-block; margin-right: 6px; vertical-align: middle; }
+  .legend-inline .sw.fill { width: 12px; height: 6px; border-radius: 3px; background: var(--gl-green); }
+  .mlbl { font-size: 12.5px; color: var(--gl-ink-soft); margin-bottom: 2px; display: flex; align-items: center; gap: 8px; }
+  .mlbl .pillx, .mstat .lbl .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .mstat .lbl { display: flex; align-items: center; gap: 8px; }
+  .ctitle .pillx { margin-left: 8px; vertical-align: middle; display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .cmp { margin-top: 16px; display: grid; gap: 10px; max-width: 480px; }
+  .cmp .row { display: grid; grid-template-columns: 110px 1fr 56px; gap: 12px; align-items: center; font-size: 13px; color: var(--gl-ink); }
+  .cmp .row .meter { margin: 0; }
+  .cmp .row b { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .vbox .delta.up { background: var(--ok-bg); }
+  /* current state */
+  .was .sh { font-size: 15px; font-weight: 700; letter-spacing: .04em; color: var(--gl-ink-soft); text-transform: uppercase; margin: 0 0 12px; }
+  .was .p { font-size: 14px; color: var(--gl-ink); margin-bottom: 6px; }
+  .was .p b { color: var(--gl-heading); }
+  .was .pil { display: inline-block; background: var(--amber-bg); color: var(--amber); font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
+  .was .br { display: grid; grid-template-columns: 180px 240px 60px; gap: 16px; align-items: center; font-size: 14px; color: var(--gl-ink-soft); margin: 10px 0; }
+  .was .br i { display: block; height: 8px; background: #E8EAED; border-radius: 4px; }
+  .was .br b { color: var(--gl-heading); }
+  .was .gd { color: var(--ok); font-weight: 700; font-size: 14px; margin: 8px 0; }
+  .was .fn { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 8px; line-height: 1.5; }
+  .chead .glink { white-space: nowrap; }
+  /* current-state table */
+  .was .hd .st { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--gl-ink); }
+  .was table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; color: var(--gl-ink); }
+  .was th { text-align: left; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--gl-ink-soft); font-weight: 700; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+  .was td { padding: 12px; border-bottom: 1px solid var(--line); }
+  .was td .dot { display: inline-block; vertical-align: middle; margin-right: 6px; }
+  /* check rows */
+  .checks { margin-top: 16px; }
+  .crow { display: grid; grid-template-columns: 1fr 120px 96px 104px; gap: 16px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--gl-ink); }
+  .crow:first-child { border-top: 0; padding-top: 0; }
+  .crow .meter { margin: 0; height: 6px; }
+  .crow .cv { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .crow .pillx { justify-self: end; }
+  .crow .pillx, .list .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
+  .crow.na { color: var(--gl-ink-soft); }
+  .crow.na .cv { font-weight: 400; color: var(--gl-ink-soft); }
+  .list .lrow { display: grid; grid-template-columns: 1fr 64px auto; gap: 16px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); font-size: 13.5px; color: var(--gl-ink); }
+  .list { margin-top: 16px; }
+  .list .lrow:first-child { border-top: 0; padding-top: 0; }
+  .list .lrow b { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .mstat .meter { max-width: 160px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Explorations</div>
+</header>
+
+<div class="wrap">
+  <h1>Adoption checks widget</h1>
+  <p class="intro">A checklist widget: three adoption checks, each a ratio, with a verdict in the corner. The content is useful and the rows are the right shape; the question is how much table furniture three rows need, and where the verdict and the gaps should live.</p>
+
+  <div class="sec-h">What is there now</div>
+  <p class="sec-sub">Reproduced for comparison, with the issues it carries.</p>
+  <div class="opt">
+    <div class="was">
+      <div class="hd"><span class="lbl" style="font-size:15px">Adoption checks</span><span class="st"><span class="dot" style="background:var(--red)"></span>Low adoption</span></div>
+      <table>
+        <tr><th>Check</th><th style="width:120px">Result</th><th style="width:150px">Status</th></tr>
+        <tr><td>Seats assigned to devices</td><td>1 of 2</td><td><span class="dot" style="background:var(--red)"></span>1 gap</td></tr>
+        <tr><td>Claimed devices fully active</td><td>1 of 9</td><td><span class="dot" style="background:var(--red)"></span>8 gaps</td></tr>
+        <tr><td>New devices activated (last 90 days)</td><td>&mdash;</td><td><span class="dot" style="background:var(--unknown)"></span>Not applicable</td></tr>
+      </table>
+    </div>
+    <div class="opt-note callout">
+      <ul>
+        <li><b>Status column repeats the result.</b> "1 of 2" and "1 gap" are the same fact; so are "1 of 9" and "8 gaps". A whole column does the subtraction the reader already did.</li>
+        <li><b>Table furniture for three rows.</b> Uppercase column headers and a header rule for a three-item checklist. The labels name themselves; the headers add a row and nothing else.</li>
+        <li><b>Verdict as dot and text.</b> "Low adoption" is a status word, so it is a tinted pill, not a dot beside plain text.</li>
+        <li><b>Same red for 50% and 11%.</b> Both failing checks get an identical dot. One is half done, the other barely started; nothing on the card shows which.</li>
+        <li><b>Not applicable at full weight.</b> A dash and a grey dot take a complete row with a rule. It is a footnote, not a finding.</li>
+        <li><b>No action.</b> Nine gaps and nowhere to go. A checklist that finds gaps should offer the one link that closes them.</li>
+        <li><b>No scope.</b> Which account or workspace, and as of when, is not said.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h">Options</div>
+  <p class="sec-sub">Same three checks, from least to most change.</p>
+
+  <!-- A -->
+  <div class="opt">
+    <div class="strip c1">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Adoption checks <span class="pillx" style="background:var(--red-bg)">Low adoption</span></div><div class="cscope">This workspace · last 90 days</div></div><a class="glink" href="#">View devices</a></div>
+        <div class="list">
+          <div class="lrow"><span>Seats assigned to devices</span><b>1 of 2</b><span class="pillx" style="background:var(--red-bg)">1 gap</span></div>
+          <div class="lrow"><span>Claimed devices fully active</span><b>1 of 9</b><span class="pillx" style="background:var(--red-bg)">8 gaps</span></div>
+        </div>
+        <div class="caption">New devices activated in the last 90 days is not applicable: no devices were claimed in the period.</div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>A · List, tidied</h3>
+      <p>Closest to the original. The column headers go, the verdict becomes a pill in the title, and the gap counts become pills so the status column is no longer prose with a dot.</p>
+      <ul>
+        <li>The not-applicable row drops to a caption that says why it does not apply.</li>
+        <li>One action: "View devices", where both gaps are closed.</li>
+        <li>Trade-off: result and gap still say the same thing twice, and 50% and 11% still look alike.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="opt">
+    <div class="strip c1">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Adoption checks <span class="pillx" style="background:var(--red-bg)">Low adoption</span></div><div class="cscope">This workspace · last 90 days</div></div><a class="glink" href="#">View devices</a></div>
+        <div class="checks">
+          <div class="crow"><span>Seats assigned to devices</span><div class="meter" style="background:var(--grey-bg)"><i class="warn" style="width:50%"></i></div><span class="cv">1 of 2</span><span class="pillx" style="background:var(--amber-bg)">1 gap</span></div>
+          <div class="crow"><span>Claimed devices fully active</span><div class="meter" style="background:var(--grey-bg)"><i class="crit" style="width:11%"></i></div><span class="cv">1 of 9</span><span class="pillx" style="background:var(--red-bg)">8 gaps</span></div>
+          <div class="crow na"><span>New devices activated, last 90 days</span><div class="meter" style="background:var(--grey-bg)"></div><span class="cv">None claimed</span><span class="pillx" style="background:var(--unknown-bg)">Not applicable</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>B · Check rows with meters <span class="tag rec">Recommended</span></h3>
+      <p>The list stays a list, and each row gets the hairline meter we use for drivers. The meter shows how far each check is from passing; the pill names the gap.</p>
+      <ul>
+        <li>Magnitude is visible: 50% is amber and half full, 11% is red and nearly empty. The tint follows the value, not a blanket red.</li>
+        <li>The gap pill earns its place because it is the thing to act on; the ratio is the evidence beside it.</li>
+        <li>Not applicable keeps its row for completeness, in soft ink with an empty track, so the checklist is still three checks long.</li>
+        <li>Trade-off: four columns need about 480px of width; in a half-width card the pill wraps under the value.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="opt">
+    <div class="strip c1">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Adoption checks <span class="pillx" style="background:var(--red-bg)">Low adoption</span></div><div class="cscope">This workspace · last 90 days</div></div><a class="glink" href="#">View devices</a></div>
+        <div class="mstats two">
+          <div class="mstat"><div class="lbl">Seats assigned to devices <span class="pillx" style="background:var(--amber-bg)">1 gap</span></div><div class="vbox"><span class="num">50%</span><span class="side"><span></span><span class="unit">1 of 2 seats</span></span></div><div class="meter" style="background:var(--grey-bg)"><i class="warn" style="width:50%"></i></div></div>
+          <div class="mstat"><div class="lbl">Claimed devices fully active <span class="pillx" style="background:var(--red-bg)">8 gaps</span></div><div class="vbox"><span class="num">11%</span><span class="side"><span></span><span class="unit">1 of 9 devices</span></span></div><div class="meter" style="background:var(--grey-bg)"><i class="crit" style="width:11%"></i></div></div>
+        </div>
+        <div class="caption">New devices activated in the last 90 days is not applicable: no devices were claimed in the period.</div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>C · Multi-stat</h3>
+      <p>The two live checks become stats in a W2 strip: rate as the headline, count as the unit, gap as the pill, meter beneath. The same shape as the user engagement widget.</p>
+      <ul>
+        <li>Strongest at a glance; the numbers are at headline size and the meters sit side by side.</li>
+        <li>Trade-off: it stops being a checklist. Adding a fourth or fifth check means another column, where B just adds a row.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h">Recommendation</div>
+  <p class="callout"><b>Go with B.</b> This widget is a checklist, and a checklist grows by rows, so the list is the right shape; it just needed the furniture removed and a mark added. The title carries the verdict as a pill, each check has a meter tinted by how far it is from passing, the gap is a pill the reader can act on, and a single "View devices" link is where the gaps get closed.</p>
+  <p class="callout">Whichever wins: the column headers go, the verdict is a pill not a dot, no column repeats another, the two failing checks look as different as 50% and 11% are, not applicable drops to soft ink or a caption, and the card has a scope line and one action.</p>
+</div>
+
+<script src="livereload.js"></script>
+<script src="library-nav.js"></script>
+</body>
+</html>

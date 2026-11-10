@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Digest · Summary sections</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<link rel="stylesheet" href="summary.css">
+</head>
+<body>
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Summary sections</div>
+</header>
+<div class="wrap">
+  <p class="crumb"><a href="index.html">Summary sections</a> · Digest</p>
+  <h1>S1 · Digest</h1>
+  <p class="intro">Sentences, for reading rather than working through. A digest tells the reader how things stand so they can decide whether to read the rest of the page. Nothing in it is dismissible, because it describes state rather than asking for anything; it can be collapsed, regenerated, or it goes away on its own. See <a href="leaving.html">collapse, dismiss, or neither</a> for the three behaviours.</p>
+  <div class="sec-h">Shared anatomy</div>
+  <p class="sec-sub">Every summary section is an instance of the <b>Container</b> component (Sales Cockpit · Container). The variants below only change what goes in the Body. Toggle each example between the two container props.</p>
+  <table class="mtab">
+    <tr><th>Part</th><th>Spec</th><th>Token / value</th></tr>
+    <tr><td>Prop · Contained</td><td>Grey surface with padding. Use when the section needs to read as a module against other content on the page, or sits in a dashboard column.</td><td>bg <code>#F7F7F7</code> · radius 12 · padding 24</td></tr>
+    <tr><td>Prop · Uncontained</td><td>No surface, no padding. Use on the page body where the section is the content (lists and card rows are usually uncontained).</td><td>bg none · padding 0 · same regions and gaps</td></tr>
+    <tr><td>1 · Content header</td><td>Leading and Trailing side by side, vertically centred, gap 12. Always present.</td><td>row · gap 12 · align center</td></tr>
+    <tr><td>1a · Leading: heading</td><td>H2 by default. Names the <b>job</b> ("Needs attention", "Coming up"), never the shape ("Summary", "Insights" aside). Optional count pill after the heading.</td><td>Heading 24/32 <code>--gl-heading</code> · count pill 24h, 0 8, r12, <code>--grey-bg</code>, 13/600 · wrapper padding 2 0</td></tr>
+    <tr><td>1b · Leading: subtitle</td><td>Optional. One line under the heading: what was checked, the population, and when. Middot separators.</td><td>14/20 <code>--gl-ink</code> · gap 2 under heading</td></tr>
+    <tr><td>1c · Trailing</td><td>Actions for the whole section, at most two. A <b>link</b> when it takes you to a page ("View all"); a <b>button</b> when it acts on the section in place (collapse chevron, "Regenerate", "Show dismissed (n)"). Never an X on the section when any item is critical.</td><td>slot 36×36 min · link 13/600 <code>--gl-green-dark</code> · button 13/600 <code>--gl-heading</code>, 6 12, r16 · quiet button <code>--gl-ink-soft</code> 13/500 · gap 16</td></tr>
+    <tr><td>2 · Body</td><td>The only region that changes per variant: sentences, rows, or cards.</td><td>Body text 14/400 <code>--gl-ink</code> · lead 14/600 <code>--gl-heading</code> · reason 12.5 <code>--gl-ink-soft</code> · link 13/600 <code>--gl-green-dark</code></td></tr>
+    <tr><td>3 · Footer (optional)</td><td>Source or comparison point left, feedback or "View all" right. Digests use it; lists and cards rarely do.</td><td>14/20 <code>--gl-ink</code> · no hairline</td></tr>
+    <tr><td>Region gap</td><td>Header, Body and Footer stack in one column.</td><td>gap 24 between regions · frame width 800 (min 640) · section gap 32 on the page</td></tr>
+    <tr><td>Status marks</td><td>Colour never in text. Dot for digests, pill for lists and cards. Order critical → warning → ok → unknown.</td><td>Dot 10 r5 · pill 20h, 2 6, r4, 12/500, bg <code>--red-bg</code> / <code>--amber-bg</code> / <code>--ok-bg</code> / <code>--unknown-bg</code> / <code>--grey-bg</code></td></tr>
+  </table>
+
+  <div class="sec-h">Variants</div>
+  <p class="sec-sub">Three jobs, one shape. Line marker and footer are the only things that change.</p>
+  <div class="variant" id="s1a">
+    <h3 class="vh">S1a · Status digest</h3>
+    <div class="exframe" data-w="800 × hug">
+    <div class="ctog"><button class="on" data-c="1">Contained</button><button class="" data-c="0">Uncontained</button></div>
+    <div class="sum contained">
+      <div class="shead"><div class="lead"><h2 class="stitle">Summary</h2><div class="sscope">As of today · 15 workspaces, 1,240 devices</div></div><div class="trail"><button class="chev" aria-expanded="true" aria-label="Collapse"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button></div></div>
+      <div class="sbody">
+      <div class="digest">
+        <div class="dl"><span class="dot" style="background:var(--ok)"></span><span><b>All 15 workspaces</b> are active and <b>1,198 of 1,240 devices</b> reported in the last 24 hours.</span><span></span></div>
+        <div class="dl"><span class="dot" style="background:var(--amber)"></span><span><b>42 devices</b> have not reported for more than 7 days, most of them in Edge-North-Fleet.</span><a class="glink" href="#">View devices</a></div>
+        <div class="dl"><span class="dot" style="background:var(--unknown)"></span><span><b>No subscriptions</b> are due for renewal in the next 90 days.</span><span></span></div>
+      </div>
+      </div>
+    </div>
+    </div>
+    <div class="spec stabs">
+      <div class="tabbar"><button class="tab on" data-t="0">Job</button><button class="tab" data-t="1">Anatomy</button><button class="tab" data-t="2">Content rules</button><button class="tab" data-t="3">States</button><button class="tab" data-t="4">Dismissal</button><button class="tab" data-t="5">Figma</button></div>
+      <div class="pane on" data-t="0"><p class="job"><b>Job:</b> <span class="q">"Tell me how things stand right now."</span> Three or four lines that say what is fine and what is not, so the reader can decide whether to read the rest of the page.</p><dl class="use"><dt>Use when</dt><dd>Someone lands on an overview after a gap and needs the state of play before the widgets. Mixed news: some good, some not.</dd><dt>Not when</dt><dd>Something is on fire. A critical finding wants a pill and a row (S2), not a sentence between two calm ones.</dd></dl></div><div class="pane" data-t="1"><ol><li>Content header: heading "Summary", subtitle "As of today · population"</li><li>Trailing: collapse chevron (36px icon button); folds body, header stays</li><li>Line: status dot 10px · sentence with bold subject · optional link right-aligned</li><li>Three to four lines, 10px apart, Footer not used</li></ol></div><div class="pane" data-t="2"><ul><li>Order lines in status order: critical, warning, ok, unknown; never more than one ok line</li><li>Subject first, in bold, with the figure in it ("All 15 workspaces", "42 devices")</li><li>A link only where there is a page to go to; good news gets none</li><li>One fact per line; no semicolons joining two findings</li><li>Say "All" when a count is the whole population</li></ul></div><div class="pane" data-t="3"><ul><li>Default: 3 to 4 lines</li><li>Minimum: 1 line (still worth showing if it is amber or red; drop the section if the only line is ok)</li><li>Maximum: 4. More than four facts is a findings list, not a digest</li><li>Collapsed: header row only, chevron pointing right</li></ul></div><div class="pane" data-t="4"><ul><li>Not dismissible. Collapse folds to the header and persists per user</li><li>Lines leave when the condition clears</li></ul></div><div class="pane" data-t="5"><ul><li>Frame 800 wide, hug height; line grid <code>10px | 1fr | auto</code>, gap 12</li><li>Dot vertically aligned to the first text baseline (top 1px)</li><li>Component props: lines (1–4), each with status, text, link?</li></ul></div>
+    </div>
+  </div>
+  <div class="variant" id="s1b">
+    <h3 class="vh">S1b · Change digest</h3>
+    <div class="exframe" data-w="800 × hug">
+    <div class="ctog"><button class="" data-c="1">Contained</button><button class="on" data-c="0">Uncontained</button></div>
+    <div class="sum">
+      <div class="shead"><div class="lead"><h2 class="stitle">Since you last signed in</h2><div class="sscope">12 days ago · 15 workspaces</div></div><div class="trail"><button class="chev" aria-expanded="true" aria-label="Collapse"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button></div></div>
+      <div class="sbody">
+      <div class="digest">
+        <div class="dl nod"><span><svg class="ti-up" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg><b>18 devices</b> were added, all in Optima Bank.</span></div>
+        <div class="dl nod"><span><svg class="ti-dn" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg><b>2 subscriptions</b> expired: Compute Ops Management on Alpha Bank and Edge-North-Fleet.</span></div>
+        <div class="dl nod"><span><svg class="ti-up" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg><b>MFA</b> was enforced in 3 more workspaces; 12 still have a gap.</span></div>
+        <div class="dl nod"><span><b>4 users</b> joined and 1 left.</span></div>
+      </div>
+      </div>
+      <div class="sfoot"><span>Compared with your last sign-in on 29 Oct.</span><a href="#">View all activity</a></div>
+    </div>
+    </div>
+    <div class="spec stabs">
+      <div class="tabbar"><button class="tab on" data-t="0">Job</button><button class="tab" data-t="1">Anatomy</button><button class="tab" data-t="2">Content rules</button><button class="tab" data-t="3">States</button><button class="tab" data-t="4">Dismissal</button><button class="tab" data-t="5">Figma</button></div>
+      <div class="pane on" data-t="0"><p class="job"><b>Job:</b> <span class="q">"What happened while I was away?"</span> Only deltas since a fixed point: last sign-in, last week, last release. Steady state is left out.</p><dl class="use"><dt>Use when</dt><dd>Returning users, weekly reviews, release notes for an account. Pages people visit on a cadence rather than live.</dd><dt>Not when</dt><dd>First visit or very frequent visits; there is nothing to compare against, or the list is empty most of the time.</dd></dl></div><div class="pane" data-t="1"><ol><li>Content header: heading "Since you last signed in" (or "This week"), subtitle "N days ago · population"</li><li>Trailing: collapse chevron</li><li>Line: trend icon 14px (ink colour) · bold quantity · what and where</li><li>Footer: comparison point left, "View all activity" right</li></ol></div><div class="pane" data-t="2"><ul><li>Deltas only; anything unchanged is left out</li><li>Trend icon says direction, not goodness: additions are up, expiries are down. No colour</li><li>Group by object (devices, subscriptions, security, users), one line each</li><li>Lines with no direction (joined and left) take no icon</li><li>Footer names the exact comparison point (a date), not "recently"</li></ul></div><div class="pane" data-t="3"><ul><li>Default: 3 to 5 lines</li><li>Empty: section not shown (no "nothing changed" line)</li><li>First visit: section not shown</li><li>Collapsed: header row only</li></ul></div><div class="pane" data-t="4"><ul><li>Not dismissible. Collapse folds to the header</li><li>The whole section resets to the new comparison point on each visit</li></ul></div><div class="pane" data-t="5"><ul><li>Line grid <code>1fr</code> with inline 14px icon and 4px gap before the bold quantity</li><li>Footer 14/20, flex space-between, no hairline</li><li>Component props: period label, lines (1–5) with direction (up / down / none), text; footer date</li></ul></div>
+    </div>
+  </div>
+  <div class="variant" id="s1c">
+    <h3 class="vh">S1c · Generated narrative</h3>
+    <div class="exframe" data-w="800 × hug">
+    <div class="ctog"><button class="on" data-c="1">Contained</button><button class="" data-c="0">Uncontained</button></div>
+    <div class="sum contained">
+      <div class="shead"><div class="lead"><h2 class="stitle">Insights <span class="beta">Beta</span></h2><div class="sscope">Generated 2 minutes ago from the last 30 days</div></div><div class="trail"><button class="tbtn">Regenerate</button></div></div>
+      <div class="sbody">
+      <div class="digest">
+        <div class="dl nod"><span>Device onboarding is running at <b>about 40 a week</b>, double the rate in September. Most of the new devices are in two workspaces, Optima Bank and Alpha Bank, which together now hold <b>61% of the estate</b>.</span></div>
+        <div class="dl nod"><span>Subscription use is uneven: <b>9 workspaces</b> are on evaluation terms, and <b>none</b> is due to renew in the next 90 days, so there is time to consolidate before the next cycle.</span></div>
+      </div>
+      <div class="sprompt"><span>Why did onboarding speed up?</span><span>Which workspaces are under-licensed?</span><span>Compare with last quarter</span></div>
+      </div>
+      <div class="sfoot"><span>Generated from usage and subscription data. Check figures before acting on them.</span><span class="fb">Was this useful? <button class="tbtn">Yes</button><button class="tbtn">No</button></span></div>
+    </div>
+    </div>
+    <div class="spec stabs">
+      <div class="tabbar"><button class="tab on" data-t="0">Job</button><button class="tab" data-t="1">Anatomy</button><button class="tab" data-t="2">Content rules</button><button class="tab" data-t="3">States</button><button class="tab" data-t="4">Dismissal</button><button class="tab" data-t="5">Figma</button></div>
+      <div class="pane on" data-t="0"><p class="job"><b>Job:</b> <span class="q">"Explain this data to me."</span> Prose that interprets the numbers below it: trends, concentrations, causes. It adds meaning; it does not list findings.</p><dl class="use"><dt>Use when</dt><dd>Analytics and usage pages where the charts need a reader's commentary, and the product has a model behind it.</dd><dt>Not when</dt><dd>Compliance, security or billing, where a sentence that is slightly wrong does damage. Anything a user must act on today.</dd></dl></div><div class="pane" data-t="1"><ol><li>Content header: heading "Insights" with a Beta tag, subtitle "Generated N minutes ago from the last 30 days"</li><li>Trailing action: "Regenerate"</li><li>Body: two short paragraphs, bold figures inline</li><li>Prompt chips: 2 to 3 follow-up questions</li><li>Footer: source and disclaimer left, "Was this useful? Yes · No" right</li></ol></div><div class="pane" data-t="2"><ul><li>Interprets, does not list: trends, concentrations, causes. If a paragraph is a finding, it belongs in a findings list</li><li>Two paragraphs, 40 to 60 words each, maximum</li><li>Figures are rounded and bold; "about 40 a week", not "39.6"</li><li>Disclaimer is one sentence and always present</li><li>Prompt chips are questions, in the user's voice</li></ul></div><div class="pane" data-t="3"><ul><li>Default: 2 paragraphs + 3 chips</li><li>Generating: header stays, body shows a 3-line skeleton, chips hidden</li><li>Failed: one-line "Could not generate insights" with "Try again" in the footer slot</li><li>Feedback given: the Yes · No pair is replaced by "Thanks"</li></ul></div><div class="pane" data-t="4"><ul><li>Not dismissible; "Regenerate" replaces the body</li><li>If the model is off for an account, the section is absent, not empty</li></ul></div><div class="pane" data-t="5"><ul><li>Beta tag 11/600, 1 6, r4, <code>--info-bg</code></li><li>Chips 12.5, 4 10, r14, 1px <code>--line</code> border, gap 8, wrap</li><li>Component props: generated-at, paragraphs (1–2), chips (0–3), feedback state (idle / given)</li></ul></div>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelectorAll('.sum .chev').forEach(function(c){c.addEventListener('click',function(){var s=c.closest('.sum'),f=s.classList.toggle('folded');c.setAttribute('aria-expanded',String(!f));c.setAttribute('aria-label',f?'Expand':'Collapse');});});
+document.querySelectorAll('.ctog').forEach(function(t){t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;t.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});t.nextElementSibling.classList.toggle('contained',b.dataset.c==='1');});});
+document.querySelectorAll('.stabs').forEach(t=>t.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+  t.querySelectorAll('.tab,.pane').forEach(e=>e.classList.toggle('on',e.dataset.t===b.dataset.t));})));
+</script>
+<script src="/livereload.js"></script>
+<script src="/library-nav.js"></script>
+</body>
+</html>

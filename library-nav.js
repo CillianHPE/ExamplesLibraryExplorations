@@ -83,6 +83,7 @@
       { href: '/layouts/containers.html', label: 'Containers' },
       { href: '/layouts/content-header.html', label: 'Content header' },
       { href: '/layouts/widget.html', label: 'Widget' },
+      { href: '/layouts/visualisation.html', label: 'Visualisation' },
     ]},
     { label: 'Widgets', children: [
       { href: '/widgets/index.html', label: 'Catalogue' },
@@ -110,6 +111,11 @@
         { href: '/widgets/index.html#w13', label: 'W13 · Goal' },
         { href: '/widgets/index.html#w14', label: 'W14 · Quick actions' },
       ]},
+      { label: 'F · Summarise', children: [
+        { href: '/widgets/index.html#w15', label: 'W15 · Digest' },
+        { href: '/widgets/index.html#w16', label: 'W16 · Actionable list' },
+        { href: '/widgets/index.html#w17', label: 'W17 · Recommendation cards' },
+      ]},
     ]},
     { label: 'UI compositions', children: [
       { label: 'Card / widget gallery', children: [
@@ -121,6 +127,20 @@
       ]},
       { href: '/exception-card-options.html', label: 'Status card exploration' },
       { href: '/trend-card-options.html', label: 'Trend card options' },
+      { href: '/health-widget-options.html', label: 'Service health widget content' },
+      { href: '/workspace-stats-options.html', label: 'Workspace stat cards' },
+      { href: '/account-widget-options.html', label: 'Account health and snapshot' },
+      { href: '/benchmark-widget-options.html', label: 'Peer benchmarking widget' },
+      { href: '/user-stats-options.html', label: 'User stat cards' },
+      { href: '/adoption-checks-options.html', label: 'Adoption checks widget' },
+      { label: 'Summary sections', children: [
+        { href: '/summary/index.html', label: 'Overview and picker' },
+        { href: '/summary/digest.html', label: 'S1 · Digest' },
+        { href: '/summary/findings.html', label: 'S2 · Findings list' },
+        { href: '/summary/cards.html', label: 'S3 · Recommendation cards' },
+        { href: '/summary/leaving.html', label: 'Collapse, dismiss, or neither' },
+        { href: '/summary-section-options.html', label: 'Research and exploration' },
+      ]},
       { href: '/needs-attention/needs-attention-exploration.html', label: 'Needs attention exploration' },
     ]},
     { label: 'Applied exercises', children: [

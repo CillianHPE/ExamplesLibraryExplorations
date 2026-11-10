@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Workspace stat cards: consolidation options</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<style>
+  body { background: var(--page); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 40px 32px 80px; }
+  .wrap > h1 { font-size: 24px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .intro { font-size: 14px; color: var(--gl-ink-soft); margin: 0 0 40px; max-width: 760px; line-height: 1.55; }
+  .sec-h { font-size: 19px; font-weight: 700; color: var(--gl-heading); margin: 64px 0 6px; }
+  .sec-h:first-of-type { margin-top: 0; }
+  .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: 0 0 24px; max-width: 720px; line-height: 1.5; }
+
+  .opt { margin-bottom: 32px; display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; }
+  .opt-note h3 { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; display: flex; gap: 10px; align-items: center; }
+  .opt-note p { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; line-height: 1.5; }
+  .opt-note ul { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; padding-left: 18px; line-height: 1.5; }
+  .tag { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+  .tag.rec { background: var(--gl-green-dark); color: #fff; }
+  @media (max-width: 1100px) { .opt { grid-template-columns: 1fr; } }
+
+  /* strips of cards */
+  .strip { display: grid; gap: 16px; }
+  .strip.c3 { grid-template-columns: 1fr 1fr 2fr; }
+  .strip.c2 { grid-template-columns: 1fr 1fr; }
+  .strip.c1 { grid-template-columns: 1fr; }
+  .card { padding: 20px 24px; }
+  .ctitle { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 2px; }
+  .cscope { font-size: 12.5px; color: var(--gl-ink-soft); margin: 0 0 14px; }
+  .chead { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .chead .glink { font-size: 13px; }
+
+  /* value row, per the Visualisation spec */
+  .vbox { display: inline-flex; align-items: center; gap: 4px; }
+  .vbox .num { font-size: 36px; font-weight: 500; line-height: 46px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .vbox .side { display: flex; flex-direction: column; align-items: flex-start; }
+  .vbox .side > span:empty { height: 16px; }
+  .vbox .unit { font-size: 12px; font-weight: 400; line-height: 16px; color: var(--gl-ink); }
+  .vbox .delta { display: inline-flex; align-items: center; gap: 6px; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
+  .vbox .delta.plain { padding: 0; height: 16px; background: none; }
+  .ti { width: 14px; height: 14px; flex: none; }
+
+  /* marks */
+  .meter { height: 8px; border-radius: 4px; margin-top: 10px; position: relative; overflow: visible; }
+  .meter i { border-radius: 4px; }
+  .axis { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--gl-ink-soft); padding-top: 6px; }
+  .prop { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; margin-top: 10px; }
+  .prop i { display: block; height: 100%; min-width: 3px; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; font-size: 13px; color: var(--gl-ink); }
+  .legend .lg { display: flex; align-items: center; gap: 7px; }
+  .legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend .val { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .caption { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 12px; }
+  .caption b { color: var(--gl-heading); font-weight: 600; }
+
+  /* current-state reproduction */
+  .was { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; }
+  .was .lbl { font-size: 14px; font-weight: 700; color: var(--gl-heading); }
+  .was .big { font-size: 28px; font-weight: 700; color: var(--gl-heading); line-height: 1.2; margin-top: 4px; }
+  .was .big.red { color: var(--red); }
+  .was .four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .was .four .lbl { display: flex; align-items: center; gap: 6px; }
+  .was .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .callout { font-size: 13.5px; color: var(--gl-ink); line-height: 1.55; }
+  .callout ul { margin: 6px 0 0; padding-left: 18px; }
+  .callout li { margin-bottom: 4px; }
+
+  /* multi-stat strip inside a card */
+  .mstats { display: grid; grid-template-columns: repeat(3, auto); gap: 40px; justify-content: start; align-items: start; }
+  .mstat .lbl { font-size: 12.5px; color: var(--gl-ink-soft); margin-bottom: 2px; display: flex; align-items: center; gap: 7px; }
+  .mstat .lbl .dot { width: 10px; height: 10px; border-radius: 50%; }
+  /* second pass */
+  .strip.c121 { grid-template-columns: 1fr 2fr 1fr; }
+  .was .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 8px; }
+  .was .tile { border-radius: 8px; padding: 12px 14px; font-size: 14px; color: var(--gl-ink); }
+  .was .tile .ic { width: 16px; height: 16px; display: block; margin-bottom: 14px; }
+  .was .tile b { color: var(--gl-heading); font-weight: 600; margin-right: 4px; }
+  .was .big.plain { font-size: 30px; font-weight: 600; }
+  .scard { display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: start; }
+  .scard .divider { border-left: 1px solid var(--line); padding-left: 32px; }
+  .counts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .counts .cp { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 2px 8px; border-radius: 4px; font-size: 12px; color: var(--gl-ink); }
+  .counts .cp b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .counts .cp .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .counts .cp.muted { background: var(--grey-bg); }
+  .vgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: start; }
+  .vgrid .vn { font-size: 13.5px; color: var(--gl-ink); line-height: 1.5; margin-top: 12px; }
+  .vgrid .vn b { color: var(--gl-heading); display: block; margin-bottom: 2px; }
+  .vgrid .vn .tag { margin-left: 6px; vertical-align: middle; }
+  .gauge { display: flex; align-items: center; gap: 16px; margin-top: 4px; }
+  .gauge > div > svg { width: 112px; height: 64px; flex: none; overflow: visible; }
+  .gauge .axis { padding: 0; width: 112px; margin-top: -2px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Explorations</div>
+</header>
+
+<div class="wrap">
+  <h1>Workspace stat cards</h1>
+  <p class="intro">A strip of three cards reporting on one subject. The question is whether three containers are earning their keep, what the reader needs first, and what can be folded together.</p>
+
+  <div class="sec-h">What is there now</div>
+  <p class="sec-sub">Reproduced for comparison, with the issues it carries.</p>
+  <div class="opt">
+    <div class="strip c3">
+      <div class="was"><div class="lbl">Total number of workspaces</div><div class="big">15</div></div>
+      <div class="was"><div class="lbl">Average health score</div><div class="big red">34/100</div></div>
+      <div class="was"><div class="four">
+        <div><div class="lbl"><span class="dot" style="background:var(--ok)"></span>Healthy</div><div class="big">2</div></div>
+        <div><div class="lbl"><span class="dot" style="background:var(--amber)"></span>Neutral</div><div class="big">3</div></div>
+        <div><div class="lbl"><span class="dot" style="background:var(--red)"></span>At risk</div><div class="big">10</div></div>
+        <div><div class="lbl"><span class="dot" style="background:var(--unknown)"></span>Not yet scored</div><div class="big">0</div></div>
+      </div></div>
+    </div>
+    <div class="opt-note callout">
+      <ul>
+        <li><b>Repetition.</b> 15 is the sum of 2 + 3 + 10 + 0. The total card restates the breakdown card.</li>
+        <li><b>Three frames, one subject.</b> Every card is about the same 15 workspaces, yet they read as three unrelated reports with no shared title.</li>
+        <li><b>Equal weight.</b> Four numbers at the same size give no priority. The news is "10 of 15 at risk" and "score 34", not "15".</li>
+        <li><b>Zero count rendered.</b> "Not yet scored 0" takes a quarter of the widest card to say nothing.</li>
+        <li><b>Colour in type.</b> "34/100" in red; the rule is ink text with colour on a fill or pill.</li>
+        <li><b>Wordy labels.</b> "Total number of workspaces" is "Workspaces" once the number is beside it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h">Options</div>
+  <p class="sec-sub">Three ways to fold the same information, from least to most change.</p>
+
+  <!-- A -->
+  <div class="opt">
+    <div class="strip c2">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Health score</div><div class="cscope">Average across 15 workspaces</div></div></div>
+        <div class="vbox"><span class="num">34</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>6 vs last week</span><span class="unit">of 100</span></span></div>
+        <div class="meter" style="background:var(--grey-bg)"><i class="crit" style="width:34%"></i></div>
+        <div class="axis"><span>0</span><span>100</span></div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Workspaces</div><div class="cscope">By health state</div></div></div>
+        <div class="vbox"><span class="num">15</span></div>
+        <div class="prop"><i style="flex:10;background:var(--red)"></i><i style="flex:3;background:var(--amber)"></i><i style="flex:2;background:var(--ok)"></i></div>
+        <div class="legend">
+          <span class="lg"><span class="dot" style="background:var(--red)"></span>At risk <span class="val">10</span></span>
+          <span class="lg"><span class="dot" style="background:var(--amber)"></span>Neutral <span class="val">3</span></span>
+          <span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy <span class="val">2</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>A · Two widgets: score, then population</h3>
+      <p>The total card is absorbed into the breakdown card as its headline. The score becomes an M2 meter so its colour sits in the fill, not the type.</p>
+      <ul>
+        <li>Two questions, two answers: "how healthy?" and "how is it split?"</li>
+        <li>Status order worst first; zero count omitted.</li>
+        <li>Still two frames for one subject, and the number 15 appears twice (scope line and headline).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- A2 -->
+  <div class="opt">
+    <div class="strip c2">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Health score</div><div class="cscope">Average across 15 workspaces</div></div></div>
+        <div class="gauge">
+          <div>
+            <svg viewBox="0 0 112 64" fill="none" stroke-linecap="round"><path d="M10 52 A46 46 0 0 1 102 52" stroke="var(--grey-bg)" stroke-width="10"/><path d="M10 52 A46 46 0 0 1 33.8 11.7" stroke="var(--red)" stroke-width="10"/></svg>
+            <div class="axis"><span>0</span><span>100</span></div>
+          </div>
+          <div class="vbox"><span class="num">34</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>6 vs last week</span><span class="unit">of 100</span></span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Workspaces</div><div class="cscope">By health state</div></div></div>
+        <div class="vbox"><span class="num">15</span></div>
+        <div class="prop"><i style="flex:10;background:var(--red)"></i><i style="flex:3;background:var(--amber)"></i><i style="flex:2;background:var(--ok)"></i></div>
+        <div class="legend">
+          <span class="lg"><span class="dot" style="background:var(--red)"></span>At risk <span class="val">10</span></span>
+          <span class="lg"><span class="dot" style="background:var(--amber)"></span>Neutral <span class="val">3</span></span>
+          <span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy <span class="val">2</span></span>
+        </div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>A2 · Score as a gauge arc</h3>
+      <p>Same pair as A, with the score meter turned into a half-ring beside the value row. The arc is taller than a bar, so the two cards finish at the same height without padding.</p>
+      <ul>
+        <li>Arc reads as "score out of 100" at a glance; 0 and 100 sit under its feet as the axis.</li>
+        <li>Fill colour carries severity, as the bar did.</li>
+        <li>Trade-off: a gauge is a heavier mark than a meter for one number, and arcs are harder to compare side by side if the page gains more scores.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="opt">
+    <div class="strip c1">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Workspace health</div><div class="cscope">15 workspaces · scored daily</div></div><a class="glink" href="#">View all</a></div>
+        <div class="vbox"><span class="num">34</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>6 vs last week</span><span class="unit">of 100 · average score</span></span></div>
+        <div class="prop"><i style="flex:10;background:var(--red)"></i><i style="flex:3;background:var(--amber)"></i><i style="flex:2;background:var(--ok)"></i></div>
+        <div class="legend">
+          <span class="lg"><span class="dot" style="background:var(--red)"></span>At risk <span class="val">10</span></span>
+          <span class="lg"><span class="dot" style="background:var(--amber)"></span>Neutral <span class="val">3</span></span>
+          <span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy <span class="val">2</span></span>
+        </div>
+        <div class="caption"><b>10 of 15</b> workspaces are at risk; the three lowest scores are in Finance-Prod.</div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>B · One widget, score as headline <span class="tag rec">Recommended</span></h3>
+      <p>One subject, one frame. The score is the answer; the proportion bar and legend are the evidence; the caption names what to do about it. Follows the Visualisation anatomy slot for slot.</p>
+      <ul>
+        <li>Total moves to the scope line, where population belongs.</li>
+        <li>Every number is said once.</li>
+        <li>Hierarchy is explicit: 36px score, 13px counts, 12.5px caption.</li>
+        <li>Trade-off: the status counts lose their own big numbers. If someone scans for "how many at risk", the legend value is smaller than before.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="opt">
+    <div class="strip c1">
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Workspace health</div><div class="cscope">15 workspaces · scored daily</div></div><a class="glink" href="#">View all</a></div>
+        <div class="mstats">
+          <div class="mstat"><div class="lbl">Average score</div>
+            <div class="vbox"><span class="num">34</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>6</span><span class="unit">of 100</span></span></div></div>
+          <div class="mstat"><div class="lbl"><span class="dot" style="background:var(--red)"></span>At risk</div>
+            <div class="vbox"><span class="num">10</span><span class="side"><span class="delta neutral">+2</span><span class="unit">of 15</span></span></div></div>
+          <div class="mstat"><div class="lbl"><span class="dot" style="background:var(--amber)"></span>Neutral</div>
+            <div class="vbox"><span class="num">3</span><span class="side"><span></span><span class="unit">of 15</span></span></div></div>
+        </div>
+        <div class="prop"><i style="flex:10;background:var(--red)"></i><i style="flex:3;background:var(--amber)"></i><i style="flex:2;background:var(--ok)"></i></div>
+        <div class="caption">2 healthy. The three lowest scores are in Finance-Prod.</div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>C · One widget, multi-stat strip</h3>
+      <p>Keeps big numbers for the counts that matter by turning the card into a W2 multi-stat. The bar beneath still shows the split; healthy drops to the caption because it is the non-event.</p>
+      <ul>
+        <li>Fast scan for "how many at risk" with a trend on each.</li>
+        <li>Three value rows share the locked stack, so they line up.</li>
+        <li>Trade-off: more furniture than B, and the bar now partly repeats the numbers above it. Use when the counts are acted on individually.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h">Second pass</div>
+  <p class="sec-sub">A revised strip: the score lost its red type, the breakdown became tinted tiles, and the total moved to the right. Better, with a new set of problems.</p>
+  <div class="opt">
+    <div class="strip c121">
+      <div class="was"><div class="lbl">Average health score</div><div class="big plain">34 /100</div></div>
+      <div class="was"><div class="lbl">Account statuses</div><div class="tiles">
+        <div class="tile" style="background:var(--red-bg)"><svg class="ic" viewBox="0 0 16 16"><path d="M8 1l7 7-7 7-7-7z" fill="var(--red)"/></svg><b>3</b>At-risk</div>
+        <div class="tile" style="background:var(--amber-bg)"><svg class="ic" viewBox="0 0 16 16"><path d="M8 2l7 12H1z" fill="var(--amber)"/></svg><b>2</b>Neutral</div>
+        <div class="tile" style="background:var(--ok-bg)"><svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="var(--ok)"/></svg><b>2</b>Healthy</div>
+        <div class="tile" style="background:var(--unknown-bg)"><svg class="ic" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="var(--unknown)"/></svg><b>0</b>Unknown</div>
+      </div></div>
+      <div class="was"><div class="lbl">Workspaces</div><div class="big plain">15</div></div>
+    </div>
+    <div class="opt-note callout">
+      <ul>
+        <li><b>Fixed.</b> Ink on the score, status colour in tinted fills, shape-coded icons, status order worst first, shorter labels.</li>
+        <li><b>Numbers do not add up.</b> 3 + 2 + 2 + 0 is 7, not 15. Either the statuses are accounts and the total is workspaces, in which case the strip mixes two subjects, or eight workspaces are missing. The layout should make that answerable.</li>
+        <li><b>Tiles are louder than the score.</b> Four full-tint blocks dominate the strip; the headline 34 reads as a sidebar. Tint at that area is a surface, not a mark.</li>
+        <li><b>Counts are small inside loud frames.</b> The one number that matters in each tile, 3 or 2, is set at body size while its background shouts.</li>
+        <li><b>Zero still rendered.</b> "0 Unknown" takes a quarter of the widest card.</li>
+        <li><b>Total detached.</b> "Workspaces 15" is the scope for the other two, but sits at the far end as a third, equal card.</li>
+        <li><b>No mark for the score.</b> "34 /100" is still a number and a denominator; a meter would place it on the scale.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h">Second pass options</div>
+  <p class="sec-sub">Keeping the tile idea where it earns its place, and giving the score a mark.</p>
+  <div class="vgrid">
+    <div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Account health</div><div class="cscope">7 accounts across 15 workspaces · scored daily</div></div><a class="glink" href="#">View all</a></div>
+        <div class="scard">
+          <div>
+            <div class="vbox"><span class="num">34</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>6 vs last week</span><span class="unit">of 100 · average</span></span></div>
+            <div class="meter" style="background:var(--grey-bg);width:200px"><i class="crit" style="width:34%"></i></div>
+            <div class="axis" style="width:200px"><span>0</span><span>100</span></div>
+          </div>
+          <div class="divider">
+            <div class="cscope" style="margin-bottom:0">By status</div>
+            <div class="counts">
+              <span class="cp" style="background:var(--red-bg)"><span class="dot" style="background:var(--red)"></span>At risk <b>3</b></span>
+              <span class="cp" style="background:var(--amber-bg)"><span class="dot" style="background:var(--amber)"></span>Neutral <b>2</b></span>
+              <span class="cp" style="background:var(--ok-bg)"><span class="dot" style="background:var(--ok)"></span>Healthy <b>2</b></span>
+            </div>
+            <div class="caption">Status is per account. Three accounts hold the eleven lowest-scoring workspaces.</div>
+          </div>
+        </div>
+      </div>
+      <p class="vn"><b>P1 · One card, score left, status chips right <span class="tag rec">Recommended</span></b>The score keeps its value row and gains a meter. Tiles shrink to chips so tint reads as a badge, not a surface. Both totals move to the scope line, which also states that they are different things.</p>
+    </div>
+    <div>
+      <div class="card">
+        <div class="chead"><div><div class="ctitle">Account health</div><div class="cscope">7 accounts across 15 workspaces · scored daily</div></div><a class="glink" href="#">View all</a></div>
+        <div class="mstats" style="grid-template-columns:repeat(4,auto);gap:32px">
+          <div class="mstat"><div class="lbl">Average score</div><div class="vbox"><span class="num">34</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>6</span><span class="unit">of 100</span></span></div></div>
+          <div class="mstat"><div class="lbl"><span class="dot" style="background:var(--red)"></span>At risk</div><div class="vbox"><span class="num">3</span><span class="side"><span class="delta" style="background:var(--amber-bg)">+1</span><span class="unit">accounts</span></span></div></div>
+          <div class="mstat"><div class="lbl"><span class="dot" style="background:var(--amber)"></span>Neutral</div><div class="vbox"><span class="num">2</span><span class="side"><span></span><span class="unit">accounts</span></span></div></div>
+          <div class="mstat"><div class="lbl"><span class="dot" style="background:var(--ok)"></span>Healthy</div><div class="vbox"><span class="num">2</span><span class="side"><span></span><span class="unit">accounts</span></span></div></div>
+        </div>
+        <div class="prop" style="margin-top:16px"><i style="flex:3;background:var(--red)"></i><i style="flex:2;background:var(--amber)"></i><i style="flex:2;background:var(--ok)"></i></div>
+      </div>
+      <p class="vn"><b>P2 · Multi-stat strip</b>Every count gets the locked value row at full size, with a status dot in the label where the tile colour was. The proportion bar beneath shows the split without a fourth card. Use when the counts are acted on individually.</p>
+    </div>
+  </div>
+
+  <div class="sec-h">Recommendation</div>
+  <div class="callout" style="max-width:760px">
+    <p><b>Start with B.</b> The strip exists to answer "are our workspaces healthy?" and the score answers it; the counts explain it. One container keeps the subject together and removes the duplicate total.</p>
+    <p>Move to <b>C</b> only if users act on the at-risk count directly (filtering, triage), where the count deserves headline size. Keep <b>A</b> for a dashboard where score and population have separate drill-down pages.</p>
+    <p>Whichever wins: zero counts stay out, status order is worst first, colour lives in the bar and pill, and the total lives in the scope line.</p>
+  </div>
+</div>
+
+<script src="livereload.js"></script>
+<script src="library-nav.js"></script>
+</body>
+</html>

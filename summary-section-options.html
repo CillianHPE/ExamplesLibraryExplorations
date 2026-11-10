@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Summary section: patterns and options</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<style>
+  body { background: var(--page); }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 40px 32px 80px; }
+  .wrap > h1 { font-size: 24px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .intro { font-size: 14px; color: var(--gl-ink-soft); margin: 0 0 40px; max-width: 760px; line-height: 1.55; }
+  .sec-h { font-size: 19px; font-weight: 700; color: var(--gl-heading); margin: 64px 0 6px; }
+  .sec-h:first-of-type { margin-top: 0; }
+  .sec-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: 0 0 24px; max-width: 720px; line-height: 1.5; }
+
+  .opt { margin-bottom: 32px; display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; }
+  .opt-note h3 { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; display: flex; gap: 10px; align-items: center; }
+  .opt-note p { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; line-height: 1.5; }
+  .opt-note ul { font-size: 13.5px; color: var(--gl-ink); margin: 0 0 8px; padding-left: 18px; line-height: 1.5; }
+  .tag { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+  .tag.rec { background: var(--gl-green-dark); color: #fff; }
+  @media (max-width: 1100px) { .opt { grid-template-columns: 1fr; } }
+
+  /* strips of cards */
+  .strip { display: grid; gap: 16px; }
+  .strip.c3 { grid-template-columns: 1fr 1fr 2fr; }
+  .strip.c2 { grid-template-columns: 1fr 1fr; }
+  .strip.c1 { grid-template-columns: 1fr; }
+  .card { padding: 20px 24px; }
+  .ctitle { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 2px; }
+  .cscope { font-size: 12.5px; color: var(--gl-ink-soft); margin: 0 0 14px; }
+  .chead { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .chead .glink { font-size: 13px; }
+
+  /* value row, per the Visualisation spec */
+  .vbox { display: inline-flex; align-items: center; gap: 4px; }
+  .vbox .num { font-size: 36px; font-weight: 500; line-height: 46px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .vbox .side { display: flex; flex-direction: column; align-items: flex-start; }
+  .vbox .side > span:empty { height: 16px; }
+  .vbox .unit { font-size: 12px; font-weight: 400; line-height: 16px; color: var(--gl-ink); }
+  .vbox .delta { display: inline-flex; align-items: center; gap: 6px; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
+  .vbox .delta.plain { padding: 0; height: 16px; background: none; }
+  .ti { width: 14px; height: 14px; flex: none; }
+
+  /* marks */
+  .meter { height: 8px; border-radius: 4px; margin-top: 10px; position: relative; overflow: visible; }
+  .meter i { border-radius: 4px; }
+  .axis { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--gl-ink-soft); padding-top: 6px; }
+  .prop { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; margin-top: 10px; }
+  .prop i { display: block; height: 100%; min-width: 3px; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; font-size: 13px; color: var(--gl-ink); }
+  .legend .lg { display: flex; align-items: center; gap: 7px; }
+  .legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend .val { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .caption { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 12px; }
+  .caption b { color: var(--gl-heading); font-weight: 600; }
+
+  /* current-state reproduction */
+  .was { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 20px 24px; }
+  .was .lbl { font-size: 14px; font-weight: 700; color: var(--gl-heading); }
+  .was .big { font-size: 28px; font-weight: 700; color: var(--gl-heading); line-height: 1.2; margin-top: 4px; }
+  .was .big.red { color: var(--red); }
+  .was .four { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .was .four .lbl { display: flex; align-items: center; gap: 6px; }
+  .was .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .callout { font-size: 13.5px; color: var(--gl-ink); line-height: 1.55; }
+  .callout ul { margin: 6px 0 0; padding-left: 18px; }
+  .callout li { margin-bottom: 4px; }
+
+  /* multi-stat strip inside a card */
+  .mstats { display: grid; grid-template-columns: repeat(3, auto); gap: 40px; justify-content: start; align-items: start; }
+  .mstat .lbl { font-size: 12.5px; color: var(--gl-ink-soft); margin-bottom: 2px; display: flex; align-items: center; gap: 7px; }
+  .mstat .lbl .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* factor rows: label · mini meter · value */
+  .frows { margin-top: 16px; max-width: 420px; }
+  .frow { display: grid; grid-template-columns: 1fr 96px 64px; gap: 16px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .frow:first-child { border-top: 0; padding-top: 0; }
+  .frow .meter { margin: 0; height: 6px; }
+  .frow .fv { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .frow .fs { font-size: 12px; color: var(--gl-ink-soft); display: block; }
+  /* key facts list */
+  .facts { margin-top: 16px; display: grid; grid-template-columns: auto 1fr; column-gap: 24px; row-gap: 8px; font-size: 13px; }
+  .facts dt { color: var(--gl-ink-soft); margin: 0; }
+  .facts dd { color: var(--gl-heading); font-weight: 600; margin: 0; font-variant-numeric: tabular-nums; }
+  .facts dd small { font-weight: 400; color: var(--gl-ink-soft); }
+  .meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--gl-ink-soft); }
+  .meta b { color: var(--gl-heading); font-weight: 600; }
+  .mstats.two { grid-template-columns: repeat(2, auto); }
+  .vbox .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
+  .was .row { display: flex; align-items: baseline; gap: 8px; }
+  .was .row .big { font-size: 30px; }
+  .was .sub { font-size: 14px; color: var(--gl-ink-soft); }
+  .was .stat { display: flex; align-items: center; gap: 7px; font-size: 14px; color: var(--gl-ink); margin: 2px 0 14px; }
+  .was .line { font-size: 14px; color: var(--gl-ink); padding: 10px 0; border-top: 1px solid var(--line); }
+  .was .line:first-of-type { border-top: 0; }
+  .was .hd { display: flex; justify-content: space-between; align-items: center; }
+  .was .hd a { color: var(--gl-green-dark); font-weight: 600; font-size: 14px; text-decoration: none; }
+  /* driver variants */
+  .vgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: start; }
+  .vgrid .vn { font-size: 13.5px; color: var(--gl-ink); line-height: 1.5; margin-top: 12px; }
+  .vgrid .vn b { color: var(--gl-heading); display: block; margin-bottom: 2px; }
+  .vgrid .vn .tag { margin-left: 6px; vertical-align: middle; }
+  .dtrio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .dtrio .lbl { font-size: 12px; color: var(--gl-ink-soft); margin-bottom: 2px; }
+  .dtrio .sv { font-size: 20px; font-weight: 500; line-height: 24px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .dtrio .sv small { font-size: 12px; font-weight: 400; color: var(--gl-ink); margin-left: 3px; }
+  .dtrio .meter { margin-top: 8px; height: 4px; }
+  .blist { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: grid; gap: 12px; }
+  .blist .bl .t { display: flex; justify-content: space-between; font-size: 13px; color: var(--gl-ink); margin-bottom: 4px; }
+  .blist .bl .t b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .blist .meter { margin: 0; height: 6px; }
+  .flist { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--line); }
+  .flist .fl { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .flist .fl:first-child { border-top: 0; }
+  .flist .fl .pillx { display: inline-flex; justify-content: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .flist .fl b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .kvlist { margin-top: 20px; padding-top: 8px; border-top: 1px solid var(--line); display: block; }
+  .kvlist .kvr { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; color: var(--gl-ink); }
+  .kvlist .kvr:first-child { border-top: 0; }
+  .kvlist .kvr b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .kvlist .kvr b small { font-weight: 400; color: var(--gl-ink-soft); margin-left: 4px; }
+  .chips { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips .chip { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 2px 8px; border-radius: 4px; font-size: 12px; line-height: 16px; color: var(--gl-ink); }
+  .chips .chip b { font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .chips .chip .dot { width: 8px; height: 8px; border-radius: 50%; }
+  /* benchmark marker on a meter */
+  .meter .mk { position: absolute; top: -4px; width: 2px; height: 16px; background: var(--gl-ink-soft); border-radius: 1px; transform: translateX(-1px); }
+  .legend-inline { display: flex; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--gl-ink-soft); align-items: center; }
+  .legend-inline .sw { width: 2px; height: 12px; background: var(--gl-ink-soft); border-radius: 1px; display: inline-block; margin-right: 6px; vertical-align: middle; }
+  .legend-inline .sw.fill { width: 12px; height: 6px; border-radius: 3px; background: var(--gl-green); }
+  .mlbl { font-size: 12.5px; color: var(--gl-ink-soft); margin-bottom: 2px; display: flex; align-items: center; gap: 8px; }
+  .mlbl .pillx, .mstat .lbl .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .mstat .lbl { display: flex; align-items: center; gap: 8px; }
+  .ctitle .pillx { margin-left: 8px; vertical-align: middle; display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); }
+  .cmp { margin-top: 16px; display: grid; gap: 10px; max-width: 480px; }
+  .cmp .row { display: grid; grid-template-columns: 110px 1fr 56px; gap: 12px; align-items: center; font-size: 13px; color: var(--gl-ink); }
+  .cmp .row .meter { margin: 0; }
+  .cmp .row b { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .vbox .delta.up { background: var(--ok-bg); }
+  /* current state */
+  .was .sh { font-size: 15px; font-weight: 700; letter-spacing: .04em; color: var(--gl-ink-soft); text-transform: uppercase; margin: 0 0 12px; }
+  .was .p { font-size: 14px; color: var(--gl-ink); margin-bottom: 6px; }
+  .was .p b { color: var(--gl-heading); }
+  .was .pil { display: inline-block; background: var(--amber-bg); color: var(--amber); font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 12px; }
+  .was .br { display: grid; grid-template-columns: 180px 240px 60px; gap: 16px; align-items: center; font-size: 14px; color: var(--gl-ink-soft); margin: 10px 0; }
+  .was .br i { display: block; height: 8px; background: #E8EAED; border-radius: 4px; }
+  .was .br b { color: var(--gl-heading); }
+  .was .gd { color: var(--ok); font-weight: 700; font-size: 14px; margin: 8px 0; }
+  .was .fn { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 8px; line-height: 1.5; }
+  .chead .glink { white-space: nowrap; }
+  /* pattern table */
+  .ptab { width: 100%; border-collapse: collapse; font-size: 13px; color: var(--gl-ink); margin-top: 8px; }
+  .ptab th { text-align: left; font-size: 12px; color: var(--gl-ink-soft); font-weight: 600; padding: 8px 16px 8px 0; border-bottom: 1px solid var(--line); vertical-align: bottom; }
+  .ptab td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.5; }
+  .ptab td:first-child { font-weight: 600; color: var(--gl-heading); width: 170px; }
+  .ptab a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; }
+  .ptab .mute { color: var(--gl-ink-soft); }
+  /* current state */
+  .was .h2 { font-size: 22px; font-weight: 700; color: var(--gl-heading); }
+  .was .dis { font-size: 14px; color: var(--gl-heading); font-weight: 500; }
+  .was ul { margin: 16px 0 0; padding-left: 22px; font-size: 15px; color: var(--gl-ink); line-height: 1.7; }
+  .was ul b { color: var(--gl-heading); }
+  /* summary section variants */
+  .sum { }
+  .sum .shead { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .sum .stitle { font-size: 15px; font-weight: 700; color: var(--gl-heading); display: flex; align-items: center; gap: 8px; }
+  .sum .sscope { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 2px; }
+  .sum .sactions { display: flex; gap: 16px; align-items: center; font-size: 13px; white-space: nowrap; }
+  .sum .sactions .glink { font-size: 13px; }
+  .sum .sactions .x { color: var(--gl-ink-soft); font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+  .pillx { display: inline-flex; align-items: center; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; line-height: 16px; color: var(--gl-heading); white-space: nowrap; }
+  .cnt { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--grey-bg); font-size: 12px; font-weight: 600; color: var(--gl-heading); }
+  /* S1 digest */
+  .digest { margin-top: 14px; display: grid; gap: 10px; }
+  .digest .dl { display: grid; grid-template-columns: 10px 1fr auto; gap: 12px; align-items: baseline; font-size: 14px; color: var(--gl-ink); line-height: 1.5; }
+  .digest .dl .dot { width: 10px; height: 10px; border-radius: 50%; position: relative; top: 1px; }
+  .digest .dl b { color: var(--gl-heading); font-weight: 600; }
+  .digest .dl .glink { font-size: 13px; white-space: nowrap; }
+  .sfoot { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-size: 12px; color: var(--gl-ink-soft); }
+  .sfoot a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; }
+  /* S2 findings */
+  .findings { margin-top: 12px; }
+  .fr { display: grid; grid-template-columns: 84px 1fr auto auto; gap: 16px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--gl-ink); }
+  .fr:first-child { border-top: 0; padding-top: 0; }
+  .fr:last-child { padding-bottom: 0; }
+  .fr .ft { color: var(--gl-heading); font-weight: 600; }
+  .fr .fs { display: block; font-size: 12.5px; color: var(--gl-ink-soft); font-weight: 400; margin-top: 1px; }
+  .fr .glink { font-size: 13px; white-space: nowrap; }
+  .fr .kebab { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; color: var(--gl-ink-soft); border-radius: 4px; font-size: 16px; letter-spacing: 1px; }
+  /* S3 cards */
+  .rcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 14px; }
+  .rcard { background: var(--contained); border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 6px; }
+  .rcard .rh { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .rcard .rt { font-size: 14px; font-weight: 600; color: var(--gl-heading); margin-top: 6px; }
+  .rcard .rp { font-size: 13px; color: var(--gl-ink); line-height: 1.5; flex: 1; }
+  .rcard .ra { display: flex; gap: 16px; align-items: center; margin-top: 8px; font-size: 13px; }
+  .rcard .ra .mute { color: var(--gl-ink-soft); text-decoration: none; }
+  .rcard .xb { color: var(--gl-ink-soft); font-size: 14px; line-height: 1; }
+  /* S4 banner */
+  .banner { display: grid; grid-template-columns: auto 1fr auto auto; gap: 14px; align-items: center; padding: 12px 16px; border-radius: 8px; background: var(--red-bg); font-size: 14px; color: var(--gl-ink); }
+  .banner b { color: var(--gl-heading); font-weight: 600; }
+  .banner .ic { width: 16px; height: 16px; border-radius: 50%; background: var(--red); }
+  .banner .ic.warn { background: var(--amber); }
+  .banner.warn { background: var(--amber-bg); }
+  .banner .glink { font-size: 13px; white-space: nowrap; }
+  .banner .x { color: var(--gl-ink-soft); font-size: 16px; line-height: 1; }
+  .s4page { display: grid; grid-template-columns: 1fr 300px; gap: 64px; align-items: start; }
+  .s4rail .rt { font-size: 13px; font-weight: 700; color: var(--gl-heading); margin: 0 0 8px; }
+  .s4rail .rl { display: grid; gap: 0; font-size: 13px; color: var(--gl-ink); }
+  .s4rail .rl .ri { display: grid; grid-template-columns: 1fr; gap: 2px; padding: 10px 0; border-top: 1px solid var(--line); }
+  .s4rail .rl .ri b { color: var(--gl-heading); font-weight: 600; }
+  .s4rail .rl .ri .glink { font-size: 13px; }
+  .stat-ph { height: 88px; border-radius: 12px; background: var(--contained); }
+  .dgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 16px; }
+  .dgrid h4 { font-size: 14px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
+  .dgrid p, .dgrid li { font-size: 13.5px; color: var(--gl-ink); line-height: 1.5; margin: 0; }
+  .dgrid ul { margin: 0; padding-left: 18px; }
+  /* reference gallery */
+  .gal { margin: 32px 0 0; }
+  .gal h3 { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 4px; }
+  .gal .gsub { font-size: 13px; color: var(--gl-ink-soft); margin: 0 0 12px; }
+  .gal .gg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .gal figure { margin: 0; }
+  .gal figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  .gal figcaption { font-size: 12.5px; color: var(--gl-ink); line-height: 1.5; margin-top: 8px; }
+  .gal figcaption b { color: var(--gl-heading); font-weight: 600; }
+  .gal figcaption a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .gal + .gal { margin-top: 32px; }
+  /* scenarios */
+  .job { margin: 0 0 10px; font-size: 14px; color: var(--gl-ink); line-height: 1.5; }
+  .job b { color: var(--gl-heading); }
+  .job .q { font-style: italic; }
+  .use { display: grid; grid-template-columns: 76px 1fr; gap: 4px 10px; font-size: 13px; color: var(--gl-ink); line-height: 1.5; margin-top: 10px; }
+  .use dt { color: var(--gl-ink-soft); font-weight: 600; }
+  .use dd { margin: 0; }
+  .fr.done .ft { color: var(--gl-ink-soft); font-weight: 500; text-decoration: line-through; text-decoration-color: var(--line); }
+  .fr.done .fs { color: var(--gl-ink-soft); }
+  .tick { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--gl-heading); background: var(--ok-bg); }
+  .tick.todo { background: #fff; border: 1.5px solid var(--line); color: transparent; }
+  .fr.chk { grid-template-columns: 20px 1fr auto auto; }
+  .fr.dt { grid-template-columns: 96px 1fr auto auto; }
+  .stepn { width: 22px; height: 22px; border-radius: 50%; background: var(--gl-heading); color: #fff; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+  .stepn.done { background: var(--ok-bg); color: var(--gl-heading); }
+  .rcard .ill { height: 56px; border-radius: 8px; background: repeating-linear-gradient(135deg, #fff 0 6px, #ececec 6px 7px); margin: 4px 0; }
+  .rcard .eff { margin-left: auto; }
+  .digest .dl.nod { grid-template-columns: 1fr; }
+  .digest .dl.nod b.ch { font-weight: 600; }
+  .ti-up, .ti-dn { display: inline-block; width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px; }
+  .sum .stitle .beta { font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 4px; background: var(--info-bg); color: var(--gl-heading); letter-spacing: .2px; }
+  .sprompt { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .sprompt span { font-size: 12.5px; color: var(--gl-heading); padding: 4px 10px; border: 1px solid var(--line); border-radius: 14px; }
+  .scen-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 40px 0 2px; }
+  .scen-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: 0 0 16px; }
+  .fam { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+  .fam a { display: block; background: var(--contained); border-radius: 12px; padding: 20px 24px; text-decoration: none; color: var(--gl-ink); }
+  .fam a h2 { font-size: 16px; font-weight: 700; color: var(--gl-heading); margin: 0 0 8px; }
+  .fam a ul { margin: 0 0 10px; padding-left: 18px; font-size: 13px; line-height: 1.6; }
+  .fam a .open { font-size: 13px; font-weight: 600; color: var(--gl-green-dark); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Explorations</div>
+</header>
+
+<div class="wrap">
+  <h1>Summary section</h1>
+  <p class="intro">Most overview pages open with a few lines that say what matters before the widgets do. This looks at how other products build that section, what the current one does, and four shapes it could take: a digest, a findings list, recommendation cards, or a banner with a rail.</p>
+
+  <div class="sec-h">What others do</div>
+  <p class="sec-sub">Twenty-odd overview screens on Mobbin, grouped by the job the section does. Six shapes recur.</p>
+  <table class="ptab">
+    <tr><th>Pattern</th><th>Seen in</th><th>Shape</th><th>Actions</th><th>Dismissal</th></tr>
+    <tr><td>Narrative digest</td><td><a href="https://mobbin.com/screens/c9072ade-ef2a-4821-bb0a-c70096d7a254">Xero Insights</a>, <a href="https://mobbin.com/screens/e78364da-59f7-421b-8a57-868d58daad99">Pipedrive AI report</a></td><td>Title with a Beta tag, four to six bullet sentences, bold figures, an icon per line marking good, bad or neutral. Disclaimer in small print.</td><td>None inline. Regenerate, copy, thumbs up or down.</td><td>Not dismissible; collapses or regenerates.</td></tr>
+    <tr><td>Recommendation checklist</td><td><a href="https://mobbin.com/screens/991ede6b-2ade-4d51-ab4b-d3e22db908c9">Klaviyo</a>, <a href="https://mobbin.com/screens/77ec9238-3627-4bfc-b59a-b67f450b4b9e">Google Workspace</a>, <a href="https://mobbin.com/screens/1a5a8ac8-49f2-467c-ad4f-5e36c2e86936">Remote</a>, <a href="https://mobbin.com/screens/d02322ff-f5df-48c5-9455-bd730ad2c9ec">Jobber</a></td><td>Title with a count ("Things to do (4)"), one row per item: icon, bold title, one-line reason, sometimes a time estimate.</td><td>One primary link per row, often a "Mark as done" beside it.</td><td>Section-level "Dismiss" (Klaviyo) or per-row done. Completed rows disappear; "View all" keeps the rest.</td></tr>
+    <tr><td>Suggestion rows</td><td><a href="https://mobbin.com/screens/e55e19c6-9d9a-463a-9279-b0070ab0fd25">7shifts</a></td><td>Icon, bold title, grey reason, right-aligned button; a stack of two to four.</td><td>Button per row plus an overflow menu.</td><td>Per row, via the overflow menu.</td></tr>
+    <tr><td>Callout banner</td><td><a href="https://mobbin.com/screens/050f81ce-9c1c-4655-b4e2-5041cad408a8">Xero Expenses</a>, <a href="https://mobbin.com/screens/e55e19c6-9d9a-463a-9279-b0070ab0fd25">7shifts</a></td><td>One tinted strip at the top of the body: title, one sentence, optional illustration.</td><td>One primary button and one "Learn more" link.</td><td>Always; an X in the corner. Returns only when the condition changes.</td></tr>
+    <tr><td>Open-items counts</td><td><a href="https://mobbin.com/screens/377a125e-c3ed-4d8d-8433-96ee282e4def">Vanta</a>, <a href="https://mobbin.com/screens/72c7a956-c9ec-45ef-872e-c3ec74d672df">Okta</a></td><td>Grouped by urgency ("Items overdue", "Items due soon"); each row is a count, a noun and a chevron.</td><td>Whole row is the link.</td><td>Panel can be hidden ("Hide tasks"); rows cannot.</td></tr>
+    <tr><td>Insight cards with verdict</td><td><a href="https://mobbin.com/screens/bf1f0dfc-94de-4d62-af35-653fbcd49dc3">Peec AI</a>, <a href="https://mobbin.com/screens/8a43427d-7581-4deb-9847-31916d727cde">Google Analytics</a></td><td>Grid of small cards: priority tag, two lines of text.</td><td>Done, Decline, To-do on each card; or a chart with a "View" link.</td><td>Per card; declined cards vanish.</td></tr>
+    <tr><td>Severity findings</td><td><a href="https://mobbin.com/screens/c4c813dd-30b6-44b3-a9c9-afbb062abf6e">Cloudflare</a>, <a href="https://mobbin.com/screens/83a4d831-a8b2-4240-b322-02aec38ec666">GitLab</a></td><td>Counts by severity with a bar, then a filterable list; "last scan" timestamp.</td><td>Filter, export, open finding.</td><td>Not dismissible; resolves when fixed.</td></tr>
+  </table>
+  <div class="dgrid">
+    <div><h4>What is consistent</h4><ul><li>A short bold lead per item, a grey reason after it.</li><li>Bold figures inside sentences; no colour in the text itself.</li><li>Counts in the title ("4", "13") so the reader knows the size before reading.</li><li>One action per item, right-aligned or inline at the end.</li></ul></div>
+    <div><h4>Where they differ</h4><ul><li>Severity: analytics tools mark good or bad with an icon; security tools use tinted pills and sort by it.</li><li>Dismissal: content that the user can act on is dismissible per item; content that describes state is not.</li><li>Frame: setup lists are contained cards; AI digests sit on the body with a hairline.</li></ul></div>
+    <div><h4>Rules this suggests</h4><ul><li>Dismiss the item, not the section, unless every item is optional.</li><li>Never dismissible: anything critical. It leaves when fixed.</li><li>Dismissed items go somewhere: "Show dismissed" or a count in the title.</li><li>Say when it was generated and from what.</li></ul></div>
+  </div>
+
+
+  <div class="sec-h" style="margin-top:64px">Reference screens</div>
+  <p class="sec-sub">The screens behind the table, grouped by pattern. Each caption says what to look at.</p>
+  <div class="gal">
+    <h3>Narrative digest</h3>
+    <p class="gsub">Prose summaries, usually AI-generated. Feedback controls and a disclaimer, no inline actions.</p>
+    <div class="gg">
+      <figure><img src="research/summary/xero.jpg" alt="Xero Analytics, Insights (Beta)" loading="lazy"><figcaption><b>Xero Analytics, Insights (Beta).</b> Prompt chips above, bulleted sentences with an emoji marker per line, bold figures, thumbs and copy icons, disclaimer in small print. <a href="https://mobbin.com/screens/c9072ade-ef2a-4821-bb0a-c70096d7a254">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/pipedrive.jpg" alt="Pipedrive AI report" loading="lazy"><figcaption><b>Pipedrive AI report.</b> Generated paragraph beside the chart with "Show more" and Helpful / Not helpful. Reads as commentary on the widget, not a section of its own. <a href="https://mobbin.com/screens/e78364da-59f7-421b-8a57-868d58daad99">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/mixpanel.jpg" alt="Mixpanel Spark card" loading="lazy"><figcaption><b>Mixpanel Spark card.</b> A dismissible card with an X and a prompt box. The only digest here that can be closed, because it is an invitation rather than a finding.</figcaption></figure>
+    </div>
+  </div>
+  <div class="gal">
+    <h3>Recommendation checklist</h3>
+    <p class="gsub">A title with a count, one row per item, a link per row, and a way to mark it done.</p>
+    <div class="gg">
+      <figure><img src="research/summary/klaviyo.jpg" alt="Klaviyo, Complete set up" loading="lazy"><figcaption><b>Klaviyo, Complete set up.</b> Accordion rows with a "Dismiss" button in the section header. Whole section goes at once; rows carry their own primary button. <a href="https://mobbin.com/screens/991ede6b-2ade-4d51-ab4b-d3e22db908c9">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/gworkspace.jpg" alt="Google Workspace, Recommendations (13)" loading="lazy"><figcaption><b>Google Workspace, Recommendations (13).</b> One expanded card with illustration, primary button and "Mark as done"; the rest collapsed and numbered below. Count in the title. <a href="https://mobbin.com/screens/77ec9238-3627-4bfc-b59a-b67f450b4b9e">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/remote.jpg" alt="Remote, Things to do (4)" loading="lazy"><figcaption><b>Remote, Things to do (4).</b> Icon, bold title, one-line body, date on the right, "View all" in the header. Nothing dismissible; items leave when done. <a href="https://mobbin.com/screens/1a5a8ac8-49f2-467c-ad4f-5e36c2e86936">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/jobber.jpg" alt="Jobber, To do" loading="lazy"><figcaption><b>Jobber, To do.</b> Icon, title, description and a "2 minutes" effort pill. Effort estimate is the one thing no other product shows. <a href="https://mobbin.com/screens/d02322ff-f5df-48c5-9455-bd730ad2c9ec">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/7shifts.jpg" alt="7shifts suggestion rows and banner" loading="lazy"><figcaption><b>7shifts suggestion rows and banner.</b> Rows with icon, title, grey reason and a right-aligned button ("Invite employees"). Above them a tinted banner with two outline buttons and an X. <a href="https://mobbin.com/screens/e55e19c6-9d9a-463a-9279-b0070ab0fd25">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/xero2.jpg" alt="Xero Expenses callout" loading="lazy"><figcaption><b>Xero Expenses callout.</b> White card: title, body, primary button, learn-more link, illustration, X in the corner. The classic dismissible banner. <a href="https://mobbin.com/screens/050f81ce-9c1c-4655-b4e2-5041cad408a8">Mobbin ↗</a></figcaption></figure>
+    </div>
+  </div>
+  <div class="gal">
+    <h3>Open-items counts and insight cards</h3>
+    <p class="gsub">Grouped counts that link through, and per-card verdict controls.</p>
+    <div class="gg">
+      <figure><img src="research/summary/vanta.jpg" alt="Vanta, Open tasks" loading="lazy"><figcaption><b>Vanta, Open tasks.</b> Right-hand panel grouped "Items overdue" and "Items due soon"; each row is a count, noun and chevron. Panel hides with "Hide tasks"; rows do not. <a href="https://mobbin.com/screens/377a125e-c3ed-4d8d-8433-96ee282e4def">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/okta.jpg" alt="Okta dashboard" loading="lazy"><figcaption><b>Okta dashboard.</b> Tasks table (type pill, count, description, "View"), Org changes list with a "View" per row, and a Security Monitoring card with completion donut. <a href="https://mobbin.com/screens/72c7a956-c9ec-45ef-872e-c3ec74d672df">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/peec.jpg" alt="Peec AI insights" loading="lazy"><figcaption><b>Peec AI insights.</b> Grid of small cards, each with a "High" priority tag and Done / Decline / Todo. Declined cards vanish; the clearest per-item dismissal. <a href="https://mobbin.com/screens/bf1f0dfc-94de-4d62-af35-653fbcd49dc3">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/ga.jpg" alt="Google Analytics, Insights" loading="lazy"><figcaption><b>Google Analytics, Insights.</b> Cards with a question headline, a mini chart and a "View" link. A carousel once there are more than three. <a href="https://mobbin.com/screens/8a43427d-7581-4deb-9847-31916d727cde">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/ga2.jpg" alt="Google Analytics, Suggested for you" loading="lazy"><figcaption><b>Google Analytics, Suggested for you.</b> Same card grid used as a "Suggested" shelf on Home, above a separate "Insights & recommendations" block.</figcaption></figure>
+    </div>
+  </div>
+  <div class="gal">
+    <h3>Severity findings</h3>
+    <p class="gsub">Security tools rank by severity, show a last-scan time, and never let a finding be dismissed.</p>
+    <div class="gg">
+      <figure><img src="research/summary/cloudflare.jpg" alt="Cloudflare, Security insights" loading="lazy"><figcaption><b>Cloudflare, Security insights.</b> Insights by severity with a tinted bar, insights by type as a donut, "Top insights" list, "Last scan performed on" top right. Active / Archived tabs below. <a href="https://mobbin.com/screens/c4c813dd-30b6-44b3-a9c9-afbb062abf6e">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/gitlab.jpg" alt="GitLab, Security dashboard" loading="lazy"><figcaption><b>GitLab, Security dashboard.</b> Vulnerabilities by severity as a four-row list: dot, label, sparkline, delta, count. Severity colour lives in the dot only; text stays ink. <a href="https://mobbin.com/screens/83a4d831-a8b2-4240-b322-02aec38ec666">Mobbin ↗</a></figcaption></figure>
+    </div>
+  </div>
+
+  <div class="sec-h">What is there now</div>
+  <p class="sec-sub">Reproduced for comparison, with the issues it carries.</p>
+  <div class="opt">
+    <div class="was">
+      <div class="hd"><span class="h2">Summary</span><span class="dis">✕ Dismiss</span></div>
+      <ul>
+        <li><b>9 out of 15 workspaces</b> with no paid subscription; no subscriptions due for renewal in the next 90 days.</li>
+        <li>15 workspaces with security gaps (MFA/SSO/IP).</li>
+        <li><b>Start with ALPHA BANK and Optima Bank today.</b></li>
+      </ul>
+    </div>
+    <div class="opt-note callout">
+      <ul>
+        <li><b>Plain bullets.</b> Three sentences with no severity, order or mark. The security line, which is every workspace, looks the same as the subscription line.</li>
+        <li><b>The action is a sentence.</b> "Start with ALPHA BANK and Optima Bank today" is bold text, not a link. Nothing on the section can be clicked except Dismiss.</li>
+        <li><b>Dismiss hides the lot.</b> One X removes a critical finding along with a suggestion. And once gone, there is no way back.</li>
+        <li><b>Two facts per line.</b> "No paid subscription; no renewals in 90 days" are separate findings joined by a semicolon.</li>
+        <li><b>"15 workspaces" is all of them.</b> The sentence hides that the gap is universal; "All 15" says it.</li>
+        <li><b>Abbreviations and caps.</b> "MFA/SSO/IP" and "ALPHA BANK" are system strings shown as prose.</li>
+        <li><b>Heading size.</b> "Summary" is set as an H2 on the page; it competes with "Account overview" rather than sitting under it.</li>
+        <li><b>No scope or time.</b> Nothing says what it was generated from or when.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-h">Options</div>
+  <p class="sec-sub">Same three findings, in the four shapes the research turned up. Each sits under the page header, before the stat strip.</p>
+
+  <!-- S1 digest -->
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Summary</div><div class="sscope">Generated today from account data · 15 workspaces</div></div><div class="sactions"><a class="x" href="#">Hide</a></div></div>
+      <div class="digest">
+        <div class="dl"><span class="dot" style="background:var(--red)"></span><span><b>All 15 workspaces</b> have a security gap: MFA, SSO or an IP allow list is not enforced.</span><a class="glink" href="#">Review security</a></div>
+        <div class="dl"><span class="dot" style="background:var(--amber)"></span><span><b>9 of 15 workspaces</b> have no paid subscription, and none is due for renewal in the next 90 days.</span><a class="glink" href="#">View subscriptions</a></div>
+        <div class="dl"><span class="dot" style="background:var(--unknown)"></span><span><b>Alpha Bank and Optima Bank</b> are the largest workspaces with both gaps; start there.</span><a class="glink" href="#">Open Alpha Bank</a></div>
+      </div>
+      <div class="sfoot"><span>Based on subscription, security and usage data as of today.</span><span>Was this useful? <a href="#">Yes</a> · <a href="#">No</a></span></div>
+    </div>
+    <div class="opt-note">
+      <h3>S1 · Digest</h3>
+      <p>The Xero and Pipedrive shape. Still sentences, but each has a status dot, a bold subject and one link at the end. A footer says where it came from.</p>
+      <ul>
+        <li>Lowest change from today: the same three lines, rewritten so the subject leads and the action is a link.</li>
+        <li>"Hide" collapses the section rather than deleting it; it is a description of state, so it is not dismissible.</li>
+        <li>Trade-off: prose is slow to scan. The status dot is the only thing that ranks the lines.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- S2 findings -->
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Summary <span class="cnt">3</span></div><div class="sscope">Generated today · 15 workspaces</div></div><div class="sactions"><a class="glink" href="#">Show dismissed (1)</a></div></div>
+      <div class="findings">
+        <div class="fr"><span class="pillx" style="background:var(--red-bg)">Critical</span><span><span class="ft">Security gaps in all 15 workspaces</span><span class="fs">MFA, SSO or an IP allow list is not enforced</span></span><a class="glink" href="#">Review security</a><span></span></div>
+        <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">9 of 15 workspaces have no paid subscription</span><span class="fs">None due for renewal in the next 90 days</span></span><a class="glink" href="#">View subscriptions</a><span class="kebab">···</span></div>
+        <div class="fr"><span class="pillx" style="background:var(--unknown-bg)">Suggested</span><span><span class="ft">Start with Alpha Bank and Optima Bank</span><span class="fs">Largest workspaces with both gaps</span></span><a class="glink" href="#">Open Alpha Bank</a><span class="kebab">···</span></div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>S2 · Findings list <span class="tag rec">Recommended</span></h3>
+      <p>The security-tool shape, in our status order. A pill ranks each row, a bold lead names it, a soft line gives the reason, and the action sits in the same column on every row.</p>
+      <ul>
+        <li>Count in the title; the reader knows it is three items before reading.</li>
+        <li>Dismissal is per row, from the overflow menu, and only for Warning and Suggested. Critical has no menu; it leaves when it is fixed.</li>
+        <li>"Show dismissed (1)" replaces the section-level X, so nothing is ever lost.</li>
+        <li>Uncontained, with hairlines, like a table on the page body. In a dashboard column it takes the grey card.</li>
+        <li>Trade-off: needs about 640px; below that the action wraps under the text.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- S3 cards -->
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Recommended for this account <span class="cnt">3</span></div><div class="sscope">Generated today · 15 workspaces</div></div><div class="sactions"><a class="glink" href="#">View all</a></div></div>
+      <div class="rcards">
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--red-bg)">Critical</span></div><div class="rt">Enforce security in all 15 workspaces</div><div class="rp">No workspace enforces MFA, SSO or an IP allow list.</div><div class="ra"><a class="glink" href="#">Review security</a></div></div>
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span class="xb">✕</span></div><div class="rt">9 workspaces have no paid subscription</div><div class="rp">None is due for renewal in the next 90 days.</div><div class="ra"><a class="glink" href="#">View subscriptions</a><a class="mute" href="#">Mark as done</a></div></div>
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--unknown-bg)">Suggested</span><span class="xb">✕</span></div><div class="rt">Start with Alpha Bank and Optima Bank</div><div class="rp">The largest workspaces with both gaps.</div><div class="ra"><a class="glink" href="#">Open Alpha Bank</a><a class="mute" href="#">Mark as done</a></div></div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>S3 · Recommendation cards</h3>
+      <p>The Google Workspace and Peec AI shape: one card per item, each with its own verdict controls.</p>
+      <ul>
+        <li>Best when items are tasks the user completes: "Mark as done" makes sense of a card in a way it does not of a sentence.</li>
+        <li>Per-card X; the Critical card has none.</li>
+        <li>Trade-off: three cards take the height of a stat strip, and with four or more items it becomes a carousel. Heavy for a page that already has a widget grid below.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- S4 banner + rail -->
+  <div class="opt" style="grid-template-columns:1fr">
+    <div style="min-width:0">
+      <div class="s4page">
+        <div>
+          <div class="banner"><span class="ic"></span><span><b>Security gaps in all 15 workspaces.</b> MFA, SSO or an IP allow list is not enforced anywhere in the account.</span><a class="glink" href="#">Review security</a><span></span></div>
+          <div class="strip c3" style="margin-top:32px"><div class="stat-ph"></div><div class="stat-ph"></div><div class="stat-ph"></div></div>
+        </div>
+        <div class="s4rail">
+          <div class="rt">Recommendations</div>
+          <div class="rl">
+            <div class="ri"><b>9 of 15 workspaces have no paid subscription</b><span>None due for renewal in 90 days</span><a class="glink" href="#">View subscriptions</a></div>
+            <div class="ri"><b>Start with Alpha Bank and Optima Bank</b><span>Largest workspaces with both gaps</span><a class="glink" href="#">Open Alpha Bank</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="opt-note" style="max-width:760px;margin-top:24px">
+        <h3>S4 · Banner and rail</h3>
+        <p>The one critical item becomes a callout at the top of the body; the rest moves to the secondary rail under "Recommendations", in the order the layout rules already set: interrupt callout, quick links, recommendations, ambient metrics.</p>
+        <ul>
+          <li>Strongest hierarchy: one thing interrupts, everything else waits at the side.</li>
+          <li>The banner is not dismissible while the condition holds; rail items dismiss individually.</li>
+          <li>Trade-off: only works on pages with a rail, and only when there is a single critical item. Two banners stack into noise.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-h" style="margin-top:64px">Scenarios and specs</div>
+  <p class="sec-sub">Each shape has three jobs. They are specified as separate pages, with an example, the job, when to use it, anatomy, states, dismissal and Figma notes.</p>
+  <div class="fam">
+    <a href="summary/digest.html"><h2>S1 · Digest</h2><ul><li>S1a Status digest</li><li>S1b Change digest</li><li>S1c Generated narrative</li></ul><span class="open">Open spec</span></a>
+    <a href="summary/findings.html"><h2>S2 · Findings list</h2><ul><li>S2a Triage list</li><li>S2b Deadline list</li><li>S2c Progress checklist</li></ul><span class="open">Open spec</span></a>
+    <a href="summary/cards.html"><h2>S3 · Recommendation cards</h2><ul><li>S3a Action cards</li><li>S3b Opportunity cards</li><li>S3c Getting-started steps</li></ul><span class="open">Open spec</span></a>
+  </div>
+
+  <div class="sec-h">Dismissal</div>
+  <p class="sec-sub">What the research says about the X, condensed into rules.</p>
+  <div class="dgrid">
+    <div><h4>Per item, not per section</h4><p>A section X treats a critical finding and a suggestion the same. Dismiss rows or cards; offer "Hide" to collapse the section if it must go.</p></div>
+    <div><h4>Critical is never dismissible</h4><p>It has no menu and no X. It leaves the list when the underlying condition is fixed, and the title count drops.</p></div>
+    <div><h4>Dismissed goes somewhere</h4><p>"Show dismissed (n)" in the section header, or a count in the title. Dismissals persist per user and return if the finding worsens.</p></div>
+  </div>
+
+  <div class="sec-h">Recommendation</div>
+  <p class="callout"><b>Go with S2.</b> It gives the section the same anatomy as every other widget: title with a count, scope line, rows in status order with a pill, a lead, a reason and one action per row. Dismissal is per row and only where the item is optional, so the critical finding cannot vanish. Use S4 instead when a page has a rail and exactly one critical item; use S3 when the items are tasks the user completes rather than findings they read.</p>
+  <p class="callout">Whichever wins: the subject leads each line, the action is a link not a sentence, all-of-something says "All", abbreviations are spelled out, the heading sits at widget size under the page title, and a scope line says what it was generated from and when.</p>
+</div>
+
+<script src="livereload.js"></script>
+<script src="library-nav.js"></script>
+</body>
+</html>
