@@ -226,6 +226,31 @@
   .gal figcaption b { color: var(--gl-heading); font-weight: 600; }
   .gal figcaption a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; white-space: nowrap; }
   .gal + .gal { margin-top: 32px; }
+  /* scenarios */
+  .job { margin: 0 0 10px; font-size: 14px; color: var(--gl-ink); line-height: 1.5; }
+  .job b { color: var(--gl-heading); }
+  .job .q { font-style: italic; }
+  .use { display: grid; grid-template-columns: 76px 1fr; gap: 4px 10px; font-size: 13px; color: var(--gl-ink); line-height: 1.5; margin-top: 10px; }
+  .use dt { color: var(--gl-ink-soft); font-weight: 600; }
+  .use dd { margin: 0; }
+  .fr.done .ft { color: var(--gl-ink-soft); font-weight: 500; text-decoration: line-through; text-decoration-color: var(--line); }
+  .fr.done .fs { color: var(--gl-ink-soft); }
+  .tick { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--gl-heading); background: var(--ok-bg); }
+  .tick.todo { background: #fff; border: 1.5px solid var(--line); color: transparent; }
+  .fr.chk { grid-template-columns: 20px 1fr auto auto; }
+  .fr.dt { grid-template-columns: 96px 1fr auto auto; }
+  .stepn { width: 22px; height: 22px; border-radius: 50%; background: var(--gl-heading); color: #fff; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+  .stepn.done { background: var(--ok-bg); color: var(--gl-heading); }
+  .rcard .ill { height: 56px; border-radius: 8px; background: repeating-linear-gradient(135deg, #fff 0 6px, #ececec 6px 7px); margin: 4px 0; }
+  .rcard .eff { margin-left: auto; }
+  .digest .dl.nod { grid-template-columns: 1fr; }
+  .digest .dl.nod b.ch { font-weight: 600; }
+  .ti-up, .ti-dn { display: inline-block; width: 14px; height: 14px; vertical-align: -2px; margin-right: 4px; }
+  .sum .stitle .beta { font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 4px; background: var(--info-bg); color: var(--gl-heading); letter-spacing: .2px; }
+  .sprompt { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .sprompt span { font-size: 12.5px; color: var(--gl-heading); padding: 4px 10px; border: 1px solid var(--line); border-radius: 14px; }
+  .scen-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 40px 0 2px; }
+  .scen-sub { font-size: 13.5px; color: var(--gl-ink-soft); margin: 0 0 16px; }
 </style>
 </head>
 <body>
@@ -422,6 +447,171 @@
         </ul>
       </div>
     </div>
+  </div>
+
+  <div class="sec-h" style="margin-top:64px">Scenarios</div>
+  <p class="sec-sub">The same three shapes, each in three jobs. The shape is the container; the job decides what goes in it, how it is ordered, and whether anything can be dismissed.</p>
+  <div class="scen-h">S1 · Digest</div>
+  <p class="scen-sub">Sentences. For reading, not working through. Nothing in a digest is dismissible, because it describes state rather than asking for anything.</p>
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Summary</div><div class="sscope">As of today · 15 workspaces, 1,240 devices</div></div><div class="sactions"><a class="x" href="#">Hide</a></div></div>
+      <div class="digest">
+        <div class="dl"><span class="dot" style="background:var(--ok)"></span><span><b>All 15 workspaces</b> are active and <b>1,198 of 1,240 devices</b> reported in the last 24 hours.</span><span></span></div>
+        <div class="dl"><span class="dot" style="background:var(--amber)"></span><span><b>42 devices</b> have not reported for more than 7 days, most of them in Edge-North-Fleet.</span><a class="glink" href="#">View devices</a></div>
+        <div class="dl"><span class="dot" style="background:var(--unknown)"></span><span><b>No subscriptions</b> are due for renewal in the next 90 days.</span><span></span></div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>S1a · Status digest</h3>
+      <p class="job"><b>Job:</b> <span class="q">"Tell me how things stand right now."</span> Three or four lines that say what is fine and what is not, so the reader can decide whether to read the rest of the page.</p>
+      <dl class="use"><dt>Use when</dt><dd>Someone lands on an overview after a gap and needs the state of play before the widgets. Mixed news: some good, some not.</dd><dt>Not when</dt><dd>Something is on fire. A critical finding wants a pill and a row (S2), not a sentence between two calm ones.</dd><dt>Shape</dt><dd>Status dot, bold subject, plain predicate. A link only on the lines that have somewhere to go. Good news gets no link.</dd></dl>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Since you last signed in</div><div class="sscope">12 days ago · 15 workspaces</div></div><div class="sactions"><a class="x" href="#">Hide</a></div></div>
+      <div class="digest">
+        <div class="dl nod"><span><svg class="ti-up" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg><b>18 devices</b> were added, all in Optima Bank.</span></div>
+        <div class="dl nod"><span><svg class="ti-dn" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg><b>2 subscriptions</b> expired: Compute Ops Management on Alpha Bank and Edge-North-Fleet.</span></div>
+        <div class="dl nod"><span><svg class="ti-up" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg><b>MFA</b> was enforced in 3 more workspaces; 12 still have a gap.</span></div>
+        <div class="dl nod"><span><b>4 users</b> joined and 1 left.</span></div>
+      </div>
+      <div class="sfoot"><span>Compared with your last sign-in on 29 Oct.</span><a href="#">View all activity</a></div>
+    </div>
+    <div class="opt-note">
+      <h3>S1b · Change digest</h3>
+      <p class="job"><b>Job:</b> <span class="q">"What happened while I was away?"</span> Only deltas since a fixed point: last sign-in, last week, last release. Steady state is left out.</p>
+      <dl class="use"><dt>Use when</dt><dd>Returning users, weekly reviews, release notes for an account. Pages people visit on a cadence rather than live.</dd><dt>Not when</dt><dd>First visit or very frequent visits; there is nothing to compare against, or the list is empty most of the time.</dd><dt>Shape</dt><dd>Trend icon in the ink colour, bold quantity, what and where. A footer names the comparison point and links to the full activity log.</dd></dl>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Insights <span class="beta">Beta</span></div><div class="sscope">Generated 2 minutes ago from the last 30 days</div></div><div class="sactions"><a class="glink" href="#">Regenerate</a></div></div>
+      <div class="digest">
+        <div class="dl nod"><span>Device onboarding is running at <b>about 40 a week</b>, double the rate in September. Most of the new devices are in two workspaces, Optima Bank and Alpha Bank, which together now hold <b>61% of the estate</b>.</span></div>
+        <div class="dl nod"><span>Subscription use is uneven: <b>9 workspaces</b> are on evaluation terms, and <b>none</b> is due to renew in the next 90 days, so there is time to consolidate before the next cycle.</span></div>
+      </div>
+      <div class="sprompt"><span>Why did onboarding speed up?</span><span>Which workspaces are under-licensed?</span><span>Compare with last quarter</span></div>
+      <div class="sfoot"><span>Generated from usage and subscription data. Check figures before acting on them.</span><span>Was this useful? <a href="#">Yes</a> · <a href="#">No</a></span></div>
+    </div>
+    <div class="opt-note">
+      <h3>S1c · Generated narrative</h3>
+      <p class="job"><b>Job:</b> <span class="q">"Explain this data to me."</span> Prose that interprets the numbers below it: trends, concentrations, causes. It adds meaning; it does not list findings.</p>
+      <dl class="use"><dt>Use when</dt><dd>Analytics and usage pages where the charts need a reader's commentary, and the product has a model behind it.</dd><dt>Not when</dt><dd>Compliance, security or billing, where a sentence that is slightly wrong does damage. Anything a user must act on today.</dd><dt>Shape</dt><dd>Beta tag, time generated, two short paragraphs with bold figures, follow-up prompts, a disclaimer and feedback. Regenerate rather than hide.</dd></dl>
+    </div>
+  </div>
+
+  <div class="scen-h">S2 · Findings list</div>
+  <p class="scen-sub">Rows with a pill and one action each. For working through. What the pill says, and how the rows are sorted, is the whole difference between these three.</p>
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Needs attention <span class="cnt">4</span></div><div class="sscope">Checked 5 minutes ago · 15 workspaces</div></div><div class="sactions"><a class="glink" href="#">Show dismissed (2)</a></div></div>
+      <div class="findings">
+        <div class="fr"><span class="pillx" style="background:var(--red-bg)">Critical</span><span><span class="ft">Security gaps in all 15 workspaces</span><span class="fs">MFA, SSO or an IP allow list is not enforced</span></span><a class="glink" href="#">Review security</a><span></span></div>
+        <div class="fr"><span class="pillx" style="background:var(--red-bg)">Critical</span><span><span class="ft">2 subscriptions expired</span><span class="fs">Compute Ops Management on Alpha Bank and Edge-North-Fleet</span></span><a class="glink" href="#">Renew</a><span></span></div>
+        <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">42 devices silent for more than 7 days</span><span class="fs">Mostly in Edge-North-Fleet</span></span><a class="glink" href="#">View devices</a><span class="kebab">···</span></div>
+        <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">3 users have not signed in for 90 days</span><span class="fs">All hold administrator roles</span></span><a class="glink" href="#">Review users</a><span class="kebab">···</span></div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>S2a · Triage list</h3>
+      <p class="job"><b>Job:</b> <span class="q">"Show me what is wrong, worst first."</span> Everything that currently fails a rule, ranked by severity, each with the one place to go and fix it.</p>
+      <dl class="use"><dt>Use when</dt><dd>Health, security and compliance overviews. Operators who open the page to find out what to do next.</dd><dt>Not when</dt><dd>There is nothing wrong most of the time; an empty triage list is a sad widget. Use S1a and let the strip show green.</dd><dt>Shape</dt><dd>Severity pill in status order, bold finding with the count in it, grey reason, one link. Critical rows have no overflow menu; the rest dismiss per row.</dd></dl>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Coming up <span class="cnt">4</span></div><div class="sscope">Next 90 days · 15 workspaces</div></div><div class="sactions"><a class="glink" href="#">View all subscriptions</a></div></div>
+      <div class="findings">
+        <div class="fr dt"><span class="pillx" style="background:var(--red-bg)">In 6 days</span><span><span class="ft">Compute Ops Management expires on Alpha Bank</span><span class="fs">240 devices covered · auto-renew off</span></span><a class="glink" href="#">Renew</a><span></span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--amber-bg)">In 23 days</span><span><span class="ft">Evaluation ends for 3 workspaces</span><span class="fs">Optima Bank, Northline, Harbour Trust</span></span><a class="glink" href="#">Choose a plan</a><span class="kebab">···</span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">In 61 days</span><span><span class="ft">TLS certificate expires on the console</span><span class="fs">console.greenlake.example</span></span><a class="glink" href="#">Replace</a><span class="kebab">···</span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">In 88 days</span><span><span class="ft">Support contract renews for Edge-North-Fleet</span><span class="fs">Auto-renew on; no action needed</span></span><span></span><span class="kebab">···</span></div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>S2b · Deadline list</h3>
+      <p class="job"><b>Job:</b> <span class="q">"What runs out, and when?"</span> Things with a date on them, sorted by the date, so the reader sees how much runway there is.</p>
+      <dl class="use"><dt>Use when</dt><dd>Subscriptions, licences, certificates, trials, contracts. Pages where time, not severity, is the ranking.</dd><dt>Not when</dt><dd>The items have no date, or they all share one. If nothing is inside 90 days, show the count and nothing else.</dd><dt>Shape</dt><dd>Pill carries the countdown and tints red inside a week, amber inside a month, grey beyond. Rows with "no action needed" still appear but have no link.</dd></dl>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Set up this account <span class="cnt">3 of 5</span></div><div class="sscope">Done when every workspace has a subscription and a security policy</div></div><div class="sactions"><a class="glink" href="#">Skip setup</a></div></div>
+      <div class="findings">
+        <div class="fr chk done"><span class="tick">✓</span><span><span class="ft">Create workspaces</span><span class="fs">15 created</span></span><span></span><span></span></div>
+        <div class="fr chk done"><span class="tick">✓</span><span><span class="ft">Add devices</span><span class="fs">1,240 added</span></span><span></span><span></span></div>
+        <div class="fr chk done"><span class="tick">✓</span><span><span class="ft">Invite administrators</span><span class="fs">9 invited, 7 accepted</span></span><a class="glink" href="#">Resend</a><span></span></div>
+        <div class="fr chk"><span class="tick todo">✓</span><span><span class="ft">Assign subscriptions</span><span class="fs">9 of 15 workspaces have none</span></span><a class="glink" href="#">Assign</a><span></span></div>
+        <div class="fr chk"><span class="tick todo">✓</span><span><span class="ft">Enforce a security policy</span><span class="fs">0 of 15 workspaces enforce MFA or SSO</span></span><a class="glink" href="#">Set policy</a><span></span></div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>S2c · Progress checklist</h3>
+      <p class="job"><b>Job:</b> <span class="q">"What is left to finish?"</span> A fixed set of steps toward a known end state, with the finished ones ticked so the count climbs.</p>
+      <dl class="use"><dt>Use when</dt><dd>Onboarding, rollouts, migrations. Any time the list is the same for everyone and ends. Finished items stay visible until the whole thing is done.</dd><dt>Not when</dt><dd>The set is open-ended or keeps refilling; that is a triage list. Also not for optional improvements, which are S3b.</dd><dt>Shape</dt><dd>Tick or empty circle instead of a pill, "3 of 5" in the title, a scope line that says what done means. The section leaves on its own once complete.</dd></dl>
+    </div>
+  </div>
+
+  <div class="scen-h">S3 · Recommendation cards</div>
+  <p class="scen-sub">One card per item, each with its own controls. Heavier than rows, so only when each item is a small task with a start and an end.</p>
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Do this week <span class="cnt">3</span></div><div class="sscope">Generated today · 15 workspaces</div></div><div class="sactions"><a class="glink" href="#">View all</a></div></div>
+      <div class="rcards">
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--red-bg)">Critical</span></div><div class="rt">Renew Compute Ops Management on Alpha Bank</div><div class="rp">Expires in 6 days. 240 devices lose management.</div><div class="ra"><a class="glink" href="#">Renew</a></div></div>
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--red-bg)">Critical</span></div><div class="rt">Enforce MFA in all 15 workspaces</div><div class="rp">No workspace enforces MFA, SSO or an IP allow list.</div><div class="ra"><a class="glink" href="#">Set policy</a></div></div>
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span class="xb">✕</span></div><div class="rt">Check 42 silent devices</div><div class="rp">Not reported for 7 days, mostly in Edge-North-Fleet.</div><div class="ra"><a class="glink" href="#">View devices</a><a class="mute" href="#">Mark as done</a></div></div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>S3a · Action cards</h3>
+      <p class="job"><b>Job:</b> <span class="q">"Do these things."</span> A short, ranked set of tasks that must happen, each with its consequence spelled out and one button to start.</p>
+      <dl class="use"><dt>Use when</dt><dd>Three or fewer must-do items with a clear owner, on a page the owner visits. Each card is a task, not a fact.</dd><dt>Not when</dt><dd>More than three; it becomes a carousel. Or when the items are findings to read rather than tasks to finish, which is S2a.</dd><dt>Shape</dt><dd>Severity pill, imperative title ("Renew…", "Enforce…"), consequence in the body, one link. Critical cards have no X and no "Mark as done".</dd></dl>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Suggested for this account <span class="cnt">3</span></div><div class="sscope">Based on how similar accounts are set up</div></div><div class="sactions"><a class="glink" href="#">Show dismissed (4)</a></div></div>
+      <div class="rcards">
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--grey-bg)">Cost</span><span class="pillx eff" style="background:var(--grey-bg)">5 min</span><span class="xb">✕</span></div><div class="rt">Consolidate 9 evaluation workspaces onto one plan</div><div class="rp">Similar accounts save about 12% by renewing together.</div><div class="ra"><a class="glink" href="#">Compare plans</a><a class="mute" href="#">Not now</a></div></div>
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--grey-bg)">Visibility</span><span class="pillx eff" style="background:var(--grey-bg)">2 min</span><span class="xb">✕</span></div><div class="rt">Turn on weekly email digest</div><div class="rp">Get this summary on Monday without signing in.</div><div class="ra"><a class="glink" href="#">Turn on</a><a class="mute" href="#">Not now</a></div></div>
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--grey-bg)">Hygiene</span><span class="pillx eff" style="background:var(--grey-bg)">10 min</span><span class="xb">✕</span></div><div class="rt">Group 42 silent devices into a watch list</div><div class="rp">Filter them out of the main inventory until they report.</div><div class="ra"><a class="glink" href="#">Create group</a><a class="mute" href="#">Not now</a></div></div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>S3b · Opportunity cards</h3>
+      <p class="job"><b>Job:</b> <span class="q">"Here is what you could improve, if you want."</span> Optional suggestions with a stated benefit and effort, which the reader is free to decline.</p>
+      <dl class="use"><dt>Use when</dt><dd>There is a recommendation engine, nothing is urgent, and the reader has slack. Settings, billing and workspace overview pages.</dd><dt>Not when</dt><dd>Anything that must happen; optional framing lets it be ignored. Or when you cannot say the benefit in one line.</dd><dt>Shape</dt><dd>Category pill instead of severity, effort pill, benefit in the body, "Not now" and X on every card. Dismissed cards are recoverable from the header.</dd></dl>
+    </div>
+  </div>
+
+  <div class="opt">
+    <div class="sum">
+      <div class="shead"><div><div class="stitle">Get started <span class="cnt">1 of 3</span></div><div class="sscope">Three steps to a managed account</div></div><div class="sactions"><a class="glink" href="#">Skip for now</a></div></div>
+      <div class="rcards">
+        <div class="rcard"><div class="rh"><span class="stepn done">✓</span></div><div class="ill"></div><div class="rt">Add your first devices</div><div class="rp">1,240 devices added across 15 workspaces.</div><div class="ra"><a class="mute" href="#">Add more</a></div></div>
+        <div class="rcard" style="outline:2px solid var(--gl-heading); outline-offset:-2px"><div class="rh"><span class="stepn">2</span></div><div class="ill"></div><div class="rt">Assign a subscription</div><div class="rp">Pick a plan for each workspace so devices stay managed after the evaluation.</div><div class="ra"><a class="btn primary" href="#" style="padding:6px 14px;font-size:13px;text-decoration:none;color:#fff">Assign</a></div></div>
+        <div class="rcard"><div class="rh"><span class="stepn">3</span></div><div class="ill"></div><div class="rt">Set a security policy</div><div class="rp">Require MFA or SSO and restrict sign-in by IP.</div><div class="ra"><a class="mute" href="#">Preview</a></div></div>
+      </div>
+    </div>
+    <div class="opt-note">
+      <h3>S3c · Getting-started steps</h3>
+      <p class="job"><b>Job:</b> <span class="q">"Set up the next thing."</span> A fixed sequence for a new account, with one step live at a time and the others shown so the reader knows how long the road is.</p>
+      <dl class="use"><dt>Use when</dt><dd>First weeks of an account, or after a big new capability ships. The user is unfamiliar and the order matters.</dd><dt>Not when</dt><dd>The account is established; replace with S2c if steps remain, or remove entirely. Never on a page that already has a primary button.</dd><dt>Shape</dt><dd>Numbered steps, the current one outlined with the page's single primary button, done steps ticked, future steps with a preview link. "Skip for now" hides the whole thing.</dd></dl>
+    </div>
+  </div>
+
+  <div class="dgrid" style="margin-top:8px">
+    <div><h4>Picking one</h4><ul><li>Is the reader here to <b>read</b> or to <b>work</b>? Read: S1. Work: S2 or S3.</li><li>Are the items <b>facts</b> or <b>tasks</b>? Facts: S2. Tasks: S3.</li><li>Does the list <b>end</b>? Yes: S2c or S3c. No: S2a, S2b, S3a, S3b.</li></ul></div>
+    <div><h4>What never changes</h4><ul><li>Title names the job ("Needs attention", "Coming up"), not the shape ("Summary").</li><li>Count in the title when the items can be counted.</li><li>Scope line says what was checked and when.</li><li>One action per item; the subject leads every line.</li></ul></div>
+    <div><h4>Mixing</h4><ul><li>One summary section per page. If two jobs compete, the critical one wins the top slot and the other moves to the rail.</li><li>A digest (S1) can sit above a findings list (S2) only when the digest is one line.</li></ul></div>
   </div>
 
   <div class="sec-h">Dismissal</div>
