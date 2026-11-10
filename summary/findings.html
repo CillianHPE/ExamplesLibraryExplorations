@@ -43,6 +43,53 @@
     <tr><td>Row</td><td>Hairline between rows only: none above the first, none below the last; 12px vertical padding; 16px column gap.</td><td>grid <code>84px 1fr auto auto</code> · <code>--line</code></td></tr>
   </table>
 
+  <div class="sec-h">Row interaction</div>
+  <p class="sec-sub">Two ways to make a row do something. The deciding question: does the row do exactly one obvious thing? If yes, the row itself can be the control. If it also needs a verb with a consequence, a dismiss, or a menu, keep the action column.</p>
+  <div class="variant">
+    <h3 class="vh">A · Action column</h3>
+    <p class="sec-sub" style="margin-top:-6px">Explicit verb per row, right-aligned, same column. The row text is static. Use when the verb matters (Renew, Choose a plan) or when rows also carry ✕ or a menu.</p>
+    <div class="exframe" data-w="800 × hug · action column">
+    <div class="sum">
+      <div class="shead"><div class="lead"><h2 class="stitle">Coming up <span class="cnt">4</span></h2><div class="sscope">Next 90 days · 15 workspaces</div></div><div class="trail"><a class="glink" href="#">View all subscriptions</a></div></div>
+      <div class="sbody">
+      <div class="findings">
+        <div class="fr dt"><span class="pillx" style="background:var(--red-bg)">In 6 days</span><span><span class="ft">Compute Ops Management expires on Alpha Bank</span><span class="fs">240 devices covered · auto-renew off</span></span><a class="glink" href="#">Renew</a><span></span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--amber-bg)">In 23 days</span><span><span class="ft">Evaluation ends for 3 workspaces</span><span class="fs">Optima Bank, Northline, Harbour Trust</span></span><a class="glink" href="#">Choose a plan</a><span></span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">In 61 days</span><span><span class="ft">TLS certificate expires on the console</span><span class="fs">console.greenlake.example</span></span><a class="glink" href="#">Replace</a><span></span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">In 88 days</span><span><span class="ft">Support contract renews for Edge-North-Fleet</span><span class="fs">Auto-renew on; no action needed</span></span><span></span><span></span></div>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="variant">
+    <h3 class="vh">B · Clickable row</h3>
+    <p class="sec-sub" style="margin-top:-6px">The whole row is one link to the item's detail page. Single trailing chevron, hover surface, no verb column. Use for navigate-only lists where every row goes to the same kind of place.</p>
+    <div class="exframe" data-w="800 × hug · clickable row">
+    <div class="sum">
+      <div class="shead"><div class="lead"><h2 class="stitle">Coming up <span class="cnt">4</span></h2><div class="sscope">Next 90 days · 15 workspaces</div></div><div class="trail"><a class="glink" href="#">View all subscriptions</a></div></div>
+      <div class="sbody">
+      <div class="findings">
+        <a class="fr dt row" href="#"><span class="pillx" style="background:var(--red-bg)">In 6 days</span><span><span class="ft">Compute Ops Management expires on Alpha Bank</span><span class="fs">240 devices covered · auto-renew off</span></span><span class="chevr" aria-hidden="true">›</span></a>
+        <a class="fr dt row" href="#"><span class="pillx" style="background:var(--amber-bg)">In 23 days</span><span><span class="ft">Evaluation ends for 3 workspaces</span><span class="fs">Optima Bank, Northline, Harbour Trust</span></span><span class="chevr" aria-hidden="true">›</span></a>
+        <a class="fr dt row" href="#"><span class="pillx" style="background:var(--grey-bg)">In 61 days</span><span><span class="ft">TLS certificate expires on the console</span><span class="fs">console.greenlake.example</span></span><span class="chevr" aria-hidden="true">›</span></a>
+        <a class="fr dt row" href="#"><span class="pillx" style="background:var(--grey-bg)">In 88 days</span><span><span class="ft">Support contract renews for Edge-North-Fleet</span><span class="fs">Auto-renew on; no action needed</span></span><span class="chevr" aria-hidden="true">›</span></a>
+      </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <table class="mtab" style="max-width:848px;margin-bottom:64px">
+    <tr><th></th><th>A · Action column</th><th>B · Clickable row</th></tr>
+    <tr><td>Discoverability</td><td>Highest: the verb is visible and names the outcome</td><td>Depends on the chevron and hover surface being consistent across every list in the product. Never mix clickable and static rows in one list</td></tr>
+    <tr><td>Cleanliness</td><td>A column of repeated green verbs competes with the finding</td><td>Quietest; the eye stays on the pill and lead</td></tr>
+    <tr><td>Target size</td><td>Small (the link text)</td><td>Whole row</td></tr>
+    <tr><td>In-place actions (✕, menu, Resend, Mark as done)</td><td>Fit naturally in the last columns</td><td>Avoid. Interactive inside interactive is fragile for keyboard and screen readers. If one is unavoidable, it must stop propagation and be its own tab stop</td></tr>
+    <tr><td>Actions with consequence (Renew, Set policy)</td><td>Verb says what happens</td><td>Row only says "something opens". Put the verb on the detail page, not behind the row</td></tr>
+    <tr><td>Rows with nothing to do</td><td>Empty action cell, still aligned</td><td>Every row must go somewhere, or the list is not clickable</td></tr>
+    <tr><td>Use for</td><td>S2a Triage, S2c Checklist, anything dismissible</td><td>S2b Deadline list when each row has a detail page; "Coming up" style lists</td></tr>
+    <tr><td>Figma</td><td>Row as is; action slot = link | button | empty</td><td>Row variant <code>interactive = true</code>: hover fill <code>rgba(0,0,0,.03)</code>, chevron 16px <code>--gl-ink-soft</code>, grid <code>96px 1fr 16px</code>, hover surface overhangs the row by 8px on each side (box-shadow, not margin, so hairlines stay flush)</td></tr>
+  </table>
   <div class="sec-h">Variants</div>
   <p class="sec-sub">Same row; different marker, sort and exit condition.</p>
   <div class="variant" id="s2a">
