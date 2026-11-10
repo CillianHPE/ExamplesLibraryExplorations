@@ -201,7 +201,8 @@
   /* S2 findings */
   .findings { }
   .fr { display: grid; grid-template-columns: 84px 1fr auto auto; gap: 16px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--gl-ink); }
-  .fr:last-child { border-bottom: 1px solid var(--line); }
+  .fr:first-child { border-top: 0; padding-top: 0; }
+  .fr:last-child { padding-bottom: 0; }
   .fr .ft { color: var(--gl-heading); font-weight: 600; }
   .fr .fs { display: block; font-size: 12.5px; color: var(--gl-ink-soft); font-weight: 400; margin-top: 1px; }
   .fr .glink { font-size: 13px; white-space: nowrap; }
