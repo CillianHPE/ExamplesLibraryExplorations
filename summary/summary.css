@@ -258,8 +258,18 @@
   .use dd { margin: 0; }
   .cards { display: flex; flex-direction: column; gap: 12px; }
   .crow { display: grid; grid-template-columns: 36px 1fr auto; gap: 16px; align-items: center; padding: 16px; background: #F7F7F7; border-radius: 12px; color: var(--gl-ink); font-size: 14px; }
+  .crow[hidden] { display: none; }
   .crow.pl { grid-template-columns: 96px 1fr auto; }
   .crow.nl { grid-template-columns: 1fr auto; }
+  .gdate { font-size: 13px; color: var(--gl-ink-soft); white-space: nowrap; }
+  .grp + .grp { margin-top: 32px; }
+  .ghead { display: flex; align-items: center; justify-content: space-between; width: 100%; appearance: none; border: 0; background: none; padding: 0 0 8px; margin-bottom: 4px; border-bottom: 1px solid var(--line); font: inherit; font-size: 13px; font-weight: 600; color: var(--gl-heading); cursor: pointer; text-align: left; }
+  .ghead .cnt { font-size: 11px; height: 18px; min-width: 18px; padding: 0 6px; }
+  .ghead svg { width: 16px; height: 16px; color: var(--gl-ink-soft); transition: transform .15s; }
+  .grp.folded .ghead svg { transform: rotate(-90deg); }
+  .grp.folded .gbody { display: none; }
+  .grp.folded .ghead { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+  .gbody .fr:first-child { padding-top: 12px; }
   .vh4 { font-size: 14px; font-weight: 600; color: var(--gl-heading); margin: 24px 0 6px; }
   .crow .cact { display: inline-flex; align-items: center; gap: 12px; }
   .crow .cact .glink { font-size: 13px; white-space: nowrap; }

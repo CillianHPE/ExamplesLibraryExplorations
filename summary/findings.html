@@ -139,6 +139,99 @@
     <tr><td>Use for</td><td>S2a Triage, S2c Checklist, anything dismissible</td><td>S2b Deadline list when each row has a detail page; "Coming up" style lists</td><td>S2c Checklist, onboarding "Things to do", short deadline lists on an uncontained page body. Never inside a contained section (box in box)</td></tr>
     <tr><td>Figma</td><td>Row as is; action slot = link | button | empty</td><td>Row variant <code>interactive = true</code>: hover fill <code>rgba(0,0,0,.03)</code>, chevron 16px <code>--gl-ink-soft</code>, grid <code>96px 1fr 16px</code>, hover surface is the row height exactly, extended 8px left and right only, so it never bleeds into the neighbouring row and hairlines stay flush</td><td>New component <code>Card row</code>: fill <code>#F7F7F7</code>, no border, radius 12, padding 16, grid <code>36px 1fr auto</code>, gap 16; stack gap 12; leading slot = urgency tile 36 (warning+red | clock+amber | calendar+grey | tick+grey, glyph and tint locked together) | countdown pill 96 | none; control slot = link | button | link + kebab | chevron | ✕ | empty; hover fill <code>#F0F0F0</code> only when the card itself navigates. Inside a contained section the card flips to white</td></tr>
   </table>
+  <div class="sec-h">Volume</div>
+  <p class="sec-sub">Stress test: the same section with 20 items. A summary section's job is to be read in a few seconds, so it never renders 20 rows by default. Three ways to keep it short, then the threshold rule.</p>
+  <div class="variant">
+    <h4 class="vh4">V1 · Cap at 5, the rest behind one control</h4>
+    <p class="sec-sub" style="margin-top:-4px">Show the five soonest, say how many are hidden, open the rest in place. The header link still goes to the full table. Try it: the fifteen extra rows make the point that cards stop working past five.</p>
+    <div class="exframe" data-w="800 × hug · cap">
+    <div class="sum" id="v1">
+      <div class="shead"><div class="lead"><h2 class="stitle">Coming up <span class="cnt">20</span></h2><div class="sscope">Next 90 days · 15 workspaces</div></div><div class="trail"><a class="glink" href="#">View all subscriptions</a></div></div>
+      <div class="sbody"><div class="cards">
+        <div class="crow pl"><span class="pillx" style="background:var(--red-bg)">Overdue</span><span class="ctxt"><span class="ft">Aruba Central subscription lapsed for Harbour Trust</span><span class="fs">12 access points unlicensed</span></span><span class="cact"><a class="glink" href="#">Renew</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl"><span class="pillx" style="background:var(--red-bg)">In 4 days</span><span class="ctxt"><span class="ft">Compute Ops Management expires on Alpha Bank</span><span class="fs">240 devices covered · auto-renew off</span></span><span class="cact"><a class="glink" href="#">Renew</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl"><span class="pillx" style="background:var(--red-bg)">In 6 days</span><span class="ctxt"><span class="ft">Evaluation ends for Northline</span><span class="fs">Workspace reverts to read-only</span></span><span class="cact"><a class="glink" href="#">Choose a plan</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl"><span class="pillx" style="background:var(--amber-bg)">In 11 days</span><span class="ctxt"><span class="ft">TLS certificate expires on api.alphabank.example</span><span class="fs">Used by 3 integrations</span></span><span class="cact"><a class="glink" href="#">Replace</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl"><span class="pillx" style="background:var(--amber-bg)">In 14 days</span><span class="ctxt"><span class="ft">Backup and Recovery expires on Optima Bank</span><span class="fs">3 workloads protected</span></span><span class="cact"><a class="glink" href="#">Renew</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--amber-bg)">In 19 days</span><span class="ctxt"><span class="ft">Evaluation ends for 2 workspaces</span><span class="fs">Coastal Credit, Pinecrest</span></span><span class="cact"><a class="glink" href="#">Choose a plan</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--amber-bg)">In 23 days</span><span class="ctxt"><span class="ft">Private Cloud Enterprise renews for Alpha Bank</span><span class="fs">Auto-renew on</span></span><span class="cact"></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--amber-bg)">In 27 days</span><span class="ctxt"><span class="ft">TLS certificate expires on sso.optimabank.example</span><span class="fs">SSO sign-in will fail</span></span><span class="cact"><a class="glink" href="#">Replace</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--amber-bg)">In 29 days</span><span class="ctxt"><span class="ft">Support contract ends for Edge-North-Fleet</span><span class="fs">Auto-renew off</span></span><span class="cact"><a class="glink" href="#">Renew</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--grey-bg)">In 33 days</span><span class="ctxt"><span class="ft">Aruba Central subscription expires on Northline</span><span class="fs">48 switches covered</span></span><span class="cact"><a class="glink" href="#">Renew</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--grey-bg)">In 38 days</span><span class="ctxt"><span class="ft">Service credits expire for Harbour Trust</span><span class="fs">1,200 credits unused</span></span><span class="cact"><a class="glink" href="#">Review</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--grey-bg)">In 41 days</span><span class="ctxt"><span class="ft">TLS certificate expires on console.greenlake.example</span><span class="fs">console.greenlake.example</span></span><span class="cact"><a class="glink" href="#">Replace</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--grey-bg)">In 45 days</span><span class="ctxt"><span class="ft">Evaluation ends for Meridian Health</span><span class="fs">Workspace reverts to read-only</span></span><span class="cact"><a class="glink" href="#">Choose a plan</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--grey-bg)">In 52 days</span><span class="ctxt"><span class="ft">Compute Ops Management renews for Optima Bank</span><span class="fs">Auto-renew on</span></span><span class="cact"></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--grey-bg)">In 58 days</span><span class="ctxt"><span class="ft">Backup and Recovery expires on Coastal Credit</span><span class="fs">2 workloads protected</span></span><span class="cact"><a class="glink" href="#">Renew</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--grey-bg)">In 61 days</span><span class="ctxt"><span class="ft">Support contract renews for Pinecrest</span><span class="fs">Auto-renew on</span></span><span class="cact"></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--grey-bg)">In 66 days</span><span class="ctxt"><span class="ft">TLS certificate expires on vpn.northline.example</span><span class="fs">vpn.northline.example</span></span><span class="cact"><a class="glink" href="#">Replace</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--grey-bg)">In 74 days</span><span class="ctxt"><span class="ft">Aruba Central subscription renews for Alpha Bank</span><span class="fs">Auto-renew on</span></span><span class="cact"></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--grey-bg)">In 80 days</span><span class="ctxt"><span class="ft">Service credits expire for Optima Bank</span><span class="fs">300 credits unused</span></span><span class="cact"><a class="glink" href="#">Review</a><button class="kebab" aria-label="More">···</button></span></div>
+        <div class="crow pl more" hidden><span class="pillx" style="background:var(--grey-bg)">In 88 days</span><span class="ctxt"><span class="ft">Support contract renews for Edge-North-Fleet</span><span class="fs">Auto-renew on</span></span><span class="cact"></span></div>
+      </div></div>
+      <div class="sfoot"><button class="tbtn" id="v1more">Show 15 more</button></div>
+    </div>
+    </div>
+    <h4 class="vh4">V2 · Group by window</h4>
+    <p class="sec-sub" style="margin-top:-4px">Hairline rows under three subheads: This week, This month, Later. The urgent groups are open, Later is folded by default. The reader sees the shape of the ninety days before reading a single row. The pill becomes redundant inside a group, so it drops to a plain date.</p>
+    <div class="exframe" data-w="800 × hug · grouped">
+    <div class="sum">
+      <div class="shead"><div class="lead"><h2 class="stitle">Coming up <span class="cnt">20</span></h2><div class="sscope">Next 90 days · 15 workspaces</div></div><div class="trail"><a class="glink" href="#">View all subscriptions</a></div></div>
+      <div class="sbody">
+        <div class="grp"><button class="ghead" aria-expanded="true"><span>This week <span class="cnt">3</span></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></button>
+          <div class="findings gbody">
+          <div class="fr dt"><span class="gdate">Overdue</span><span><span class="ft">Aruba Central subscription lapsed for Harbour Trust</span><span class="fs">12 access points unlicensed</span></span><a class="glink" href="#">Renew</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Sat, 14 Nov</span><span><span class="ft">Compute Ops Management expires on Alpha Bank</span><span class="fs">240 devices covered · auto-renew off</span></span><a class="glink" href="#">Renew</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Mon, 16 Nov</span><span><span class="ft">Evaluation ends for Northline</span><span class="fs">Workspace reverts to read-only</span></span><a class="glink" href="#">Choose a plan</a><span></span></div>
+          </div></div>
+        <div class="grp"><button class="ghead" aria-expanded="true"><span>This month <span class="cnt">6</span></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></button>
+          <div class="findings gbody">
+          <div class="fr dt"><span class="gdate">Sat, 21 Nov</span><span><span class="ft">TLS certificate expires on api.alphabank.example</span><span class="fs">Used by 3 integrations</span></span><a class="glink" href="#">Replace</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Tue, 24 Nov</span><span><span class="ft">Backup and Recovery expires on Optima Bank</span><span class="fs">3 workloads protected</span></span><a class="glink" href="#">Renew</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Sun, 29 Nov</span><span><span class="ft">Evaluation ends for 2 workspaces</span><span class="fs">Coastal Credit, Pinecrest</span></span><a class="glink" href="#">Choose a plan</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Thu, 3 Dec</span><span><span class="ft">Private Cloud Enterprise renews for Alpha Bank</span><span class="fs">Auto-renew on</span></span><span></span><span></span></div>
+          <div class="fr dt"><span class="gdate">Mon, 7 Dec</span><span><span class="ft">TLS certificate expires on sso.optimabank.example</span><span class="fs">SSO sign-in will fail</span></span><a class="glink" href="#">Replace</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Wed, 9 Dec</span><span><span class="ft">Support contract ends for Edge-North-Fleet</span><span class="fs">Auto-renew off</span></span><a class="glink" href="#">Renew</a><span></span></div>
+          </div></div>
+        <div class="grp folded"><button class="ghead" aria-expanded="false"><span>Later <span class="cnt">11</span></span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></button>
+          <div class="findings gbody">
+          <div class="fr dt"><span class="gdate">Sun, 13 Dec</span><span><span class="ft">Aruba Central subscription expires on Northline</span><span class="fs">48 switches covered</span></span><a class="glink" href="#">Renew</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Fri, 18 Dec</span><span><span class="ft">Service credits expire for Harbour Trust</span><span class="fs">1,200 credits unused</span></span><a class="glink" href="#">Review</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Mon, 21 Dec</span><span><span class="ft">TLS certificate expires on console.greenlake.example</span><span class="fs">console.greenlake.example</span></span><a class="glink" href="#">Replace</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Fri, 25 Dec</span><span><span class="ft">Evaluation ends for Meridian Health</span><span class="fs">Workspace reverts to read-only</span></span><a class="glink" href="#">Choose a plan</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Fri, 1 Jan</span><span><span class="ft">Compute Ops Management renews for Optima Bank</span><span class="fs">Auto-renew on</span></span><span></span><span></span></div>
+          <div class="fr dt"><span class="gdate">Thu, 7 Jan</span><span><span class="ft">Backup and Recovery expires on Coastal Credit</span><span class="fs">2 workloads protected</span></span><a class="glink" href="#">Renew</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Sun, 10 Jan</span><span><span class="ft">Support contract renews for Pinecrest</span><span class="fs">Auto-renew on</span></span><span></span><span></span></div>
+          <div class="fr dt"><span class="gdate">Fri, 15 Jan</span><span><span class="ft">TLS certificate expires on vpn.northline.example</span><span class="fs">vpn.northline.example</span></span><a class="glink" href="#">Replace</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Sat, 23 Jan</span><span><span class="ft">Aruba Central subscription renews for Alpha Bank</span><span class="fs">Auto-renew on</span></span><span></span><span></span></div>
+          <div class="fr dt"><span class="gdate">Fri, 29 Jan</span><span><span class="ft">Service credits expire for Optima Bank</span><span class="fs">300 credits unused</span></span><a class="glink" href="#">Review</a><span></span></div>
+          <div class="fr dt"><span class="gdate">Sat, 6 Feb</span><span><span class="ft">Support contract renews for Edge-North-Fleet</span><span class="fs">Auto-renew on</span></span><span></span><span></span></div>
+          </div></div>
+      </div>
+    </div>
+    </div>
+    <h4 class="vh4">V3 · Roll up</h4>
+    <p class="sec-sub" style="margin-top:-4px">The summary stops listing and starts counting. One row per window with the count as the pill, a lead that says what kind of things, and a link to the filtered table. Right for 30 or more, or whenever the page is a dashboard and the table lives elsewhere.</p>
+    <div class="exframe" data-w="800 × hug · roll up">
+    <div class="sum">
+      <div class="shead"><div class="lead"><h2 class="stitle">Coming up <span class="cnt">20</span></h2><div class="sscope">Next 90 days · 15 workspaces</div></div><div class="trail"><a class="glink" href="#">View all subscriptions</a></div></div>
+      <div class="sbody"><div class="findings">
+        <div class="fr dt"><span class="pillx" style="background:var(--red-bg)">3 this week</span><span><span class="ft">3 subscriptions and evaluations end this week</span><span class="fs">Harbour Trust is already overdue</span></span><a class="glink" href="#">Review 3</a><span></span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--amber-bg)">6 this month</span><span><span class="ft">6 items end in the next 30 days</span><span class="fs">2 certificates, 2 renewals, 2 evaluations</span></span><a class="glink" href="#">Review 6</a><span></span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">11 later</span><span><span class="ft">11 items end between 30 and 90 days</span><span class="fs">5 renew automatically</span></span><a class="glink" href="#">Review 11</a><span></span></div>
+      </div></div>
+    </div>
+    </div>
+  </div>
+  <table class="mtab" style="max-width:848px;margin-bottom:64px">
+    <tr><th>Items</th><th>Do this</th><th>Why</th></tr>
+    <tr><td>0</td><td>One line: "Nothing due in the next 90 days". No rows, no count</td><td>Absence is the message</td></tr>
+    <tr><td>1 to 5</td><td>Rows or cards, all visible</td><td>Fits the few-seconds read</td></tr>
+    <tr><td>6 to 12</td><td>V1: five visible + "Show n more" in the footer. Switch cards to hairline rows</td><td>One click reveals everything; cards at this count are taller than the viewport</td></tr>
+    <tr><td>13 to 30</td><td>V2: group by window, Later folded. Hairline rows only</td><td>Shape first, detail second; the reader can skip the far group</td></tr>
+    <tr><td>30+</td><td>V3: roll up to one row per window, link to the table</td><td>The summary is no longer the place to read items</td></tr>
+    <tr><td>Always</td><td>Header count is the full total, sort soonest first, critical never hidden behind a fold</td><td>The count and the first row must be trustworthy whichever variant is used</td></tr>
+  </table>
   <div class="sec-h">Variants</div>
   <p class="sec-sub">Same row; different marker, sort and exit condition.</p>
   <div class="variant" id="s2a">
@@ -208,6 +301,8 @@
 </div>
 <script>
 document.querySelectorAll('.ctog').forEach(function(t){t.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;t.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});t.nextElementSibling.classList.toggle('contained',b.dataset.c==='1');});});
+document.getElementById('v1more').addEventListener('click',function(){var o=this.textContent.startsWith('Show 15');document.querySelectorAll('#v1 .more').forEach(function(r){r.hidden=!o});this.textContent=o?'Show fewer':'Show 15 more';});
+document.querySelectorAll('.ghead').forEach(function(b){b.addEventListener('click',function(){var g=b.parentElement,f=g.classList.toggle('folded');b.setAttribute('aria-expanded',!f);});});
 document.querySelectorAll('.stabs').forEach(t=>t.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
   t.querySelectorAll('.tab,.pane').forEach(e=>e.classList.toggle('on',e.dataset.t===b.dataset.t));})));
 </script>
