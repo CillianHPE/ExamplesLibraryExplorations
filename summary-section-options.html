@@ -215,6 +215,17 @@
   .dgrid h4 { font-size: 14px; font-weight: 700; color: var(--gl-heading); margin: 0 0 6px; }
   .dgrid p, .dgrid li { font-size: 13.5px; color: var(--gl-ink); line-height: 1.5; margin: 0; }
   .dgrid ul { margin: 0; padding-left: 18px; }
+  /* reference gallery */
+  .gal { margin: 32px 0 0; }
+  .gal h3 { font-size: 15px; font-weight: 700; color: var(--gl-heading); margin: 0 0 4px; }
+  .gal .gsub { font-size: 13px; color: var(--gl-ink-soft); margin: 0 0 12px; }
+  .gal .gg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .gal figure { margin: 0; }
+  .gal figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  .gal figcaption { font-size: 12.5px; color: var(--gl-ink); line-height: 1.5; margin-top: 8px; }
+  .gal figcaption b { color: var(--gl-heading); font-weight: 600; }
+  .gal figcaption a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .gal + .gal { margin-top: 32px; }
 </style>
 </head>
 <body>
@@ -245,6 +256,50 @@
     <div><h4>What is consistent</h4><ul><li>A short bold lead per item, a grey reason after it.</li><li>Bold figures inside sentences; no colour in the text itself.</li><li>Counts in the title ("4", "13") so the reader knows the size before reading.</li><li>One action per item, right-aligned or inline at the end.</li></ul></div>
     <div><h4>Where they differ</h4><ul><li>Severity: analytics tools mark good or bad with an icon; security tools use tinted pills and sort by it.</li><li>Dismissal: content that the user can act on is dismissible per item; content that describes state is not.</li><li>Frame: setup lists are contained cards; AI digests sit on the body with a hairline.</li></ul></div>
     <div><h4>Rules this suggests</h4><ul><li>Dismiss the item, not the section, unless every item is optional.</li><li>Never dismissible: anything critical. It leaves when fixed.</li><li>Dismissed items go somewhere: "Show dismissed" or a count in the title.</li><li>Say when it was generated and from what.</li></ul></div>
+  </div>
+
+
+  <div class="sec-h" style="margin-top:64px">Reference screens</div>
+  <p class="sec-sub">The screens behind the table, grouped by pattern. Each caption says what to look at.</p>
+  <div class="gal">
+    <h3>Narrative digest</h3>
+    <p class="gsub">Prose summaries, usually AI-generated. Feedback controls and a disclaimer, no inline actions.</p>
+    <div class="gg">
+      <figure><img src="research/summary/xero.jpg" alt="Xero Analytics, Insights (Beta)" loading="lazy"><figcaption><b>Xero Analytics, Insights (Beta).</b> Prompt chips above, bulleted sentences with an emoji marker per line, bold figures, thumbs and copy icons, disclaimer in small print. <a href="https://mobbin.com/screens/c9072ade-ef2a-4821-bb0a-c70096d7a254">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/pipedrive.jpg" alt="Pipedrive AI report" loading="lazy"><figcaption><b>Pipedrive AI report.</b> Generated paragraph beside the chart with "Show more" and Helpful / Not helpful. Reads as commentary on the widget, not a section of its own. <a href="https://mobbin.com/screens/e78364da-59f7-421b-8a57-868d58daad99">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/mixpanel.jpg" alt="Mixpanel Spark card" loading="lazy"><figcaption><b>Mixpanel Spark card.</b> A dismissible card with an X and a prompt box. The only digest here that can be closed, because it is an invitation rather than a finding.</figcaption></figure>
+    </div>
+  </div>
+  <div class="gal">
+    <h3>Recommendation checklist</h3>
+    <p class="gsub">A title with a count, one row per item, a link per row, and a way to mark it done.</p>
+    <div class="gg">
+      <figure><img src="research/summary/klaviyo.jpg" alt="Klaviyo, Complete set up" loading="lazy"><figcaption><b>Klaviyo, Complete set up.</b> Accordion rows with a "Dismiss" button in the section header. Whole section goes at once; rows carry their own primary button. <a href="https://mobbin.com/screens/991ede6b-2ade-4d51-ab4b-d3e22db908c9">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/gworkspace.jpg" alt="Google Workspace, Recommendations (13)" loading="lazy"><figcaption><b>Google Workspace, Recommendations (13).</b> One expanded card with illustration, primary button and "Mark as done"; the rest collapsed and numbered below. Count in the title. <a href="https://mobbin.com/screens/77ec9238-3627-4bfc-b59a-b67f450b4b9e">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/remote.jpg" alt="Remote, Things to do (4)" loading="lazy"><figcaption><b>Remote, Things to do (4).</b> Icon, bold title, one-line body, date on the right, "View all" in the header. Nothing dismissible; items leave when done. <a href="https://mobbin.com/screens/1a5a8ac8-49f2-467c-ad4f-5e36c2e86936">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/jobber.jpg" alt="Jobber, To do" loading="lazy"><figcaption><b>Jobber, To do.</b> Icon, title, description and a "2 minutes" effort pill. Effort estimate is the one thing no other product shows. <a href="https://mobbin.com/screens/d02322ff-f5df-48c5-9455-bd730ad2c9ec">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/7shifts.jpg" alt="7shifts suggestion rows and banner" loading="lazy"><figcaption><b>7shifts suggestion rows and banner.</b> Rows with icon, title, grey reason and a right-aligned button ("Invite employees"). Above them a tinted banner with two outline buttons and an X. <a href="https://mobbin.com/screens/e55e19c6-9d9a-463a-9279-b0070ab0fd25">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/xero2.jpg" alt="Xero Expenses callout" loading="lazy"><figcaption><b>Xero Expenses callout.</b> White card: title, body, primary button, learn-more link, illustration, X in the corner. The classic dismissible banner. <a href="https://mobbin.com/screens/050f81ce-9c1c-4655-b4e2-5041cad408a8">Mobbin ↗</a></figcaption></figure>
+    </div>
+  </div>
+  <div class="gal">
+    <h3>Open-items counts and insight cards</h3>
+    <p class="gsub">Grouped counts that link through, and per-card verdict controls.</p>
+    <div class="gg">
+      <figure><img src="research/summary/vanta.jpg" alt="Vanta, Open tasks" loading="lazy"><figcaption><b>Vanta, Open tasks.</b> Right-hand panel grouped "Items overdue" and "Items due soon"; each row is a count, noun and chevron. Panel hides with "Hide tasks"; rows do not. <a href="https://mobbin.com/screens/377a125e-c3ed-4d8d-8433-96ee282e4def">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/okta.jpg" alt="Okta dashboard" loading="lazy"><figcaption><b>Okta dashboard.</b> Tasks table (type pill, count, description, "View"), Org changes list with a "View" per row, and a Security Monitoring card with completion donut. <a href="https://mobbin.com/screens/72c7a956-c9ec-45ef-872e-c3ec74d672df">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/peec.jpg" alt="Peec AI insights" loading="lazy"><figcaption><b>Peec AI insights.</b> Grid of small cards, each with a "High" priority tag and Done / Decline / Todo. Declined cards vanish; the clearest per-item dismissal. <a href="https://mobbin.com/screens/bf1f0dfc-94de-4d62-af35-653fbcd49dc3">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/ga.jpg" alt="Google Analytics, Insights" loading="lazy"><figcaption><b>Google Analytics, Insights.</b> Cards with a question headline, a mini chart and a "View" link. A carousel once there are more than three. <a href="https://mobbin.com/screens/8a43427d-7581-4deb-9847-31916d727cde">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/ga2.jpg" alt="Google Analytics, Suggested for you" loading="lazy"><figcaption><b>Google Analytics, Suggested for you.</b> Same card grid used as a "Suggested" shelf on Home, above a separate "Insights & recommendations" block.</figcaption></figure>
+    </div>
+  </div>
+  <div class="gal">
+    <h3>Severity findings</h3>
+    <p class="gsub">Security tools rank by severity, show a last-scan time, and never let a finding be dismissed.</p>
+    <div class="gg">
+      <figure><img src="research/summary/cloudflare.jpg" alt="Cloudflare, Security insights" loading="lazy"><figcaption><b>Cloudflare, Security insights.</b> Insights by severity with a tinted bar, insights by type as a donut, "Top insights" list, "Last scan performed on" top right. Active / Archived tabs below. <a href="https://mobbin.com/screens/c4c813dd-30b6-44b3-a9c9-afbb062abf6e">Mobbin ↗</a></figcaption></figure>
+      <figure><img src="research/summary/gitlab.jpg" alt="GitLab, Security dashboard" loading="lazy"><figcaption><b>GitLab, Security dashboard.</b> Vulnerabilities by severity as a four-row list: dot, label, sparkline, delta, count. Severity colour lives in the dot only; text stays ink. <a href="https://mobbin.com/screens/83a4d831-a8b2-4240-b322-02aec38ec666">Mobbin ↗</a></figcaption></figure>
+    </div>
   </div>
 
   <div class="sec-h">What is there now</div>
