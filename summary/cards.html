@@ -25,7 +25,7 @@
     <tr><td>1 · Content header</td><td>Leading and Trailing side by side, vertically centred, gap 12. Always present.</td><td>row · gap 12 · align center</td></tr>
     <tr><td>1a · Leading: heading</td><td>H2 by default. Names the <b>job</b> ("Needs attention", "Coming up"), never the shape ("Summary", "Insights" aside). Optional count pill after the heading.</td><td>Heading 24/32 <code>--gl-heading</code> · count pill 24h, 0 8, r12, <code>--grey-bg</code>, 13/600 · wrapper padding 2 0</td></tr>
     <tr><td>1b · Leading: subtitle</td><td>Optional. One line under the heading: what was checked, the population, and when. Middot separators.</td><td>14/20 <code>--gl-ink</code> · gap 2 under heading</td></tr>
-    <tr><td>1c · Trailing</td><td>Actions for the whole section, at most two text links. The right-most is the section-level action ("Hide", "View all", "Show dismissed (n)"). Never an X on the section when any item is critical.</td><td>slot 36×36 min · link 13/600 <code>--gl-green-dark</code> · "Hide" <code>--gl-ink-soft</code> 13/400 · gap 16</td></tr>
+    <tr><td>1c · Trailing</td><td>Actions for the whole section, at most two. A <b>link</b> when it takes you to a page ("View all"); a <b>button</b> when it acts on the section in place ("Hide", "Regenerate", "Show dismissed (n)"). Never an X on the section when any item is critical.</td><td>slot 36×36 min · link 13/600 <code>--gl-green-dark</code> · button 13/600 <code>--gl-heading</code>, 6 12, r16 · quiet button <code>--gl-ink-soft</code> 13/500 · gap 16</td></tr>
     <tr><td>2 · Body</td><td>The only region that changes per variant: sentences, rows, or cards.</td><td>Body text 14/400 <code>--gl-ink</code> · lead 14/600 <code>--gl-heading</code> · reason 12.5 <code>--gl-ink-soft</code> · link 13/600 <code>--gl-green-dark</code></td></tr>
     <tr><td>3 · Footer (optional)</td><td>Source or comparison point left, feedback or "View all" right. Digests use it; lists and cards rarely do.</td><td>14/20 <code>--gl-ink</code> · no hairline</td></tr>
     <tr><td>Region gap</td><td>Header, Body and Footer stack in one column.</td><td>gap 24 between regions · frame width 800 (min 640) · section gap 32 on the page</td></tr>
@@ -40,7 +40,7 @@
     <tr><td>Top row</td><td>Marker pill left (severity, category or step number); effort pill and X right.</td><td>flex space-between · X 14px <code>--gl-ink-soft</code></td></tr>
     <tr><td>Title</td><td>Imperative, two lines maximum.</td><td>14/600 <code>--gl-heading</code> · margin-top 6</td></tr>
     <tr><td>Body</td><td>One sentence: consequence (S3a), benefit (S3b) or what the step does (S3c). Fills remaining height so actions align across cards.</td><td>13/400 <code>--gl-ink</code> · flex 1</td></tr>
-    <tr><td>Actions</td><td>Primary link left; quiet secondary ("Mark as done", "Not now") after it.</td><td>13/600 link · secondary 13/400 <code>--gl-ink-soft</code> · gap 16 · margin-top 8</td></tr>
+    <tr><td>Actions</td><td>Primary action left (link if it opens a page, button if it acts in place, e.g. "Turn on"); quiet secondary button ("Mark as done", "Not now") after it.</td><td>13/600 link · secondary 13/400 <code>--gl-ink-soft</code> · gap 16 · margin-top 8</td></tr>
   </table>
 
   <div class="sec-h">Variants</div>
@@ -55,7 +55,7 @@
       <div class="rcards">
         <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--red-bg)">Critical</span></div><div class="rt">Renew Compute Ops Management on Alpha Bank</div><div class="rp">Expires in 6 days. 240 devices lose management.</div><div class="ra"><a class="glink" href="#">Renew</a></div></div>
         <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--red-bg)">Critical</span></div><div class="rt">Enforce MFA in all 15 workspaces</div><div class="rp">No workspace enforces MFA, SSO or an IP allow list.</div><div class="ra"><a class="glink" href="#">Set policy</a></div></div>
-        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span class="xb">✕</span></div><div class="rt">Check 42 silent devices</div><div class="rp">Not reported for 7 days, mostly in Edge-North-Fleet.</div><div class="ra"><a class="glink" href="#">View devices</a><a class="mute" href="#">Mark as done</a></div></div>
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--amber-bg)">Warning</span><button class="xb" aria-label="Dismiss">✕</button></div><div class="rt">Check 42 silent devices</div><div class="rp">Not reported for 7 days, mostly in Edge-North-Fleet.</div><div class="ra"><a class="glink" href="#">View devices</a><button class="tbtn quiet">Mark as done</button></div></div>
       </div>
       </div>
     </div>
@@ -70,12 +70,12 @@
     <div class="exframe" data-w="800 × hug">
     <div class="ctog"><button class="" data-c="1">Contained</button><button class="on" data-c="0">Uncontained</button></div>
     <div class="sum">
-      <div class="shead"><div class="lead"><h2 class="stitle">Suggested for this account <span class="cnt">3</span></h2><div class="sscope">Based on how similar accounts are set up</div></div><div class="trail"><a class="glink" href="#">Show dismissed (4)</a></div></div>
+      <div class="shead"><div class="lead"><h2 class="stitle">Suggested for this account <span class="cnt">3</span></h2><div class="sscope">Based on how similar accounts are set up</div></div><div class="trail"><button class="tbtn quiet">Show dismissed (4)</button></div></div>
       <div class="sbody">
       <div class="rcards">
-        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--grey-bg)">Cost</span><span class="pillx eff" style="background:var(--grey-bg)">5 min</span><span class="xb">✕</span></div><div class="rt">Consolidate 9 evaluation workspaces onto one plan</div><div class="rp">Similar accounts save about 12% by renewing together.</div><div class="ra"><a class="glink" href="#">Compare plans</a><a class="mute" href="#">Not now</a></div></div>
-        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--grey-bg)">Visibility</span><span class="pillx eff" style="background:var(--grey-bg)">2 min</span><span class="xb">✕</span></div><div class="rt">Turn on weekly email digest</div><div class="rp">Get this summary on Monday without signing in.</div><div class="ra"><a class="glink" href="#">Turn on</a><a class="mute" href="#">Not now</a></div></div>
-        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--grey-bg)">Hygiene</span><span class="pillx eff" style="background:var(--grey-bg)">10 min</span><span class="xb">✕</span></div><div class="rt">Group 42 silent devices into a watch list</div><div class="rp">Filter them out of the main inventory until they report.</div><div class="ra"><a class="glink" href="#">Create group</a><a class="mute" href="#">Not now</a></div></div>
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--grey-bg)">Cost</span><span class="pillx eff" style="background:var(--grey-bg)">5 min</span><button class="xb" aria-label="Dismiss">✕</button></div><div class="rt">Consolidate 9 evaluation workspaces onto one plan</div><div class="rp">Similar accounts save about 12% by renewing together.</div><div class="ra"><a class="glink" href="#">Compare plans</a><button class="tbtn quiet">Not now</button></div></div>
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--grey-bg)">Visibility</span><span class="pillx eff" style="background:var(--grey-bg)">2 min</span><button class="xb" aria-label="Dismiss">✕</button></div><div class="rt">Turn on weekly email digest</div><div class="rp">Get this summary on Monday without signing in.</div><div class="ra"><button class="tbtn">Turn on</button><button class="tbtn quiet">Not now</button></div></div>
+        <div class="rcard"><div class="rh"><span class="pillx" style="background:var(--grey-bg)">Hygiene</span><span class="pillx eff" style="background:var(--grey-bg)">10 min</span><button class="xb" aria-label="Dismiss">✕</button></div><div class="rt">Group 42 silent devices into a watch list</div><div class="rp">Filter them out of the main inventory until they report.</div><div class="ra"><button class="tbtn">Create group</button><button class="tbtn quiet">Not now</button></div></div>
       </div>
       </div>
     </div>
@@ -90,12 +90,12 @@
     <div class="exframe" data-w="800 × hug">
     <div class="ctog"><button class="" data-c="1">Contained</button><button class="on" data-c="0">Uncontained</button></div>
     <div class="sum">
-      <div class="shead"><div class="lead"><h2 class="stitle">Get started <span class="cnt">1 of 3</span></h2><div class="sscope">Three steps to a managed account</div></div><div class="trail"><a class="glink" href="#">Skip for now</a></div></div>
+      <div class="shead"><div class="lead"><h2 class="stitle">Get started <span class="cnt">1 of 3</span></h2><div class="sscope">Three steps to a managed account</div></div><div class="trail"><button class="tbtn quiet">Skip for now</button></div></div>
       <div class="sbody">
       <div class="rcards">
         <div class="rcard"><div class="rh"><span class="stepn done">✓</span></div><div class="ill"></div><div class="rt">Add your first devices</div><div class="rp">1,240 devices added across 15 workspaces.</div><div class="ra"><a class="mute" href="#">Add more</a></div></div>
         <div class="rcard" style="outline:2px solid var(--gl-heading); outline-offset:-2px"><div class="rh"><span class="stepn">2</span></div><div class="ill"></div><div class="rt">Assign a subscription</div><div class="rp">Pick a plan for each workspace so devices stay managed after the evaluation.</div><div class="ra"><a class="btn primary" href="#" style="padding:6px 14px;font-size:13px;text-decoration:none;color:#fff">Assign</a></div></div>
-        <div class="rcard"><div class="rh"><span class="stepn">3</span></div><div class="ill"></div><div class="rt">Set a security policy</div><div class="rp">Require MFA or SSO and restrict sign-in by IP.</div><div class="ra"><a class="mute" href="#">Preview</a></div></div>
+        <div class="rcard"><div class="rh"><span class="stepn">3</span></div><div class="ill"></div><div class="rt">Set a security policy</div><div class="rp">Require MFA or SSO and restrict sign-in by IP.</div><div class="ra"><button class="tbtn">Preview</button></div></div>
       </div>
       </div>
     </div>

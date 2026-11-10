@@ -169,7 +169,17 @@
   .sum .trail .glink { font-size: 13px; }
   .sum .trail .x { color: var(--gl-ink-soft); font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
   .sum .sbody { min-width: 0; }
-  .sum .sfoot { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; line-height: 20px; color: var(--gl-ink); }
+  /* Links navigate to a page; buttons act in place. */
+  .sum .tbtn { appearance: none; border: 0; background: transparent; border-radius: 16px; padding: 6px 12px; font: 600 13px/1.3 inherit; font-family: inherit; color: var(--gl-heading); cursor: pointer; white-space: nowrap; }
+  .sum .tbtn:hover { background: rgba(0,0,0,0.06); }
+  .sum .tbtn.quiet { color: var(--gl-ink-soft); font-weight: 500; }
+  .sum .tbtn.quiet:hover { color: var(--gl-heading); }
+  .sum .trail .tbtn { margin-right: -12px; }
+  .sum .kebab, .sum .xb { appearance: none; border: 0; background: transparent; cursor: pointer; font-family: inherit; }
+  .sum .sfoot { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 14px; line-height: 20px; color: var(--gl-ink); }
+  .sum .sfoot .fb { display: inline-flex; align-items: center; gap: 2px; }
+  .sum .sfoot .fb .tbtn:first-of-type { margin-left: 4px; }
+  .sum .sfoot .fb .tbtn:last-of-type { margin-right: -12px; }
   .sum .sfoot a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; }
   .ctog { display: inline-flex; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: 16px; margin-bottom: 16px; }
   .ctog button { appearance: none; border: 0; background: none; border-radius: 12px; padding: 3px 10px; font: 600 12px/1.4 inherit; font-family: inherit; color: var(--gl-ink-soft); cursor: pointer; }
@@ -197,7 +207,9 @@
   .rcard .rh { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
   .rcard .rt { font-size: 14px; font-weight: 600; color: var(--gl-heading); margin-top: 6px; }
   .rcard .rp { font-size: 13px; color: var(--gl-ink); line-height: 1.5; flex: 1; }
-  .rcard .ra { display: flex; gap: 16px; align-items: center; margin-top: 8px; font-size: 13px; }
+  .rcard .ra { display: flex; gap: 8px; align-items: center; margin-top: 8px; margin-left: -12px; font-size: 13px; }
+  .rcard .ra .glink { margin-left: 12px; }
+  .rcard .ra .glink + .tbtn { margin-left: 0; }
   .rcard .ra .mute { color: var(--gl-ink-soft); text-decoration: none; }
   .rcard .xb { color: var(--gl-ink-soft); font-size: 14px; line-height: 1; }
   /* S4 banner */

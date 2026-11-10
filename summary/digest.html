@@ -25,7 +25,7 @@
     <tr><td>1 · Content header</td><td>Leading and Trailing side by side, vertically centred, gap 12. Always present.</td><td>row · gap 12 · align center</td></tr>
     <tr><td>1a · Leading: heading</td><td>H2 by default. Names the <b>job</b> ("Needs attention", "Coming up"), never the shape ("Summary", "Insights" aside). Optional count pill after the heading.</td><td>Heading 24/32 <code>--gl-heading</code> · count pill 24h, 0 8, r12, <code>--grey-bg</code>, 13/600 · wrapper padding 2 0</td></tr>
     <tr><td>1b · Leading: subtitle</td><td>Optional. One line under the heading: what was checked, the population, and when. Middot separators.</td><td>14/20 <code>--gl-ink</code> · gap 2 under heading</td></tr>
-    <tr><td>1c · Trailing</td><td>Actions for the whole section, at most two text links. The right-most is the section-level action ("Hide", "View all", "Show dismissed (n)"). Never an X on the section when any item is critical.</td><td>slot 36×36 min · link 13/600 <code>--gl-green-dark</code> · "Hide" <code>--gl-ink-soft</code> 13/400 · gap 16</td></tr>
+    <tr><td>1c · Trailing</td><td>Actions for the whole section, at most two. A <b>link</b> when it takes you to a page ("View all"); a <b>button</b> when it acts on the section in place ("Hide", "Regenerate", "Show dismissed (n)"). Never an X on the section when any item is critical.</td><td>slot 36×36 min · link 13/600 <code>--gl-green-dark</code> · button 13/600 <code>--gl-heading</code>, 6 12, r16 · quiet button <code>--gl-ink-soft</code> 13/500 · gap 16</td></tr>
     <tr><td>2 · Body</td><td>The only region that changes per variant: sentences, rows, or cards.</td><td>Body text 14/400 <code>--gl-ink</code> · lead 14/600 <code>--gl-heading</code> · reason 12.5 <code>--gl-ink-soft</code> · link 13/600 <code>--gl-green-dark</code></td></tr>
     <tr><td>3 · Footer (optional)</td><td>Source or comparison point left, feedback or "View all" right. Digests use it; lists and cards rarely do.</td><td>14/20 <code>--gl-ink</code> · no hairline</td></tr>
     <tr><td>Region gap</td><td>Header, Body and Footer stack in one column.</td><td>gap 24 between regions · frame width 800 (min 640) · section gap 32 on the page</td></tr>
@@ -39,7 +39,7 @@
     <div class="exframe" data-w="800 × hug">
     <div class="ctog"><button class="on" data-c="1">Contained</button><button class="" data-c="0">Uncontained</button></div>
     <div class="sum contained">
-      <div class="shead"><div class="lead"><h2 class="stitle">Summary</h2><div class="sscope">As of today · 15 workspaces, 1,240 devices</div></div><div class="trail"><a class="x" href="#">Hide</a></div></div>
+      <div class="shead"><div class="lead"><h2 class="stitle">Summary</h2><div class="sscope">As of today · 15 workspaces, 1,240 devices</div></div><div class="trail"><button class="tbtn quiet">Hide</button></div></div>
       <div class="sbody">
       <div class="digest">
         <div class="dl"><span class="dot" style="background:var(--ok)"></span><span><b>All 15 workspaces</b> are active and <b>1,198 of 1,240 devices</b> reported in the last 24 hours.</span><span></span></div>
@@ -51,7 +51,7 @@
     </div>
     <div class="spec stabs">
       <div class="tabbar"><button class="tab on" data-t="0">Job</button><button class="tab" data-t="1">Anatomy</button><button class="tab" data-t="2">Content rules</button><button class="tab" data-t="3">States</button><button class="tab" data-t="4">Dismissal</button><button class="tab" data-t="5">Figma</button></div>
-      <div class="pane on" data-t="0"><p class="job"><b>Job:</b> <span class="q">"Tell me how things stand right now."</span> Three or four lines that say what is fine and what is not, so the reader can decide whether to read the rest of the page.</p><dl class="use"><dt>Use when</dt><dd>Someone lands on an overview after a gap and needs the state of play before the widgets. Mixed news: some good, some not.</dd><dt>Not when</dt><dd>Something is on fire. A critical finding wants a pill and a row (S2), not a sentence between two calm ones.</dd></dl></div><div class="pane" data-t="1"><ol><li>Content header: heading "Summary", subtitle "As of today · population"</li><li>Trailing action: "Hide" (soft text, collapses to the header row)</li><li>Line: status dot 10px · sentence with bold subject · optional link right-aligned</li><li>Three to four lines, 10px apart, Footer not used</li></ol></div><div class="pane" data-t="2"><ul><li>Order lines in status order: critical, warning, ok, unknown; never more than one ok line</li><li>Subject first, in bold, with the figure in it ("All 15 workspaces", "42 devices")</li><li>A link only where there is a page to go to; good news gets none</li><li>One fact per line; no semicolons joining two findings</li><li>Say "All" when a count is the whole population</li></ul></div><div class="pane" data-t="3"><ul><li>Default: 3 to 4 lines</li><li>Minimum: 1 line (still worth showing if it is amber or red; drop the section if the only line is ok)</li><li>Maximum: 4. More than four facts is a findings list, not a digest</li><li>Hidden: header row only, with "Show" where "Hide" was</li></ul></div><div class="pane" data-t="4"><ul><li>Not dismissible. "Hide" collapses to the header and persists per user</li><li>Lines leave when the condition clears</li></ul></div><div class="pane" data-t="5"><ul><li>Frame 800 wide, hug height; line grid <code>10px | 1fr | auto</code>, gap 12</li><li>Dot vertically aligned to the first text baseline (top 1px)</li><li>Component props: lines (1–4), each with status, text, link?</li></ul></div>
+      <div class="pane on" data-t="0"><p class="job"><b>Job:</b> <span class="q">"Tell me how things stand right now."</span> Three or four lines that say what is fine and what is not, so the reader can decide whether to read the rest of the page.</p><dl class="use"><dt>Use when</dt><dd>Someone lands on an overview after a gap and needs the state of play before the widgets. Mixed news: some good, some not.</dd><dt>Not when</dt><dd>Something is on fire. A critical finding wants a pill and a row (S2), not a sentence between two calm ones.</dd></dl></div><div class="pane" data-t="1"><ol><li>Content header: heading "Summary", subtitle "As of today · population"</li><li>Trailing action: "Hide" (quiet button, collapses to the header row)</li><li>Line: status dot 10px · sentence with bold subject · optional link right-aligned</li><li>Three to four lines, 10px apart, Footer not used</li></ol></div><div class="pane" data-t="2"><ul><li>Order lines in status order: critical, warning, ok, unknown; never more than one ok line</li><li>Subject first, in bold, with the figure in it ("All 15 workspaces", "42 devices")</li><li>A link only where there is a page to go to; good news gets none</li><li>One fact per line; no semicolons joining two findings</li><li>Say "All" when a count is the whole population</li></ul></div><div class="pane" data-t="3"><ul><li>Default: 3 to 4 lines</li><li>Minimum: 1 line (still worth showing if it is amber or red; drop the section if the only line is ok)</li><li>Maximum: 4. More than four facts is a findings list, not a digest</li><li>Hidden: header row only, with "Show" where "Hide" was</li></ul></div><div class="pane" data-t="4"><ul><li>Not dismissible. "Hide" collapses to the header and persists per user</li><li>Lines leave when the condition clears</li></ul></div><div class="pane" data-t="5"><ul><li>Frame 800 wide, hug height; line grid <code>10px | 1fr | auto</code>, gap 12</li><li>Dot vertically aligned to the first text baseline (top 1px)</li><li>Component props: lines (1–4), each with status, text, link?</li></ul></div>
     </div>
   </div>
   <div class="variant" id="s1b">
@@ -59,7 +59,7 @@
     <div class="exframe" data-w="800 × hug">
     <div class="ctog"><button class="" data-c="1">Contained</button><button class="on" data-c="0">Uncontained</button></div>
     <div class="sum">
-      <div class="shead"><div class="lead"><h2 class="stitle">Since you last signed in</h2><div class="sscope">12 days ago · 15 workspaces</div></div><div class="trail"><a class="x" href="#">Hide</a></div></div>
+      <div class="shead"><div class="lead"><h2 class="stitle">Since you last signed in</h2><div class="sscope">12 days ago · 15 workspaces</div></div><div class="trail"><button class="tbtn quiet">Hide</button></div></div>
       <div class="sbody">
       <div class="digest">
         <div class="dl nod"><span><svg class="ti-up" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg><b>18 devices</b> were added, all in Optima Bank.</span></div>
@@ -81,7 +81,7 @@
     <div class="exframe" data-w="800 × hug">
     <div class="ctog"><button class="on" data-c="1">Contained</button><button class="" data-c="0">Uncontained</button></div>
     <div class="sum contained">
-      <div class="shead"><div class="lead"><h2 class="stitle">Insights <span class="beta">Beta</span></h2><div class="sscope">Generated 2 minutes ago from the last 30 days</div></div><div class="trail"><a class="glink" href="#">Regenerate</a></div></div>
+      <div class="shead"><div class="lead"><h2 class="stitle">Insights <span class="beta">Beta</span></h2><div class="sscope">Generated 2 minutes ago from the last 30 days</div></div><div class="trail"><button class="tbtn">Regenerate</button></div></div>
       <div class="sbody">
       <div class="digest">
         <div class="dl nod"><span>Device onboarding is running at <b>about 40 a week</b>, double the rate in September. Most of the new devices are in two workspaces, Optima Bank and Alpha Bank, which together now hold <b>61% of the estate</b>.</span></div>
@@ -89,7 +89,7 @@
       </div>
       <div class="sprompt"><span>Why did onboarding speed up?</span><span>Which workspaces are under-licensed?</span><span>Compare with last quarter</span></div>
       </div>
-      <div class="sfoot"><span>Generated from usage and subscription data. Check figures before acting on them.</span><span>Was this useful? <a href="#">Yes</a> · <a href="#">No</a></span></div>
+      <div class="sfoot"><span>Generated from usage and subscription data. Check figures before acting on them.</span><span class="fb">Was this useful? <button class="tbtn">Yes</button><button class="tbtn">No</button></span></div>
     </div>
     </div>
     <div class="spec stabs">

@@ -25,7 +25,7 @@
     <tr><td>1 · Content header</td><td>Leading and Trailing side by side, vertically centred, gap 12. Always present.</td><td>row · gap 12 · align center</td></tr>
     <tr><td>1a · Leading: heading</td><td>H2 by default. Names the <b>job</b> ("Needs attention", "Coming up"), never the shape ("Summary", "Insights" aside). Optional count pill after the heading.</td><td>Heading 24/32 <code>--gl-heading</code> · count pill 24h, 0 8, r12, <code>--grey-bg</code>, 13/600 · wrapper padding 2 0</td></tr>
     <tr><td>1b · Leading: subtitle</td><td>Optional. One line under the heading: what was checked, the population, and when. Middot separators.</td><td>14/20 <code>--gl-ink</code> · gap 2 under heading</td></tr>
-    <tr><td>1c · Trailing</td><td>Actions for the whole section, at most two text links. The right-most is the section-level action ("Hide", "View all", "Show dismissed (n)"). Never an X on the section when any item is critical.</td><td>slot 36×36 min · link 13/600 <code>--gl-green-dark</code> · "Hide" <code>--gl-ink-soft</code> 13/400 · gap 16</td></tr>
+    <tr><td>1c · Trailing</td><td>Actions for the whole section, at most two. A <b>link</b> when it takes you to a page ("View all"); a <b>button</b> when it acts on the section in place ("Hide", "Regenerate", "Show dismissed (n)"). Never an X on the section when any item is critical.</td><td>slot 36×36 min · link 13/600 <code>--gl-green-dark</code> · button 13/600 <code>--gl-heading</code>, 6 12, r16 · quiet button <code>--gl-ink-soft</code> 13/500 · gap 16</td></tr>
     <tr><td>2 · Body</td><td>The only region that changes per variant: sentences, rows, or cards.</td><td>Body text 14/400 <code>--gl-ink</code> · lead 14/600 <code>--gl-heading</code> · reason 12.5 <code>--gl-ink-soft</code> · link 13/600 <code>--gl-green-dark</code></td></tr>
     <tr><td>3 · Footer (optional)</td><td>Source or comparison point left, feedback or "View all" right. Digests use it; lists and cards rarely do.</td><td>14/20 <code>--gl-ink</code> · no hairline</td></tr>
     <tr><td>Region gap</td><td>Header, Body and Footer stack in one column.</td><td>gap 24 between regions · frame width 800 (min 640) · section gap 32 on the page</td></tr>
@@ -38,7 +38,7 @@
     <tr><th>Column</th><th>Spec</th><th>Value</th></tr>
     <tr><td>1 · Marker</td><td>Pill (severity or countdown) or tick circle. Fixed width so leads align across rows.</td><td>Pill column 84 (severity) / 96 (countdown) · tick 20 r10</td></tr>
     <tr><td>2 · Lead + reason</td><td>Bold lead, 14/600, with the count in it. Reason below, 12.5 soft, one line, no full stop.</td><td><code>1fr</code> · reason margin-top 1</td></tr>
-    <tr><td>3 · Action</td><td>One text link, verb-first, same column on every row. Empty when there is nowhere to go.</td><td>13/600 <code>--gl-green-dark</code>, nowrap</td></tr>
+    <tr><td>3 · Action</td><td>One action, verb-first, same column on every row. A link when it goes to a page, a button when it acts in place (Assign, Resend). Empty when there is nothing to do.</td><td>link 13/600 <code>--gl-green-dark</code> · button 13/600 <code>--gl-heading</code> · nowrap</td></tr>
     <tr><td>4 · Overflow</td><td>Kebab for per-row dismiss and snooze. Absent on critical rows and on completed rows.</td><td>24 × 24 hit area</td></tr>
     <tr><td>Row</td><td>Hairline above each row and below the last; 12px vertical padding; 16px column gap.</td><td>grid <code>84px 1fr auto auto</code> · <code>--line</code></td></tr>
   </table>
@@ -50,13 +50,13 @@
     <div class="exframe" data-w="800 × hug">
     <div class="ctog"><button class="" data-c="1">Contained</button><button class="on" data-c="0">Uncontained</button></div>
     <div class="sum">
-      <div class="shead"><div class="lead"><h2 class="stitle">Needs attention <span class="cnt">4</span></h2><div class="sscope">Checked 5 minutes ago · 15 workspaces</div></div><div class="trail"><a class="glink" href="#">Show dismissed (2)</a></div></div>
+      <div class="shead"><div class="lead"><h2 class="stitle">Needs attention <span class="cnt">4</span></h2><div class="sscope">Checked 5 minutes ago · 15 workspaces</div></div><div class="trail"><button class="tbtn quiet">Show dismissed (2)</button></div></div>
       <div class="sbody">
       <div class="findings">
         <div class="fr"><span class="pillx" style="background:var(--red-bg)">Critical</span><span><span class="ft">Security gaps in all 15 workspaces</span><span class="fs">MFA, SSO or an IP allow list is not enforced</span></span><a class="glink" href="#">Review security</a><span></span></div>
         <div class="fr"><span class="pillx" style="background:var(--red-bg)">Critical</span><span><span class="ft">2 subscriptions expired</span><span class="fs">Compute Ops Management on Alpha Bank and Edge-North-Fleet</span></span><a class="glink" href="#">Renew</a><span></span></div>
-        <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">42 devices silent for more than 7 days</span><span class="fs">Mostly in Edge-North-Fleet</span></span><a class="glink" href="#">View devices</a><span class="kebab">···</span></div>
-        <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">3 users have not signed in for 90 days</span><span class="fs">All hold administrator roles</span></span><a class="glink" href="#">Review users</a><span class="kebab">···</span></div>
+        <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">42 devices silent for more than 7 days</span><span class="fs">Mostly in Edge-North-Fleet</span></span><a class="glink" href="#">View devices</a><button class="kebab" aria-label="More">···</button></div>
+        <div class="fr"><span class="pillx" style="background:var(--amber-bg)">Warning</span><span><span class="ft">3 users have not signed in for 90 days</span><span class="fs">All hold administrator roles</span></span><a class="glink" href="#">Review users</a><button class="kebab" aria-label="More">···</button></div>
       </div>
       </div>
     </div>
@@ -75,9 +75,9 @@
       <div class="sbody">
       <div class="findings">
         <div class="fr dt"><span class="pillx" style="background:var(--red-bg)">In 6 days</span><span><span class="ft">Compute Ops Management expires on Alpha Bank</span><span class="fs">240 devices covered · auto-renew off</span></span><a class="glink" href="#">Renew</a><span></span></div>
-        <div class="fr dt"><span class="pillx" style="background:var(--amber-bg)">In 23 days</span><span><span class="ft">Evaluation ends for 3 workspaces</span><span class="fs">Optima Bank, Northline, Harbour Trust</span></span><a class="glink" href="#">Choose a plan</a><span class="kebab">···</span></div>
-        <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">In 61 days</span><span><span class="ft">TLS certificate expires on the console</span><span class="fs">console.greenlake.example</span></span><a class="glink" href="#">Replace</a><span class="kebab">···</span></div>
-        <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">In 88 days</span><span><span class="ft">Support contract renews for Edge-North-Fleet</span><span class="fs">Auto-renew on; no action needed</span></span><span></span><span class="kebab">···</span></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--amber-bg)">In 23 days</span><span><span class="ft">Evaluation ends for 3 workspaces</span><span class="fs">Optima Bank, Northline, Harbour Trust</span></span><a class="glink" href="#">Choose a plan</a><button class="kebab" aria-label="More">···</button></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">In 61 days</span><span><span class="ft">TLS certificate expires on the console</span><span class="fs">console.greenlake.example</span></span><a class="glink" href="#">Replace</a><button class="kebab" aria-label="More">···</button></div>
+        <div class="fr dt"><span class="pillx" style="background:var(--grey-bg)">In 88 days</span><span><span class="ft">Support contract renews for Edge-North-Fleet</span><span class="fs">Auto-renew on; no action needed</span></span><span></span><button class="kebab" aria-label="More">···</button></div>
       </div>
       </div>
     </div>
@@ -92,13 +92,13 @@
     <div class="exframe" data-w="800 × hug">
     <div class="ctog"><button class="" data-c="1">Contained</button><button class="on" data-c="0">Uncontained</button></div>
     <div class="sum">
-      <div class="shead"><div class="lead"><h2 class="stitle">Set up this account <span class="cnt">3 of 5</span></h2><div class="sscope">Done when every workspace has a subscription and a security policy</div></div><div class="trail"><a class="glink" href="#">Skip setup</a></div></div>
+      <div class="shead"><div class="lead"><h2 class="stitle">Set up this account <span class="cnt">3 of 5</span></h2><div class="sscope">Done when every workspace has a subscription and a security policy</div></div><div class="trail"><button class="tbtn quiet">Skip setup</button></div></div>
       <div class="sbody">
       <div class="findings">
         <div class="fr chk done"><span class="tick">✓</span><span><span class="ft">Create workspaces</span><span class="fs">15 created</span></span><span></span><span></span></div>
         <div class="fr chk done"><span class="tick">✓</span><span><span class="ft">Add devices</span><span class="fs">1,240 added</span></span><span></span><span></span></div>
-        <div class="fr chk done"><span class="tick">✓</span><span><span class="ft">Invite administrators</span><span class="fs">9 invited, 7 accepted</span></span><a class="glink" href="#">Resend</a><span></span></div>
-        <div class="fr chk"><span class="tick todo">✓</span><span><span class="ft">Assign subscriptions</span><span class="fs">9 of 15 workspaces have none</span></span><a class="glink" href="#">Assign</a><span></span></div>
+        <div class="fr chk done"><span class="tick">✓</span><span><span class="ft">Invite administrators</span><span class="fs">9 invited, 7 accepted</span></span><button class="tbtn">Resend</button><span></span></div>
+        <div class="fr chk"><span class="tick todo">✓</span><span><span class="ft">Assign subscriptions</span><span class="fs">9 of 15 workspaces have none</span></span><button class="tbtn">Assign</button><span></span></div>
         <div class="fr chk"><span class="tick todo">✓</span><span><span class="ft">Enforce a security policy</span><span class="fs">0 of 15 workspaces enforce MFA or SSO</span></span><a class="glink" href="#">Set policy</a><span></span></div>
       </div>
       </div>
