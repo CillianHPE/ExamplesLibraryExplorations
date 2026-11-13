@@ -246,7 +246,7 @@
     hdr.className = 'libnav-hdr';
     hdr.innerHTML = `
       <button class="libnav-burger" aria-label="Open library navigation"><span></span><span></span><span></span></button>
-      <a href="/index.html" aria-label="Home"><img src="/greenlake-logo.svg" alt="HPE"></a>
+      <a href="/" aria-label="Home"><img src="/greenlake-logo.svg" alt="HPE"></a>
       <div class="libnav-ws">Examples library</div>`;
     document.body.insertBefore(hdr, document.body.firstChild);
     trigger = hdr.querySelector('.libnav-burger');
