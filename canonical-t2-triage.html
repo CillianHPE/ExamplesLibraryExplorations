@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T2 · Triage · Canonical layout</title>
+<link rel="stylesheet" href="lofi-shared.css">
+<link rel="stylesheet" href="canonical.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="hicon"></div>
+  <div class="logo">greenlake</div>
+  <div class="workspace">North America IT Ops ▾</div>
+  <div class="search">Search</div>
+  <div class="header-icons"><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon"></div><div class="ricon active"></div><div class="ricon"></div>
+    <div class="ricon"></div><div class="ricon"></div><div class="ricon"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>T2 · Triage / Work queue</h1>
+      <button class="btn">Filters ▾</button>
+    </div>
+
+    <div class="tpl-purpose">
+      <b>Job of the page:</b> get a queue of items to zero. The table IS the page; everything else supports it.
+      <b>Use for:</b> Alerts, approvals, expiring subscriptions, tasks, incidents.
+      <b>Secondary rail:</b> yes: context that helps you act (SLAs, runbooks, quick actions). No learn/marketing content here.
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- A: summary banner -->
+        <section class="section">
+          <div class="region contained h-sm">
+            <div class="r-head">
+              <div class="r-code">A</div><div class="r-name">Attention banner</div>
+              <div class="r-tag">Contained · single strip</div>
+            </div>
+            <div class="r-purpose">"N items need attention": the queue's headline, with severity split.</div>
+            <div class="r-rules">Rules: one line + one CTA · doubles as the empty state ("Queue clear ✓") when N = 0.</div>
+          </div>
+        </section>
+
+        <div class="gap-note">— 32px section gap —</div>
+
+        <!-- B: filter row + C: queue table -->
+        <section class="section">
+          <div style="display:flex; flex-direction:column; gap: var(--gap-container);">
+            <div class="region uncontained h-sm">
+              <div class="r-head">
+                <div class="r-code">B</div><div class="r-name">Filter / scope bar</div>
+                <div class="r-tag">Uncontained · toolbar</div>
+              </div>
+              <div class="r-contains">Contains: severity, type, time-range, assignee filters + bulk actions. 16px above the table.</div>
+            </div>
+            <div class="region uncontained h-xl">
+              <div class="r-head">
+                <div class="r-code">C</div><div class="r-name">Queue table</div>
+                <div class="r-tag">Uncontained · full width · the page</div>
+              </div>
+              <div class="r-purpose">Every row = one decision. Sorted by severity, then age.</div>
+              <div class="r-contains">Contains: severity, item, scope, age, inline action per row. Checkbox column for bulk ops.</div>
+              <div class="r-rules">Rules: no grey container, full-width on the body · pagination over scroll beyond ~25 rows · row click opens T4 (detail).</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="gap-note">— 32px section gap —</div>
+
+        <!-- D: supporting summaries -->
+        <section class="section">
+          <div class="grid-3">
+            <div class="region contained h-md">
+              <div class="r-head"><div class="r-code">D</div><div class="r-name">Trend card</div><div class="r-tag">Contained</div></div>
+              <div class="r-purpose">Queue volume over time: are we winning?</div>
+            </div>
+            <div class="region contained h-md">
+              <div class="r-head"><div class="r-code">D</div><div class="r-name">Breakdown card</div><div class="r-tag">Contained</div></div>
+              <div class="r-purpose">By category / source: where is it coming from?</div>
+            </div>
+            <div class="region contained h-md">
+              <div class="r-head"><div class="r-code">D</div><div class="r-name">Aging card</div><div class="r-tag">Contained</div></div>
+              <div class="r-purpose">Oldest unresolved: what's rotting?</div>
+              <div class="r-rules">Rules: max 3 cards · below the queue, never above it.</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="region contained h-md">
+          <div class="r-head"><div class="r-code">E</div><div class="r-name">SLA / targets</div><div class="r-tag">Contained</div></div>
+          <div class="r-purpose">Response-time targets vs actual.</div>
+        </div>
+        <div class="region contained h-md">
+          <div class="r-head"><div class="r-code">F</div><div class="r-name">Runbooks / help</div><div class="r-tag">Contained</div></div>
+          <div class="r-purpose">Links to procedures for common item types.</div>
+        </div>
+        <div class="region uncontained h-md">
+          <div class="r-head"><div class="r-code">G</div><div class="r-name">Quick actions</div><div class="r-tag">Uncontained links</div></div>
+          <div class="r-contains">Create rule, mute source, escalate…</div>
+          <div class="r-rules">64px from primary. Everything here must serve the queue.</div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

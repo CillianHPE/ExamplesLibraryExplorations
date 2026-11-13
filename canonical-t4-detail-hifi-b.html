@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T4 · Object detail · Var B · Storage array</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon active" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+
+    <!-- Object header -->
+    <section style="margin-bottom: var(--gap-section);">
+      <div class="crumb"><a href="#">Storage</a> › <a href="#">Arrays</a> › DSCC-Resource-051</div>
+      <div class="obj-head">
+        <h1>Storage array · DSCC-Resource-051</h1>
+        <span class="pill green">● Healthy</span>
+        <div class="obj-actions">
+          <button class="btn primary">Create volume</button>
+          <button class="btn secondary">Run health check</button>
+          <button class="btn icon secondary">···</button>
+        </div>
+      </div>
+      <div class="tabs">
+        <span class="tab on">Overview</span>
+        <span class="tab">Volumes</span>
+        <span class="tab">Performance</span>
+        <span class="tab">Data protection</span>
+        <span class="tab">Settings</span>
+      </div>
+    </section>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Vitals -->
+        <section class="grid-4">
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Capacity used</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">68%</div>
+            <div class="meter"><i style="width:68%"></i></div>
+            <div class="fine" style="margin-top:8px;">1.42 PB of 2.1 PB effective</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">IOPS</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">842K</div>
+            <div class="meter"><i style="width:61%"></i></div>
+            <div class="fine" style="margin-top:8px;">Peak 1.18M at 09:45 SGT</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Latency</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">0.72 ms</div>
+            <div class="meter"><i style="width:24%"></i></div>
+            <div class="fine" style="margin-top:8px;">SLO target under 2 ms</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Data reduction</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">4.6:1</div>
+            <div class="meter"><i style="width:77%"></i></div>
+            <div class="fine" style="margin-top:8px;">Compression + dedupe</div>
+          </div>
+        </section>
+
+        <!-- Activity chart -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Throughput · last 24 hours</h2>
+          <div class="chart-wrap">
+            <svg viewBox="0 0 900 200">
+              <g stroke="#eceff0" stroke-width="1">
+                <line x1="0" y1="40" x2="900" y2="40"/><line x1="0" y1="90" x2="900" y2="90"/><line x1="0" y1="140" x2="900" y2="140"/>
+              </g>
+              <polygon points="0,142 75,132 150,118 225,106 300,88 375,94 450,76 525,82 600,64 675,70 750,86 825,78 900,72 900,200 0,200" fill="rgba(1,169,130,0.08)"/>
+              <polyline points="0,142 75,132 150,118 225,106 300,88 375,94 450,76 525,82 600,64 675,70 750,86 825,78 900,72"
+                fill="none" stroke="var(--c-green)" stroke-width="2.5" stroke-linecap="round"/>
+              <polyline points="0,156 75,150 150,136 225,128 300,116 375,120 450,104 525,110 600,92 675,98 750,112 825,106 900,96"
+                fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+              <text x="0" y="196" font-size="11" fill="#8fa0a8">00:00</text>
+              <text x="430" y="196" font-size="11" fill="#8fa0a8">12:00</text>
+              <text x="862" y="196" font-size="11" fill="#8fa0a8">Now</text>
+            </svg>
+          </div>
+          <div class="chart-legend">
+            <span class="lg"><span class="sw" style="background:var(--c-green)"></span>Read throughput</span>
+            <span class="lg"><span class="sw" style="background:var(--c-blue)"></span>Write throughput</span>
+          </div>
+        </section>
+
+        <!-- Related volumes -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Volumes on this array</h2>
+          <table>
+            <thead>
+              <tr><th>Volume</th><th>Host group</th><th class="num">Size</th><th class="num">Used %</th><th class="num">IOPS</th><th>Protection</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="tlink">Block-Resource-033</span></td><td>COM-Cluster-EU-North-01</td><td class="num">48 TB</td><td class="num">84%</td><td class="num">76K</td><td><span class="pill amber">Snapshot due</span></td></tr>
+              <tr><td><span class="tlink">Block-Resource-032</span></td><td>COM-Cluster-Prod-A</td><td class="num">96 TB</td><td class="num">62%</td><td class="num">142K</td><td><span class="pill green">Replicated</span></td></tr>
+              <tr><td><span class="tlink">Block-Resource-031</span></td><td>COM-Cluster-US-Central-01</td><td class="num">32 TB</td><td class="num">57%</td><td class="num">91K</td><td><span class="pill green">Protected</span></td></tr>
+              <tr><td><span class="tlink">DSCC-Resource-053</span></td><td>COM-Cluster-EU-Central-01</td><td class="num">128 TB</td><td class="num">66%</td><td class="num">143K</td><td><span class="pill green">Replicated</span></td></tr>
+              <tr><td><span class="tlink">DSCC-Resource-052</span></td><td>COM-Cluster-Analytics-B</td><td class="num">36 TB</td><td class="num">49%</td><td class="num">64K</td><td><span class="pill grey">Local only</span></td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Key facts</h3>
+          <div class="kv"><span class="k">Type</span><span class="v">Storage array</span></div>
+          <div class="kv"><span class="k">Resource ID</span><span class="v">DSCC-Resource-051 ⧉</span></div>
+          <div class="kv"><span class="k">Service</span><span class="v">Data Services Cloud Console</span></div>
+          <div class="kv"><span class="k">Location</span><span class="v">Singapore DC · 1 Raffles Place</span></div>
+          <div class="kv"><span class="k">Subscription</span><span class="v"><span class="tlink" style="font-size:13px;">Data Services</span></span></div>
+          <div class="kv"><span class="k">Owner</span><span class="v"><span class="tlink" style="font-size:13px;">Sophie Anderson</span></span></div>
+          <div class="kv"><span class="k">Scope</span><span class="v">Prod</span></div>
+          <div class="kv"><span class="k">Workspace</span><span class="v">Democomp-Global-Ops</span></div>
+          <div class="kv"><span class="k">Tags</span><span class="v"><span class="pill grey">region:asia-pacific</span> <span class="pill grey">facility-type:datacenter</span></span></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Related</h3>
+          <div class="learn-item"><div class="lt">Volume performance report →</div><div class="ls">Review hottest volumes and host groups for the last 30 days.</div></div>
+          <div class="learn-item"><div class="lt">Protection policies →</div><div class="ls">Storage-Gold-Admins and Storage-Archive-Readers scopes apply.</div></div>
+          <div class="learn-item"><div class="lt">Open a storage support case ↗</div><div class="ls">DSCC-Resource-051 telemetry and Singapore DC location are attached automatically.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

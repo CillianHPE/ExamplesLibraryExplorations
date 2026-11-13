@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T3 · Analytics · Canonical layout</title>
+<link rel="stylesheet" href="lofi-shared.css">
+<link rel="stylesheet" href="canonical.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="hicon"></div>
+  <div class="logo">greenlake</div>
+  <div class="workspace">North America IT Ops ▾</div>
+  <div class="search">Search</div>
+  <div class="header-icons"><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon"></div><div class="ricon"></div><div class="ricon active"></div>
+    <div class="ricon"></div><div class="ricon"></div><div class="ricon"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>T3 · Analytics / Report</h1>
+      <button class="btn">Export ▾</button>
+    </div>
+
+    <div class="tpl-purpose">
+      <b>Job of the page:</b> answer "how are we trending, and why?" One question per page, told top-down:
+      headline → trend → breakdown → evidence.
+      <b>Use for:</b> Cost analysis, sustainability, utilization, capacity reports.
+      <b>Secondary rail:</b> none: data gets the full width. Insights live inline, not in a rail.
+    </div>
+
+    <!-- Single column: no secondary rail on analytics -->
+    <div class="primary">
+
+      <!-- A: scope bar -->
+      <section class="section">
+        <div class="region uncontained h-sm">
+          <div class="r-head">
+            <div class="r-code">A</div><div class="r-name">Scope bar</div>
+            <div class="r-tag">Uncontained · toolbar · sticky</div>
+          </div>
+          <div class="r-contains">Contains: time range, group-by, compare-to, filters. Governs every region below.</div>
+          <div class="r-rules">Rules: one scope for the whole page, no per-chart time pickers.</div>
+        </div>
+      </section>
+
+      <div class="gap-note">— 32px section gap —</div>
+
+      <!-- B: headline numbers -->
+      <section class="section">
+        <div class="region uncontained h-md">
+          <div class="r-head">
+            <div class="r-code">B</div><div class="r-name">Headline metrics</div>
+            <div class="r-tag">Uncontained · hairline dividers</div>
+          </div>
+          <div class="r-purpose">The answer as numbers: total, delta vs previous period, forecast.</div>
+          <div class="r-rules">Rules: 2–4 figures · same strip anatomy as T1's KPI row (value + delta + label).</div>
+        </div>
+      </section>
+
+      <div class="gap-note">— 32px section gap —</div>
+
+      <!-- C: primary chart -->
+      <section class="section">
+        <div class="region uncontained h-xl">
+          <div class="r-head">
+            <div class="r-code">C</div><div class="r-name">Primary trend chart</div>
+            <div class="r-tag">Uncontained · full width · the page</div>
+          </div>
+          <div class="r-purpose">The one chart that answers the page's question over time.</div>
+          <div class="r-contains">Contains: chart + legend + optional annotation markers (events, policy changes).</div>
+          <div class="r-rules">Rules: exactly one hero chart · sits on the body like a table would · min height 320px.</div>
+        </div>
+      </section>
+
+      <div class="gap-note">— 32px section gap —</div>
+
+      <!-- D: breakdown cards -->
+      <section class="section">
+        <div class="grid-2">
+          <div class="region contained h-lg">
+            <div class="r-head"><div class="r-code">D</div><div class="r-name">Breakdown card</div><div class="r-tag">Contained</div></div>
+            <div class="r-purpose">The "why": split by service, region, team, device type…</div>
+            <div class="r-contains">One small chart or ranked list per card.</div>
+          </div>
+          <div class="region contained h-lg">
+            <div class="r-head"><div class="r-code">D</div><div class="r-name">Breakdown card</div><div class="r-tag">Contained</div></div>
+            <div class="r-purpose">2–4 cards, 16px gaps.</div>
+            <div class="r-rules">Rules: each card answers one sub-question · contained because they're supporting evidence, not the headline.</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="gap-note">— 32px section gap —</div>
+
+      <!-- E: detail table -->
+      <section class="section">
+        <div class="region uncontained h-lg">
+          <div class="r-head">
+            <div class="r-code">E</div><div class="r-name">Detail table</div>
+            <div class="r-tag">Uncontained · full width</div>
+          </div>
+          <div class="r-purpose">The receipts: row-level data behind the charts, exportable.</div>
+          <div class="r-rules">Rules: last region on the page · sortable columns mirror the group-by dimension.</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

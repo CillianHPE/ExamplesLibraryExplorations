@@ -1,0 +1,411 @@
+
+===== Overview =====
+HPE GreenLake Sample Data Workbook |  | 
+Purpose |  | 
+This workbook contains sample data for populating HPE GreenLake platform UI mockups in Figma. It provides realistic, interconnected enterprise data representing users, roles, devices, policies, clusters, resources, and activity categories. |  | 
+Use Case |  | 
+Design teams use this data to populate Figma screens with authentic-looking content, ensuring UI mockups reflect real-world enterprise scenarios and data relationships. |  | 
+Sheet Reference |  | 
+Sheet Name | Purpose | Rows
+Users | User accounts with IDs, roles, verification status, and activity timestamps | 20
+User Roles | Role definitions with descriptions for RBAC configuration | 41
+Devices | Edge/IoT device groups organized by region | 12
+Policies | Access policies with scopes and descriptions | 20
+Clusters | Compute clusters with locations and node counts | 17
+Resources | Resources across services (Compute, Aruba, PCE, Storage) | 10
+Categories | Permission and activity categories for logging | 51
+DemoComp Industries — Company Profile |  | 
+Attribute | Details | 
+Company Name | DemoComp Industries | 
+Industry | Global Manufacturing & Logistics | 
+Headquarters | Dublin, Ireland | 
+Employees | 12,500+ across 18 countries | 
+Annual Revenue | €2.8 billion | 
+Founded | 1987 | 
+About DemoComp |  | 
+DemoComp Industries is a leading manufacturer of industrial automation equipment and smart logistics solutions. With production facilities across Europe, North America, and Asia-Pacific, DemoComp serves customers in automotive, aerospace, pharmaceuticals, and consumer goods sectors. The company operates a global supply chain network with over 200 distribution centers and edge computing sites. |  | 
+Why HPE GreenLake |  | 
+DemoComp requires unified infrastructure management across hybrid cloud environments, edge computing sites, and on-premises data centers. HPE GreenLake provides the as-a-service flexibility, centralized management, and consumption-based model that aligns with DemoComp's digital transformation strategy. Key use cases include Compute Ops Management for server fleets, Aruba Central for networking, Private Cloud Enterprise for mission-critical workloads, and edge-to-cloud data services. |  | 
+
+===== Users =====
+name | role | email | ID | Principal ID | Verified | Authorization Source | Joined this Workspace | Last Launched of this Workspace
+Alex Morgan | Admin | alex.morgan@democomp.com | 52349825743h6876t98702345345hh7 | user:52349825743h6876t98702345345hh7 | Yes | local | Mar 24th, 2024 | June 22nd, 2025 2:00 AM
+Amelia Foster | Cloud architect | amelia.foster@democomp.com | 81267394528d1590g34527148306dd5 | user:81267394528d1590g34527148306dd5 | Yes | local | Oct 5th, 2023 | April 5th, 2025 10:15 AM
+Ava Williams | DevOps engineer | ava.williams@democomp.com | 78234598123k9823m76501298734kk2 | user:78234598123k9823m76501298734kk2 | No | local | Jan 15th, 2023 | May 15th, 2025 9:30 AM
+Benjamin Schultz | Service operator | benjamin.schultz@democomp.com | 91283745612j3847n89102837465jj9 | user:91283745612j3847n89102837465jj9 | Unknown | local | Feb 8th, 2024 | April 8th, 2025 4:15 PM
+Casey Turner | Workspace admin | casey.turner@democomp.com | 34928175634l5912p23409817263ll4 | user:34928175634l5912p23409817263ll4 | Yes | local | Nov 3rd, 2022 | March 3rd, 2025 11:45 AM
+Charlotte Nguyen | Read-only user | charlotte.nguyen@democomp.com | 67391824567m7834q56701928374mm8 | user:67391824567m7834q56701928374mm8 | No | local | Apr 12th, 2023 | February 12th, 2025 7:00 PM
+Chloe Robinson | Capacity planner | chloe.robinson@democomp.com | 25601838952l0378o78961526784ll5 | user:25601838952l0378o78961526784ll5 | Unknown | local | Nov 9th, 2023 | February 9th, 2025 2:50 PM
+Daniel Silva | Orders admin | daniel.silva@democomp.com | 12847365921n2945r89012736485nn3 | user:12847365921n2945r89012736485nn3 | Unknown | local | Jul 19th, 2024 | January 19th, 2025 3:20 AM
+Emily Harris | Virtualization specialist | emily.harris@democomp.com | 69045272396j8156m12355910162jj8 | user:69045272396j8156m12355910162jj8 | Yes | local | May 30th, 2023 | July 30th, 2025 4:40 PM
+Emma Johansson | Billing admin | emma.johansson@democomp.com | 45629183745p4156s12309845726pp6 | user:45629183745p4156s12309845726pp6 | Yes | local | Sep 5th, 2023 | December 5th, 2024 8:50 PM
+Ethan Brown | Platform engineer | ethan.brown@democomp.com | 89174562398q6267t45602918374qq1 | user:89174562398q6267t45602918374qq1 | No | local | Dec 28th, 2022 | November 28th, 2024 1:10 PM
+Grace Thompson | Security administrator | grace.thompson@democomp.com | 03489616730h5934k56749394540hh0 | user:03489616730h5934k56749394540hh0 | No | local | Sep 7th, 2023 | October 7th, 2025 6:30 AM
+Harry Lewis | Automation engineer | harry.lewis@democomp.com | 58934171285m1489p01264839095mm9 | user:58934171285m1489p01264839095mm9 | Yes | local | Feb 16th, 2024 | April 16th, 2025 7:25 AM
+Henry Walker | Project manager | henry.walker@democomp.com | 23618945712r8378u78903627184rr5 | user:23618945712r8378u78903627184rr5 | Unknown | local | May 17th, 2024 | October 17th, 2025 6:40 AM
+Isabella Laurent | Compliance officer | isabella.laurent@democomp.com | 56943278165s1489v01204836295ss9 | user:56943278165s1489v01204836295ss9 | Yes | local | Aug 9th, 2023 | September 9th, 2024 10:25 PM
+James Mitchell | Infrastructure analyst | james.mitchell@democomp.com | 14590627841e2601h67830459617ee8 | user:14590627841e2601h67830459617ee8 | No | local | Dec 12th, 2024 | May 12th, 2025 3:45 PM
+Jamie Patel | Data admin | jamie.patel@democomp.com | 80267391548t3590w34507149306tt2 | user:80267391548t3590w34507149306tt2 | No | local | Oct 22nd, 2024 | August 22nd, 2025 5:55 PM
+Liam Oconnor | Security analyst | liam.oconnor@democomp.com | 13590624871u5601x67810452617uu7 | user:13590624871u5601x67810452617uu7 | Unknown | local | Jun 14th, 2023 | July 14th, 2025 12:30 PM
+Lucas Moreau | Developer | lucas.moreau@democomp.com | 46823957104v7712y90113765928vv0 | user:46823957104v7712y90113765928vv0 | Yes | local | Feb 1st, 2024 | June 1st, 2025 2:45 AM
+Maria Gomez | Auditor | maria.gomez@democomp.com | 79156280437w9823z23416078239ww4 | user:79156280437w9823z23416078239ww4 | No | local | Mar 30th, 2023 | May 30th, 2025 9:00 AM
+Mason Clark | Site reliability engineer | mason.clark@democomp.com | 02489613760x0934a56719381540xx8 | user:02489613760x0934a56719381540xx8 | Unknown | local | Jan 7th, 2024 | April 7th, 2025 4:35 PM
+Mia Davis | Support specialist | mia.davis@democomp.com | 35712946093y2045b89012694851yy1 | user:35712946093y2045b89012694851yy1 | Yes | local | Apr 25th, 2023 | March 25th, 2025 11:20 AM
+Noah Becker | Private cloud admin | noah.becker@democomp.com | 68045279326z4156c12315907162zz6 | user:68045279326z4156c12315907162zz6 | No | local | Jul 11th, 2024 | February 11th, 2025 7:50 PM
+Oliver White | Database admin | oliver.white@democomp.com | 36712949063i7045l89052607851ii4 | user:36712949063i7045l89052607851ii4 | Unknown | local | Jan 22nd, 2024 | March 22nd, 2025 11:05 PM
+Olivia Martin | Data engineer | olivia.martin@democomp.com | 91378502659a6267d45618210473aa9 | user:91378502659a6267d45618210473aa9 | Unknown | local | Sep 18th, 2023 | January 18th, 2025 3:05 AM
+Riley Chen | Network viewer | riley.chen@democomp.com | 24601835982b8378e78921523784bb3 | user:24601835982b8378e78921523784bb3 | Yes | local | Nov 29th, 2024 | December 29th, 2024 8:40 PM
+Sofia Rossi | Edge technician | sofia.rossi@democomp.com | 57934168215c0489f01224836095cc7 | user:57934168215c0489f01224836095cc7 | No | local | Aug 2nd, 2023 | November 2nd, 2025 1:15 PM
+Sophie Anderson | Storage administrator | sophie.anderson@democomp.com | 47823960174f3712i90143768928ff2 | user:47823960174f3712i90143768928ff2 | Unknown | local | Mar 18th, 2023 | June 18th, 2025 8:20 AM
+Thomas Jackson | Backup operator | thomas.jackson@democomp.com | 92378505629k9267n45658213473kk1 | user:92378505629k9267n45658213473kk1 | No | local | Aug 14th, 2024 | November 14th, 2025 9:15 AM
+William Taylor | Network engineer | william.taylor@democomp.com | 70156283407g4823j23446081239gg6 | user:70156283407g4823j23446081239gg6 | Yes | local | Jul 25th, 2024 | August 25th, 2025 1:55 PM
+
+===== User Roles =====
+Role | Description
+Administrator | Provides full access to all system settings and administrative functions.
+Administrator (Server administrator role) | Manages server-level settings and infrastructure configurations.
+Aruba Central Administrator Role | Manages Aruba Central network infrastructure, devices, and settings.
+Aruba Central Guest Operator | Manages guest network access and visitor connectivity.
+Aruba Central Operator | Performs day-to-day network operations in Aruba Central.
+Aruba Central view edit role | Views and edits Aruba Central configurations.
+Aruba Central View Only | Views Aruba Central dashboards and reports without making changes.
+Backup and Recovery Administrator | Manages backup schedules, policies, and recovery operations.
+Backup and Recovery Operator | Runs backup and restore tasks without administrative access.
+Central Service User | A service account used for Central platform integrations.
+Central Service User initialised as admin | A service account with administrative capabilities for integrations.
+Data Observability Operator | Monitors data pipelines and tracks observability metrics.
+Data Ops Manager Administrator | Manages data operations, workflows, and automation settings.
+Data Ops Manager Operator | Operates data pipelines without administrative access.
+Disaster Recovery Admin | Manages disaster recovery configurations and failover settings.
+Disaster Recovery Builder | Creates and configures disaster recovery plans and runbooks.
+Disaster Recovery Operator | Runs disaster recovery failover and restore procedures.
+Disaster Recovery User | Participates in disaster recovery tests with limited access.
+Disaster Recovery Viewer | Views disaster recovery status and reports without making changes.
+Netinsight Campus Admin | Manages NetInsight Campus network analytics and settings.
+Netinsight Campus Viewonly | Views NetInsight Campus dashboards without making changes.
+Observer | Views system activity without the ability to make changes.
+Operator | Performs operational tasks with limited administrative access.
+Orders Administrator | Manages order processing, fulfillment, and related workflows.
+Orders Observer | Views order status and history without making changes.
+Order subscriptions | Manages subscription orders and renewals.
+Private Cloud AI Administrator | Manages Private Cloud AI services and settings.
+Private Cloud AI Cloud Administrator | Manages cloud-level settings for AI infrastructure.
+Private Cloud AI User | Uses AI workloads without administrative access.
+Private Cloud Business Edition Administrator | Manages Private Cloud Business Edition environments and settings.
+Private Cloud Business Edition Network Administrator | Manages network settings in Business Edition cloud environments.
+Private Cloud Business Edition Network Operator | Operates network resources in Business Edition environments.
+Private Cloud Business Edition Operator | Performs day-to-day operations in Business Edition cloud environments.
+Read Only | Views platform content without the ability to make changes.
+Storage Fabric Management Administrator | Manages storage fabric and SAN configurations.
+Storage Fabric Management Operator | Operates storage fabric resources without administrative access.
+Workspace Administrator | Manages workspace settings, members, and permissions.
+Workspace Observer | Views workspace activity without making changes.
+Workspace Operator | Manages workspace resources with limited administrative access.
+Aruba Central Administrator | Manages the Aruba Central platform and connected devices.
+Orders Operator | Processes and manages orders without administrative access.
+
+===== Devices =====
+device_group | region | count
+Edge-North-Fleet | Frankfurt, Germany | 45
+Warehouse-IoT-07 | Chicago, Illinois | 120
+Retail-Edge-UK | Manchester, United Kingdom | 36
+DC-Gateway-West | San Jose, California | 22
+Office-IoT-Paris | Paris, France | 58
+Plant-Gateways-Munich | Munich, Germany | 41
+Metro-IoT-NY | New York, New York | 77
+Edge-Site-Dallas | Dallas, Texas | 33
+Port-IoT-Rotterdam | Rotterdam, Netherlands | 26
+Nordic-Edge-Stockholm | Stockholm, Sweden | 29
+Iberia-Edge-Madrid | Madrid, Spain | 31
+Alpine-Edge-Zurich | Zurich, Switzerland | 24
+
+===== Compute devices =====
+Serial_No | Product_ID | tag:name1 | tag:name2 | Location_Name | Device_support_contact
+2XK4521ABC | P55276-B21 | prod | tier1 | Dublin, Ireland | alex.morgan@democomp.com
+2XK4522DEF | P55276-B21 | prod | tier1 | Dublin, Ireland | alex.morgan@democomp.com
+3MJ7834GHI | P28948-B21 | analytics | gpu-enabled | Fort Collins, Colorado | ethan.brown@democomp.com
+3MJ7835JKL | P28948-B21 | analytics | gpu-enabled | Fort Collins, Colorado | ethan.brown@democomp.com
+4NP9123MNO | P43358-B21 | dev |  | London, United Kingdom | ava.williams@democomp.com
+4NP9124PQR | P43358-B21 | dev | sandbox | London, United Kingdom | ava.williams@democomp.com
+5RQ2456STU | P55276-B21 | prod | tier2 | Frankfurt, Germany | casey.turner@democomp.com
+5RQ2457VWX | P55276-B21 | prod | tier2 | Frankfurt, Germany | casey.turner@democomp.com
+6TL8901YZA | P28948-B21 | edge | manufacturing | Munich, Germany | harry.lewis@democomp.com
+6TL8902BCD | P28948-B21 | edge | manufacturing | Munich, Germany | harry.lewis@democomp.com
+7WM3345EFG | P43358-B21 | test | qa-automation | Paris, France | benjamin.schultz@democomp.com
+8XN6678HIJ | P55276-B21 | prod | tier1 | New York, New York | daniel.silva@democomp.com
+8XN6679KLM | P55276-B21 | prod | tier1 | New York, New York | daniel.silva@democomp.com
+9YP1012NOP | P28948-B21 | research | hpc | Zurich, Switzerland | emily.harris@democomp.com
+9YP1013QRS | P28948-B21 | research | hpc | Zurich, Switzerland | emily.harris@democomp.com
+
+===== Policies =====
+policy_name | scope | description
+Finance-Prod-Access | EU-West-Prod-Compute | Restricts visibility to finance production compute resources in EU West. Users can view and manage only items covered by assigned roles.
+Edge-Restricted | Edge-North-Region-Fleet | Limits access to edge device groups in the northern region. Ideal for edge technicians and regional operators.
+Storage-Finance-Tier2 | StoragePool-Finance-Tier2 | Allows access to Tier 2 finance storage pools for reporting and restore operations. Write actions still depend on role permissions.
+Retail-Edge-ViewOnly | UK-South-Edge-Sites | Provides read-only access to retail edge sites in UK South. Useful for audit and monitoring use cases.
+Analytics-Cluster-Access | COM-Cluster-Analytics-B | Grants access to the analytics compute cluster B for investigation and tuning. Non-analytics clusters remain hidden.
+PCI-Workloads-Only | PCE-Namespace-Finance-PCI | Exposes only PCI-scoped PCE namespaces used by finance workloads. Ensures strict segmentation for compliance.
+Dev-Compute-US | US-Central-Dev-Compute | Limits visibility to development compute resources in US Central. Ideal for developer sandboxes and CI systems.
+Backup-Readers | BackupVault-EU-Secure | Allows viewing secure EU backup vaults for restore planning and audits. No write or delete operations are exposed by this policy.
+Manufacturing-IoT-Access | Factory-EU-Edge-Site-05 | Targets a specific factory edge site for manufacturing IoT workloads. Keeps other plants and sites out of view.
+Shared-Services-Access | PCE-Apps-Shared | Provides scoped access to shared PCE application services. Ideal for platform and SRE teams.
+Storage-Gold-Admins | StoragePool-Gold-Tier | Shows the gold-tier storage pool for premium workloads. Use with admin roles to enable lifecycle operations.
+ReadOnly-AllScopes | AllScopes | Read-only visibility across all scopes within the selected service. Perfect for auditors and external reviewers.
+Europe-Only-Compute | EU-Compute-Scopes | Restricts visibility to compute scopes in Europe regions only. US and APAC resources are not listed.
+Reports-Access | Analytics-Reporting-Scope | Allows access to the analytics reporting scope used by BI tools. Prevents access to raw data engineering areas.
+Disaster-Recovery-Operators | DR-Scopes-Europe-US | Exposes cross-region DR scopes spanning Europe and the US. Intended for DR runbooks and failover tests.
+Edge-Maintenance-Window | Edge-Sites-Scheduled | Grants access to edge sites currently in maintenance windows. Limits exposure to active production edges.
+Finance-Read-Only | Finance-Global-Scopes | Read-only access to global finance scopes for audits and stakeholder reviews. No change actions are permitted.
+Storage-Archive-Readers | StoragePool-Archive-* | Allows viewing archive storage pools used for long-term retention. Suitable for compliance and legal holds.
+PCE-Dev-Namespaces | PCE-Namespaces-Dev | Limits access to development namespaces in Private Cloud Enterprise. Keeps production namespaces out of scope.
+Network-Change-Review | Aruba-Change-Review-Scopes | Shows only network scopes pending change review. Designed for CAB reviewers and network auditors.
+
+===== Clusters =====
+cluster_name | location | nodes
+COM-Cluster-Prod-A | Dublin, Ireland | 32
+COM-Cluster-Analytics-B | Fort Collins, Colorado | 18
+COM-Cluster-Edge-UK-01 | London, United Kingdom | 12
+COM-Cluster-Edge-UK-02 | Manchester, United Kingdom | 10
+COM-Cluster-US-East-01 | Ashburn, Virginia | 28
+COM-Cluster-US-East-02 | Atlanta, Georgia | 24
+COM-Cluster-US-West-01 | San Jose, California | 30
+COM-Cluster-US-Central-01 | Dallas, Texas | 22
+COM-Cluster-EU-Central-01 | Frankfurt, Germany | 26
+COM-Cluster-EU-North-01 | Stockholm, Sweden | 16
+COM-Cluster-EU-West-02 | Paris, France | 20
+COM-Cluster-EU-South-01 | Milan, Italy | 14
+COM-Cluster-Analytics-C | Amsterdam, Netherlands | 18
+COM-Cluster-Research-01 | Cambridge, United Kingdom | 12
+COM-Cluster-Prod-B | New York, New York | 34
+COM-Cluster-Prod-C | Chicago, Illinois | 29
+COM-Cluster-HPC-01 | Zurich, Switzerland | 40
+
+===== Resources =====
+resource_name | service | type | workspace | scope | location
+Compute-Resource-001 | Compute Ops Management | Compute cluster | Democomp-Global-Ops | Prod | Dublin, Ireland
+Compute-Resource-002 | Compute Ops Management | Node group | Democomp-FinOps-US | Dev | New York, United States
+Compute-Resource-003 | Compute Ops Management | Server group | Democomp-Retail-EU | Test | Frankfurt, Germany
+Compute-Resource-004 | Compute Ops Management | Compute cluster | Democomp-Edge-West | Analytics | San Jose, United States
+Compute-Resource-005 | Compute Ops Management | Node group | Democomp-Platform-Engineering | Prod | Tokyo, Japan
+Compute-Resource-006 | Compute Ops Management | Server group | Democomp-Global-Ops | Compliance | Singapore, Singapore
+Aruba-Resource-011 | Aruba Central | Device group | Democomp-Global-Ops | Prod | London, United Kingdom
+Aruba-Resource-012 | Aruba Central | Wireless network | Democomp-FinOps-US | Dev | Chicago, United States
+Aruba-Resource-013 | Aruba Central | Switch group | Democomp-Retail-EU | Test | Paris, France
+Aruba-Resource-014 | Aruba Central | Gateway cluster | Democomp-Edge-West | Prod | Sydney, Australia
+Aruba-Resource-015 | Aruba Central | Access point group | Democomp-Platform-Engineering | Prod | Mumbai, India
+PCE-Resource-021 | Private Cloud Enterprise | Namespace | Democomp-Edge-West | Analytics | Dublin, Ireland
+PCE-Resource-022 | Private Cloud Enterprise | Virtual machine pool | Democomp-Global-Ops | Prod | Frankfurt, Germany
+PCE-Resource-023 | Private Cloud Enterprise | Container cluster | Democomp-FinOps-US | Dev | Fort Collins, United States
+PCE-Resource-024 | Private Cloud Enterprise | Storage tier | Democomp-Retail-EU | Test | Amsterdam, Netherlands
+PCE-Resource-025 | Private Cloud Enterprise | Namespace | Democomp-Platform-Engineering | Compliance | Zurich, Switzerland
+Block-Resource-031 | Block Storage | Volume | Democomp-FinOps-US | Dev | Dallas, United States
+Block-Resource-032 | Block Storage | Volume group | Democomp-Global-Ops | Prod | Dublin, Ireland
+Block-Resource-033 | Block Storage | Snapshot collection | Democomp-Retail-EU | Prod | Stockholm, Sweden
+Block-Resource-034 | Block Storage | Replication pair | Democomp-Edge-West | DR | São Paulo, Brazil
+Backup-Resource-041 | Backup and Recovery | Protection policy | Democomp-Global-Ops | Prod | Dublin, Ireland
+Backup-Resource-042 | Backup and Recovery | Recovery point | Democomp-FinOps-US | Compliance | Toronto, Canada
+Backup-Resource-043 | Backup and Recovery | Backup vault | Democomp-Retail-EU | Prod | Johannesburg, South Africa
+DSCC-Resource-051 | Data Services Cloud Console | Storage array | Democomp-Global-Ops | Prod | Singapore, Singapore
+DSCC-Resource-052 | Data Services Cloud Console | Fleet instance | Democomp-Platform-Engineering | Analytics | Dubai, United Arab Emirates
+DSCC-Resource-053 | Data Services Cloud Console | Storage system | Democomp-Edge-West | Prod | Tokyo, Japan
+PCAI-Resource-061 | Private Cloud AI | AI workload cluster | Democomp-Platform-Engineering | Analytics | Fort Collins, United States
+PCAI-Resource-062 | Private Cloud AI | ML training pool | Democomp-Global-Ops | Dev | Munich, Germany
+DR-Resource-071 | Disaster Recovery | Recovery group | Democomp-Global-Ops | DR | Atlanta, United States
+DR-Resource-072 | Disaster Recovery | Failover plan | Democomp-FinOps-US | DR | Cairo, Egypt
+
+===== Categories =====
+Category
+Alias management
+API gateway
+App management
+Authorization
+Billing manage
+Configuration
+Credential management
+Customer management
+Delete device
+Delete fingerprint
+Device direct
+Device management
+Federated user activity
+Firmware registry
+Gateway management
+General settings
+Global search
+Global trade export license check
+Groups
+Inventory
+IP access rules
+Licensing
+Location management
+Network device
+Notifications service
+Oidc sso
+Order processor
+Orders
+Organization
+Others
+RBAC
+Reboot
+Report management
+SAMLSSO
+Service catalog
+Session management
+Showback rates
+Subscription management
+Support access manager
+Support assistant
+Support assistant gt
+Support case
+Support chat
+System management
+System setup
+Unified eventing
+User activity
+User and customer account management
+User group management
+User management
+User personalization
+
+===== Locations =====
+Location Name(Required) | Description(Optional) | Street Address(Required) | Street Address line 2(Optional) | City(Required) | State/Province(Required) | Country(Required) | Zip/Postal Code(Required) | Primary Contact Email(Required) | First Name(Required) | Last Name(Required) | Tag 1 Name (optional) | Tag 1 Value (optional) | Tag 2 Name (optional) | Tag 2 Value (optional)
+Dublin HQ | Global headquarters and primary data center | 1 Grand Canal Square | Block 4 | Dublin | Dublin | Ireland | D02 P820 | alex.morgan@democomp.com | Alex | Morgan | region | europe | facility-type | headquarters
+Frankfurt DC | EU Central production data center | Hanauer Landstraße 126 |  | Frankfurt | Hesse | Germany | 60314 | casey.turner@democomp.com | Casey | Turner | region | europe | facility-type | datacenter
+London Office | UK regional office and edge site | 25 Canada Square | Floor 12 | London | England | United Kingdom | E14 5LQ | ava.williams@democomp.com | Ava | Williams | region | europe | facility-type | office
+Paris Plant | Manufacturing automation facility | 15 Rue de la Paix |  | Paris | Île-de-France | France | 75002 | benjamin.schultz@democomp.com | Benjamin | Schultz | region | europe | facility-type | manufacturing
+Munich Factory | Industrial automation production site | Leopoldstraße 100 | Building C | Munich | Bavaria | Germany | 80802 | harry.lewis@democomp.com | Harry | Lewis | region | europe | facility-type | manufacturing
+Amsterdam Edge | EU West edge computing hub | Strawinskylaan 3105 |  | Amsterdam | North Holland | Netherlands | 1077 ZX | amelia.foster@democomp.com | Amelia | Foster | region | europe | facility-type | edge
+Stockholm DC | Nordic region data center | Sveavägen 44 |  | Stockholm | Stockholm | Sweden | 111 34 | emma.johansson@democomp.com | Emma | Johansson | region | europe | facility-type | datacenter
+Zurich Research | R&D and HPC facility | Bahnhofstrasse 10 | Suite 500 | Zurich | Zurich | Switzerland | 8001 | emily.harris@democomp.com | Emily | Harris | region | europe | facility-type | research
+New York Office | US East regional headquarters | 350 Fifth Avenue | Floor 34 | New York | New York | United States | 10118 | daniel.silva@democomp.com | Daniel | Silva | region | north-america | facility-type | office
+Fort Collins DC | Analytics and AI data center | 2500 East Horsetooth Road |  | Fort Collins | Colorado | United States | 80525 | ethan.brown@democomp.com | Ethan | Brown | region | north-america | facility-type | datacenter
+Chicago Warehouse | Midwest distribution and IoT hub | 233 South Wacker Drive | Tower II | Chicago | Illinois | United States | 60606 | chloe.robinson@democomp.com | Chloe | Robinson | region | north-america | facility-type | warehouse
+Dallas Edge | US Central edge computing site | 2200 Ross Avenue |  | Dallas | Texas | United States | 75201 | henry.walker@democomp.com | Henry | Walker | region | north-america | facility-type | edge
+San Jose DC | US West production data center | 2025 Gateway Place | Suite 300 | San Jose | California | United States | 95110 | grace.thompson@democomp.com | Grace | Thompson | region | north-america | facility-type | datacenter
+Toronto Office | Canada regional office | 100 King Street West | Floor 25 | Toronto | Ontario | Canada | M5X 1A9 | charlotte.nguyen@democomp.com | Charlotte | Nguyen | region | north-america | facility-type | office
+Atlanta Warehouse | Southeast distribution center | 191 Peachtree Street NE |  | Atlanta | Georgia | United States | 30303 | isabella.laurent@democomp.com | Isabella | Laurent | region | north-america | facility-type | warehouse
+Singapore DC | APAC primary data center | 1 Raffles Place | Tower 2, Level 20 | Singapore | Central | Singapore | 48616 | alex.morgan@democomp.com | Alex | Morgan | region | asia-pacific | facility-type | datacenter
+Tokyo Office | Japan regional headquarters | 1-6-1 Roppongi | Minato-ku | Tokyo | Tokyo | Japan | 106-6108 | casey.turner@democomp.com | Casey | Turner | region | asia-pacific | facility-type | office
+Sydney Edge | Australia edge computing hub | 200 George Street |  | Sydney | New South Wales | Australia | 2000 | ava.williams@democomp.com | Ava | Williams | region | asia-pacific | facility-type | edge
+Mumbai Plant | India manufacturing facility | Bandra Kurla Complex | Building G | Mumbai | Maharashtra | India | 400051 | harry.lewis@democomp.com | Harry | Lewis | region | asia-pacific | facility-type | manufacturing
+Seoul Office | Korea regional office | 100 Cheonggyecheon-ro | Jung-gu | Seoul | Seoul | South Korea | 4542 | benjamin.schultz@democomp.com | Benjamin | Schultz | region | asia-pacific | facility-type | office
+São Paulo DC | Brazil primary data center | Avenida Paulista 1000 | Floor 15 | São Paulo | São Paulo | Brazil | 01310-100 | alex.morgan@democomp.com | Alex | Morgan | region | south-america | facility-type | datacenter
+Buenos Aires Office | Argentina regional office | Avenida 9 de Julio 1200 |  | Buenos Aires | Buenos Aires | Argentina | C1043AAZ | casey.turner@democomp.com | Casey | Turner | region | south-america | facility-type | office
+Santiago Edge | Chile edge computing hub | Avenida Apoquindo 4000 | Suite 800 | Santiago | Santiago Metropolitan | Chile | 7550000 | ava.williams@democomp.com | Ava | Williams | region | south-america | facility-type | edge
+Bogotá Warehouse | Colombia distribution center | Carrera 7 No. 71-21 |  | Bogotá | Cundinamarca | Colombia | 110231 | chloe.robinson@democomp.com | Chloe | Robinson | region | south-america | facility-type | warehouse
+Lima Office | Peru regional office | Avenida Javier Prado Este 4600 | Tower B | Lima | Lima | Peru | 15023 | benjamin.schultz@democomp.com | Benjamin | Schultz | region | south-america | facility-type | office
+Johannesburg DC | South Africa primary data center | Sandton Drive 100 | Sandton City | Johannesburg | Gauteng | South Africa | 2196 | ethan.brown@democomp.com | Ethan | Brown | region | africa | facility-type | datacenter
+Cairo Office | Egypt regional headquarters | Corniche El Nil Street | Nile Tower | Cairo | Cairo Governorate | Egypt | 11511 | grace.thompson@democomp.com | Grace | Thompson | region | africa | facility-type | office
+Lagos Edge | Nigeria edge computing site | Ahmadu Bello Way | Victoria Island | Lagos | Lagos State | Nigeria | 101241 | harry.lewis@democomp.com | Harry | Lewis | region | africa | facility-type | edge
+Nairobi Office | Kenya regional office | Kenyatta Avenue | ICEA Building | Nairobi | Nairobi County | Kenya | 100 | henry.walker@democomp.com | Henry | Walker | region | africa | facility-type | office
+Casablanca Warehouse | Morocco distribution hub | Boulevard de la Corniche |  | Casablanca | Casablanca-Settat | Morocco | 20000 | isabella.laurent@democomp.com | Isabella | Laurent | region | africa | facility-type | warehouse
+Dubai DC | UAE primary data center | Sheikh Zayed Road | Emirates Towers | Dubai | Dubai | United Arab Emirates | 0 | alex.morgan@democomp.com | Alex | Morgan | region | middle-east | facility-type | datacenter
+Tel Aviv Office | Israel regional office | Rothschild Boulevard 22 |  | Tel Aviv | Tel Aviv District | Israel | 6688312 | daniel.silva@democomp.com | Daniel | Silva | region | middle-east | facility-type | office
+Riyadh Edge | Saudi Arabia edge computing site | King Fahd Road | Kingdom Tower | Riyadh | Riyadh Province | Saudi Arabia | 12271 | emily.harris@democomp.com | Emily | Harris | region | middle-east | facility-type | edge
+Doha Office | Qatar regional office | Corniche Street | Qatar Financial Centre | Doha | Doha | Qatar | 0 | emma.johansson@democomp.com | Emma | Johansson | region | middle-east | facility-type | office
+Kuwait City Warehouse | Kuwait distribution center | Ahmad Al-Jaber Street |  | Kuwait City | Al Asimah | Kuwait | 15000 | amelia.foster@democomp.com | Amelia | Foster | region | middle-east | facility-type | warehouse
+
+===== GreenLake Services (Polished) =====
+Service Name | Description
+Aruba Central | Cloud-native network management platform for wired, wireless, and SD-WAN infrastructure.
+Cohesity Integration | Converged data protection, management, and analytics for modern data environments.
+Commvault Integration | Data intelligence, protection, and management platform for enterprise workloads.
+Compute Ops Management | AI-driven server management for monitoring, automating, and optimizing server fleets across hybrid environments.
+Data Services Cloud Console (DSCC) | SaaS-based console for unified storage management, monitoring, and data services orchestration.
+HPE Alletra dHCI | Disaggregated hyperconverged infrastructure for business-critical applications with independent scaling.
+HPE CloudPhysics | Big data analytics platform for virtualized infrastructure assessment and optimization.
+HPE Data Ops Manager | Global infrastructure management with AI-driven provisioning and lifecycle automation.
+HPE GreenLake Flex Solutions | Pay-per-use infrastructure deployed at customer locations with flexible scaling options.
+HPE GreenLake for AI/ML | Purpose-built infrastructure for AI inferencing, model training, and machine learning workloads.
+HPE GreenLake for Backup & Recovery | Consumption-based backup solution for protecting hybrid and multi-cloud workloads.
+HPE GreenLake for Block Storage | Enterprise-class block storage with 100% data availability guarantee for mission-critical workloads.
+HPE GreenLake for Compute | On-demand compute resources delivered as-a-service with flexible consumption-based pricing.
+HPE GreenLake for Disaster Recovery | Continuous data protection and disaster recovery powered by Zerto technology.
+HPE GreenLake for File Storage | Scale-out file storage solution for data-intensive and high-performance computing workloads.
+HPE GreenLake for Networking | Network infrastructure delivered as-a-service with unified management capabilities.
+HPE GreenLake for Private Cloud Business Edition | Self-service VM management with a cloud-like operational experience for business applications.
+HPE GreenLake for Private Cloud Enterprise | Fully managed private cloud platform for mission-critical and enterprise workloads.
+HPE GreenLake for Storage Fabric Management | AI-driven SAN fabric management, orchestration, and monitoring across storage infrastructure.
+HPE GreenLake Intelligence | Agentic AI framework with intelligent agents for automating IT operations and insights.
+HPE InfoSight | Predictive AI analytics platform for proactive infrastructure management and issue prevention.
+HPE Private Cloud AI | Turnkey AI infrastructure with full administrative access for enterprise AI initiatives.
+HPE SimpliVity | Hyperconverged infrastructure (HCI) with built-in data protection and efficiency.
+Veeam Integration | Enterprise backup, recovery, and data management for hybrid cloud environments.
+Zerto Integration | Disaster recovery, backup, and workload mobility across on-premises and cloud environments.
+
+===== Current Services in GLP =====
+Category | Service Name | Description
+Networking | Aruba Central | Manage campus, branch, SD-WAN, and data center networks with AI, automation, and security.
+Storage | Block Storage | Simple and easy to provision, protect, and manage block storage that meets your application needs.
+Compute | Compute Ops Management | Securely manage your compute infrastructure, wherever it lives.
+Management & Governance | Consumption Analytics | Track usage, cost, and capacity across your hybrid cloud.
+Storage | Data Ops Manager | Simplify storage management at scale with fleet-wide management and monitoring.
+Storage | Data Services | Built for our hybrid cloud world to help you unlock the full potential of your data.
+Storage | File Storage | File-based storage accessed through standard file serving protocols.
+Management & Governance | GreenLake Billing Manager | Manage billing, invoices, and payment information for GreenLake services.
+Networking | HPE Aruba Networking Central | Manage campus, branch, SD-WAN, and data center networks with AI, automation, and security.
+Workloads | HPE CloudPhysics Plus | CloudPhysics Plus helps IT teams securely deploy data collection for their hybrid IT environment, so authorized HPE partners can run data driven modernization assessments on their behalf.
+Workloads | HPE CloudPhysics Plus For Partners | CloudPhysics Plus for Partner helps HPE partners quickly assess customer IT environments and uncover data-driven opportunities for modernization and HPE GreenLake offers.
+AI & GenAI | HPE GenAI | Generative AI capabilities for enterprise applications and workflows.
+Infrastructure Solutions | HPE GreenLake Flex Solutions | HPE GreenLake Flex Solutions provide workload-driven services meeting customers' diverse requirements.
+Management & Governance | HPE InfoSight | AI-driven intelligence across servers, storage, virtual machines and more.
+Management & Governance | HPE Sustainability Insight Center | AI-driven operations for hybrid cloud environments.
+Management & Governance | HPE Ziggy Migration | AI-assisted infrastructure migration.
+Developer | IoT Operations App Developer Portal | Get started building your own IoT Apps for Aruba ESP.
+Networking | Juniper Mist | Network management for Juniper Mist infrastructure.
+Private Cloud | Morpheus Central | Centralized remote management of multisite deployments of Morpheus.
+Networking | NaaS Experience Platform | A cloud-based, multi-persona platform hub providing workflow automation for all stakeholders responsible for delivering and consuming NaaS/HTS services from Day-0 to Day-N.
+Storage | Object Service | Object service provides Bucket provisioning and storage accessed through standard S3 serving protocols.
+Management & Governance | OpsRamp | Effectively manage your hybrid cloud IT resources with AIOps driven IT Operations Management.
+Private Cloud | Private Cloud AI | A turnkey AI private cloud, co-engineered with NVIDIA.
+Private Cloud | Private Cloud Business Edition | Global lifecycle management of infrastructure and virtualization resources.
+Private Cloud | Private Cloud Enterprise | Modernize with a fully managed cloud experience for bare metal, containers, and VMs in your private environment.
+Management & Governance | Product Advisor | Calculate maximum and idle power requirements and carbon footprint summary data for individual servers.
+Networking | SD WAN Orchestrator | Simple, intelligent, centralized orchestration for EdgeConnect SD-WAN.
+Networking | User Experience Insight | Monitor network and application performance from end users' perspective for rapid troubleshooting.
+Workloads | VMware Cloud Foundation, Managed for you | Perform hybrid digital operations on your regionalized workload domain's Software Defined Datacenter Manager.
+Management & Governance | Wellness Dashboard | Mitigate risks and accelerate business agility with a 360 proactive health view of your environment.
+
+===== Services Pivot =====
+HPE GreenLake Services by Category
+Row Labels
+AI & GenAI
+HPE GenAI
+Compute
+Compute Ops Management
+Developer
+IoT Operations App Developer Portal
+Infrastructure Solutions
+HPE GreenLake Flex Solutions
+Management & Governance
+Consumption Analytics
+GreenLake Billing Manager
+HPE InfoSight
+HPE Sustainability Insight Center
+HPE Ziggy Migration
+OpsRamp
+Product Advisor
+Wellness Dashboard
+Networking
+Aruba Central
+HPE Aruba Networking Central
+Juniper Mist
+NaaS Experience Platform
+SD WAN Orchestrator
+User Experience Insight
+Private Cloud
+Morpheus Central
+Private Cloud AI
+Private Cloud Business Edition
+Private Cloud Enterprise
+Storage
+Block Storage
+Data Ops Manager
+Data Services
+File Storage
+Object Service
+Workloads
+HPE CloudPhysics Plus
+HPE CloudPhysics Plus For Partners
+VMware Cloud Foundation, Managed for you
+Grand Total

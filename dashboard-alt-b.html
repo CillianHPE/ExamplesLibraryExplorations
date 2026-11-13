@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GreenLake Home · Alt B: Split primary</title>
+<link rel="stylesheet" href="lofi-shared.css">
+<style>
+  /* Split within primary: work column + activity feed column, 16px apart */
+  .split { display: grid; grid-template-columns: 2fr 1fr; gap: var(--gap-container); }
+  @media (max-width: 1000px) { .split { grid-template-columns: 1fr; } }
+  .stack { display: flex; flex-direction: column; gap: var(--gap-container); }
+  .feed-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--contained-line); }
+  .feed-item:last-child { border-bottom: 0; }
+  .feed-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--pill); flex: none; }
+</style>
+</head>
+<body>
+
+
+<header class="header">
+  <div class="hicon"></div>
+  <div class="logo">greenlake</div>
+  <div class="workspace">North America IT Ops ▾</div>
+  <div class="search">Search</div>
+  <div class="header-icons"><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon active"></div><div class="ricon"></div><div class="ricon"></div>
+    <div class="ricon"></div><div class="ricon"></div><div class="ricon"></div>
+    <div class="ricon"></div><div class="ricon"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Home</h1>
+      <button class="btn">Customize 🔧</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Section 1: uncontained KPI strip -->
+        <section class="section">
+          <div class="zone-label">Section 1 · KPI strip · uncontained</div>
+          <div style="display:grid; grid-template-columns: repeat(3,1fr);">
+            <div style="padding-right:24px;">
+              <div class="kpi-cat">Risk &amp; Compliance</div>
+              <div class="kpi-name">Overall Score</div>
+              <div class="kpi-value-row"><span class="kpi-value">96%</span><span class="delta">↑ 18%</span></div>
+              <span class="kpi-link">View compliance report →</span>
+            </div>
+            <div style="padding:0 24px; border-left:1px solid var(--line);">
+              <div class="kpi-cat">Cost</div>
+              <div class="kpi-name">Savings</div>
+              <div class="kpi-value-row"><span class="kpi-value">$12.4K</span><span class="delta">↑ 18%</span></div>
+              <span class="kpi-link">View savings breakdown →</span>
+            </div>
+            <div style="padding:0 24px; border-left:1px solid var(--line);">
+              <div class="kpi-cat">Efficiency</div>
+              <div class="kpi-name">Resource Utilization</div>
+              <div class="kpi-value-row"><span class="kpi-value">68%</span><span class="delta">↓ 4%</span></div>
+              <span class="kpi-link">Optimize resources →</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 2: split — operational cards left, live activity right -->
+        <section class="section">
+          <div class="zone-label">Section 2 · Split primary · cards column + activity feed, 16px gaps</div>
+          <div class="split">
+            <div class="stack">
+              <div class="card">
+                <div class="card-head"><h2>Alerts</h2><div class="arrow">→</div></div>
+                <div class="list-item">
+                  <div class="li-main"><div class="sev"></div><div><div class="li-title">DHCP time out</div><div class="li-sub">18 devices affected</div></div></div>
+                  <div class="li-meta">2 hours ago</div>
+                </div>
+                <div class="list-item">
+                  <div class="li-main"><div class="sev"></div><div><div class="li-title">VLAN mismatch</div><div class="li-sub">15 switches</div></div></div>
+                  <div class="li-meta">Yesterday</div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-head"><h2>Devices</h2><div class="arrow">→</div></div>
+                <span class="big-number">204</span> <span class="big-number-sub">Total devices</span>
+                <div class="bar"><span style="flex:41"></span><span style="flex:31"></span><span style="flex:31"></span><span style="flex:20"></span></div>
+                <div class="legend-row"><span><span class="dot"></span>ProLiant DL380 Gen11</span><span class="pct">20% (41)</span></div>
+                <div class="legend-row"><span><span class="dot"></span>ProLiant DL385 Gen10 Plus</span><span class="pct">15% (31)</span></div>
+              </div>
+              <div class="card">
+                <div class="card-head"><h2>Subscriptions</h2><div class="arrow">→</div></div>
+                <div class="list-item"><div class="li-main"><div class="sev"></div><div class="li-title">Expiring within 30 days</div></div><div class="li-count">4</div></div>
+                <div class="list-item"><div class="li-main"><div class="sev"></div><div class="li-title">Expiring within 90 days</div></div><div class="li-count">26</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-head"><h2>Activity</h2><div class="arrow">→</div></div>
+              <div class="feed-item"><div class="feed-dot"></div><div><div class="li-title">Firmware updated</div><div class="li-sub">14 servers · 20 min ago</div></div></div>
+              <div class="feed-item"><div class="feed-dot"></div><div><div class="li-title">Role assigned</div><div class="li-sub">s.chen → Operator · 1 hr ago</div></div></div>
+              <div class="feed-item"><div class="feed-dot"></div><div><div class="li-title">Subscription renewed</div><div class="li-sub">OPE-0035689214 · 3 hrs ago</div></div></div>
+              <div class="feed-item"><div class="feed-dot"></div><div><div class="li-title">Device onboarded</div><div class="li-sub">DL380 Gen11 · Yesterday</div></div></div>
+              <div class="feed-item"><div class="feed-dot"></div><div><div class="li-title">Policy applied</div><div class="li-sub">Encryption-at-rest · Yesterday</div></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 3: table -->
+        <section class="section">
+          <div class="zone-label">Section 3 · In-flight work · uncontained table</div>
+          <h2 class="table-title">Migrations</h2>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Migration</th><th>Source</th><th>Target</th><th>Status</th><th>Progress</th><th class="num">Workloads</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">MIG-2024-0871</span></td><td>On-prem DC · Austin</td><td>Private Cloud</td><td><span class="status-pill">In progress</span></td><td><div class="progress"><i style="width:72%"></i></div></td><td class="num">128</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">MIG-2024-0864</span></td><td>VMware Cluster B</td><td>Morpheus VME</td><td><span class="status-pill">Validating</span></td><td><div class="progress"><i style="width:45%"></i></div></td><td class="num">64</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">MIG-2024-0859</span></td><td>AWS us-east-1</td><td>GreenLake Compute</td><td><span class="status-pill">Scheduled</span></td><td><div class="progress"><i style="width:5%"></i></div></td><td class="num">212</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>GreenLake Status</h3>
+          <div class="status-banner"><span class="status-dot"></span> Operational</div>
+          <div class="fine">No scheduled maintenance. Use <u>GreenLake Service Health</u> to view other issues.</div>
+        </div>
+        <div class="card">
+          <h3>GreenLake Intelligence</h3>
+          <div class="fine">Your copilot for AI-ready operations.</div>
+          <div class="prompt-box">✦ Ask GreenLake how to…</div>
+          <span class="chip">Try it now</span>
+        </div>
+        <div>
+          <h3 style="font-size:18px; margin-bottom:6px;">Quick actions</h3>
+          <ul class="qa-list"><li>Add devices</li><li>Add service subscription</li><li>Add users</li><li>Assign roles</li></ul>
+        </div>
+        <div>
+          <h3 style="font-size:18px; margin-bottom:6px;">Learn</h3>
+          <div class="learn-item"><div class="lt">Explore GreenLake →</div><div class="ls">Learn more about the platform.</div></div>
+          <div class="learn-item"><div class="lt">What's New →</div><div class="ls">Latest releases and announcements.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

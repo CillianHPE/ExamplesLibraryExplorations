@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T4 · Object detail · Hi-fi</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon active" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+
+    <!-- Object header -->
+    <section style="margin-bottom: var(--gap-section);">
+      <div class="crumb"><a href="#">Devices</a> / <a href="#">Compute</a> / 2XK4521ABC</div>
+      <div class="obj-head">
+        <h1>Compute device · 2XK4521ABC</h1>
+        <span class="pill green">● Healthy</span>
+        <div class="obj-actions">
+          <button class="btn primary">Launch console</button>
+          <button class="btn secondary">Restart</button>
+          <button class="btn icon secondary">···</button>
+        </div>
+      </div>
+      <div class="tabs">
+        <span class="tab on">Overview</span>
+        <span class="tab">Activity</span>
+        <span class="tab">Workloads</span>
+        <span class="tab">Firmware</span>
+        <span class="tab">Settings</span>
+      </div>
+    </section>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Vitals -->
+        <section class="grid-4">
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">CPU utilization</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">62%</div>
+            <div class="meter"><i style="width:62%"></i></div>
+            <div class="fine" style="margin-top:8px;">Threshold 85%</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Memory</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">71%</div>
+            <div class="meter"><i class="warn" style="width:71%"></i></div>
+            <div class="fine" style="margin-top:8px;">729 GB of 1 TB used</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Power draw</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">412 W</div>
+            <div class="meter"><i style="width:46%"></i></div>
+            <div class="fine" style="margin-top:8px;">Rated max 900 W</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Uptime · 90 days</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">99.98%</div>
+            <div class="meter"><i style="width:99.98%"></i></div>
+            <div class="fine" style="margin-top:8px;">Last reboot 28 days ago</div>
+          </div>
+        </section>
+
+        <!-- Activity chart -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Utilization · last 24 hours</h2>
+          <div class="chart-wrap">
+            <svg viewBox="0 0 900 200">
+              <g stroke="#eceff0" stroke-width="1">
+                <line x1="0" y1="40" x2="900" y2="40"/><line x1="0" y1="90" x2="900" y2="90"/><line x1="0" y1="140" x2="900" y2="140"/>
+              </g>
+              <polygon points="0,120 75,116 150,124 225,110 300,98 375,104 450,84 525,92 600,74 675,88 750,70 825,80 900,76 900,200 0,200" fill="rgba(61,127,242,0.08)"/>
+              <polyline points="0,120 75,116 150,124 225,110 300,98 375,104 450,84 525,92 600,74 675,88 750,70 825,80 900,76"
+                fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+              <polyline points="0,150 75,148 150,152 225,144 300,140 375,142 450,132 525,136 600,126 675,132 750,122 825,128 900,124"
+                fill="none" stroke="var(--c-purple)" stroke-width="2.5" stroke-linecap="round"/>
+              <text x="0" y="196" font-size="11" fill="#8fa0a8">00:00</text>
+              <text x="430" y="196" font-size="11" fill="#8fa0a8">12:00</text>
+              <text x="862" y="196" font-size="11" fill="#8fa0a8">Now</text>
+            </svg>
+          </div>
+          <div class="chart-legend">
+            <span class="lg"><span class="sw" style="background:var(--c-blue)"></span>CPU</span>
+            <span class="lg"><span class="sw" style="background:var(--c-purple)"></span>Memory</span>
+          </div>
+        </section>
+
+        <!-- Related workloads -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Workloads on this device</h2>
+          <table>
+            <thead>
+              <tr><th>Workload</th><th>Type</th><th>Status</th><th class="num">vCPU</th><th class="num">Memory</th><th>Owner</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="tlink">PCE-Namespace-Finance-PCI</span></td><td>Namespace</td><td><span class="pill amber">Degraded</span></td><td class="num">8</td><td class="num">32 GB</td><td>Noah Becker</td></tr>
+              <tr><td><span class="tlink">COM-Cluster-Prod-A</span></td><td>Compute cluster</td><td><span class="pill green">Running</span></td><td class="num">32</td><td class="num">256 GB</td><td>Alex Morgan</td></tr>
+              <tr><td><span class="tlink">Block-Resource-032</span></td><td>Volume group</td><td><span class="pill green">Running</span></td><td class="num">12</td><td class="num">96 GB</td><td>Sophie Anderson</td></tr>
+              <tr><td><span class="tlink">BackupVault-EU-Secure</span></td><td>Backup vault</td><td><span class="pill grey">Idle</span></td><td class="num">4</td><td class="num">16 GB</td><td>Thomas Jackson</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Key facts</h3>
+          <div class="kv"><span class="k">Serial number</span><span class="v">2XK4521ABC ⧉</span></div>
+          <div class="kv"><span class="k">Product ID</span><span class="v">P55276-B21</span></div>
+          <div class="kv"><span class="k">Cluster</span><span class="v">COM-Cluster-Prod-A</span></div>
+          <div class="kv"><span class="k">Location</span><span class="v">Dublin HQ · Dublin, Ireland</span></div>
+          <div class="kv"><span class="k">Subscription</span><span class="v"><span class="tlink" style="font-size:13px;">Compute Ops Management</span></span></div>
+          <div class="kv"><span class="k">Support contact</span><span class="v">alex.morgan@democomp.com</span></div>
+          <div class="kv"><span class="k">Address</span><span class="v">1 Grand Canal Square, Block 4</span></div>
+          <div class="kv"><span class="k">Managed by</span><span class="v">Compute Ops Management</span></div>
+          <div class="kv"><span class="k">Tags</span><span class="v"><span class="pill grey">prod</span> <span class="pill grey">tier1</span></span></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Related</h3>
+          <div class="learn-item"><div class="lt">Compute Ops Management documentation ↗</div><div class="ls">Server monitoring, firmware, and lifecycle guidance.</div></div>
+          <div class="learn-item"><div class="lt">Warranty &amp; support →</div><div class="ls">Dublin HQ support contact: Alex Morgan.</div></div>
+          <div class="learn-item"><div class="lt">Open a support case ↗</div><div class="ls">Serial number is attached automatically.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

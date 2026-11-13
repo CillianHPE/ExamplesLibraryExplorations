@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T3 · Analytics · Var D · Wireless experience</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon active" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Wireless experience</h1>
+      <button class="btn secondary">Export ▾</button>
+    </div>
+
+    <!-- single column: analytics gets full width -->
+    <div class="primary">
+
+      <!-- Scope bar -->
+      <section>
+        <div class="toolbar" style="margin-bottom:0;">
+          <span class="fchip on">Last 30 days ▾</span>
+          <span class="fchip">Network: Aruba Central ▾</span>
+          <span class="fchip">Client type: All ▾</span>
+          <span class="fchip">Filters ▾</span>
+          <span class="spacer"></span>
+          <span style="font-size:12.5px; color:var(--gl-ink-soft);">Updated Sep 10, 2026 · 16:28</span>
+        </div>
+      </section>
+
+      <!-- Headline metrics -->
+      <section class="kpi-strip" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="kpi" style="border-left:0; padding-left:0;">
+          <div class="cat">Experience</div>
+          <div class="name">Client health score</div>
+          <div class="value-row"><span class="value">91</span><span style="font-size:14px; color:var(--gl-ink-soft); font-weight:600;">/100</span><span class="delta up">↑ 6 pts</span></div>
+          <div class="desc">Improved after Aruba Central remediation for Warehouse-IoT-07 on Sep 2.</div>
+        </div>
+        <div class="kpi">
+          <div class="cat">Mobility</div>
+          <div class="name">Average roam time</div>
+          <div class="value-row"><span class="value">48</span><span style="font-size:14px; color:var(--gl-ink-soft); font-weight:600;">ms</span><span class="delta up">↓ 21 ms</span></div>
+          <div class="desc">Fast transition adoption is now 82% across DemoComp Aruba Central WLANs.</div>
+        </div>
+        <div class="kpi">
+          <div class="cat">Connectivity</div>
+          <div class="name">Failed connects</div>
+          <div class="value-row"><span class="value">1.7%</span><span class="delta up">↓ 0.8 pts</span></div>
+          <div class="desc">Authentication failures remain concentrated in Warehouse-IoT-07 Guest SSID after certificate rotation.</div>
+        </div>
+      </section>
+
+      <!-- Hero chart -->
+      <section>
+        <h2 class="table-title" style="font-size:20px;">Client health score trend</h2>
+        <div class="chart-wrap">
+          <svg viewBox="0 0 900 240">
+            <g stroke="#eceff0" stroke-width="1">
+              <line x1="0" y1="40" x2="900" y2="40"/><line x1="0" y1="90" x2="900" y2="90"/>
+              <line x1="0" y1="140" x2="900" y2="140"/><line x1="0" y1="190" x2="900" y2="190"/>
+            </g>
+            <text x="0" y="28" font-size="11" fill="#8fa0a8">100</text>
+            <text x="0" y="78" font-size="11" fill="#8fa0a8">90</text>
+            <text x="0" y="128" font-size="11" fill="#8fa0a8">80</text>
+            <text x="0" y="178" font-size="11" fill="#8fa0a8">70</text>
+            <polygon points="36,118 66,122 96,112 126,124 156,130 186,126 216,120 246,116 276,128 306,132 336,136 366,130 396,126 426,118 456,112 486,106 516,92 546,84 576,78 606,72 636,68 666,64 696,62 726,58 756,60 786,56 816,54 846,52 876,50 876,220 36,220"
+              fill="rgba(61,127,242,0.08)"/>
+            <polyline points="36,118 66,122 96,112 126,124 156,130 186,126 216,120 246,116 276,128 306,132 336,136 366,130 396,126 426,118 456,112 486,106 516,92 546,84 576,78 606,72 636,68 666,64 696,62 726,58 756,60 786,56 816,54 846,52 876,50"
+              fill="none" stroke="var(--c-blue)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="516" y1="30" x2="516" y2="210" stroke="var(--gl-green)" stroke-width="1.5" stroke-dasharray="3 4"/>
+            <circle cx="516" cy="92" r="5" fill="var(--gl-green)"/>
+            <text x="526" y="42" font-size="12" fill="var(--gl-green-deep)" font-weight="600">Warehouse-IoT-07 fix · Sep 2</text>
+            <text x="36" y="236" font-size="11" fill="#8fa0a8">Aug 11</text>
+            <text x="438" y="236" font-size="11" fill="#8fa0a8">Aug 26</text>
+            <text x="838" y="236" font-size="11" fill="#8fa0a8">Sep 10</text>
+          </svg>
+        </div>
+        <div class="chart-legend">
+          <span class="lg"><span class="sw" style="background:var(--c-blue)"></span>Client health score · avg 91 today</span>
+          <span class="lg"><span class="sw" style="background:var(--gl-green)"></span>Aruba Central remediation event</span>
+        </div>
+      </section>
+
+      <!-- Breakdown cards -->
+      <section class="grid-2">
+        <div class="card">
+          <div class="card-head"><h2>Issues by category</h2><span class="arrow">→</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Device management</span><span class="pct">312 events</span></div>
+          <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:39; background:var(--amber)"></span><span style="flex:61; background:var(--grey-bg)"></span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Authorization</span><span class="pct">238 events</span></div>
+          <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:30; background:var(--red)"></span><span style="flex:70; background:var(--grey-bg)"></span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Gateway management</span><span class="pct">146 events</span></div>
+          <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:18; background:var(--c-purple)"></span><span style="flex:82; background:var(--grey-bg)"></span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Network device</span><span class="pct">109 events</span></div>
+          <div class="stack-bar" style="margin:4px 0 0;"><span style="flex:13; background:var(--c-blue)"></span><span style="flex:87; background:var(--grey-bg)"></span></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Client health by band</h2><span class="arrow">→</span></div>
+          <div class="donut-wrap">
+            <div class="donut" data-center="91&#10;score"
+              style="background: conic-gradient(var(--c-green) 0 58%, var(--c-blue) 58% 86%, var(--amber) 86% 97%, var(--red) 97% 100%);"></div>
+            <div style="flex:1; min-width:0;">
+              <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>6 GHz clients</span><span class="pct">96 score</span></div>
+              <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>5 GHz clients</span><span class="pct">92 score</span></div>
+              <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>2.4 GHz clients</span><span class="pct">81 score</span></div>
+              <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Guest SSID</span><span class="pct">74 score</span></div>
+              <div style="margin-top:12px;"><span class="glink">Open Aruba Central insights →</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detail table -->
+      <section>
+        <h2 class="table-title" style="font-size:20px;">Site experience detail</h2>
+        <table>
+          <thead>
+            <tr><th>Site</th><th>Aruba group</th><th class="num">Score</th><th class="num">Clients</th><th class="num">Issues</th><th>Status</th><th>Trend</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="tlink">Frankfurt DC</span></td><td>Edge-North-Fleet</td><td class="num">94</td><td class="num">1,125</td><td class="num">86</td><td><span class="pill green">Healthy</span></td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,14 15,13 30,11 45,9 60,8 75,7 90,6" fill="none" stroke="var(--gl-green)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">Chicago Warehouse</span></td><td>Warehouse-IoT-07</td><td class="num">86</td><td class="num">2,640</td><td class="num">142</td><td><span class="pill amber">Watch</span></td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,9 15,10 30,13 45,15 60,14 75,16 90,15" fill="none" stroke="var(--amber)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">Stockholm DC</span></td><td>Nordic-Edge-Stockholm</td><td class="num">93</td><td class="num">812</td><td class="num">61</td><td><span class="pill green">Healthy</span></td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,12 15,11 30,10 45,9 60,8 75,8 90,7" fill="none" stroke="var(--gl-green)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">Munich Factory</span></td><td>Plant-Gateways-Munich</td><td class="num">91</td><td class="num">1,148</td><td class="num">73</td><td><span class="pill green">Improving</span></td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,18 15,17 30,14 45,13 60,10 75,8 90,7" fill="none" stroke="var(--gl-green)" stroke-width="2"/></svg></td></tr>
+            <tr><td><span class="tlink">San Jose DC</span></td><td>DC-Gateway-West</td><td class="num">88</td><td class="num">704</td><td class="num">97</td><td><span class="pill amber">Watch</span></td><td><svg width="90" height="24" viewBox="0 0 90 24"><polyline points="0,11 15,12 30,14 45,13 60,15 75,16 90,14" fill="none" stroke="var(--amber)" stroke-width="2"/></svg></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Layout spacing scale · Build specs</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<script src="/hifi-icons.js" defer></script>
+<style>
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 48px 40px 96px; }
+  .wrap h1 { margin-bottom: 8px; }
+  .intro { font-size: 15px; color: var(--gl-ink-soft); line-height: 1.6; margin-bottom: 12px; max-width: 720px; }
+
+  /* level tags: shared vocabulary between the list and the diagram */
+  .tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; border-radius: 10px; padding: 2px 10px; white-space: nowrap; color: var(--gl-heading); }
+  .tag::before { content: ""; width: 8px; height: 8px; border-radius: 2px; }
+  .tag-region { background: #FBEBEF; } .tag-region::before { background: #D66A8A; }
+  .tag-section { background: #E8EEF9; } .tag-section::before { background: #3B6FC9; }
+  .tag-container { background: #FDF0DF; } .tag-container::before { background: #D9822B; }
+
+  /* nesting chain */
+  .nesting { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 20px 0 8px; }
+  .nesting .contains { font-size: 12px; color: var(--gl-ink-faint); }
+  .nesting .contains::after { content: " →"; }
+
+  /* combined levels + tokens table */
+  .scale { margin: 32px 0 48px; max-width: 900px; }
+  .scale-row { display: grid; grid-template-columns: 190px 150px 1fr; gap: 20px; align-items: start; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .scale-row:first-child { border-top: 1px solid var(--line); }
+  .scale-hdr { display: grid; grid-template-columns: 190px 150px 1fr; gap: 20px; padding: 0 0 8px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gl-ink-faint); }
+  .tok-name { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; font-weight: 600; color: var(--gl-heading); }
+  .tok-swatch { height: 12px; background: repeating-linear-gradient(45deg, #CBE9DC, #CBE9DC 4px, #E4F4EC 4px, #E4F4EC 8px); border-radius: 3px; margin-top: 8px; }
+  .lvl-def { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; }
+  .lvl-def strong { color: var(--gl-heading); font-weight: 600; }
+  .lvl-def .between { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+  /* lo-fi diagram */
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
+  .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 16px; max-width: 720px; }
+  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; background: #FFF; overflow-x: auto; }
+  .lofi { display: flex; min-width: 760px; }
+  .lofi .primary { flex: 1; min-width: 0; }
+  .lofi .secondary { flex: none; width: 230px; }
+
+  /* labelled nesting regions: tag flows above content so token gaps stay true-size */
+  .region { border: 1.5px solid; border-radius: 10px; padding: 6px; }
+  .region > .rtag { margin-bottom: 6px; }
+  .region.area { border-color: #D66A8A; background: #FFFBFC; }
+  .region.section { border-color: #3B6FC9; border-style: dashed; background: #FFF; }
+
+  .ph { border: 1.5px solid #D9822B; border-radius: 8px; background: #FFFDF9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: var(--gl-ink-soft); text-align: center; padding: 8px; }
+  .ph .tag { padding: 1px 8px; font-size: 10px; }
+  .ph.tall { height: 110px; }
+  .ph.mid { height: 84px; }
+  .ph.short { height: 72px; }
+
+  .cgrid { display: grid; grid-template-columns: 1fr 16px 1fr 16px 1fr; }
+
+  /* spacing gap markers: spacer is exact token size; label floats over it without adding bulk */
+  .gap { position: relative; }
+  .gap .lbl { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 9px; font-weight: 600; color: var(--gl-green-dark); background: rgba(237, 246, 242, 0.92); border-radius: 8px; padding: 1px 7px; white-space: nowrap; z-index: 2; line-height: 1.5; }
+  .gap-region { width: 64px; }
+  .gap-section { height: 32px; }
+  .gap-container-v { height: 16px; }
+  .gap-container-h { width: 16px; }
+
+  .note { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.6; margin-top: 20px; max-width: 720px; }
+  .note code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--gl-heading); background: var(--contained); border-radius: 4px; padding: 1px 6px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Build specs</div>
+</header>
+
+<div class="wrap">
+  <h1>Layout spacing scale</h1>
+  <p class="intro">A page is built from three nested levels. Each level pairs with one token from the HPE design system spacing scale, which sets the gap between siblings at that level. Pick by relationship, not by eye: the further apart two things are in meaning, the bigger the token.</p>
+
+  <div class="nesting">
+    <span class="tag tag-region">Content region</span>
+    <span class="contains">contains</span>
+    <span class="tag tag-section">Content section</span>
+    <span class="contains">contains</span>
+    <span class="tag tag-container">Container</span>
+  </div>
+
+  <div class="sec-h" style="margin-top:32px;">Levels and tokens</div>
+  <div class="scale">
+    <div class="scale-hdr"><div>Level</div><div>Gap between siblings</div><div>What it is</div></div>
+    <div class="scale-row">
+      <div><span class="tag tag-region">Content region</span></div>
+      <div>
+        <div class="tok-name">xxlarge · 64px</div>
+        <div class="tok-swatch" style="width:64px;"></div>
+      </div>
+      <div class="lvl-def">
+        <strong>The top-level split of the page body.</strong> A primary region for the main work surface, and optionally a narrower secondary region.
+        <div class="between"><span class="tag tag-region">Primary content region</span> ↔ <span class="tag tag-region">Secondary content region</span></div>
+      </div>
+    </div>
+    <div class="scale-row">
+      <div><span class="tag tag-section">Content section</span></div>
+      <div>
+        <div class="tok-name">large · 32px</div>
+        <div class="tok-swatch" style="width:32px;"></div>
+      </div>
+      <div class="lvl-def">
+        <strong>A topic grouping inside a content region.</strong> A KPI strip, a chart row, a full-width table: each is one section.
+        <div class="between"><span class="tag tag-section">Content section</span> ↔ <span class="tag tag-section">Content section</span></div>
+      </div>
+    </div>
+    <div class="scale-row">
+      <div><span class="tag tag-container">Container</span></div>
+      <div>
+        <div class="tok-name">small · 16px</div>
+        <div class="tok-swatch" style="width:16px;"></div>
+      </div>
+      <div class="lvl-def">
+        <strong>The individual modules inside a content section.</strong> Cards, tiles, chart containers.
+        <div class="between"><span class="tag tag-container">Container</span> ↔ <span class="tag tag-container">Container</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-h">Put together</div>
+  <div class="demo">
+    <div class="lofi">
+
+      <div class="primary region area">
+        <span class="rtag tag tag-region">Primary content region</span>
+
+        <div class="region section">
+          <span class="rtag tag tag-section">Content section · KPIs</span>
+          <div class="cgrid">
+            <div class="ph short"><span class="tag tag-container">Container</span></div>
+            <div class="gap gap-h gap-container-h"><span class="lbl">small · 16</span></div>
+            <div class="ph short"><span class="tag tag-container">Container</span></div>
+            <div class="gap gap-h gap-container-h"><span class="lbl">small · 16</span></div>
+            <div class="ph short"><span class="tag tag-container">Container</span></div>
+          </div>
+        </div>
+
+        <div class="gap gap-v gap-section"><span class="lbl">large · 32</span></div>
+
+        <div class="region section">
+          <span class="rtag tag tag-section">Content section · Charts</span>
+          <div class="cgrid" style="grid-template-columns: 2fr 16px 1fr;">
+            <div class="ph tall"><span class="tag tag-container">Container</span></div>
+            <div class="gap gap-h gap-container-h"><span class="lbl">small · 16</span></div>
+            <div class="ph tall"><span class="tag tag-container">Container</span></div>
+          </div>
+        </div>
+
+        <div class="gap gap-v gap-section"><span class="lbl">large · 32</span></div>
+
+        <div class="region section">
+          <span class="rtag tag tag-section">Content section · Table</span>
+          <div class="ph mid" style="border-style:dashed;">Full-width table (uncontained)</div>
+        </div>
+
+      </div>
+
+      <div class="gap gap-h gap-region"><span class="lbl">xxlarge · 64</span></div>
+
+      <div class="secondary region area">
+        <span class="rtag tag tag-region">Secondary content region</span>
+        <div class="ph short"><span class="tag tag-container">Container</span></div>
+        <div class="gap gap-v gap-container-v"><span class="lbl">small · 16</span></div>
+        <div class="ph short"><span class="tag tag-container">Container</span></div>
+        <div class="gap gap-v gap-container-v"><span class="lbl">small · 16</span></div>
+        <div class="ph mid"><span class="tag tag-container">Container</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="/library-nav.js"></script>
+<script src="/livereload.js"></script>
+</body>
+</html>

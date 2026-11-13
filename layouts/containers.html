@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Containers · Layouts</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<script src="/hifi-icons.js" defer></script>
+<style>
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 48px 40px 96px; }
+  .wrap h1 { margin-bottom: 8px; }
+  .intro { font-size: 15px; color: var(--gl-ink-soft); line-height: 1.6; margin-bottom: 12px; max-width: 720px; }
+
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
+  .sub-h { font-size: 12.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin: 32px 0 10px; }
+  .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 20px; max-width: 720px; }
+  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: #FFF; overflow-x: auto; }
+  .note { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.6; margin-top: 16px; max-width: 760px; }
+  .note code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--gl-heading); background: var(--contained); border-radius: 4px; padding: 1px 6px; }
+  .note strong { color: var(--gl-heading); font-weight: 600; }
+  .callout { display: flex; gap: 10px; align-items: flex-start; background: #FFFDF9; border: 1px solid #F0DFC0; border-radius: 8px;
+    padding: 12px 14px; font-size: 13px; color: var(--gl-ink); line-height: 1.55; max-width: 760px; margin-top: 20px; }
+  .callout .ic { flex: none; font-size: 14px; margin-top: 1px; }
+  .callout strong { color: var(--gl-heading); }
+
+  /* signal tags */
+  .tag { font-size: 12px; font-weight: 700; color: var(--gl-ink-soft); }
+
+  /* side-by-side signal comparison */
+  .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 900px) { .signal-grid { grid-template-columns: 1fr; } }
+  .signal-col .lbl-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+
+  /* anatomy diagram: real .card marked up with dimension callouts */
+  .anatomy-stage { position: relative; padding: 24px; }
+  .dim { position: absolute; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px; font-weight: 600;
+    color: var(--gl-green-dark); white-space: nowrap; z-index: 3; }
+  .dim-radius { top: -11px; right: -11px; background: rgba(255,255,255,0.95); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+  .dim-gap { position: relative; height: 24px; display: flex; align-items: center; justify-content: center; }
+  .dim-gap .lbl { background: rgba(237,246,242,0.95); border-radius: 8px; padding: 1px 7px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px; font-weight: 600; color: var(--gl-green-dark); }
+  .anatomy-card { background: var(--contained); border-radius: var(--radius); padding: 24px; position: relative; }
+  .anatomy-zone { border: 1.5px dashed #C9CDD1; border-radius: 6px; padding: 14px; position: relative; z-index: 3; }
+  .anatomy-zone .zone-lbl { position: absolute; top: -10px; left: 12px; background: var(--contained); padding: 0 6px; font-size: 10.5px;
+    font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--gl-ink-faint); }
+  .anatomy-head { display: flex; align-items: center; justify-content: space-between; }
+  .anatomy-head .htxt h2 { font-size: 19px; font-weight: 700; }
+  .anatomy-head .htxt .eyebrow { font-size: 12px; color: var(--gl-ink-soft); margin-bottom: 2px; }
+  .trailing-slot { width: 36px; height: 36px; border-radius: 8px; border: 1.5px dashed #C9CDD1; display: flex; align-items: center;
+    justify-content: center; font-size: 15px; color: var(--gl-ink-faint); flex: none; }
+  .anatomy-body { font-size: 12.5px; color: var(--gl-ink-faint); text-align: center; }
+  .anatomy-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 20px; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .anatomy-legend .lg { display: flex; align-items: center; gap: 7px; }
+  .anatomy-legend .sw { width: 22px; height: 2px; border-radius: 2px; background: var(--gl-green-dark); flex: none; }
+  .anatomy-legend .sw.dash { background: none; border-top: 1.5px dashed #C9CDD1; }
+  .anatomy-legend .sw.slot { background: none; border-top: 1.5px dashed #C9CDD1; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Layouts</div>
+</header>
+
+<div class="wrap">
+  <h1>Containers</h1>
+  <p class="intro">How containment works in this design language: what earns a grey container, what sits uncontained on the page body, the anatomy of a container, and how containers nest inside content sections.</p>
+
+  <div class="sec-h">Anatomy</div>
+  <p class="sec-sub">Every container follows the same structure: padding, a header row, and a body. This matches the <code>Container</code> component in the design system Figma file.</p>
+  <div class="demo">
+    <div class="anatomy-stage">
+      <div class="dim dim-radius">radius · 12px</div>
+      <div class="anatomy-card">
+        <div class="anatomy-zone anatomy-head">
+          <span class="zone-lbl">Header</span>
+          <div class="htxt">
+            <h2>Heading</h2>
+          </div>
+          <div class="trailing-slot">→</div>
+        </div>
+        <div class="dim-gap"><span class="lbl">gap · 24px</span></div>
+        <div class="anatomy-zone anatomy-body">
+          <span class="zone-lbl">Body</span>
+          Chart, list, table, or any composed content
+        </div>
+      </div>
+    </div>
+    <div class="anatomy-legend">
+      <span class="lg"><span class="sw"></span>Background <code style="background:none;padding:0;">var(--contained)</code></span>
+      <span class="lg"><span class="sw dash"></span>24px padding on all sides</span>
+      <span class="lg"><span class="sw slot"></span>Trailing action slot · 36×36px, optional</span>
+    </div>
+  </div>
+  <div class="note"><strong>Locked in.</strong> <code>.card-head { padding-bottom: 24px }</code> is now the single source of truth across every shared stylesheet in the library (hi-fi, lo-fi, data collection, needs-attention), matching the Figma <code>Container</code> component. We use padding or gap for spacing, never margin — padding-bottom on the header row reads identically since it has no background of its own. Dense wallboard tiles on the T5 custom-board pages keep their own tighter, intentionally compact spacing — that's a distinct widget density tier, not the standard container.</div>
+
+  <div class="sec-h">Styling</div>
+  <div class="signal-grid">
+    <div class="signal-col">
+      <div class="lbl-row"><span class="tag tag-contained">Contained</span></div>
+      <div class="card" style="max-width:none;">
+        <div class="card-head"><h2 style="font-size:16px;">Devices</h2><span class="arrow">→</span></div>
+        <span class="big-number" style="font-size:30px;">542</span>
+        <div class="stack-bar" style="margin:12px 0 0;">
+          <span style="flex:22; background:var(--c-blue)"></span>
+          <span style="flex:14; background:var(--c-green)"></span>
+          <span style="flex:64; background:var(--c-grey)"></span>
+        </div>
+      </div>
+    </div>
+    <div class="signal-col">
+      <div class="lbl-row"><span class="tag tag-uncontained">Uncontained</span></div>
+      <div class="kpi-strip" style="grid-template-columns:1fr 1fr;">
+        <div class="kpi-intro" style="padding-right:16px;">
+          <div class="eyebrow">This week</div>
+          <div class="title" style="font-size:18px;">Fleet health</div>
+        </div>
+        <div class="kpi" style="padding:0 0 0 16px;">
+          <div class="cat">Availability</div>
+          <div class="value-row"><span class="value" style="font-size:26px;">99.2%</span><span class="delta up">↑ 0.3%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/library-nav.js"></script>
+<script src="/livereload.js"></script>
+</body>
+</html>

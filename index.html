@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Examples library</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 48px 40px 96px; }
+  .wrap h1 { margin-bottom: 8px; }
+  .intro { font-size: 15px; color: var(--gl-ink-soft); max-width: 640px; line-height: 1.6; margin-bottom: 40px; }
+  .arch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 1100px) { .arch-grid { grid-template-columns: repeat(2, 1fr); } }
+  .arch-card { background: var(--contained); border-radius: var(--radius); padding: 24px;
+    display: flex; flex-direction: column; gap: 8px; text-decoration: none; color: inherit; }
+  .arch-card:hover { background: #F0F1F2; }
+  .arch-card .tag { font-size: 11.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    color: var(--gl-ink-weak); }
+  .arch-card h2 { font-size: 19px; font-weight: 700; color: var(--gl-heading); }
+  .arch-card p { font-size: 13.5px; color: var(--gl-ink-soft); line-height: 1.55; flex: 1; }
+  .arch-card .open { font-size: 13.5px; font-weight: 600; color: var(--gl-green-dark); text-decoration: underline; }
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 14px; }
+  .ex-list a { display: block; font-size: 14px; color: var(--gl-green-dark); text-decoration: underline; padding: 6px 0; }
+  .browse-bar { display: flex; align-items: center; justify-content: space-between; gap: 32px; background: var(--contained); border-radius: var(--radius); padding: 24px 28px; }
+  .browse-bar p { font-size: 13.5px; color: var(--gl-ink-soft); line-height: 1.55; max-width: 560px; }
+  .browse-links { display: flex; gap: 8px; flex: none; flex-wrap: wrap; justify-content: flex-end; }
+  .browse-links .btn { text-decoration: none; }
+  @media (max-width: 900px) { .browse-bar { flex-direction: column; align-items: flex-start; } .browse-links { justify-content: flex-start; } }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library</div>
+</header>
+
+<div class="wrap">
+  <h1>Examples library</h1>
+  <p class="intro">Page types for the GreenLake design system, each broken into canonical archetypes. Open an archetype to see its
+    low-fidelity spec and high-fidelity build side by side.</p>
+
+  <div class="browse-bar">
+    <div>
+      <div class="sec-h" style="margin:0 0 4px;">Browse all examples</div>
+      <p>Search and filter every widget, page, section, layout and composition by what you are trying to do: show a trend, report an exception, find and manage items.</p>
+    </div>
+    <div class="browse-links">
+      <a class="btn primary" href="browse.html">Browse all</a>
+      <a class="btn secondary" href="browse.html?kind=widget">Widgets</a>
+      <a class="btn secondary" href="browse.html?kind=page">Pages</a>
+      <a class="btn secondary" href="browse.html?kind=section">Sections</a>
+      <a class="btn secondary" href="browse.html?kind=composition">UI compositions</a>
+    </div>
+  </div>
+
+  <div class="sec-h" style="margin-top:40px;">Pages · Dashboards</div>
+  <div class="arch-grid">
+    <a class="arch-card" href="viewer.html?t=t1">
+      <span class="tag">T1</span>
+      <h2>Overview</h2>
+      <p>Answer "Is anything wrong? How are we trending? What next?" in under 5 seconds. Every module is a summary plus one link deeper.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="viewer.html?t=t2">
+      <span class="tag">T2</span>
+      <h2>Triage / Work queue</h2>
+      <p>Get a queue of items to zero. The table is the page: full width, uncontained, everything else supports it.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="viewer.html?t=t3">
+      <span class="tag">T3</span>
+      <h2>Analytics / Report</h2>
+      <p>Answer "how are we trending, and why?" One question per page, told top-down, no secondary rail.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="viewer.html?t=t5">
+      <span class="tag">T5</span>
+      <h2>Custom board</h2>
+      <p>The user's own cockpit. Contained, movable widgets in fixed sizes, each mapping to a canonical source page.</p>
+      <span class="open">Open archetype</span>
+    </a>
+  </div>
+
+  <div class="sec-h">Pages · Details</div>
+  <div class="arch-grid">
+    <a class="arch-card" href="viewer.html?t=t4">
+      <span class="tag">T4</span>
+      <h2>Object detail</h2>
+      <p>Everything about one thing: vitals up top, one chart or timeline, immutable key facts in the rail.</p>
+      <span class="open">Open archetype</span>
+    </a>
+  </div>
+
+  <div class="sec-h">Pages · Data collection</div>
+  <div class="arch-grid">
+    <a class="arch-card" href="data-collection/inventory-table.html">
+      <span class="tag">D1</span>
+      <h2>Filterable inventory table</h2>
+      <p>"Find and manage these 1,847 things." Search, filter chips, sortable columns, bulk-select action bar, pagination.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="data-collection/card-catalog.html">
+      <span class="tag">D2</span>
+      <h2>Card grid catalog</h2>
+      <p>"Browse and pick one." Identity over attributes: uniform tiles with category pills as the primary filter. Grids are for choosing, tables for managing.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="data-collection/event-stream.html">
+      <span class="tag">D3</span>
+      <h2>Faceted event stream</h2>
+      <p>"What happened, when?" Time-ordered logs with a volume histogram as zoom brush, facet sidebar with counts, live tail.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="data-collection/analytics-explorer.html">
+      <span class="tag">D4</span>
+      <h2>Analytics explorer</h2>
+      <p>"What's the trend? Where's the anomaly?" Chart-first: one scoped query drives the headline chart and breakdown in sync.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="data-collection/map-view.html">
+      <span class="tag">D5</span>
+      <h2>Map / spatial view</h2>
+      <p>"Where is the problem?" Map plus synced list with shared filters and selection. The map is a lens, never the source of truth.</p>
+      <span class="open">Open archetype</span>
+    </a>
+    <a class="arch-card" href="data-collection/index.html">
+      <span class="tag">Index</span>
+      <h2>Data collection overview</h2>
+      <p>The full data-collection library: archetype rationale, evidence, and the lo-fi ⇄ hi-fi toggles for each page.</p>
+      <span class="open">Open overview</span>
+    </a>
+  </div>
+
+  <div class="sec-h">Layouts</div>
+  <div class="arch-grid">
+    <a class="arch-card" href="layouts/containers.html">
+      <span class="tag">Layout</span>
+      <h2>Containers</h2>
+      <p>What earns a grey container, what sits uncontained, container anatomy, and how containers nest inside content sections.</p>
+      <span class="open">Open spec</span>
+    </a>
+    <a class="arch-card" href="layouts/content-header.html">
+      <span class="tag">Layout</span>
+      <h2>Content header</h2>
+      <p>The one header component used as a container's header row and as the title for an uncontained section.</p>
+      <span class="open">Open spec</span>
+    </a>
+    <a class="arch-card" href="layouts/widget.html">
+      <span class="tag">Layout</span>
+      <h2>Widget</h2>
+      <p>The reporting specialisation of a container: scope line, local controls, legend, footer, edit-mode chrome, and the six states every widget must handle. Where each control lives and why.</p>
+      <span class="open">Open spec</span>
+    </a>
+    <a class="arch-card" href="layouts/visualisation.html">
+      <span class="tag">Layout</span>
+      <h2>Visualisation</h2>
+      <p>What fills a widget body: one mark plus its furniture. Slot anatomy for value, unit, delta, axis row, legend and caption, delta configurations, and the eight workhorse marks with their degenerate cases.</p>
+      <span class="open">Open spec</span>
+    </a>
+  </div>
+
+  <div class="sec-h">Widgets</div>
+  <div class="arch-grid">
+    <a class="arch-card" href="widgets/index.html">
+      <span class="tag">W1–W17</span>
+      <h2>Widget catalogue</h2>
+      <p>Seventeen canonical widget types in six families (Measure, Compose, Monitor, Explain, Act, Summarise), each defined by the viewer's question: workhorse viz, controls, allowed sizes, source page, use when and not when.</p>
+      <span class="open">Open catalogue</span>
+    </a>
+  </div>
+
+  <div class="sec-h">UI compositions</div>
+  <div class="arch-grid">
+    <a class="arch-card" href="card-gallery.html">
+      <span class="tag">Gallery</span>
+      <h2>Card gallery</h2>
+      <p>Cards organised by job to be done: report an exception, show a trend, explain an insight, prompt a deadline, summarise a distribution. Canonical card, presentation variants, and required states per job.</p>
+      <span class="open">Open gallery</span>
+    </a>
+    <a class="arch-card" href="exception-card-options.html">
+      <span class="tag">Exploration</span>
+      <h2>Status cards: goal, presentation, states</h2>
+      <p>The working exploration behind the gallery: posture vs action cards, chart treatments compared, typography and spacing studies.</p>
+      <span class="open">Open exploration</span>
+    </a>
+    <a class="arch-card" href="trend-card-options.html">
+      <span class="tag">Exploration</span>
+      <h2>Trend card options</h2>
+      <p>Comparison of sparkline and trend-detail treatments that led to the canonical chart spec.</p>
+      <span class="open">Open exploration</span>
+    </a>
+    <a class="arch-card" href="health-widget-options.html">
+      <span class="tag">Exploration</span>
+      <h2>Service health widget content</h2>
+      <p>What a row means in a health status list: cloud service status, estate health, or a layered stack, with a glossary of monitoring domains.</p>
+      <span class="open">Open exploration</span>
+    </a>
+    <a class="arch-card" href="workspace-stats-options.html">
+      <span class="tag">Exploration</span>
+      <h2>Workspace stat cards</h2>
+      <p>Folding a three-card stat strip into one widget: hierarchy, repeated totals, zero counts and where the score belongs.</p>
+      <span class="open">Open exploration</span>
+    </a>
+    <a class="arch-card" href="account-widget-options.html">
+      <span class="tag">Exploration</span>
+      <h2>Account health and snapshot</h2>
+      <p>Two side-by-side account widgets: giving the score a meter, turning drivers into ratio rows and removing repeated facts.</p>
+      <span class="open">Open exploration</span>
+    </a>
+    <a class="arch-card" href="benchmark-widget-options.html">
+      <span class="tag">Exploration</span>
+      <h2>Peer benchmarking widget</h2>
+      <p>Mapping a sector comparison card onto the widget anatomy: headline value, meter with benchmark marker, caption and one action.</p>
+      <span class="open">Open exploration</span>
+    </a>
+    <a class="arch-card" href="user-stats-options.html">
+      <span class="tag">Exploration</span>
+      <h2>User stat cards</h2>
+      <p>A four-card user strip: putting units and deltas in their slots, moving the population to the scope line and handling a zero.</p>
+      <span class="open">Open exploration</span>
+    </a>
+    <a class="arch-card" href="adoption-checks-options.html">
+      <span class="tag">Exploration</span>
+      <h2>Adoption checks widget</h2>
+      <p>A three-row checklist card: removing table furniture, turning the verdict into a pill and giving each check a meter so the gaps show their size.</p>
+      <span class="open">Open exploration</span>
+    </a>
+    <a class="arch-card" href="summary-section-options.html">
+      <span class="tag">Exploration</span>
+      <h2>Summary section</h2>
+      <p>How overview pages open with a summary: six patterns from Mobbin, the current section critiqued, and four options from digest to banner-and-rail, with dismissal rules.</p>
+      <span class="open">Open exploration</span>
+    </a>
+    <a class="arch-card" href="summary/index.html">
+      <span class="tag">Spec</span>
+      <h2>Summary sections</h2>
+      <p>Three shapes, nine jobs: digest, findings list and recommendation cards, each with an example, job, use when, anatomy, states, dismissal and Figma notes.</p>
+      <span class="open">Open spec</span>
+    </a>
+  </div>
+
+  <div class="sec-h">Applied exercises</div>
+  <div class="ex-list">
+    <a href="storage-overview-b.html">Data Storage Service overview · sectioned</a>
+    <a href="storage-overview.html">Data Storage Service overview · bento</a>
+    <a href="com-overview-remap-hifi.html">COM Overview remap · A (attention cards)</a>
+    <a href="com-overview-remap-hifi-b.html">COM Overview remap · B (ranked list)</a>
+    <a href="dashboard-lofi.html">Original dashboard lo-fi exploration</a>
+  </div>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T4 · Object detail · Var C · Network site</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon active" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+
+    <!-- Object header -->
+    <section style="margin-bottom: var(--gap-section);">
+      <div class="crumb"><a href="#">Networking</a> › <a href="#">Sites</a> › Munich Factory</div>
+      <div class="obj-head">
+        <h1>Aruba site · Munich Factory</h1>
+        <span class="pill amber">● Warning · high channel utilization</span>
+        <div class="obj-actions">
+          <button class="btn primary">Optimize RF</button>
+          <button class="btn secondary">＋ Add device</button>
+          <button class="btn icon secondary">···</button>
+        </div>
+      </div>
+      <div class="tabs">
+        <span class="tab on">Overview</span>
+        <span class="tab">Devices</span>
+        <span class="tab">Clients</span>
+        <span class="tab">WLANs</span>
+        <span class="tab">Config</span>
+      </div>
+    </section>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Vitals -->
+        <section class="grid-4">
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Client health score</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">82</div>
+            <div class="meter"><i class="warn" style="width:82%"></i></div>
+            <div class="fine" style="margin-top:8px;">Down 6 pts since 08:00 CEST</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Connected clients</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">1,184</div>
+            <div class="meter"><i style="width:64%"></i></div>
+            <div class="fine" style="margin-top:8px;">Peak 1,263 at 11:15 CEST</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">WAN status</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">2 / 2</div>
+            <div class="meter"><i style="width:100%"></i></div>
+            <div class="fine" style="margin-top:8px;">Primary 1 Gbps, backup ready</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Devices online</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">38 / 41</div>
+            <div class="meter"><i class="warn" style="width:95%"></i></div>
+            <div class="fine" style="margin-top:8px;">3 devices in maintenance mode</div>
+          </div>
+        </section>
+
+        <!-- Activity chart -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Client count · last 24 hours</h2>
+          <div class="chart-wrap">
+            <svg viewBox="0 0 900 200">
+              <g stroke="#eceff0" stroke-width="1">
+                <line x1="0" y1="40" x2="900" y2="40"/><line x1="0" y1="90" x2="900" y2="90"/><line x1="0" y1="140" x2="900" y2="140"/>
+              </g>
+              <polygon points="0,160 75,154 150,146 225,136 300,104 375,88 450,66 525,58 600,62 675,76 750,90 825,110 900,98 900,200 0,200" fill="rgba(61,127,242,0.08)"/>
+              <polyline points="0,160 75,154 150,146 225,136 300,104 375,88 450,66 525,58 600,62 675,76 750,90 825,110 900,98"
+                fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+              <polyline points="0,138 75,140 150,134 225,130 300,118 375,112 450,102 525,96 600,88 675,86 750,92 825,98 900,104"
+                fill="none" stroke="var(--amber)" stroke-width="2.5" stroke-linecap="round"/>
+              <text x="0" y="196" font-size="11" fill="#8fa0a8">00:00</text>
+              <text x="430" y="196" font-size="11" fill="#8fa0a8">12:00</text>
+              <text x="862" y="196" font-size="11" fill="#8fa0a8">Now</text>
+            </svg>
+          </div>
+          <div class="chart-legend">
+            <span class="lg"><span class="sw" style="background:var(--c-blue)"></span>Connected clients</span>
+            <span class="lg"><span class="sw" style="background:var(--amber)"></span>Channel utilization</span>
+          </div>
+        </section>
+
+        <!-- Related devices -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Devices at this site</h2>
+          <table>
+            <thead>
+              <tr><th>Device</th><th>Type</th><th>Model</th><th>Status</th><th class="num">Clients</th><th>Firmware</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="tlink">mun-factory-ap-03-017</span></td><td>Access point</td><td>Aruba AP-635</td><td><span class="pill amber">High channel</span></td><td class="num">42</td><td>AOS 10.7.1.1</td></tr>
+              <tr><td><span class="tlink">mun-factory-gw-01</span></td><td>Gateway</td><td>Aruba 9240</td><td><span class="pill green">Online</span></td><td class="num">612</td><td>AOS 10.7.1.1</td></tr>
+              <tr><td><span class="tlink">mun-factory-gw-02</span></td><td>Gateway</td><td>Aruba 9240</td><td><span class="pill green">Online</span></td><td class="num">572</td><td>AOS 10.7.1.1</td></tr>
+              <tr><td><span class="tlink">mun-factory-sw-core-01</span></td><td>Switch</td><td>Aruba CX 8325</td><td><span class="pill green">Online</span></td><td class="num">—</td><td>10.14.0008</td></tr>
+              <tr><td><span class="tlink">mun-factory-iot-gw-07</span></td><td>Gateway</td><td>Aruba 9004</td><td><span class="pill grey">Maintenance</span></td><td class="num">0</td><td>AOS 10.6.2.3</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Key facts</h3>
+          <div class="kv"><span class="k">Address</span><span class="v">Leopoldstraße 100, Building C</span></div>
+          <div class="kv"><span class="k">Region</span><span class="v">Europe · Munich, Germany</span></div>
+          <div class="kv"><span class="k">Device group</span><span class="v">Plant-Gateways-Munich</span></div>
+          <div class="kv"><span class="k">Device count</span><span class="v">41</span></div>
+          <div class="kv"><span class="k">Primary contact</span><span class="v">harry.lewis@democomp.com</span></div>
+          <div class="kv"><span class="k">Network engineer</span><span class="v">William Taylor</span></div>
+          <div class="kv"><span class="k">WLANs</span><span class="v">Corp, Guest, Manufacturing-IoT</span></div>
+          <div class="kv"><span class="k">Subscription</span><span class="v"><span class="tlink" style="font-size:13px;">Aruba Central</span></span></div>
+          <div class="kv"><span class="k">Tags</span><span class="v"><span class="pill grey">region:europe</span> <span class="pill grey">facility-type:manufacturing</span></span></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Related</h3>
+          <div class="learn-item"><div class="lt">RF optimization history →</div><div class="ls">Plant-Gateways-Munich channel plan completed Sep 9th, 2026.</div></div>
+          <div class="learn-item"><div class="lt">Client experience report →</div><div class="ls">Authentication, roaming, DNS, and application quality trends.</div></div>
+          <div class="learn-item"><div class="lt">Open Aruba support case ↗</div><div class="ls">Munich Factory telemetry and device group details are attached automatically.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

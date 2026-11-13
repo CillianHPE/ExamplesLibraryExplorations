@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo-fi — Analytics explorer (KPI card-tab variant)</title><style>
+  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
+  .topbar { height:52px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:16px; padding:0 20px; background:#fff; }
+  .logo { width:90px; height:20px; background:var(--faint); border-radius:3px; }
+  .searchbox { flex:0 0 320px; height:30px; border:1px solid var(--line); border-radius:15px; margin-left:auto; }
+  .avatar { width:28px; height:28px; border-radius:50%; background:var(--faint); }
+  .page { padding:20px 32px 48px; max-width:1200px; margin:0 auto; }
+  .backlink { display:inline-block; margin-bottom:12px; font-size:13px; color:var(--muted); }
+  .crumb { font-size:12.5px; color:var(--muted); margin-bottom:6px; }
+  h1 { font-size:22px; font-weight:600; }
+  .sub { font-size:13px; color:var(--muted); margin:4px 0 18px; }
+  .sub a { color:var(--accent); }
+  .qbar { display:flex; gap:16px; align-items:flex-end; margin-bottom:14px; }
+  .qbar label { display:block; font-size:11.5px; color:var(--muted); margin-bottom:4px; }
+  .select { font-size:13px; border:1px solid var(--line); border-radius:4px; background:#fff; padding:6px 28px 6px 10px; position:relative; min-width:210px; }
+  .select:after { content:"▾"; position:absolute; right:9px; color:var(--muted); }
+  .btn { font-size:13px; padding:6px 14px; border:1px solid var(--line); border-radius:4px; background:#fff; cursor:pointer; margin-left:auto; }
+  .facts { font-size:12.5px; color:var(--muted); margin-bottom:18px; line-height:1.9; }
+  .facts b { color:var(--ink); font-weight:600; }
+  .facts u { text-decoration-color:var(--faint); cursor:pointer; }
+  .cards { display:flex; gap:14px; margin-bottom:20px; }
+  .kpi { flex:1; border:1px solid var(--line); border-radius:6px; background:#fff; padding:14px 16px; cursor:pointer; }
+  .kpi:hover { border-color:var(--muted); }
+  .kpi.cur { border-color:var(--ink); box-shadow:0 2px 8px rgba(0,0,0,.07); }
+  .kpi .big { font-size:26px; font-weight:700; }
+  .kpi .big span { font-size:12px; font-weight:400; color:var(--muted); }
+  .kpi .t { font-size:12.5px; margin:2px 0 6px; }
+  .kpi .d { font-size:11.5px; color:var(--muted); line-height:1.5; }
+  .chartcard { border:1px solid var(--line); border-radius:6px; background:#fff; padding:16px 18px 10px; margin-bottom:24px; }
+  .chart-tools { text-align:right; font-size:12px; color:var(--muted); }
+  .legend { display:flex; gap:24px; font-size:11.5px; color:var(--muted); padding:8px 6px 6px; flex-wrap:wrap; }
+  .legend .dot { width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:5px; background:var(--ink); }
+  .legend .dot.proj { background:var(--faint); }
+  h2 { font-size:16px; font-weight:600; }
+  .table-head { display:flex; align-items:center; margin-bottom:10px; }
+  .aggby { margin-left:auto; font-size:12px; color:var(--muted); }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:6px; overflow:hidden; font-size:12.5px; }
+  th { text-align:left; font-weight:600; color:var(--muted); font-size:11.5px; padding:9px 12px; border-bottom:1px solid var(--line); background:var(--fill); }
+  td { padding:10px 12px; border-bottom:1px solid var(--fill); }
+  .pct { display:flex; align-items:center; gap:8px; }
+  .bar { width:90px; height:8px; background:var(--fill); border-radius:4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--ink); }
+  .annotation { margin-top:24px; font-size:12px; color:var(--muted); border:1px dashed var(--faint); border-radius:4px; padding:10px 12px; line-height:1.5; }
+</style>
+</head><body>
+<div class="topbar"><div class="logo"></div><div class="searchbox"></div><div class="avatar"></div></div>
+<div class="page">
+<a class="backlink" href="index.html">&lsaquo; All mockups &nbsp;·&nbsp; layout alternatives: <a href="analytics-cards-a.html">A stat-tabs</a> · <a href="analytics-cards-b.html">B side-by-side</a> · <a href="analytics-cards-c.html">C small multiples</a></a>
+<div class="crumb">&lsaquo; AI Insights</div>
+<h1>Sustainability insights</h1>
+<p class="sub">AI powered insights on historical and projected energy consumption, carbon and costs. <a href="#">Learn more</a></p>
+
+<div class="qbar">
+  <div><label>Date range / data sample size</label><div class="select">Last 90 and next 30 days (1 d…</div></div>
+  <div><label>Filter servers by</label><div class="select">All servers</div></div>
+  <div class="btn">Actions ▾</div>
+</div>
+<div class="facts">
+  <b>Date range</b> &nbsp; Jun 13, 2026 – Oct 10, 2026 (120 days)<br>
+  <b>Data sample size</b> &nbsp; 1 day averages<br>
+  <b>Servers analyzed</b> &nbsp; 1 server analyzed, <u>90 servers</u> were removed from the analysis.
+</div>
+
+<div class="cards" id="cards"></div>
+
+<div class="chartcard">
+  <div class="chart-tools">▦ &nbsp;↗</div>
+  <svg id="chart" width="100%" height="240" viewBox="0 0 1000 240" preserveAspectRatio="none"></svg>
+  <div class="legend" id="legend"></div>
+</div>
+
+<div class="table-head"><h2 id="tabletitle"></h2><div class="aggby">Aggregate by &nbsp;<span class="select" style="min-width:120px;display:inline-block">Server</span></div></div>
+<table>
+  <thead id="thead"></thead>
+  <tbody id="tbody"></tbody>
+</table>
+
+<div class="annotation">Archetype 4 variant — Analytics explorer with <b>KPI cards as the metric switcher</b>. Instead of a metric dropdown in a query bar, the three summary cards act as tabs: selecting one re-renders the chart, legend and breakdown table for that metric (kgCO2e / kWh / USD). Shared time range and filters apply to all metrics; collected vs. projected split is consistent everywhere (solid past, shaded future). Evidence: HPE GreenLake Sustainability insights, Stripe, Vercel &amp; Cloudflare analytics. Rule: the cards are the same "query" — only the lens changes, so selection state must be obvious and the chart/table must never disagree with the selected card.</div>
+</div>
+<script>
+const METRICS = {
+  co2: { unit:"kgCO2e", sym:"", big:"182", title:"Total estimated carbon emissions",
+    d:"138 kgCO2e collected total<br>43.5 kgCO2e projected total",
+    collAvg:1.535, projAvg:1.451, min:0.845, max:1.95, yTicks:[0.491,0.982,1.473,1.964],
+    legendMin:"Minimum 0.845 kgCO2e", legendMax:"Maximum 1.95 kgCO2e",
+    table:"Details - Estimated carbon emissions - CO2e", unitHdr:"(kgCO2e)",
+    row:["0.845","1.950","1.514","138.128","43.517","181.645"] },
+  kwh: { unit:"kWh", sym:"", big:"412", title:"Total energy consumption",
+    d:"313 kWh collected total<br>98.6 kWh projected total",
+    collAvg:3.478, projAvg:3.287, min:1.915, max:4.418, yTicks:[1.113,2.226,3.339,4.452],
+    legendMin:"Minimum 1.915 kWh", legendMax:"Maximum 4.418 kWh",
+    table:"Details - Energy consumption - Wh", unitHdr:"(kWh)",
+    row:["1.915","4.418","3.430","313.026","98.619","411.645"] },
+  usd: { unit:"USD", sym:"$ ", big:"66", title:"Total estimated cost",
+    d:"$ 50 USD collected total<br>$ 16 USD projected total",
+    collAvg:0.56, projAvg:0.53, min:0.31, max:0.71, yTicks:[0.177,0.354,0.532,0.71],
+    legendMin:"Minimum $ 0.31 USD", legendMax:"Maximum $ 0.71 USD",
+    table:"Details - Estimated cost - USD", unitHdr:"(USD)",
+    row:["$ 0.31","$ 0.71","$ 0.55","$ 50.08","$ 15.78","$ 65.86"] }
+};
+const CARD_ORDER = ["co2","kwh","usd"];
+// one normalized daily shape (0..1), reused and scaled per metric so all three charts correlate
+const SHAPE = [0.75,0.74,0.76,0.75,0.73,0.74,0.75,0.76,0.74,0.75,0.73,0.72,0.74,0.75,0.76,0.75,0.74,0.73,0.75,0.76,0.74,0.75,0.73,0.74,0.75,0.74,0.76,0.75,0.74,0.75,0.73,0.74,0.76,0.75,0.74,0.30,0.74,0.75,0.76,0.75,0.74,0.75,0.73,0.75,0.74,0.76,0.75,0.74,0.75,0.73,0.74,0.75,0.76,0.74,0.75,0.74,0.73,0.75,0.76,0.75,0.74,0.75,0.73,0.74,0.75,0.76,0.10,0.74,0.75,0.76,0.75,0.74,0.95,0.96,0.94,0.95,0.96,0.95,0.94,0.96,0.95,0.94,0.95,0.75,0.74,0.75,0.76,0.74,0.75,0.74];
+const PROJ = Array.from({length:30},(_,i)=> i<10 ? 0.94-0.002*i : 0.72+0.001*i);
+const XLBL = ["Jun 13","Jul 04","Jul 25","Aug 15","Sep 05","Sep 26"];
+let cur = "co2";
+
+function renderCards(){
+  document.getElementById("cards").innerHTML = CARD_ORDER.map(k=>{
+    const m=METRICS[k];
+    return `<div class="kpi ${k===cur?'cur':''}" onclick="setMetric('${k}')">
+      <div class="big">${m.sym}${m.big} <span>${m.unit}</span></div>
+      <div class="t">${m.title}</div><div class="d">${m.d}</div></div>`;
+  }).join("");
+}
+function renderChart(){
+  const m=METRICS[cur], top=m.yTicks[3]*1.02;
+  const X0=60, X1=985, Y0=10, Y1=205, W=X1-X0, N=120;
+  const x=i=>X0+W*i/(N-1), y=v=>Y1-(Y1-Y0)*v/top;
+  const splitX=x(89);
+  let s="";
+  m.yTicks.forEach(t=>{ s+=`<line x1="${X0}" y1="${y(t)}" x2="${X1}" y2="${y(t)}" stroke="#f2f2f2"/>`;
+    s+=`<text x="${X0-8}" y="${y(t)+4}" font-size="10" fill="#8a8a8a" text-anchor="end">${t}</text>`; });
+  s+=`<rect x="${splitX}" y="${Y0}" width="${X1-splitX}" height="${Y1-Y0}" fill="#f2f2f2" opacity="0.55"/>`;
+  s+=`<line x1="${splitX}" y1="${Y0}" x2="${splitX}" y2="${Y1}" stroke="#c9c9c9" stroke-dasharray="4 3"/>`;
+  const scale=v=>v*m.max;
+  let p1="M"+SHAPE.map((v,i)=>`${x(i).toFixed(1)},${y(scale(v)).toFixed(1)}`).join(" L");
+  let p2="M"+PROJ.map((v,i)=>`${x(90+i).toFixed(1)},${y(scale(v)).toFixed(1)}`).join(" L");
+  s+=`<line x1="${X0}" y1="${y(m.collAvg)}" x2="${splitX}" y2="${y(m.collAvg)}" stroke="#8a8a8a" stroke-dasharray="2 3"/>`;
+  s+=`<line x1="${splitX}" y1="${y(m.projAvg)}" x2="${X1}" y2="${y(m.projAvg)}" stroke="#c9c9c9" stroke-dasharray="2 3"/>`;
+  s+=`<path d="${p1}" fill="none" stroke="#2b2b2b" stroke-width="1.4"/>`;
+  s+=`<path d="${p2}" fill="none" stroke="#8a8a8a" stroke-width="1.4" stroke-dasharray="5 3"/>`;
+  XLBL.forEach((l,i)=>{ s+=`<text x="${X0+W*i/(XLBL.length-1)*0.98}" y="228" font-size="10" fill="#8a8a8a">${l}</text>`; });
+  s+=`<text x="14" y="120" font-size="10" fill="#8a8a8a" transform="rotate(-90 14 120)">${m.unit}</text>`;
+  document.getElementById("chart").innerHTML=s;
+  document.getElementById("legend").innerHTML=
+    `<span><span class="dot"></span>Collected data - Jun 13, 2026 - Sep 10, 2026 (90 days)</span>
+     <span><span class="dot proj"></span>Projected data - Sep 11, 2026 - Oct 10, 2026 (30 days)</span>
+     <span>— Collected average ${m.collAvg} ${m.unit}</span>
+     <span>— Projected average ${m.projAvg} ${m.unit}</span>
+     <span>▼ ${m.legendMin}</span><span>▲ ${m.legendMax}</span>`;
+}
+function renderTable(){
+  const m=METRICS[cur];
+  document.getElementById("tabletitle").textContent=m.table;
+  document.getElementById("thead").innerHTML=`<tr><th>Server name</th><th>Minimum day ${m.unitHdr}</th><th>Maximum day ${m.unitHdr}</th><th>Average day ${m.unitHdr}</th><th>Collected ${m.unitHdr}</th><th>Projected ${m.unitHdr}</th><th>Total ${m.unitHdr} ↓</th><th>% of Total</th></tr>`;
+  document.getElementById("tbody").innerHTML=`<tr><td>WIN-L0JPUN8KB3</td>${m.row.map(v=>`<td>${v}</td>`).join("")}<td><div class="pct"><div class="bar"><i style="width:100%"></i></div>100%</div></td></tr>`;
+}
+function setMetric(k){ cur=k; renderCards(); renderChart(); renderTable(); }
+setMetric("co2");
+</script>
+<script src="/library-nav.js"></script>
+</body></html>

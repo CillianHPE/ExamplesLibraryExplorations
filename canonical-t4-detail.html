@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T4 · Object detail · Canonical layout</title>
+<link rel="stylesheet" href="lofi-shared.css">
+<link rel="stylesheet" href="canonical.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="hicon"></div>
+  <div class="logo">greenlake</div>
+  <div class="workspace">North America IT Ops ▾</div>
+  <div class="search">Search</div>
+  <div class="header-icons"><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon"></div><div class="ricon"></div><div class="ricon"></div>
+    <div class="ricon active"></div><div class="ricon"></div><div class="ricon"></div>
+  </nav>
+
+  <main class="page">
+
+    <div class="tpl-purpose" style="margin-top:0">
+      <b>Job of the page:</b> everything about ONE thing (a device, subscription, migration, cluster) —
+      identity, health, activity, and what it's connected to.
+      <b>Use for:</b> any row-click destination from T1/T2/T3 tables.
+      <b>Secondary rail:</b> yes: key facts (immutable properties), never status or metrics.
+    </div>
+
+    <!-- A: object header -->
+    <section class="section" style="margin-bottom: var(--gap-section);">
+      <div class="region uncontained h-md">
+        <div class="r-head">
+          <div class="r-code">A</div><div class="r-name">Object header</div>
+          <div class="r-tag">Uncontained · replaces page title</div>
+        </div>
+        <div class="r-purpose">Who am I looking at? Breadcrumb ← back, name, status badge, primary + overflow actions.</div>
+        <div class="r-contains">Contains: breadcrumb, H1 (object name), status, 1 primary action, "···" menu, tab bar (Overview / Activity / Settings).</div>
+        <div class="r-rules">Rules: status badge always beside the name · destructive actions only in overflow · tabs for peer content, never nested tabs.</div>
+      </div>
+    </section>
+
+    <div class="gap-note" style="display:block; text-align:center; margin-bottom: var(--gap-section);">— 32px section gap —</div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- B: vitals -->
+        <section class="section">
+          <div class="grid-3">
+            <div class="region contained h-md">
+              <div class="r-head"><div class="r-code">B</div><div class="r-name">Vital card</div><div class="r-tag">Contained</div></div>
+              <div class="r-purpose">Current health / utilization / spend of THIS object.</div>
+            </div>
+            <div class="region contained h-md">
+              <div class="r-head"><div class="r-code">B</div><div class="r-name">Vital card</div><div class="r-tag">Contained</div></div>
+              <div class="r-purpose">2–4 cards, 16px gaps. Live state only, no history here.</div>
+            </div>
+            <div class="region contained h-md">
+              <div class="r-head"><div class="r-code">B</div><div class="r-name">Vital card</div><div class="r-tag">Contained</div></div>
+              <div class="r-rules">Rules: numbers should alarm or reassure, thresholds visible.</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="gap-note">— 32px section gap —</div>
+
+        <!-- C: activity/trend -->
+        <section class="section">
+          <div class="region uncontained h-lg">
+            <div class="r-head">
+              <div class="r-code">C</div><div class="r-name">Activity / trend</div>
+              <div class="r-tag">Uncontained · full width</div>
+            </div>
+            <div class="r-purpose">What has this object been doing? Utilization chart or event timeline.</div>
+            <div class="r-rules">Rules: one chart OR one timeline. If you need both, the second goes in a tab.</div>
+          </div>
+        </section>
+
+        <div class="gap-note">— 32px section gap —</div>
+
+        <!-- D: related items -->
+        <section class="section">
+          <div class="region uncontained h-lg">
+            <div class="r-head">
+              <div class="r-code">D</div><div class="r-name">Related items table</div>
+              <div class="r-tag">Uncontained · full width</div>
+            </div>
+            <div class="r-purpose">What's attached: workloads on this device, devices on this subscription…</div>
+            <div class="r-rules">Rules: standard table treatment (on the body) · rows link to their own T4 pages.</div>
+          </div>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="region contained h-xl">
+          <div class="r-head"><div class="r-code">E</div><div class="r-name">Key facts</div><div class="r-tag">Contained · one card</div></div>
+          <div class="r-purpose">Immutable properties: ID, model, serial, location, owner, created date, tags.</div>
+          <div class="r-contains">Label:value pairs, copy buttons on IDs.</div>
+          <div class="r-rules">Rules: facts only. Anything that changes hourly belongs in Vitals (B). 64px from primary.</div>
+        </div>
+        <div class="region uncontained h-md">
+          <div class="r-head"><div class="r-code">F</div><div class="r-name">Related links</div><div class="r-tag">Uncontained links</div></div>
+          <div class="r-contains">Docs for this model, support case, warranty status.</div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T4 · Object detail · Var D · Subscription</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon active" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+
+    <!-- Object header -->
+    <section style="margin-bottom: var(--gap-section);">
+      <div class="crumb"><a href="#">Billing</a> › <a href="#">Subscriptions</a> › Block Storage</div>
+      <div class="obj-head">
+        <h1>GreenLake subscription · Block Storage</h1>
+        <span class="pill green">● Active</span>
+        <div class="obj-actions">
+          <button class="btn primary">View invoices</button>
+          <button class="btn secondary">Adjust commit</button>
+          <button class="btn icon secondary">···</button>
+        </div>
+      </div>
+      <div class="tabs">
+        <span class="tab on">Overview</span>
+        <span class="tab">Usage</span>
+        <span class="tab">Invoices</span>
+        <span class="tab">Terms</span>
+      </div>
+    </section>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Vitals -->
+        <section class="grid-4">
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Monthly cost</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">€112K</div>
+            <div class="meter"><i style="width:88%"></i></div>
+            <div class="fine" style="margin-top:8px;">Projected September 2026</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Usage vs commit</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">88%</div>
+            <div class="meter"><i class="warn" style="width:88%"></i></div>
+            <div class="fine" style="margin-top:8px;">€112K of €128K committed</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Commit headroom</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">€15.4K</div>
+            <div class="meter"><i class="warn" style="width:12%"></i></div>
+            <div class="fine" style="margin-top:8px;">Available before on-demand overage</div>
+          </div>
+          <div class="card">
+            <div class="kpi-cat" style="font-size:12px; color:var(--gl-ink-soft);">Renewal countdown</div>
+            <div style="font-size:28px; font-weight:700; margin-top:6px;">201 days</div>
+            <div class="meter"><i style="width:44%"></i></div>
+            <div class="fine" style="margin-top:8px;">Renews Mar 31st, 2027</div>
+          </div>
+        </section>
+
+        <!-- Activity chart -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Usage vs commit · last 6 months</h2>
+          <div class="chart-wrap">
+            <svg viewBox="0 0 900 200">
+              <g stroke="#eceff0" stroke-width="1">
+                <line x1="0" y1="40" x2="900" y2="40"/><line x1="0" y1="90" x2="900" y2="90"/><line x1="0" y1="140" x2="900" y2="140"/>
+              </g>
+              <polyline points="0,95 150,95 300,95 450,95 600,95 750,95 900,95"
+                fill="none" stroke="var(--c-grey)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 7"/>
+              <polygon points="0,128 150,116 300,108 450,100 600,92 750,86 900,82 900,200 0,200" fill="rgba(132,96,245,0.08)"/>
+              <polyline points="0,128 150,116 300,108 450,100 600,92 750,86 900,82"
+                fill="none" stroke="var(--c-purple)" stroke-width="2.5" stroke-linecap="round"/>
+              <polyline points="0,146 150,132 300,126 450,114 600,104 750,98 900,92"
+                fill="none" stroke="var(--c-green)" stroke-width="2.5" stroke-linecap="round"/>
+              <text x="0" y="196" font-size="11" fill="#8fa0a8">Apr</text>
+              <text x="286" y="196" font-size="11" fill="#8fa0a8">Jun</text>
+              <text x="584" y="196" font-size="11" fill="#8fa0a8">Aug</text>
+              <text x="862" y="196" font-size="11" fill="#8fa0a8">Sep</text>
+            </svg>
+          </div>
+          <div class="chart-legend">
+            <span class="lg"><span class="sw" style="background:var(--c-purple)"></span>Actual usage</span>
+            <span class="lg"><span class="sw" style="background:var(--c-green)"></span>Forecast</span>
+            <span class="lg"><span class="sw" style="background:var(--c-grey)"></span>Commit level</span>
+          </div>
+        </section>
+
+        <!-- Related invoices -->
+        <section>
+          <h2 class="table-title" style="font-size:20px;">Invoices</h2>
+          <table>
+            <thead>
+              <tr><th>Invoice ID</th><th>Period</th><th class="num">Amount</th><th>Status</th><th>Due date</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="tlink">INV-2026-0917</span></td><td>Sep 1–30, 2026</td><td class="num">€112,420</td><td><span class="pill grey">Draft</span></td><td>Oct 15th, 2026</td></tr>
+              <tr><td><span class="tlink">INV-2026-0816</span></td><td>Aug 1–31, 2026</td><td class="num">€124,810</td><td><span class="pill green">Paid</span></td><td>Sep 15th, 2026</td></tr>
+              <tr><td><span class="tlink">INV-2026-0715</span></td><td>Jul 1–31, 2026</td><td class="num">€119,640</td><td><span class="pill green">Paid</span></td><td>Aug 15th, 2026</td></tr>
+              <tr><td><span class="tlink">INV-2026-0614</span></td><td>Jun 1–30, 2026</td><td class="num">€116,280</td><td><span class="pill green">Paid</span></td><td>Jul 15th, 2026</td></tr>
+              <tr><td><span class="tlink">INV-2026-0513</span></td><td>May 1–31, 2026</td><td class="num">€110,990</td><td><span class="pill green">Paid</span></td><td>Jun 15th, 2026</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Key facts</h3>
+          <div class="kv"><span class="k">Service</span><span class="v">Block Storage</span></div>
+          <div class="kv"><span class="k">Start date</span><span class="v">Apr 1st, 2024</span></div>
+          <div class="kv"><span class="k">End date</span><span class="v">Mar 31st, 2027</span></div>
+          <div class="kv"><span class="k">Commit level</span><span class="v">€128K / month</span></div>
+          <div class="kv"><span class="k">Billing workspace</span><span class="v">Democomp-Global-Ops</span></div>
+          <div class="kv"><span class="k">Billing admin</span><span class="v">Emma Johansson</span></div>
+          <div class="kv"><span class="k">Company</span><span class="v">DemoComp Industries</span></div>
+          <div class="kv"><span class="k">Orders admin</span><span class="v">Daniel Silva</span></div>
+          <div class="kv"><span class="k">Tags</span><span class="v"><span class="pill grey">storage</span> <span class="pill grey">prod</span></span></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Related</h3>
+          <div class="learn-item"><div class="lt">Usage drivers →</div><div class="ls">Block-Resource-032 and DSCC-Resource-051 drive 64% of September spend.</div></div>
+          <div class="learn-item"><div class="lt">Commit optimization →</div><div class="ls">Recommended uplift to €140K/month before renewal planning.</div></div>
+          <div class="learn-item"><div class="lt">Contact billing admin →</div><div class="ls">Share forecast and renewal targets with Emma Johansson.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

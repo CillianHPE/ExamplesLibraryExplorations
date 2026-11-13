@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Audit log · Event stream · Hi-fi</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  .hist { display:flex; gap:3px; align-items:flex-end; height:72px; margin:8px 0 4px; }
+  .hist i { flex:1; background:var(--viz-1); opacity:.45; border-radius:2px 2px 0 0; cursor:pointer; }
+  .hist i.hot { background:var(--red); opacity:.85; }
+  .hist i:hover { opacity:1; }
+  .axis { display:flex; justify-content:space-between; font-size:11.5px; color:var(--gl-ink-faint); margin-bottom:20px; }
+  .stream { display:grid; grid-template-columns:220px 1fr; gap:var(--gap-primary-secondary); align-items:start; }
+  .facets .card { padding:16px 18px; margin-bottom:16px; }
+  .facets h3 { font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--gl-ink-soft); margin-bottom:8px; }
+  .frow { display:flex; justify-content:space-between; font-size:13px; padding:4px 0; cursor:pointer; }
+  .frow:hover span:first-child { text-decoration:underline; }
+  .frow b { color:var(--gl-ink-soft); font-weight:600; }
+  .frow.on { font-weight:700; color:var(--gl-green-deep); }
+  .lrow { display:flex; gap:14px; padding:9px 10px; border-bottom:1px solid var(--contained-line); font-size:13px; cursor:pointer; align-items:baseline; }
+  .lrow:hover { background:rgba(0,0,0,0.03); }
+  .lrow .ts { font-family:Menlo,monospace; font-size:11.5px; color:var(--gl-ink-faint); flex:0 0 150px; }
+  .lrow .sev { flex:0 0 64px; font-size:11px; font-weight:700; text-transform:uppercase; }
+  .sev.err { color:var(--red); } .sev.warn { color:#8a6a00; } .sev.info { color:var(--gl-ink-soft); }
+  .lrow .msg { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .lrow .usr { color:var(--gl-ink-soft); font-size:12px; flex:0 0 130px; }
+  .live { display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; color:var(--gl-green-deep); }
+  .live i { width:8px; height:8px; border-radius:50%; background:var(--gl-green); animation:pulse 1.6s infinite; }
+  @keyframes pulse { 50% { opacity:.3; } }
+</style>
+
+</head>
+<body>
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
+  <div class="workspace">HPECC_Partner</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon active" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Audit log</h1>
+      <button class="btn secondary">Export events</button>
+    </div>
+
+    <div class="toolbar" style="margin-bottom:0;">
+      <div class="search-sm"><span class="sic" data-i="search"></span>Search events</div>
+      <span class="fchip on">Severity: Error ✕</span>
+      <span class="fchip on">Last 24 hours ▾</span>
+      <span class="fchip">Filters</span>
+      <span class="spacer"></span>
+      <span class="live"><i></i>Live tail</span>
+    </div>
+
+    <div class="hist" id="hist"></div>
+    <div class="axis"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>Now</span></div>
+
+    <div class="stream">
+      <div class="facets">
+        <div class="card">
+          <h3>Severity</h3>
+          <div class="frow on"><span>Error</span><b>412</b></div>
+          <div class="frow"><span>Warning</span><b>1,208</b></div>
+          <div class="frow"><span>Info</span><b>18,340</b></div>
+        </div>
+        <div class="card">
+          <h3>Category</h3>
+          <div class="frow"><span>Authentication</span><b>96</b></div>
+          <div class="frow"><span>Firmware</span><b>142</b></div>
+          <div class="frow"><span>Inventory</span><b>88</b></div>
+          <div class="frow"><span>Connectivity</span><b>61</b></div>
+          <div class="frow"><span>Subscription</span><b>25</b></div>
+        </div>
+        <div class="card">
+          <h3>User</h3>
+          <div class="frow"><span>system</span><b>301</b></div>
+          <div class="frow"><span>admin@hpecc</span><b>74</b></div>
+          <div class="frow"><span>api-client-7f2</span><b>37</b></div>
+        </div>
+      </div>
+      <div>
+        <div class="count-note" style="margin-bottom:4px;">Showing 412 error events · newest first</div>
+        <div id="rows"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const H=[12,8,10,14,9,7,11,16,22,18,14,20,26,31,24,19,38,64,41,28,22,17,13,10];
+document.getElementById("hist").innerHTML=H.map((v,i)=>`<i style="height:${v/64*100}%" class="${v>35?'hot':''}" title="${v} events"></i>`).join("");
+const EV=[
+ ["18:42:11","err","Firmware","Firmware update failed on WIN-L0JPUN8KB3 — iLO returned 0x21 (bundle 2026.04.00)","system"],
+ ["18:40:56","err","Connectivity","Server srcefd8a81b4 lost connection to Compute Ops Management","system"],
+ ["18:37:02","err","Inventory","Inventory collection failed for 4 servers in group Production","system"],
+ ["18:31:44","err","Authentication","Login failed for api-client-7f2 — token expired","api-client-7f2"],
+ ["17:58:19","err","Firmware","Baseline compliance check failed on 2 servers (missing SPP component)","system"],
+ ["17:44:03","err","Connectivity","iLO unreachable on WIN-62IRJI4RB6N (timeout after 30s)","system"],
+ ["17:21:37","err","Subscription","Subscription assignment failed — no licenses remaining","admin@hpecc"],
+ ["16:55:10","err","Inventory","SMART status read failed on disk 1I:1:4 (BB-PROV-85784)","system"],
+ ["16:32:48","err","Authentication","MFA challenge failed twice for user operator@hpecc","operator@hpecc"],
+ ["16:07:25","err","Firmware","Staged update rollback triggered on myhost — POST error 1719","system"],
+ ["15:49:12","err","Connectivity","Gateway heartbeat missed 3 intervals (site Dublin-DC)","system"],
+ ["15:20:06","err","Inventory","Hardware inventory schema mismatch — agent 3.2.1 vs expected 3.4.0","system"],
+];
+document.getElementById("rows").innerHTML=EV.map(e=>
+ `<div class="lrow"><span class="ts">9/14/26 ${e[0]}</span><span class="sev ${e[1]}">${e[1]==="err"?"Error":e[1]}</span><span class="msg">${e[3]}</span><span class="usr">${e[4]}</span></div>`).join("");
+</script>
+<script src="/library-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T2 · Triage · Var C · Firmware updates</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon active" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Firmware updates</h1>
+      <button class="btn secondary">＋ Create job</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Attention banner -->
+        <section>
+          <div class="attn">
+            <div>
+              <div class="txt"><span class="n">1 critical advisory</span> affects COM-Cluster-Analytics-B firmware</div>
+              <div class="sub">CVE-2026-42117 iLO privilege escalation · 18 analytics nodes below baseline</div>
+            </div>
+            <button class="btn primary">Schedule</button>
+          </div>
+        </section>
+
+        <!-- Filter bar + queue -->
+        <section>
+          <div class="toolbar">
+            <div class="search-sm">⌕ Search devices</div>
+            <span class="fchip on">All pending (86)</span>
+            <span class="fchip">Critical (18)</span>
+            <span class="fchip">High (34)</span>
+            <span class="fchip">Scheduled (41)</span>
+            <span class="fchip">Filters ▾</span>
+            <span class="spacer"></span>
+            <span class="fchip">Bulk actions ▾</span>
+          </div>
+          <div class="count-note">86 pending updates · sorted by criticality, then next maintenance window</div>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Device</th><th>Current version</th><th>Baseline</th><th>Criticality</th><th>Advisory</th><th>Scheduled window</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">2XK4521ABC · P55276-B21</span></td><td>iLO 7 v1.42</td><td>v1.48</td><td><span class="pill red">Critical</span></td><td><span class="tlink">HPE-2026-42117</span></td><td>Sep 11, 22:00 IST</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Approve</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">5RQ2456STU · P55276-B21</span></td><td>System ROM U46 v2.72</td><td>v2.78</td><td><span class="pill red">Critical</span></td><td><span class="tlink">HPE-2026-42088</span></td><td>Sep 11, 23:00 CEST</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Approve</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">3MJ7834GHI · P28948-B21</span></td><td>iLO 7 v1.43</td><td>v1.48</td><td><span class="pill amber">High</span></td><td><span class="tlink">HPE-2026-41904</span></td><td>Sep 12, 01:00 MT</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Reschedule</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">6TL8901YZA · P28948-B21</span></td><td>Smart Array 7.20</td><td>7.28</td><td><span class="pill amber">High</span></td><td><span class="tlink">HPE-2026-41872</span></td><td>Sep 13, 00:30 CEST</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Stage</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">Edge-North-Fleet</span></td><td>AOS-CX 10.13.1010</td><td>10.13.1030</td><td><span class="pill amber">Medium</span></td><td><span class="tlink">ARUBA-2026-067</span></td><td>Sep 14, 02:00 CEST</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Review</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">9YP1012NOP · P28948-B21</span></td><td>NIC FW 16.35.2002</td><td>16.35.4020</td><td><span class="pill grey">Low</span></td><td><span class="tlink">HPE-2026-41122</span></td><td>Not scheduled</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Schedule</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">8XN6678HIJ · P55276-B21</span></td><td>System ROM U46 v2.72</td><td>v2.78</td><td><span class="pill grey">Low</span></td><td><span class="tlink">HPE-2026-41051</span></td><td>Sep 17, 21:00 ET</td>
+                <td><button class="btn toolbar" style="font-size:12px;">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Supporting summaries -->
+        <section class="grid-3">
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">Firmware compliance</h2></div>
+            <div style="display:flex; align-items:baseline; gap:8px;"><span class="big-number" style="font-size:38px;">88%</span><span class="fine">current baseline</span></div>
+            <div class="meter"><i class="warn" style="width:88%"></i></div>
+            <div class="fine" style="margin-top:10px;">339 of 385 cluster nodes meet their assigned firmware baseline.</div>
+            <div style="margin-top:12px;"><span class="glink">View non-compliant devices →</span></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">Updates by criticality</h2></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">18</span></div>
+            <div class="stack-bar" style="margin:4px 0 10px;"><span style="flex:18; background:var(--red)"></span><span style="flex:68; background:var(--grey-bg)"></span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>High / medium</span><span class="pct">52</span></div>
+            <div class="stack-bar" style="margin:4px 0 10px;"><span style="flex:52; background:var(--amber)"></span><span style="flex:34; background:var(--grey-bg)"></span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-grey)"></span>Low</span><span class="pct">16</span></div>
+            <div class="stack-bar" style="margin:4px 0 0;"><span style="flex:16; background:var(--c-grey)"></span><span style="flex:70; background:var(--grey-bg)"></span></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">Update success rate</h2></div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 220 70">
+                <polyline points="0,28 31,25 62,34 93,22 124,18 155,24 186,20 220,16" fill="none" stroke="var(--gl-green)" stroke-width="2.5" stroke-linecap="round"/>
+                <polyline points="0,44 31,41 62,39 93,36 124,34 155,30 186,29 220,26" fill="none" stroke="var(--c-grey)" stroke-width="2" stroke-dasharray="4 4"/>
+              </svg>
+            </div>
+            <div class="chart-legend">
+              <span class="lg"><span class="sw" style="background:var(--gl-green)"></span>98.4% last 7 days</span>
+              <span class="lg"><span class="sw" style="background:var(--c-grey)"></span>96.1% prior</span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Maintenance windows</h3>
+          <div class="kv"><span class="k">Dublin HQ compute</span><span class="v">Sep 11 · 22:00 IST</span></div>
+          <div class="kv"><span class="k">Fort Collins analytics</span><span class="v">Sep 12 · 01:00 MT</span></div>
+          <div class="kv"><span class="k">Munich Factory edge</span><span class="v">Sep 13 · 00:30 CEST</span></div>
+          <div class="kv"><span class="k">Edge-North-Fleet</span><span class="v">Sep 14 · 02:00 CEST</span></div>
+        </div>
+        <div class="card">
+          <h3>Baseline policy</h3>
+          <div class="li-title" style="margin-bottom:2px;">Europe-Only-Compute guardrails</div>
+          <div class="fine">Require pre-check pass, redundant path healthy, and maintenance approval before applying compute or Aruba Central updates.</div>
+          <div class="list-item">
+            <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Pre-checks passed</div><div class="li-sub">74 updates ready</div></div></div>
+          </div>
+          <div class="list-item">
+            <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Needs approval</div><div class="li-sub">12 COM-Cluster-Prod-A nodes</div></div></div>
+          </div>
+          <div class="meter"><i style="width:91%"></i></div>
+          <div style="margin-top:14px;"><span class="glink">Edit policy →</span></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Quick actions</h3>
+          <ul class="qa-list">
+            <li><a href="#">Create update job</a></li>
+            <li><a href="#">Download advisory report</a></li>
+            <li><a href="#">Run pre-checks</a></li>
+            <li><a href="#">Defer selected devices</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

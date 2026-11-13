@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo-fi — Variant B: side-by-side</title><style>
+  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
+  .topbar { height:52px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:16px; padding:0 20px; background:#fff; }
+  .logo { width:90px; height:20px; background:var(--faint); border-radius:3px; }
+  .searchbox { flex:0 0 320px; height:30px; border:1px solid var(--line); border-radius:15px; margin-left:auto; }
+  .avatar { width:28px; height:28px; border-radius:50%; background:var(--faint); }
+  .page { padding:20px 32px 48px; max-width:1300px; margin:0 auto; }
+  .backlink { display:inline-block; margin-bottom:12px; font-size:13px; color:var(--muted); }
+  h1 { font-size:22px; font-weight:600; display:inline; }
+  .headrow { display:flex; align-items:center; gap:14px; margin-bottom:14px; flex-wrap:wrap; }
+  .headrow .meta { font-size:12px; color:var(--muted); }
+  .select { font-size:12.5px; border:1px solid var(--line); border-radius:4px; background:#fff; padding:5px 26px 5px 10px; position:relative; }
+  .select:after { content:"▾"; position:absolute; right:8px; color:var(--muted); }
+  .btn { font-size:12.5px; padding:5px 12px; border:1px solid var(--line); border-radius:4px; background:#fff; cursor:pointer; margin-left:auto; }
+  .layout { display:grid; grid-template-columns:210px 1fr 1fr; gap:14px; align-items:start; }
+  .rail { display:flex; flex-direction:column; gap:10px; }
+  .kpi { border:1px solid var(--line); border-radius:6px; background:#fff; padding:12px 14px; cursor:pointer; position:relative; }
+  .kpi:hover { border-color:var(--muted); }
+  .kpi.cur { border-color:var(--ink); box-shadow:0 2px 8px rgba(0,0,0,.07); }
+  .kpi.cur:after { content:""; position:absolute; right:-8px; top:50%; margin-top:-7px; border:7px solid transparent; border-left-color:var(--ink); }
+  .kpi .v { font-size:22px; font-weight:700; }
+  .kpi .v span { font-size:11px; font-weight:400; color:var(--muted); }
+  .kpi .l { font-size:11.5px; color:var(--muted); margin-top:2px; line-height:1.4; }
+  .card { border:1px solid var(--line); border-radius:6px; background:#fff; padding:14px 16px; }
+  .ctitle { font-size:13.5px; font-weight:600; margin-bottom:8px; }
+  .legend { display:flex; gap:16px; font-size:10.5px; color:var(--muted); padding-top:6px; flex-wrap:wrap; }
+  .legend .dot { width:7px; height:7px; border-radius:50%; display:inline-block; margin-right:4px; background:var(--ink); }
+  .legend .dot.proj { background:var(--faint); }
+  .kv { display:flex; justify-content:space-between; font-size:12.5px; padding:8px 2px; border-bottom:1px solid var(--fill); }
+  .kv span { color:var(--muted); }
+  .kv b { font-weight:600; }
+  .srv { font-size:12px; color:var(--muted); margin:12px 0 6px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; }
+  .pct { display:flex; align-items:center; gap:8px; font-size:12px; }
+  .bar { flex:1; height:8px; background:var(--fill); border-radius:4px; overflow:hidden; }
+  .bar i { display:block; height:100%; background:var(--ink); }
+  @keyframes flash { 0% { background:var(--fill);} 100% { background:transparent;} }
+  .flash { animation:flash .6s ease-out; }
+  .annotation { margin-top:24px; font-size:12px; color:var(--muted); border:1px dashed var(--faint); border-radius:4px; padding:10px 12px; line-height:1.5; }
+</style>
+</head><body>
+<div class="topbar"><div class="logo"></div><div class="searchbox"></div><div class="avatar"></div></div>
+<div class="page">
+<a class="backlink" href="index.html">&lsaquo; All mockups &nbsp;·&nbsp; <a href="analytics-cards.html" style="color:var(--muted)">original</a> · <a href="analytics-cards-a.html" style="color:var(--muted)">A</a> · <b>B</b> · <a href="analytics-cards-c.html" style="color:var(--muted)">C</a></a>
+<div class="headrow">
+  <h1>Sustainability insights</h1>
+  <div class="select">Jun 13 – Oct 10, 2026 · 1-day avg</div>
+  <div class="select">All servers</div>
+  <div class="meta">1 server analyzed · <u>90 removed</u></div>
+  <div class="btn">Actions ▾</div>
+</div>
+
+<div class="layout">
+  <div class="rail" id="rail"></div>
+  <div class="card">
+    <div class="ctitle" id="ctitle"></div>
+    <svg id="chart" width="100%" height="230" viewBox="0 0 520 230" preserveAspectRatio="none"></svg>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="card" id="detail"></div>
+</div>
+
+<div class="annotation">Variant B — <b>Left KPI rail + chart and breakdown side-by-side</b>. Everything fits one viewport: the selected card points (arrow notch) at the content it drives, and because the breakdown panel sits beside the chart, you <i>see</i> both update on click — no scrolling, no doubt. The wide table becomes a key-value summary + per-server rows, which suits the narrow column and low server counts; "Open full table" escapes to the complete inventory view when needed.</div>
+</div>
+<script>
+const METRICS={co2:{unit:"kgCO2e",sym:"",big:"182",title:"Estimated carbon emissions",collAvg:1.535,projAvg:1.451,max:1.95,yTicks:[0.491,0.982,1.473,1.964],unitHdr:"kgCO2e",row:{min:"0.845",max:"1.950",avg:"1.514",coll:"138.128",proj:"43.517",tot:"181.645"}},
+kwh:{unit:"kWh",sym:"",big:"412",title:"Energy consumption",collAvg:3.478,projAvg:3.287,max:4.418,yTicks:[1.113,2.226,3.339,4.452],unitHdr:"kWh",row:{min:"1.915",max:"4.418",avg:"3.430",coll:"313.026",proj:"98.619",tot:"411.645"}},
+usd:{unit:"USD",sym:"$",big:"66",title:"Estimated cost",collAvg:0.56,projAvg:0.53,max:0.71,yTicks:[0.177,0.354,0.532,0.71],unitHdr:"USD",row:{min:"$ 0.31",max:"$ 0.71",avg:"$ 0.55",coll:"$ 50.08",proj:"$ 15.78",tot:"$ 65.86"}}};
+const ORDER=["co2","kwh","usd"];
+const SHAPE=[0.75,0.74,0.76,0.75,0.73,0.74,0.75,0.76,0.74,0.75,0.73,0.72,0.74,0.75,0.76,0.75,0.74,0.73,0.75,0.76,0.74,0.75,0.73,0.74,0.75,0.74,0.76,0.75,0.74,0.75,0.73,0.74,0.76,0.75,0.74,0.30,0.74,0.75,0.76,0.75,0.74,0.75,0.73,0.75,0.74,0.76,0.75,0.74,0.75,0.73,0.74,0.75,0.76,0.74,0.75,0.74,0.73,0.75,0.76,0.75,0.74,0.75,0.73,0.74,0.75,0.76,0.10,0.74,0.75,0.76,0.75,0.74,0.95,0.96,0.94,0.95,0.96,0.95,0.94,0.96,0.95,0.94,0.95,0.75,0.74,0.75,0.76,0.74,0.75,0.74];
+const PROJ=Array.from({length:30},(_,i)=>i<10?0.94-0.002*i:0.72+0.001*i);
+const XLBL=["Jun 13","Jul 25","Sep 05","Oct 10"];
+let cur="co2";
+function render(){
+  const m=METRICS[cur];
+  document.getElementById("rail").innerHTML=ORDER.map(k=>{const t=METRICS[k];
+    return `<div class="kpi ${k===cur?'cur':''}" onclick="setM('${k}')"><div class="v">${t.sym}${t.big} <span>${t.unit}</span></div><div class="l">${t.title}</div></div>`;}).join("");
+  document.getElementById("ctitle").textContent=m.title+" — trend";
+  const top=m.yTicks[3]*1.02,X0=42,X1=510,Y0=8,Y1=196,W=X1-X0,x=i=>X0+W*i/119,y=v=>Y1-(Y1-Y0)*v/top,sx=x(89);let s="";
+  m.yTicks.forEach(t=>{s+=`<line x1="${X0}" y1="${y(t)}" x2="${X1}" y2="${y(t)}" stroke="#f2f2f2"/><text x="${X0-6}" y="${y(t)+3}" font-size="9" fill="#8a8a8a" text-anchor="end">${t}</text>`;});
+  s+=`<rect x="${sx}" y="${Y0}" width="${X1-sx}" height="${Y1-Y0}" fill="#f2f2f2" opacity="0.55"/><line x1="${sx}" y1="${Y0}" x2="${sx}" y2="${Y1}" stroke="#c9c9c9" stroke-dasharray="4 3"/>`;
+  s+=`<path d="M${SHAPE.map((v,i)=>`${x(i).toFixed(1)},${y(v*m.max).toFixed(1)}`).join(" L")}" fill="none" stroke="#2b2b2b" stroke-width="1.3"/>`;
+  s+=`<path d="M${PROJ.map((v,i)=>`${x(90+i).toFixed(1)},${y(v*m.max).toFixed(1)}`).join(" L")}" fill="none" stroke="#8a8a8a" stroke-width="1.3" stroke-dasharray="5 3"/>`;
+  s+=`<line x1="${X0}" y1="${y(m.collAvg)}" x2="${sx}" y2="${y(m.collAvg)}" stroke="#8a8a8a" stroke-dasharray="2 3"/>`;
+  XLBL.forEach((l,i)=>{s+=`<text x="${X0+W*i/3*0.96}" y="222" font-size="9" fill="#8a8a8a">${l}</text>`;});
+  document.getElementById("chart").innerHTML=s;
+  document.getElementById("legend").innerHTML=`<span><span class="dot"></span>Collected (90 d)</span><span><span class="dot proj"></span>Projected (30 d)</span><span>— Avg ${m.collAvg} ${m.unit}</span>`;
+  document.getElementById("detail").innerHTML=`<div class="ctitle flash">${m.title} — breakdown (${m.unitHdr})</div>
+    <div class="kv flash"><span>Collected total</span><b>${m.row.coll}</b></div>
+    <div class="kv flash"><span>Projected total</span><b>${m.row.proj}</b></div>
+    <div class="kv flash"><span>Total</span><b>${m.row.tot}</b></div>
+    <div class="kv flash"><span>Min / Max day</span><b>${m.row.min} / ${m.row.max}</b></div>
+    <div class="kv flash"><span>Average day</span><b>${m.row.avg}</b></div>
+    <div class="srv">By server</div>
+    <div class="kv flash"><span>WIN-L0JPUN8KB3</span><b>${m.row.tot}</b></div>
+    <div class="pct" style="margin-top:8px"><div class="bar"><i style="width:100%"></i></div>100%</div>
+    <div style="margin-top:14px;font-size:12.5px"><a href="#" style="color:var(--accent)">Open full table →</a></div>`;
+}
+function setM(k){cur=k;render();}
+render();
+</script><script src="/library-nav.js"></script>
+</body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Content header · Layouts</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<script src="/hifi-icons.js" defer></script>
+<style>
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 48px 40px 96px; }
+  .wrap h1 { margin-bottom: 8px; }
+  .intro { font-size: 15px; color: var(--gl-ink-soft); line-height: 1.6; margin-bottom: 12px; max-width: 720px; }
+  .crumb-nav { font-size: 13px; color: var(--gl-ink-soft); margin-bottom: 14px; }
+  .crumb-nav a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; }
+  .crumb-nav a:hover { text-decoration: underline; }
+
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
+  .sub-h { font-size: 12.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin: 32px 0 10px; }
+  .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 20px; max-width: 720px; }
+  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: #FFF; overflow-x: auto; }
+  .note { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.6; margin-top: 16px; max-width: 760px; }
+  .note code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--gl-heading); background: var(--contained); border-radius: 4px; padding: 1px 6px; }
+  .note strong { color: var(--gl-heading); font-weight: 600; }
+
+  /* tags */
+  .tag { font-size: 12px; font-weight: 700; color: var(--gl-ink-soft); }
+
+  /* anatomy diagram */
+  .anatomy-stage { position: relative; padding: 30px 20px 20px; }
+  .dim { position: absolute; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10.5px; font-weight: 600;
+    color: var(--gl-green-dark); white-space: nowrap; z-index: 3; }
+  .anatomy-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; max-width: 620px; position: relative; }
+  .anatomy-row .leading { flex: 1 1 0%; min-width: 0; border: 1.5px dashed #B9DECE; border-radius: 6px; padding: 6px 10px; position: relative; }
+  .anatomy-row .leading h2 { font-size: 24px; font-weight: 700; }
+  .anatomy-row .gap-lbl { flex: none; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; font-weight: 600;
+    color: var(--gl-green-dark); background: rgba(237,246,242,0.95); border-radius: 8px; padding: 2px 8px; }
+  .anatomy-row .trailing-slot { width: 36px; height: 36px; border-radius: 8px; border: 1.5px dashed #C9CDD1; display: flex; align-items: center;
+    justify-content: center; font-size: 15px; color: var(--gl-ink-faint); flex: none; }
+  .dim-lead { top: -18px; left: 0; }
+  .dim-trail { top: -18px; right: 0; text-align: right; }
+  .anatomy-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 24px; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .anatomy-legend .lg { display: flex; align-items: center; gap: 7px; }
+  .anatomy-legend .sw { width: 22px; height: 0; border-top: 1.5px dashed #B9DECE; }
+  .anatomy-legend .sw.slot { border-top-color: #C9CDD1; }
+
+  /* placement comparison */
+  .signal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 900px) { .signal-grid { grid-template-columns: 1fr; } }
+  .signal-col .lbl-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Layouts</div>
+</header>
+
+<div class="wrap">
+  <div class="crumb-nav"><a href="/layouts/containers.html">Containers</a> · Content header</div>
+  <h1>Content header</h1>
+  <p class="intro">A leading heading with an optional trailing action — the one header component used both as a container's header row and as the title for an uncontained content section. Same shape, same spacing rules, two placements.</p>
+
+  <div class="sec-h">Anatomy</div>
+  <p class="sec-sub">A leading heading that takes up available width, and an optional 36×36px trailing slot for a single action. This matches the <code>Content header</code> component in the design system Figma file (node <code>2545:70883</code>).</p>
+  <div class="demo">
+    <div class="anatomy-stage">
+      <div class="anatomy-row">
+        <div class="dim dim-lead">Leading · flex, min-width 0</div>
+        <div class="leading"><h2>Heading</h2></div>
+        <span class="gap-lbl">gap · 12px</span>
+        <div class="dim dim-trail">Trailing · 36×36px</div>
+        <div class="trailing-slot">→</div>
+      </div>
+    </div>
+    <div class="anatomy-legend">
+      <span class="lg"><span class="sw"></span>Heading · 24px / 700 / <code style="background:none;padding:0;">var(--gl-heading)</code></span>
+      <span class="lg"><span class="sw slot"></span>Trailing action slot, optional — arrow, chip, or single icon button</span>
+    </div>
+  </div>
+
+  <div class="sec-h">Examples</div>
+  <div class="signal-grid">
+    <div class="signal-col">
+      <div class="lbl-row"><span class="tag tag-contained">As a container's header</span></div>
+      <div class="card" style="max-width:none;">
+        <div class="card-head"><h2>Devices</h2><span class="arrow">→</span></div>
+        <span class="big-number" style="font-size:30px;">542</span>
+        <div class="stack-bar" style="margin:12px 0 0;">
+          <span style="flex:22; background:var(--c-blue)"></span>
+          <span style="flex:14; background:var(--c-green)"></span>
+          <span style="flex:64; background:var(--c-grey)"></span>
+        </div>
+      </div>
+    </div>
+    <div class="signal-col">
+      <div class="lbl-row"><span class="tag tag-uncontained">As a section header</span></div>
+      <div class="content-header"><h2>Recent activity</h2><span class="arrow">→</span></div>
+      <table style="font-size:12.5px;">
+        <tr><th>Event</th><th>Status</th></tr>
+        <tr><td>Firmware update · rack-04</td><td><span class="pill green">Complete</span></td></tr>
+        <tr><td>Config drift · edge-cluster-9</td><td><span class="pill amber">Review</span></td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="/library-nav.js"></script>
+<script src="/livereload.js"></script>
+</body>
+</html>

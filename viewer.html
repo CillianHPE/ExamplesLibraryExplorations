@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Archetype viewer</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<style>
+  html, body { height: 100%; }
+  body { display: flex; flex-direction: column; }
+  .vbar { height: 56px; flex: none; display: flex; align-items: center; gap: 20px; padding: 0 24px;
+    border-bottom: 1px solid var(--line); background: var(--page); }
+  .vbar .back { font-size: 13.5px; font-weight: 600; color: var(--gl-green-dark); text-decoration: underline; }
+  .vbar .name { font-size: 15px; font-weight: 700; color: var(--gl-heading); }
+  .seg { display: flex; background: rgba(0,0,0,0.05); border-radius: 20px; padding: 3px; }
+  .seg button { border: 0; background: transparent; border-radius: 17px; padding: 6px 18px; font-size: 13px;
+    font-weight: 600; color: var(--gl-ink); cursor: pointer; }
+  .seg button.on { background: #fff; color: var(--gl-heading); box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+  .vars { margin-left: auto; display: flex; gap: 4px; align-items: center; }
+  .vars .vlabel { font-size: 12.5px; color: var(--gl-ink-soft); margin-right: 6px; }
+  .vars button { border: 0; background: transparent; border-radius: 16px; padding: 6px 13px; font-size: 13px;
+    font-weight: 600; color: var(--gl-ink); cursor: pointer; }
+  .vars button:hover { background: rgba(0,0,0,0.05); }
+  .vars button.on { background: var(--mint-bg); color: var(--gl-green-deep); }
+  iframe { flex: 1; border: 0; width: 100%; }
+</style>
+</head>
+<body>
+
+<div class="vbar">
+  <a class="back" href="index.html">← All archetypes</a>
+  <span class="name" id="v-name"></span>
+  <div class="seg">
+    <button id="seg-lofi" onclick="setFi('lofi')">Lo-fi</button>
+    <button id="seg-hifi" onclick="setFi('hifi')">Hi-fi</button>
+  </div>
+  <div class="vars" id="v-vars">
+    <span class="vlabel">Variation</span>
+    <button data-v="" onclick="setVar('')">Original</button>
+    <button data-v="b" onclick="setVar('b')">B</button>
+    <button data-v="c" onclick="setVar('c')">C</button>
+    <button data-v="d" onclick="setVar('d')">D</button>
+  </div>
+</div>
+
+<iframe id="frame" title="Archetype preview"></iframe>
+
+<script>
+const ARCH = {
+  t1: { name: "T1 · Overview",         slug: "canonical-t1-overview" },
+  t2: { name: "T2 · Triage / Work queue", slug: "canonical-t2-triage" },
+  t3: { name: "T3 · Analytics / Report",  slug: "canonical-t3-analytics" },
+  t4: { name: "T4 · Object detail",    slug: "canonical-t4-detail" },
+  t5: { name: "T5 · Custom board",     slug: "canonical-t5-custom" },
+};
+const params = new URLSearchParams(location.search);
+const t = ARCH[params.get("t")] ? params.get("t") : "t1";
+let fi = params.get("f") === "lofi" ? "lofi" : "hifi";
+let variant = ["b","c","d"].includes(params.get("v")) ? params.get("v") : "";
+
+document.getElementById("v-name").textContent = ARCH[t].name;
+document.title = ARCH[t].name + " · viewer";
+
+function src() {
+  if (fi === "lofi") return ARCH[t].slug + ".html";
+  return ARCH[t].slug + "-hifi" + (variant ? "-" + variant : "") + ".html";
+}
+function render() {
+  document.getElementById("seg-lofi").classList.toggle("on", fi === "lofi");
+  document.getElementById("seg-hifi").classList.toggle("on", fi === "hifi");
+  const vars = document.getElementById("v-vars");
+  vars.style.visibility = fi === "hifi" ? "visible" : "hidden";
+  vars.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.v === variant));
+  document.getElementById("frame").src = src();
+  const q = new URLSearchParams({ t, f: fi });
+  if (fi === "hifi" && variant) q.set("v", variant);
+  history.replaceState(null, "", "viewer.html?" + q);
+}
+function setFi(v) { fi = v; render(); }
+function setVar(v) { variant = v; render(); }
+render();
+</script>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

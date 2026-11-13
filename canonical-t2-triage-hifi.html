@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T2 · Triage · Hi-fi</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon active" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Alerts</h1>
+      <button class="btn secondary">＋ Create rule</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Attention banner -->
+        <section>
+          <div class="attn">
+            <div>
+              <div class="txt"><span class="n">7 items</span> need your attention</div>
+              <div class="sub">3 critical alerts · 4 service subscriptions expiring within 30 days</div>
+            </div>
+            <button class="btn primary">Review all</button>
+          </div>
+        </section>
+
+        <!-- Filter bar + queue -->
+        <section>
+          <div class="toolbar">
+            <div class="search-sm">⌕ Search alerts</div>
+            <span class="fchip on">All (7)</span>
+            <span class="fchip">Critical (3)</span>
+            <span class="fchip">Warning (4)</span>
+            <span class="fchip">Filters ▾</span>
+            <span class="spacer"></span>
+            <span class="fchip">Bulk actions ▾</span>
+          </div>
+          <div class="count-note">7 items · sorted by severity, then age</div>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Severity</th><th>Item</th><th>Type</th><th>Scope</th><th>Detected</th><th>Assignee</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev crit" style="margin:0 auto 0 6px"></div></td>
+                <td><span class="tlink">DHCP scope exhaustion at Warehouse-IoT-07</span></td><td>Aruba Central</td><td>Warehouse-IoT-07 · 120 devices</td><td>2 hours ago</td><td>William Taylor</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Investigate</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev crit" style="margin:0 auto 0 6px"></div></td>
+                <td><span class="tlink">Network-Change-Review policy mismatch</span></td><td>Aruba Central</td><td>Edge-North-Fleet · 45 devices</td><td>Yesterday</td><td>Grace Thompson</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Investigate</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev crit" style="margin:0 auto 0 6px"></div></td>
+                <td><span class="tlink">Block Storage replication pair fault</span></td><td>Block Storage</td><td>Block-Resource-034 · São Paulo DC</td><td>Yesterday</td><td>Sophie Anderson</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Investigate</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
+                <td><span class="tlink">Retail-Edge-ViewOnly access failures</span></td><td>Authorization</td><td>Retail-Edge-UK · 36 devices</td><td>3 days ago</td><td>Riley Chen</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Investigate</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
+                <td><span class="tlink">Firmware below baseline on COM-Cluster-EU-Central-01</span></td><td>Compute Ops Management</td><td>26 nodes</td><td>4 days ago</td><td>Mason Clark</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Schedule</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
+                <td><span class="tlink">4 service subscriptions expiring</span></td><td>Subscription management</td><td>Compute Ops Management, Aruba Central</td><td>Within 30 days</td><td>Emma Johansson</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Renew</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><div class="sev warn" style="margin:0 auto 0 4px"></div></td>
+                <td><span class="tlink">Iberia-Edge-Madrid missing site tags</span></td><td>Inventory</td><td>Iberia-Edge-Madrid · 31 devices</td><td>Ongoing</td><td>Sofia Rossi</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Assign</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Supporting summaries -->
+        <section class="grid-3">
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">Alert volume · 7 days</h2></div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 220 70">
+                <polyline points="0,42 31,38 62,48 93,30 124,34 155,22 186,28 220,18" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+                <polyline points="0,55 31,52 62,56 93,50 124,53 155,48 186,50 220,46" fill="none" stroke="var(--c-grey)" stroke-width="2" stroke-dasharray="4 4"/>
+              </svg>
+            </div>
+            <div class="chart-legend">
+              <span class="lg"><span class="sw" style="background:var(--c-blue)"></span>This week</span>
+              <span class="lg"><span class="sw" style="background:var(--c-grey)"></span>Prior week</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">By service</h2></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Aruba Central</span><span class="pct">3</span></div>
+            <div class="stack-bar" style="margin:4px 0 10px;"><span style="flex:3; background:var(--c-blue)"></span><span style="flex:4; background:var(--grey-bg)"></span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Compute Ops Management</span><span class="pct">1</span></div>
+            <div class="stack-bar" style="margin:4px 0 10px;"><span style="flex:1; background:var(--c-purple)"></span><span style="flex:6; background:var(--grey-bg)"></span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-magenta)"></span>Block Storage</span><span class="pct">1</span></div>
+            <div class="stack-bar" style="margin:4px 0 0;"><span style="flex:1; background:var(--c-magenta)"></span><span style="flex:6; background:var(--grey-bg)"></span></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">Oldest unresolved</h2></div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Iberia-Edge-Madrid missing site tags</div><div class="li-sub">Open 12 days</div></div></div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">COM-Cluster-EU-Central-01 below baseline</div><div class="li-sub">Open 4 days</div></div></div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">Edge-North-Fleet policy mismatch</div><div class="li-sub">Open 1 day</div></div></div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Response targets</h3>
+          <div class="kv"><span class="k">Critical · respond in</span><span class="v">1 hr</span></div>
+          <div class="kv"><span class="k">Avg this week</span><span class="v">42 min ✓</span></div>
+          <div class="kv"><span class="k">Warning · respond in</span><span class="v">24 hr</span></div>
+          <div class="kv"><span class="k">Avg this week</span><span class="v">31 hr ✗</span></div>
+        </div>
+        <div class="card">
+          <h3>Runbooks</h3>
+          <div class="learn-item"><div class="lt">Warehouse-IoT-07 DHCP failures →</div><div class="ls">Diagnose scope exhaustion and relay issues at Chicago Warehouse.</div></div>
+          <div class="learn-item"><div class="lt">Network-Change-Review →</div><div class="ls">Review Aruba change scopes before production rollout.</div></div>
+          <div class="learn-item"><div class="lt">Retail-Edge-ViewOnly access →</div><div class="ls">Validate policy scope, RADIUS, and certificate steps.</div></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Quick actions</h3>
+          <ul class="qa-list">
+            <li><a href="#">Create alert rule</a></li>
+            <li><a href="#">Mute a source</a></li>
+            <li><a href="#">Escalate to HPE support</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

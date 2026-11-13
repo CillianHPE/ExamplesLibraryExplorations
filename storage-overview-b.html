@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Data Storage Service · Overview · B: Sectioned</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  /* Section layout per Figma */
+  .sec-h { margin-bottom: 16px; }
+  .sec-h h2 { font-size: 19px; font-weight: 700; color: var(--gl-heading); margin: 0 0 2px; }
+  .g-health { display: grid; grid-template-columns: 1fr 1fr 2.2fr; gap: var(--gap-container); }
+  .g-health .stackcol { display: flex; flex-direction: column; gap: var(--gap-container); }
+  .g-health .stackcol .card { flex: 1; }
+  .g-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap-container); }
+  .g-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-container); }
+  @media (max-width: 1100px) { .g-health, .g-3, .g-2 { grid-template-columns: 1fr; } }
+
+  .bcard-title { font-size: 16px; font-weight: 700; color: var(--gl-heading); margin: 0; }
+  .bcard-scope { margin-top: 3px; }
+  .bhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+  .bhead .arrow { font-size: 17px; color: var(--gl-ink); cursor: pointer; line-height: 1; }
+  .fig-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .fig { font-size: 30px; font-weight: 700; color: var(--gl-heading); line-height: 1.1; letter-spacing: -0.4px; }
+  .fig-sub { font-size: 12.5px; color: var(--gl-ink-soft); }
+  .takeaway { margin-top: 12px; }
+  .sqsw { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .chart-wrap svg { display: block; width: 100%; height: 72px; overflow: visible; }
+  .axis-row { display: flex; justify-content: space-between; margin-top: 6px; }
+  .axis-row .now { font-weight: 600; color: var(--gl-ink); }
+  .donut.lg { width: 170px; height: 170px; margin: 8px auto 16px; }
+  .donut.lg::after { inset: 20px; font-size: 30px; }
+  .stat-pair { display: flex; gap: 40px; border-top: 1px solid var(--contained-line); padding-top: 14px; }
+  .stat-pair .sp-val { font-size: 20px; font-weight: 700; color: var(--gl-heading); line-height: 1.1; }
+  .stat-pair .sp-name { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 3px; }
+  /* needs-attention grouped rollups with time meta */
+  .att-group { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--gl-ink-soft); margin: 18px 0 4px; }
+  .att-group:first-of-type { margin-top: 2px; }
+  .att-group .sev { margin-top: 0; transform-origin: center; scale: 0.8; }
+  .att-row { display: flex; align-items: center; gap: 12px; padding: 12px 0 12px 24px; border-bottom: 1px solid var(--contained-line); cursor: pointer; }
+  .att-row:last-of-type, .att-row:has(+ .att-group) { border-bottom: 0; }
+  .att-n { font-size: 15px; font-weight: 700; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .att-label { font-size: 14px; color: var(--gl-ink); flex: 1; }
+  .att-time { font-size: 12px; color: var(--gl-ink-faint); white-space: nowrap; }
+  .legend-inline { display: flex; align-items: center; gap: 8px; }
+  .dash-sw { width: 16px; height: 2px; background-image: radial-gradient(circle, var(--line) 1px, transparent 1.2px); background-size: 4px 2px; background-position: 0 50%; background-repeat: repeat-x; flex: none; }
+  .sel-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 6px; background: #fff;
+    padding: 6px 12px; font-size: 13px; font-weight: 600; color: var(--gl-ink); cursor: pointer; font-family: inherit; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">North America IT Ops</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon active" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Data Storage Service</h1>
+      <span class="iconbtn" style="width:44px; height:44px; border:1.5px solid var(--gl-green-deep); border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:17px; color:var(--gl-green-deep); cursor:pointer;">◫</span>
+    </div>
+
+    <div class="primary">
+
+      <!-- HEALTH -->
+      <section>
+        <div class="sec-h"><h2>Health</h2></div>
+        <div class="g-health">
+
+          <div class="card">
+            <div class="bhead">
+              <div>
+                <h2 class="bcard-title">Environment health</h2>
+                <div class="fine bcard-scope">128 systems · 4 regions</div>
+              </div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="donut lg" style="background: conic-gradient(var(--red) 0 1.6%, var(--amber) 1.6% 5.5%, var(--ok) 5.5% 96.1%, var(--unknown) 96.1% 100%);" data-center="128"></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">2</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">5</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy</span><span class="pct">116</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown</span><span class="pct">5</span></div>
+          </div>
+
+          <div class="stackcol">
+            <div class="card">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Capacity</h2>
+                  <div class="fine bcard-scope">All systems</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="fig-row"><span class="fig">71%</span><span class="delta down" style="white-space:nowrap;">↑ 2% vs last month</span></div>
+              <div class="meter"><i style="width:71%; background:var(--c-blue); border-radius:3px;"></i></div>
+              <div class="fine" style="margin-top:8px;"><span><strong style="color:var(--gl-ink);">3.4 PB</strong> used of <strong style="color:var(--gl-ink);">4.8 PB</strong></span></div>
+              <div class="fine takeaway">At the current pace you will hit 90% full in about 9 months.</div>
+            </div>
+            <div class="card">
+              <div class="bhead">
+                <div>
+                  <h2 class="bcard-title">Data protection</h2>
+                  <div class="fine bcard-scope">1,842 volumes</div>
+                </div>
+                <span class="arrow">→</span>
+              </div>
+              <div class="fig-row"><span class="fig">98%</span><span class="delta neutral" style="white-space:nowrap;">14 unprotected</span></div>
+              <div class="meter"><i style="width:98%"></i></div>
+              <div class="fine" style="margin-top:8px;"><strong style="color:var(--gl-ink);">14</strong> of <strong style="color:var(--gl-ink);">1,842</strong> volumes have no protection policy</div>
+              <div class="fine takeaway">All 14 are new volumes in Finance-Prod. Add a snapshot schedule to close the gap.</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="bhead">
+              <div>
+                <h2 class="bcard-title">Needs attention</h2>
+                <div class="fine bcard-scope">Grouped by urgency · newest first</div>
+              </div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="att-group"><div class="sev crit"></div>Act now (3)</div>
+            <div class="att-row"><span class="att-n">2</span><span class="att-label">Systems with critical alerts</span><span class="att-time">24 min ago</span></div>
+            <div class="att-row"><span class="att-n">1</span><span class="att-label">Pool projected full in 3 weeks</span><span class="att-time">2 hrs ago</span></div>
+            <div class="att-group"><div class="sev warn"></div>Fix this week (26)</div>
+            <div class="att-row"><span class="att-n">14</span><span class="att-label">Volumes without protection</span><span class="att-time">5 hrs ago</span></div>
+            <div class="att-row"><span class="att-n">3</span><span class="att-label">Snapshot schedules missed overnight</span><span class="att-time">1 day ago</span></div>
+            <div class="att-row"><span class="att-n">9</span><span class="att-label">Systems below recommended release</span><span class="att-time">2 days ago</span></div>
+            <div class="att-group"><div class="sev low"></div>Plan ahead (260)</div>
+            <div class="att-row"><span class="att-n">2</span><span class="att-label">Subscriptions expiring in 30 days</span><span class="att-time">3 days ago</span></div>
+            <div class="att-row"><span class="att-n">258</span><span class="att-label">Volumes without immutable snapshots</span><span class="att-time">1 wk ago</span></div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CAPACITY & EFFICIENCY -->
+      <section>
+        <div class="sec-h"><h2>Capacity &amp; efficiency</h2></div>
+        <div class="g-3">
+
+          <div class="card">
+            <div class="bhead">
+              <div>
+                <h2 class="bcard-title">Capacity trend</h2>
+                <div class="fine bcard-scope">Last 90 days</div>
+              </div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row"><span class="fig">3.4</span><span class="delta up" style="white-space:nowrap;">↑ 140 TB in 90 days</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">PB</div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 220 72" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="fillcap" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 30 C 30 32, 60 28, 95 34 S 160 40, 220 44" fill="none" stroke="var(--line)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-dasharray="1 4"/>
+                <path d="M0 40 C 30 38, 60 42, 95 38 S 160 30, 220 24 L 220 70 L 0 70 Z" fill="url(#fillcap)"/>
+                <path d="M0 40 C 30 38, 60 42, 95 38 S 160 30, 220 24" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+                <path d="M220 24 h0.01" stroke="var(--c-blue)" stroke-width="12" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="fine axis-row"><span>Jun 17 · 3.26 PB</span><span class="now">Today · 3.4 PB</span></div>
+            <div class="fine legend-inline" style="margin-top:6px;"><span class="dash-sw"></span>Prior 90 days</div>
+            <div class="fine takeaway">Growing a steady <strong style="color:var(--gl-ink);">1.5%</strong> a month. Deduplication is absorbing most new data, so usable space is lasting longer.</div>
+          </div>
+
+          <div class="card">
+            <div class="bhead">
+              <div>
+                <h2 class="bcard-title">Capacity</h2>
+                <div class="fine bcard-scope">128 systems · 4 regions</div>
+              </div>
+              <button class="sel-btn">by Workload <span style="font-size:10px;">▾</span></button>
+            </div>
+            <div class="fig-row"><span class="fig">3.4</span><span class="fig-sub">PB used</span></div>
+            <div class="stack-bar" style="margin:4px 0 14px;">
+              <span style="flex:38; background:var(--c-blue)"></span>
+              <span style="flex:24; background:var(--c-green)"></span>
+              <span style="flex:17; background:var(--c-purple)"></span>
+              <span style="flex:12; background:var(--c-navy)"></span>
+              <span style="flex:9; background:var(--c-magenta)"></span>
+            </div>
+            <div class="legend-row"><span class="lg"><span class="sqsw" style="background:var(--c-blue)"></span>Databases</span><span class="pct">38% (1.29 PB)</span></div>
+            <div class="legend-row"><span class="lg"><span class="sqsw" style="background:var(--c-green)"></span>Virtual machines</span><span class="pct">24% (0.82 PB)</span></div>
+            <div class="legend-row"><span class="lg"><span class="sqsw" style="background:var(--c-purple)"></span>File shares</span><span class="pct">17% (0.58 PB)</span></div>
+            <div class="legend-row"><span class="lg"><span class="sqsw" style="background:var(--c-navy)"></span>Analytics</span><span class="pct">12% (0.41 PB)</span></div>
+            <div class="legend-row"><span class="lg"><span class="sqsw" style="background:var(--c-magenta)"></span>Other</span><span class="pct">9% (0.30 PB)</span></div>
+          </div>
+
+          <div class="card">
+            <div class="bhead">
+              <div>
+                <h2 class="bcard-title">Efficiency</h2>
+                <div class="fine bcard-scope">Space savings · all systems</div>
+              </div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row"><span class="fig">10.9 PB</span><span class="delta up" style="white-space:nowrap;">↑ 0.6 PB more than last quarter</span></div>
+            <div class="fine" style="margin:-8px 0 16px;">Disk space saved by shrinking your data before storing it</div>
+            <div class="stat-pair">
+              <div><div class="sp-val">14.3 PB</div><div class="sp-name">Data your apps have written</div></div>
+              <div><div class="sp-val">3.4 PB</div><div class="sp-name">Disk it actually takes up</div></div>
+            </div>
+            <div class="fine takeaway">The difference is space you never had to buy: about <strong style="color:var(--gl-ink);">$1.6M</strong> of hardware avoided.</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- RESILIENCE & PERFORMANCE -->
+      <section>
+        <div class="sec-h"><h2>Resilience &amp; performance</h2></div>
+        <div class="g-2">
+
+          <div class="card">
+            <div class="bhead">
+              <div>
+                <h2 class="bcard-title">Cyber resilience</h2>
+                <div class="fine bcard-scope">Ransomware protection</div>
+              </div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row"><span class="fig">86%</span><span class="delta neutral" style="white-space:nowrap;">258 volumes uncovered</span></div>
+            <div class="meter"><i style="width:86%"></i></div>
+            <div class="fine" style="margin-top:8px;">Production volumes with tamper-proof snapshot copies</div>
+            <div class="fine takeaway">No suspicious activity detected in 30 days. Most of the 258 uncovered volumes are in Dev-Sandbox, the lowest-risk environment.</div>
+          </div>
+
+          <div class="card">
+            <div class="bhead">
+              <div>
+                <h2 class="bcard-title">Performance</h2>
+                <div class="fine bcard-scope">Avg latency · 7 days</div>
+              </div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row"><span class="fig">0.8</span><span class="delta up" style="white-space:nowrap;">8% faster than last week</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">ms</div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 220 72" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="fillperf" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 33 C 25 39, 45 33, 70 39 S 120 46, 145 39 S 185 49, 220 49" fill="none" stroke="var(--line)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-dasharray="1 4"/>
+                <path d="M0 46 C 25 43, 45 49, 70 46 S 120 23, 145 36 S 185 46, 220 43 L 220 70 L 0 70 Z" fill="url(#fillperf)"/>
+                <path d="M0 46 C 25 43, 45 49, 70 46 S 120 23, 145 36 S 185 46, 220 43" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+                <path d="M220 43 h0.01" stroke="var(--c-blue)" stroke-width="12" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="fine axis-row"><span>Sep 9 · 0.87 ms</span><span class="now">Today · 0.8 ms</span></div>
+            <div class="fine legend-inline" style="margin-top:6px;"><span class="dash-sw"></span>Prior 7 days</div>
+            <div class="fine takeaway">One brief spike during the DAL-04 controller failover. Response times are back to normal.</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- LIFECYCLE & COMMERCIAL -->
+      <section>
+        <div class="sec-h"><h2>Lifecycle &amp; commercial</h2></div>
+        <div class="g-2">
+
+          <div class="card">
+            <div class="bhead">
+              <div>
+                <h2 class="bcard-title">Lifecycle</h2>
+                <div class="fine bcard-scope">Software updates</div>
+              </div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row"><span class="fig">119</span><span class="delta up" style="white-space:nowrap;">↑ 6 updated this month</span></div>
+            <div class="fine" style="margin:-8px 0 12px;">of 128 systems on the recommended release</div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 220 72" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="filllc" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 56 C 25 56, 45 52, 70 52 S 110 46, 135 43 S 185 39, 220 36" fill="none" stroke="var(--line)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-dasharray="1 4"/>
+                <path d="M0 49 C 25 49, 45 46, 70 49 S 110 29, 135 26 S 185 43, 220 23 L 220 70 L 0 70 Z" fill="url(#filllc)"/>
+                <path d="M0 49 C 25 49, 45 46, 70 49 S 110 29, 135 26 S 185 43, 220 23" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+                <path d="M220 23 h0.01" stroke="var(--c-blue)" stroke-width="12" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="fine axis-row"><span>Jun 17 · 104</span><span class="now">Today · 119</span></div>
+            <div class="fine legend-inline" style="margin-top:6px;"><span class="dash-sw"></span>Prior 90 days</div>
+            <div class="fine takeaway">9 systems still need the 2026.08 release. 3 of them are missing a known stability fix: update those first, ideally this weekend.</div>
+          </div>
+
+          <div class="card">
+            <div class="bhead">
+              <div>
+                <h2 class="bcard-title">Subscriptions</h2>
+                <div class="fine bcard-scope">Renewals</div>
+              </div>
+              <span class="arrow">→</span>
+            </div>
+            <div class="fig-row"><span class="fig">13</span><span class="delta down" style="white-space:nowrap;">soonest runs out Oct 16</span></div>
+            <div class="fine" style="margin:-8px 0 16px;">Subscriptions that need renewing in the next 90 days</div>
+            <div class="stat-pair">
+              <div><div class="sp-val">2</div><div class="sp-name">Run out within 30 days</div></div>
+              <div><div class="sp-val">11</div><div class="sp-name">Run out in 31–90 days</div></div>
+            </div>
+            <div class="fine takeaway">The 2 most urgent cover Array-LON-02 and Array-LON-03. If they lapse, those systems lose support and updates: renew before <strong style="color:var(--gl-ink);">Oct 16</strong>.</div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

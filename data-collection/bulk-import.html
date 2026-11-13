@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo-fi — Bulk import / upload &amp; map</title><style>
+  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
+  .topbar { height:52px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:16px; padding:0 20px; background:#fff; }
+  .logo { width:90px; height:20px; background:var(--faint); border-radius:3px; }
+  .searchbox { flex:0 0 320px; height:30px; border:1px solid var(--line); border-radius:15px; margin-left:auto; }
+  .avatar { width:28px; height:28px; border-radius:50%; background:var(--faint); }
+  .page { padding:24px 32px 48px; max-width:1200px; margin:0 auto; }
+  h1 { font-size:26px; font-weight:600; margin-bottom:16px; }
+  .btn { font-size:13px; padding:6px 14px; border:1px solid var(--line); border-radius:4px; background:#fff; cursor:pointer; }
+  .btn-primary { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .card { border:1px solid var(--line); border-radius:6px; background:#fff; padding:16px 20px; }
+  .flow-steps { display:flex; gap:8px; align-items:center; font-size:13px; color:var(--muted); margin-bottom:20px; }
+  .flow-step { display:flex; align-items:center; gap:6px; }
+  .flow-dot { width:20px; height:20px; border-radius:50%; border:1px solid var(--faint); display:flex; align-items:center; justify-content:center; font-size:11px; background:#fff; }
+  .flow-step.done .flow-dot { background:var(--ink); border-color:var(--ink); color:#fff; }
+  .flow-step.active { color:var(--ink); font-weight:600; }
+  .flow-step.active .flow-dot { border-color:var(--ink); }
+  .flow-sep { color:var(--faint); }
+  .banner { border:1px solid var(--ink); border-radius:4px; padding:8px 12px; font-size:13px; margin-bottom:16px; display:flex; gap:8px; }
+  .split { display:flex; gap:20px; }
+  .map-col { flex:0 0 380px; }
+  .preview-col { flex:1; min-width:0; }
+  .map-row { display:flex; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid var(--fill); }
+  .map-row:last-child { border-bottom:none; }
+  .csv-col { flex:0 0 130px; font-size:13px; font-family:"SF Mono",Menlo,monospace; font-size:12px; }
+  .arrow { color:var(--faint); }
+  .map-select { flex:1; height:30px; border:1px solid var(--line); border-radius:4px; display:flex; align-items:center; padding:0 8px; font-size:12.5px; color:var(--ink); }
+  .map-select::after { content:"▾"; margin-left:auto; color:var(--muted); }
+  .map-select.unmapped { color:var(--muted); border-style:dashed; }
+  .map-status { flex:0 0 16px; font-size:12px; text-align:center; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; color:var(--muted); font-weight:400; font-size:11.5px; padding:7px 10px 7px 0; border-bottom:1px solid var(--line); white-space:nowrap; }
+  td { padding:8px 10px 8px 0; border-bottom:1px solid var(--fill); font-family:"SF Mono",Menlo,monospace; font-size:11.5px; }
+  td.err { text-decoration:underline; text-decoration-style:wavy; text-decoration-color:var(--muted); }
+  tr.bad td:first-child { border-left:3px solid var(--ink); padding-left:7px; }
+  .foot { display:flex; gap:8px; margin-top:20px; padding-top:16px; border-top:1px solid var(--line); align-items:center; }
+  .foot .count { font-size:13px; color:var(--muted); }
+  .annotation { margin-top:24px; font-size:12px; color:var(--muted); border:1px dashed var(--faint); border-radius:4px; padding:10px 12px; line-height:1.5; }
+  .backlink { display:inline-block; margin-bottom:12px; font-size:13px; color:var(--muted); }
+</style>
+</head><body>
+<div class="topbar"><div class="logo"></div><div class="searchbox"></div><div class="avatar"></div></div>
+<div class="page">
+<a class="backlink" href="index.html">&lsaquo; All mockups</a>
+<h1>Import devices</h1>
+
+<div class="flow-steps">
+  <div class="flow-step done"><div class="flow-dot">✓</div>Upload file</div><span class="flow-sep">—</span>
+  <div class="flow-step active"><div class="flow-dot">2</div>Map columns</div><span class="flow-sep">—</span>
+  <div class="flow-step"><div class="flow-dot">3</div>Review issues</div><span class="flow-sep">—</span>
+  <div class="flow-step"><div class="flow-dot">4</div>Import</div>
+</div>
+
+<div class="banner">📄 <b>devices-q3.csv</b> · 512 rows parsed · 6 of 7 columns auto-matched <span style="margin-left:auto;color:var(--muted);cursor:pointer">Replace file</span></div>
+
+<div class="split">
+  <!-- Mapping: your file's columns → our fields -->
+  <div class="map-col">
+    <div class="card">
+      <h2 style="font-size:15px;font-weight:600;margin-bottom:2px">Match columns</h2>
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:10px">Map each CSV column to a device field. Required fields must be mapped.</p>
+      <div class="map-row"><div class="csv-col">serial_no</div><span class="arrow">→</span><div class="map-select">Serial number *</div><div class="map-status">✓</div></div>
+      <div class="map-row"><div class="csv-col">mac</div><span class="arrow">→</span><div class="map-select">MAC address *</div><div class="map-status">✓</div></div>
+      <div class="map-row"><div class="csv-col">model_name</div><span class="arrow">→</span><div class="map-select">Model</div><div class="map-status">✓</div></div>
+      <div class="map-row"><div class="csv-col">site</div><span class="arrow">→</span><div class="map-select">Location</div><div class="map-status">✓</div></div>
+      <div class="map-row"><div class="csv-col">owner_email</div><span class="arrow">→</span><div class="map-select">Assigned to</div><div class="map-status">✓</div></div>
+      <div class="map-row"><div class="csv-col">warranty</div><span class="arrow">→</span><div class="map-select unmapped">Select field…</div><div class="map-status">⚠</div></div>
+      <div class="map-row"><div class="csv-col">notes</div><span class="arrow">→</span><div class="map-select unmapped">Skip this column</div><div class="map-status">–</div></div>
+    </div>
+  </div>
+
+  <!-- Live preview of real parsed data -->
+  <div class="preview-col">
+    <div class="card">
+      <h2 style="font-size:15px;font-weight:600;margin-bottom:10px">Preview <span style="font-weight:400;color:var(--muted);font-size:12px">· first 5 of 512 rows · 3 rows have issues</span></h2>
+      <table>
+        <tr><th>Serial number *</th><th>MAC address *</th><th>Model</th><th>Location</th><th>Assigned to</th></tr>
+        <tr><td>CN71GXK09J</td><td>a4:5d:36:0c:11:2f</td><td>Aruba 6300M</td><td>DC-West</td><td>r.chen@corp.example</td></tr>
+        <tr class="bad"><td>CN71GXK0—</td><td class="err">a4:5d:36:0c</td><td>Aruba 6300M</td><td>DC-West</td><td>r.chen@corp.example</td></tr>
+        <tr><td>CN80HHT21L</td><td>b8:11:09:4e:70:aa</td><td>ProLiant DL380</td><td>DC-East</td><td>m.osei@corp.example</td></tr>
+        <tr class="bad"><td>CN80HHT21L</td><td>b8:11:09:4e:70:ab</td><td class="err">—</td><td>DC-East</td><td class="err">m.osei@corp</td></tr>
+        <tr><td>CN92JJP44R</td><td>c0:3f:d5:61:28:0e</td><td>Alletra 6070</td><td>DC-West</td><td>ops-team@corp.example</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <button class="btn">‹ Back</button>
+  <span style="flex:1"></span>
+  <span class="count">509 rows ready · 3 need review</span>
+  <button class="btn btn-primary">Next: Review issues ›</button>
+</div>
+
+<div class="annotation">Archetype 5 — Bulk import / upload &amp; map. When data already exists elsewhere, don't make users type it (Klaviyo, Attio, Clay, Podia). Rules: fixed pipeline Upload → Map → Review → Import shown as a compact stepper; auto-match columns and report the score ("6 of 7 matched"); mapping panel pairs <i>their</i> column names with <i>your</i> fields, required fields flagged; live preview shows real parsed rows, not placeholders; errors reviewed in bulk before import — valid rows can proceed while bad rows are fixed or skipped; import runs async and reports per-row results. Template download lives on the Upload step.</div>
+</div><script src="/library-nav.js"></script>
+</body></html>

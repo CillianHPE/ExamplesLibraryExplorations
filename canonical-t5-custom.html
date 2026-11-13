@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T5 · Custom board · Canonical layout</title>
+<link rel="stylesheet" href="lofi-shared.css">
+<link rel="stylesheet" href="canonical.css">
+<style>
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(150px, auto); gap: var(--gap-container); }
+  .span-2 { grid-column: span 2; }
+  .tall { grid-row: span 2; }
+  @media (max-width: 1000px) { .bento { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } }
+  .ghost { border: 1.5px dashed #bdbdbd; background: var(--page); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--ink-faint); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="hicon"></div>
+  <div class="logo">greenlake</div>
+  <div class="workspace">North America IT Ops ▾</div>
+  <div class="search">Search</div>
+  <div class="header-icons"><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon active"></div><div class="ricon"></div><div class="ricon"></div>
+    <div class="ricon"></div><div class="ricon"></div><div class="ricon"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>T5 · Custom board</h1>
+      <div style="display:flex; gap:10px;">
+        <button class="btn">+ Add widget</button>
+        <button class="btn">Edit board</button>
+      </div>
+    </div>
+
+    <div class="tpl-purpose">
+      <b>Job of the page:</b> the user's own cockpit: they choose what matters, we provide the parts.
+      Unlike T1–T4, there are no fixed content regions: everything below the header is a widget on a grid.
+      <b>Use for:</b> "My dashboard", role-based home alternatives, team boards.
+      <b>Secondary rail:</b> none: rail content (status, quick actions, copilot) is offered as widgets instead.
+    </div>
+
+    <!-- A: Board header -->
+    <section class="section" style="margin-bottom: var(--gap-section);">
+      <div class="region uncontained h-sm">
+        <div class="r-head">
+          <div class="r-code">A</div><div class="r-name">Board header</div>
+          <div class="r-tag">Uncontained · fixed</div>
+        </div>
+        <div class="r-purpose">Personal greeting + saved views ("Morning check", "Cost review") + board controls.</div>
+        <div class="r-contains">Contains: greeting, view tabs, "+ Add widget", "Edit board", reset-to-default.</div>
+        <div class="r-rules">Rules: the ONLY fixed region · views are per-user, shareable to teams · defaults seeded by role.</div>
+      </div>
+    </section>
+
+    <div class="gap-note" style="display:block; text-align:center; margin-bottom: var(--gap-section);">— 32px section gap —</div>
+
+    <!-- B: Widget grid -->
+    <section class="section">
+      <div class="bento">
+        <div class="region contained">
+          <div class="r-head"><div class="r-code">B</div><div class="r-name">Widget · 1×1</div><div class="r-tag">Contained</div></div>
+          <div class="r-purpose">KPI tile: value + delta + link.</div>
+        </div>
+        <div class="region contained">
+          <div class="r-head"><div class="r-code">B</div><div class="r-name">Widget · 1×1</div><div class="r-tag">Contained</div></div>
+          <div class="r-purpose">Every widget reuses T1 card anatomy: title, drill-in arrow, one content type.</div>
+        </div>
+        <div class="region contained span-2 tall">
+          <div class="r-head"><div class="r-code">B</div><div class="r-name">Widget · 2×2</div><div class="r-tag">Contained</div></div>
+          <div class="r-purpose">Larger widgets earn their size: list (≤6 rows), chart, or map.</div>
+          <div class="r-contains">Sizes: 1×1, 2×1, 2×2 only, no free resize.</div>
+          <div class="r-rules">Rules: 16px gaps everywhere · widgets snap to a 4-column grid · drag handle + remove appear in edit mode.</div>
+        </div>
+        <div class="region contained span-2">
+          <div class="r-head"><div class="r-code">B</div><div class="r-name">Widget · 2×1</div><div class="r-tag">Contained</div></div>
+          <div class="r-purpose">Wide widget: trend chart or table preview (≤4 rows, links to full T2/T3 page).</div>
+        </div>
+        <div class="region contained">
+          <div class="r-head"><div class="r-code">B</div><div class="r-name">Widget · 1×1</div><div class="r-tag">Contained</div></div>
+          <div class="r-purpose">Platform widgets too: status, quick actions, copilot prompt.</div>
+        </div>
+        <div class="region contained">
+          <div class="r-head"><div class="r-code">B</div><div class="r-name">Widget · 1×1</div><div class="r-tag">Contained</div></div>
+          <div class="r-rules">No uncontained content on this template: containment signals "movable module".</div>
+        </div>
+        <div class="ghost span-2">＋ Add widget (ghost slot · always last)</div>
+      </div>
+    </section>
+
+    <div class="gap-note" style="display:block; text-align:center; margin: var(--gap-section) 0;">— 32px section gap —</div>
+
+    <!-- C: Widget library -->
+    <section class="section">
+      <div class="region uncontained h-md">
+        <div class="r-head">
+          <div class="r-code">C</div><div class="r-name">Widget library</div>
+          <div class="r-tag">Overlay drawer · edit mode only</div>
+        </div>
+        <div class="r-purpose">Catalog of available widgets, grouped by domain (Compute, Cost, Sustainability, Platform…).</div>
+        <div class="r-contains">Contains: search, category filters, widget preview cards with "Add" buttons.</div>
+        <div class="r-rules">Rules: every widget maps to a canonical source page (T1 card, T2 queue, T3 chart) · no orphan data ·
+          widget count soft cap ~12 per view · empty board shows role-based starter packs.</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

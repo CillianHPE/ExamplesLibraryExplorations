@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T1 · Overview · Var D · Networking</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon active" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Aruba Central</h1>
+      <button class="btn secondary">＋ Add site</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- KPI strip -->
+        <section class="kpi-strip">
+          <div class="kpi-intro">
+            <div class="eyebrow">Network</div>
+            <div class="title">Health</div>
+            <span class="chip">✦ Diagnose an issue</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Sites</div>
+            <div class="name">Sites online</div>
+            <div class="value-row"><span class="value">10</span><span class="delta neutral">of 12</span></div>
+            <div class="desc">2 device groups degraded: Warehouse-IoT-07 (WAN failover) and Retail-Edge-UK (AP outage).</div>
+            <span class="glink">View site map →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Experience</div>
+            <div class="name">Client health score</div>
+            <div class="value-row"><span class="value">92</span><span class="delta up">↑ 4</span></div>
+            <div class="desc">Wi-Fi experience across 8,420 connected clients. Roaming issues resolved at Dublin HQ.</div>
+            <span class="glink">View client insights →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">WAN</div>
+            <div class="name">Uplink availability</div>
+            <div class="value-row"><span class="value">99.96%</span><span class="delta neutral">30 days</span></div>
+            <div class="desc">SD-WAN fabric across 12 device groups. One failover event this week, self-healed in 40s.</div>
+            <span class="glink">View WAN topology →</span>
+          </div>
+        </section>
+
+        <!-- Module cards -->
+        <section class="grid-3">
+          <div class="card">
+            <div class="card-head"><h2>Open network alerts</h2><span class="arrow">→</span></div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">WAN uplink down</div><div class="li-sub">Warehouse-IoT-07 · Chicago Warehouse on LTE failover</div></div></div>
+              <div class="li-meta">36 min ago</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">6 APs offline</div><div class="li-sub">Retail-Edge-UK · London Office floor 12</div></div></div>
+              <div class="li-meta">2 hours ago</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">High channel utilization</div><div class="li-sub">Dublin HQ · 5 GHz band</div></div></div>
+              <div class="li-meta">Today</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Connected clients</h2><span class="arrow">→</span></div>
+            <div class="donut-wrap">
+              <div class="donut" style="background: conic-gradient(var(--c-blue) 0 58%, var(--c-green) 58% 86%, var(--c-purple) 86% 100%);" data-center="8,420"></div>
+              <div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Wireless</span><span class="pct">4,884</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>Wired</span><span class="pct">2,358</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>IoT</span><span class="pct">1,178</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Inventory</h2><span class="arrow">→</span></div>
+            <div class="list-item" style="padding:9px 0;"><span class="li-title">Device groups</span><span class="li-meta">542 devices · <b>6 down</b></span></div>
+            <div class="list-item" style="padding:9px 0;"><span class="li-title">Edge device groups</span><span class="li-meta">381 devices · monitored</span></div>
+            <div class="list-item" style="padding:9px 0;"><span class="li-title">Plant gateways</span><span class="li-meta">41 devices · 1 failover</span></div>
+            <div class="list-item" style="padding:9px 0;"><span class="li-title">Policy reviews pending</span><span class="pill amber">20</span></div>
+          </div>
+        </section>
+
+        <!-- Uncontained table -->
+        <section>
+          <h2 class="table-title">Sites</h2>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Site</th><th>Region</th><th>Health</th><th class="num">Devices</th><th class="num">Clients</th><th>WAN</th><th>Uptime (30d)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">Warehouse-IoT-07</span></td><td>Chicago Warehouse</td><td><span class="pill red">Degraded</span></td><td class="num">120</td><td class="num">1,240</td><td><span class="pill amber">LTE failover</span></td><td>99.71%</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">Retail-Edge-UK</span></td><td>London Office</td><td><span class="pill red">Degraded</span></td><td class="num">36</td><td class="num">620</td><td><span class="pill green">Primary</span></td><td>99.89%</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">Edge-North-Fleet</span></td><td>Frankfurt DC</td><td><span class="pill amber">Warning</span></td><td class="num">45</td><td class="num">780</td><td><span class="pill green">Primary</span></td><td>99.99%</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">Plant-Gateways-Munich</span></td><td>Munich Factory</td><td><span class="pill green">Healthy</span></td><td class="num">41</td><td class="num">640</td><td><span class="pill green">Primary</span></td><td>100%</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">Office-IoT-Paris</span></td><td>Paris Plant</td><td><span class="pill green">Healthy</span></td><td class="num">58</td><td class="num">720</td><td><span class="pill green">Primary</span></td><td>99.98%</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Aruba Central status</h3>
+          <div class="status-banner"><span class="status-dot"></span> Operational</div>
+          <div class="fine">All Aruba Central services healthy. Next maintenance window Sep 21, 02:00 UTC.</div>
+        </div>
+        <div class="card">
+          <h3>GreenLake Intelligence</h3>
+          <div class="fine">"The 6 offline APs in Retail-Edge-UK share one PoE switch at London Office. Power cycle port group 3 to likely restore them."</div>
+          <div class="prompt-box"><span class="sp">✦</span> Diagnose network issue…</div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Quick actions</h3>
+          <ul class="qa-list">
+            <li><a href="#">Add site</a></li>
+            <li><a href="#">Onboard devices</a></li>
+            <li><a href="#">Create WLAN</a></li>
+            <li><a href="#">Schedule firmware update</a></li>
+            <li><a href="#">Run connectivity test</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Learn</h3>
+          <div class="learn-item"><div class="lt">AI-powered RF optimization →</div><div class="ls">Let AirMatch tune channels and power automatically.</div></div>
+          <div class="learn-item"><div class="lt">SD-WAN failover explained →</div><div class="ls">How gateways self-heal when uplinks drop.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

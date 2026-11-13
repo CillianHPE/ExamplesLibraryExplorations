@@ -1,0 +1,122 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo-fi — Multi-step creation wizard</title><style>
+  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
+  .topbar { height:52px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:16px; padding:0 20px; background:#fff; }
+  .logo { width:90px; height:20px; background:var(--faint); border-radius:3px; }
+  .searchbox { flex:0 0 320px; height:30px; border:1px solid var(--line); border-radius:15px; margin-left:auto; }
+  .avatar { width:28px; height:28px; border-radius:50%; background:var(--faint); }
+  .page { padding:24px 32px 48px; max-width:1200px; margin:0 auto; }
+  .breadcrumb { font-size:13px; color:var(--muted); margin-bottom:6px; }
+  .breadcrumb a { color:var(--muted); }
+  h1 { font-size:26px; font-weight:600; margin-bottom:24px; }
+  .btn { font-size:13px; padding:6px 14px; border:1px solid var(--line); border-radius:4px; background:#fff; cursor:pointer; }
+  .btn-primary { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .card { border:1px solid var(--line); border-radius:6px; background:#fff; padding:16px 20px; }
+  .annotation { margin-top:24px; font-size:12px; color:var(--muted); border:1px dashed var(--faint); border-radius:4px; padding:10px 12px; line-height:1.5; }
+  .backlink { display:inline-block; margin-bottom:12px; font-size:13px; color:var(--muted); }
+  .wizard { display:flex; gap:32px; }
+  .stepper { flex:0 0 200px; }
+  .step { display:flex; gap:10px; padding:10px 0; font-size:13px; color:var(--muted); }
+  .step-dot { flex:0 0 22px; height:22px; border-radius:50%; border:1px solid var(--faint); display:flex; align-items:center; justify-content:center; font-size:11px; background:#fff; }
+  .step.done .step-dot { background:var(--ink); border-color:var(--ink); color:#fff; }
+  .step.active { color:var(--ink); font-weight:600; }
+  .step.active .step-dot { border-color:var(--ink); }
+  .step-label small { display:block; font-weight:400; color:var(--muted); font-size:11px; }
+  .step-line { margin-left:11px; height:18px; border-left:1px solid var(--faint); }
+  .wizard-main { flex:1; min-width:0; }
+  .wizard-side { flex:0 0 260px; }
+  .field { margin-bottom:18px; }
+  .field label { display:block; font-size:13px; font-weight:600; margin-bottom:5px; }
+  .field label .req { color:var(--muted); font-weight:400; }
+  .input { height:34px; border:1px solid var(--line); border-radius:4px; background:#fff; max-width:420px; display:flex; align-items:center; padding:0 10px; font-size:13px; color:var(--muted); }
+  .select::after { content:"▾"; margin-left:auto; color:var(--muted); }
+  .select { display:flex; }
+  .help { font-size:12px; color:var(--muted); margin-top:4px; max-width:420px; }
+  .radio-cards { display:flex; gap:12px; max-width:640px; }
+  .radio-card { flex:1; border:1px solid var(--line); border-radius:6px; padding:12px; font-size:13px; cursor:pointer; }
+  .radio-card.selected { border-color:var(--ink); box-shadow:0 0 0 1px var(--ink); }
+  .radio-card b { display:block; margin-bottom:4px; }
+  .radio-card span { color:var(--muted); font-size:12px; }
+  .wizard-footer { display:flex; gap:8px; margin-top:28px; padding-top:16px; border-top:1px solid var(--line); }
+  .summary-row { display:flex; justify-content:space-between; font-size:12.5px; padding:7px 0; border-bottom:1px solid var(--fill); }
+  .summary-row:last-child { border-bottom:none; }
+  .summary-row .k { color:var(--muted); }
+  .unset { color:var(--faint); font-style:italic; }
+</style>
+</head><body>
+<div class="topbar"><div class="logo"></div><div class="searchbox"></div><div class="avatar"></div></div>
+<div class="page">
+<a class="backlink" href="index.html">&lsaquo; All mockups</a>
+<div class="breadcrumb">&lsaquo; <a href="#">Private Cloud</a> / Clusters</div>
+<h1>Create cluster</h1>
+
+<div class="wizard">
+  <!-- Stepper rail: linear, shows progress + what's coming -->
+  <div class="stepper">
+    <div class="step done"><div class="step-dot">✓</div><div class="step-label">Basics<small>Name, region</small></div></div>
+    <div class="step-line"></div>
+    <div class="step active"><div class="step-dot">2</div><div class="step-label">Compute &amp; storage<small>In progress</small></div></div>
+    <div class="step-line"></div>
+    <div class="step"><div class="step-dot">3</div><div class="step-label">Networking<small>Optional</small></div></div>
+    <div class="step-line"></div>
+    <div class="step"><div class="step-dot">4</div><div class="step-label">Tags &amp; access</div></div>
+    <div class="step-line"></div>
+    <div class="step"><div class="step-dot">5</div><div class="step-label">Review &amp; create</div></div>
+  </div>
+
+  <!-- One decision cluster per step -->
+  <div class="wizard-main">
+    <div class="card">
+      <h2 style="font-size:16px;font-weight:600;margin-bottom:4px">Step 2 · Compute &amp; storage</h2>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:20px">Choose the worker profile. This determines pricing and available storage tiers.</p>
+
+      <div class="field">
+        <label>Worker profile <span class="req">required</span></label>
+        <div class="radio-cards">
+          <div class="radio-card"><b>General</b><span>4 vCPU · 16 GiB<br>Balanced workloads</span></div>
+          <div class="radio-card selected"><b>Compute-opt</b><span>8 vCPU · 16 GiB<br>Batch &amp; analytics</span></div>
+          <div class="radio-card"><b>Memory-opt</b><span>4 vCPU · 32 GiB<br>In-memory DBs</span></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Node count <span class="req">required</span></label>
+        <div class="input" style="max-width:120px">3</div>
+        <div class="help">Between 3 and 32. Can be scaled after creation.</div>
+      </div>
+
+      <div class="field">
+        <label>Storage tier</label>
+        <div class="input select" style="max-width:280px">Performance SSD</div>
+        <div class="help">Only tiers available in region us-west-2 are shown — earlier answers constrain later options.</div>
+      </div>
+
+      <div class="wizard-footer">
+        <button class="btn">Cancel</button>
+        <span style="flex:1"></span>
+        <button class="btn">‹ Previous</button>
+        <button class="btn btn-primary">Next: Networking ›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Persistent summary panel: running record of every answer -->
+  <div class="wizard-side">
+    <div class="card">
+      <h2 style="font-size:14px;font-weight:600;margin-bottom:10px">Summary</h2>
+      <div class="summary-row"><span class="k">Name</span><span>pc-cluster-west-01</span></div>
+      <div class="summary-row"><span class="k">Region</span><span>us-west-2</span></div>
+      <div class="summary-row"><span class="k">Profile</span><span>Compute-opt</span></div>
+      <div class="summary-row"><span class="k">Nodes</span><span>3</span></div>
+      <div class="summary-row"><span class="k">Networking</span><span class="unset">not set</span></div>
+      <div class="summary-row"><span class="k">Tags</span><span class="unset">not set</span></div>
+      <div class="summary-row" style="border-top:1px solid var(--line);margin-top:6px;padding-top:10px"><span class="k">Est. cost</span><b>$1,240 /mo</b></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotation">Archetype 1 — Multi-step creation wizard. For high-decision-weight provisioning where later options depend on earlier answers. Rules seen across AWS / Databricks / Cloudflare: linear stepper with step names + status; one decision cluster per step; choice-cards for the step's primary decision; a persistent summary/cost rail collecting every answer; a mandatory final "Review &amp; create" step where each section is editable; primary button always names the next step. Never mix two unrelated decision clusters in one step.</div>
+</div><script src="/library-nav.js"></script>
+</body></html>

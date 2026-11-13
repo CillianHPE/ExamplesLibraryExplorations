@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T5 · Custom board · Var D · Sustainability</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(160px, auto); gap: var(--gap-container); }
+  .span-2 { grid-column: span 2; }
+  .tall { grid-row: span 2; }
+  @media (max-width: 1050px) { .bento { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) { .bento { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } }
+
+  .views { display: flex; gap: 26px; border-bottom: 1px solid var(--line); margin-bottom: var(--gap-section); }
+  .view-tab { font-size: 14.5px; font-weight: 600; color: var(--gl-ink-soft); padding: 10px 2px; cursor: pointer; }
+  .view-tab.on { color: var(--gl-ink); border-bottom: 3px solid var(--gl-green); }
+  .view-tab.add { color: var(--gl-green-dark); }
+
+  .greet { font-size: 32px; font-weight: 700; letter-spacing: -0.3px; }
+  .greet-sub { font-size: 14px; color: var(--gl-ink-soft); margin-top: 4px; }
+
+  .widget { position: relative; }
+  .widget .grip { position: absolute; top: 14px; right: 44px; color: var(--gl-ink-faint); font-size: 13px; letter-spacing: 2px; cursor: grab; opacity: 0; }
+  .widget:hover .grip { opacity: 1; }
+
+  .ghost-tile { border: 1.5px dashed var(--gl-ink-faint); border-radius: var(--radius); background: #fff;
+    display: flex; flex-direction: column; gap: 6px; align-items: center; justify-content: center;
+    color: var(--gl-ink-soft); font-size: 14px; font-weight: 600; cursor: pointer; }
+  .ghost-tile:hover { border-color: var(--gl-green); color: var(--gl-green-dark); }
+  .ghost-tile .plus { font-size: 26px; color: var(--gl-green); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon active" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head" style="margin-bottom: 20px;">
+      <div>
+        <div class="greet">Good morning, Isabella</div>
+        <div class="greet-sub">isabella.laurent@democomp.com · HPE Sustainability Insight Center report ready · 3 sites above target</div>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn secondary">＋ Add widget</button>
+        <button class="btn primary">Edit</button>
+      </div>
+    </div>
+
+    <div class="views">
+      <span class="view-tab on">Weekly report</span>
+      <span class="view-tab">Site comparison</span>
+      <span class="view-tab add">＋ New view</span>
+    </div>
+
+    <div class="bento">
+
+
+      <!-- KPI: total emissions -->
+      <div class="card widget">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:10px;"><h2 style="font-size:15px;">Total emissions</h2><span class="arrow">→</span></div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:30px; font-weight:700;">9,420</span><span class="delta up">↓ 11%</span>
+        </div>
+        <div class="fine" style="margin-top:8px;">kgCO2e for Sep 3–10 across top sites.</div>
+      </div>
+
+      <!-- KPI: energy cost -->
+      <div class="card widget">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:10px;"><h2 style="font-size:15px;">Energy cost</h2><span class="arrow">→</span></div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:30px; font-weight:700;">€82.4K</span><span class="delta up">↓ 4%</span>
+        </div>
+        <div class="fine" style="margin-top:8px;">Weekly estimate for Dublin HQ, Frankfurt DC and Singapore DC.</div>
+      </div>
+
+      <!-- Emissions trend: 2x1 -->
+      <div class="card widget span-2">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:8px;"><h2 style="font-size:15px;">HPE Sustainability Insight Center · 7 days</h2><span class="arrow">→</span></div>
+        <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:6px;">
+          <span style="font-size:24px; font-weight:700;">1,346</span>
+          <span class="fine">kgCO2e avg/day</span>
+          <span class="delta up">Below target</span>
+        </div>
+        <div class="chart-wrap">
+          <svg viewBox="0 0 400 60">
+            <polyline points="0,20 57,24 114,27 171,25 228,31 285,35 342,38 400,41" fill="none" stroke="var(--c-green)" stroke-width="2.5" stroke-linecap="round"/>
+            <polyline points="0,30 57,30 114,31 171,31 228,32 285,32 342,33 400,33" fill="none" stroke="var(--amber)" stroke-width="2" stroke-dasharray="5 5"/>
+          </svg>
+        </div>
+        <div class="chart-legend"><span class="lg"><span class="sw" style="background:var(--c-green)"></span>Actual</span><span class="lg"><span class="sw" style="background:var(--amber)"></span>Target</span></div>
+      </div>
+
+      <!-- PUE KPI -->
+      <div class="card widget">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:10px;"><h2 style="font-size:15px;">PUE average</h2><span class="arrow">→</span></div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:30px; font-weight:700;">1.36</span><span class="delta up">↓ 0.05</span>
+        </div>
+        <div class="fine" style="margin-top:8px;">Weighted average across Dublin HQ, Frankfurt DC and Singapore DC.</div>
+      </div>
+
+      <!-- Renewable donut -->
+      <div class="card widget">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:10px;"><h2 style="font-size:15px;">Renewable energy</h2><span class="arrow">→</span></div>
+        <div class="donut-wrap" style="gap:14px;">
+          <div class="donut" style="width:92px; height:92px; background: conic-gradient(var(--c-green) 0 64%, var(--amber) 64% 82%, var(--c-grey) 82% 100%);" data-center="64%"></div>
+          <div class="fine">Target 70%<br>by Q4 FY26</div>
+        </div>
+      </div>
+
+      <!-- Top sites: 2x2 -->
+      <div class="card widget span-2 tall">
+        <span class="grip">⠿</span>
+        <div class="card-head"><h2>Top sites by emissions</h2><span class="arrow">→</span></div>
+        <div class="list-item">
+          <div style="width:100%;"><div class="legend-row"><span class="li-title">Frankfurt DC</span><span class="pct">2,940 kgCO2e</span></div><div class="meter"><i class="crit" style="width:92%"></i></div></div>
+        </div>
+        <div class="list-item">
+          <div style="width:100%;"><div class="legend-row"><span class="li-title">Fort Collins DC</span><span class="pct">2,180 kgCO2e</span></div><div class="meter"><i class="warn" style="width:62%"></i></div></div>
+        </div>
+        <div class="list-item">
+          <div style="width:100%;"><div class="legend-row"><span class="li-title">Singapore DC</span><span class="pct">1,760 kgCO2e</span></div><div class="meter"><i style="width:54%"></i></div></div>
+        </div>
+        <div class="list-item">
+          <div style="width:100%;"><div class="legend-row"><span class="li-title">Munich Factory</span><span class="pct">1,220 kgCO2e</span></div><div class="meter"><i style="width:35%"></i></div></div>
+        </div>
+        <div style="margin-top:10px;"><span class="glink">Compare all sites →</span></div>
+      </div>
+
+      <!-- GreenLake Intelligence recommendation: 2x1 -->
+      <div class="card widget span-2">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:6px;"><h2 style="font-size:15px;">GreenLake Intelligence · Recommendation</h2><span class="arrow">→</span></div>
+        <div class="fine">✦ HPE Sustainability Insight Center recommends shifting COM-Cluster-Analytics-B jobs at Fort Collins DC to off-peak windows, cutting 8% of weekly emissions and saving €7.4K with no SLA impact.</div>
+        <div class="prompt-box"><span class="sp">✦</span> Build an off-peak plan for COM-Cluster-Analytics-B…</div>
+      </div>
+
+      <!-- Ghost add slot -->
+      <div class="ghost-tile">
+        <span class="plus">＋</span>
+        Add widget
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

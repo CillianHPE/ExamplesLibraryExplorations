@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo-fi — Faceted event stream</title><style>
+  :root { --ink:#2b2b2b; --muted:#8a8a8a; --faint:#c9c9c9; --line:#dcdcdc; --fill:#f2f2f2; --accent:#4a4a4a; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:#fafafa; }
+  .topbar { height:52px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:16px; padding:0 20px; background:#fff; }
+  .logo { width:90px; height:20px; background:var(--faint); border-radius:3px; }
+  .searchbox { flex:0 0 320px; height:30px; border:1px solid var(--line); border-radius:15px; margin-left:auto; }
+  .avatar { width:28px; height:28px; border-radius:50%; background:var(--faint); }
+  .page { padding:20px 32px 48px; max-width:1400px; margin:0 auto; }
+  h1 { font-size:22px; font-weight:600; }
+  .header-row { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .btn { font-size:13px; padding:6px 14px; border:1px solid var(--line); border-radius:4px; background:#fff; cursor:pointer; }
+  .btn-primary { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .querybar { display:flex; gap:8px; align-items:center; margin-bottom:14px; }
+  .qinput { flex:1; height:34px; border:1px solid var(--line); border-radius:4px; background:#fff; display:flex; align-items:center; padding:0 12px; font-size:12.5px; color:var(--muted); font-family:"SF Mono",Menlo,monospace; }
+  .trange { display:flex; border:1px solid var(--line); border-radius:4px; overflow:hidden; background:#fff; }
+  .trange div { font-size:12px; padding:8px 10px; color:var(--muted); border-right:1px solid var(--line); cursor:pointer; }
+  .trange div:last-child { border-right:none; }
+  .trange div.cur { background:var(--ink); color:#fff; }
+  .live { display:flex; align-items:center; gap:6px; font-size:12.5px; border:1px solid var(--ink); border-radius:4px; padding:7px 12px; background:#fff; }
+  .live .pulse { width:8px; height:8px; border-radius:50%; background:var(--ink); }
+  .split { display:flex; gap:16px; }
+  .facets { flex:0 0 200px; }
+  .facet { border:1px solid var(--line); border-radius:6px; background:#fff; padding:10px 12px; margin-bottom:10px; }
+  .facet h3 { font-size:11.5px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px; }
+  .facet-row { display:flex; align-items:center; gap:7px; font-size:12.5px; padding:4px 0; color:var(--ink); }
+  .facet-row .cb { width:13px; height:13px; border:1px solid var(--faint); border-radius:3px; }
+  .facet-row .cb.on { background:var(--ink); border-color:var(--ink); }
+  .facet-row .n { margin-left:auto; color:var(--muted); font-size:11.5px; }
+  .main { flex:1; min-width:0; }
+  .histo { border:1px solid var(--line); border-radius:6px; background:#fff; padding:12px 16px 8px; margin-bottom:14px; }
+  .histo-title { font-size:11.5px; color:var(--muted); margin-bottom:8px; display:flex; }
+  .bars { display:flex; align-items:flex-end; gap:3px; height:56px; }
+  .bar { flex:1; background:var(--faint); }
+  .bar.hot { background:var(--ink); }
+  .axis { display:flex; justify-content:space-between; font-size:10.5px; color:var(--faint); margin-top:4px; }
+  .stream { border:1px solid var(--line); border-radius:6px; background:#fff; overflow:hidden; }
+  .stream-head { display:flex; font-size:11.5px; color:var(--muted); padding:8px 14px; border-bottom:1px solid var(--line); }
+  .row { display:flex; gap:0; padding:7px 14px; border-bottom:1px solid var(--fill); font-family:"SF Mono",Menlo,monospace; font-size:11.5px; align-items:baseline; cursor:pointer; }
+  .row:hover { background:var(--fill); }
+  .row.sel { background:var(--fill); box-shadow:inset 3px 0 0 var(--ink); }
+  .ts { flex:0 0 150px; color:var(--muted); }
+  .sev { flex:0 0 70px; }
+  .sev b { font-weight:700; }
+  .src { flex:0 0 150px; color:var(--muted); }
+  .msg { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .expand { padding:10px 14px 12px 164px; border-bottom:1px solid var(--fill); background:#fcfcfc; font-family:"SF Mono",Menlo,monospace; font-size:11px; color:var(--muted); line-height:1.7; }
+  .expand .kvp b { color:var(--ink); font-weight:600; }
+  .annotation { margin-top:24px; font-size:12px; color:var(--muted); border:1px dashed var(--faint); border-radius:4px; padding:10px 12px; line-height:1.5; }
+  .backlink { display:inline-block; margin-bottom:12px; font-size:13px; color:var(--muted); }
+</style>
+</head><body>
+<div class="topbar"><div class="logo"></div><div class="searchbox"></div><div class="avatar"></div></div>
+<div class="page">
+<a class="backlink" href="index.html">&lsaquo; All mockups</a>
+<div class="header-row"><h1>Audit &amp; events</h1><span style="font-size:13px;color:var(--muted)">· 41,209 events in range</span><span style="margin-left:auto"></span><button class="btn">Export</button><button class="btn">Save view</button></div>
+
+<div class="querybar">
+  <div class="qinput">severity:(critical OR warning) site:"DC-West" | filter chips promoted into a query anyone can read</div>
+  <div class="trange"><div>15m</div><div>1h</div><div class="cur">24h</div><div>7d</div><div>Custom ▾</div></div>
+  <div class="live"><span class="pulse"></span>Live</div>
+</div>
+
+<div class="split">
+  <!-- Facets: value + count, click to narrow -->
+  <div class="facets">
+    <div class="facet"><h3>Severity</h3>
+      <div class="facet-row"><span class="cb on"></span>Critical<span class="n">214</span></div>
+      <div class="facet-row"><span class="cb on"></span>Warning<span class="n">1,082</span></div>
+      <div class="facet-row"><span class="cb"></span>Info<span class="n">38,455</span></div>
+      <div class="facet-row"><span class="cb"></span>Debug<span class="n">1,458</span></div>
+    </div>
+    <div class="facet"><h3>Source</h3>
+      <div class="facet-row"><span class="cb"></span>Switches<span class="n">512</span></div>
+      <div class="facet-row"><span class="cb"></span>Gateways<span class="n">301</span></div>
+      <div class="facet-row"><span class="cb"></span>Access points<span class="n">402</span></div>
+      <div class="facet-row"><span class="cb"></span>Platform<span class="n">81</span></div>
+    </div>
+    <div class="facet"><h3>Event type</h3>
+      <div class="facet-row"><span class="cb"></span>Config change<span class="n">129</span></div>
+      <div class="facet-row"><span class="cb"></span>Link state<span class="n">644</span></div>
+      <div class="facet-row"><span class="cb"></span>Auth failure<span class="n">77</span></div>
+      <div class="facet-row"><span class="cb"></span>Threshold<span class="n">446</span></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Histogram doubles as a range brush -->
+    <div class="histo">
+      <div class="histo-title">Event volume · drag to zoom<span style="margin-left:auto">1,296 matching</span></div>
+      <div class="bars"><div class="bar" style="height:18%"></div><div class="bar" style="height:24%"></div><div class="bar" style="height:15%"></div><div class="bar" style="height:30%"></div><div class="bar" style="height:22%"></div><div class="bar hot" style="height:88%"></div><div class="bar hot" style="height:100%"></div><div class="bar hot" style="height:64%"></div><div class="bar" style="height:31%"></div><div class="bar" style="height:26%"></div><div class="bar" style="height:19%"></div><div class="bar" style="height:23%"></div><div class="bar" style="height:17%"></div><div class="bar" style="height:21%"></div><div class="bar" style="height:14%"></div><div class="bar" style="height:19%"></div></div>
+      <div class="axis"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>now</span></div>
+    </div>
+
+    <div class="stream">
+      <div class="stream-head"><span style="flex:0 0 150px">Timestamp ↓</span><span style="flex:0 0 70px">Severity</span><span style="flex:0 0 150px">Source</span><span style="flex:1">Message</span></div>
+      <div class="row"><span class="ts">09:41:22.081</span><span class="sev"><b>CRIT</b></span><span class="src">sw-agg-west-014</span><span class="msg">Uplink port 1/1/49 down — LACP timeout on lag-2</span></div>
+      <div class="row sel"><span class="ts">09:41:20.552</span><span class="sev"><b>CRIT</b></span><span class="src">sw-agg-west-014</span><span class="msg">Redundant PSU failure detected (PSU-2, S/N 7CE014…)</span></div>
+      <div class="expand"><div class="kvp"><b>device_id</b>: dev-8842-ac3f · <b>site</b>: DC-West · <b>rule</b>: hw-psu-fail · <b>ticket</b>: none · <b>correlated</b>: 2 events in 60s window</div>Selected row expands inline — full payload, copy JSON, "filter by this value" on every field.</div>
+      <div class="row"><span class="ts">09:40:58.310</span><span class="sev">WARN</span><span class="src">gw-branch-west-01</span><span class="msg">Tunnel latency above threshold: 212 ms (limit 150 ms)</span></div>
+      <div class="row"><span class="ts">09:40:41.077</span><span class="sev">WARN</span><span class="src">ap-floor3-lobby-02</span><span class="msg">Channel utilization 91% on 5 GHz radio</span></div>
+      <div class="row"><span class="ts">09:39:12.400</span><span class="sev">WARN</span><span class="src">sw-access-west-201</span><span class="msg">MAC flap detected on port 1/1/12 — vlan 140</span></div>
+      <div class="row"><span class="ts">09:38:55.913</span><span class="sev"><b>CRIT</b></span><span class="src">ap-floor1-east-11</span><span class="msg">AP offline — last heartbeat 09:38:02</span></div>
+      <div class="row"><span class="ts">09:38:02.118</span><span class="sev">WARN</span><span class="src">platform</span><span class="msg">Config push partially applied: 2 of 14 devices deferred</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="annotation">Archetype 3 — Faceted event stream. For high-volume, time-ordered records: logs, audit trails, alerts (Cloudflare, Vercel, Modal, Better Stack, Railway). Rules: time is the primary axis — range picker top-right, newest first; histogram above the stream shows volume shape and doubles as a zoom brush (the spike IS the navigation); facet sidebar shows value + count per field, checkbox to narrow; query bar holds the canonical filter state, chips and facets write into it; rows are dense and monospace, one line each; expanding a row reveals the full payload inline with "filter by this value" affordances; Live mode tails; saved views capture query + range + facets.</div>
+</div><script src="/library-nav.js"></script>
+</body></html>

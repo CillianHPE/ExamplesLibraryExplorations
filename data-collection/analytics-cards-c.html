@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sustainability insights · Small multiples · Hi-fi</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  .multiples { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap-container); }
+  .mini { background:var(--contained); border-radius:var(--radius); padding:20px 22px 14px; cursor:pointer; border:2px solid transparent; }
+  .mini:hover { border-color:var(--line); }
+  .mini.cur { background:#fff; border-color:var(--gl-green); box-shadow:0 2px 10px rgba(0,0,0,.06); }
+  .mini .cat { font-size:12px; color:var(--gl-ink-soft); }
+  .mini .value-row { display:flex; align-items:baseline; gap:8px; margin:2px 0 2px; }
+  .mini .value { font-size:30px; font-weight:700; letter-spacing:-0.5px; }
+  .mini .unit { font-size:13px; font-weight:600; color:var(--gl-ink-soft); }
+  .mini .name { font-size:14.5px; font-weight:600; color:var(--gl-heading); margin-bottom:4px; }
+  .mini .sub { font-size:12px; color:var(--gl-ink-soft); line-height:1.5; margin-bottom:10px; }
+  .mini .expand { font-size:12px; font-weight:600; color:var(--gl-ink-faint); text-align:right; margin-top:6px; }
+  .mini.cur .expand { color:var(--gl-green-dark); }
+  .detail { padding:0; }
+  .detail.flash h2 { animation:dflash .7s ease-out; }
+  @keyframes dflash { 0% { background:var(--mint-bg);} 100% { background:transparent;} }
+  .rrail .card { animation:rflash .7s ease-out; }
+  @keyframes rflash { 0% { background:var(--mint-bg);} 100% { background:var(--contained);} }
+  .meta-note { font-size:12.5px; color:var(--gl-ink-soft); }
+</style>
+
+</head>
+<body>
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
+  <div class="workspace">HPECC_Partner</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon active" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="crumb"><a href="#">‹ AI Insights</a></div>
+    <div class="page-head" style="margin-bottom:8px;">
+      <h1>Sustainability insights</h1>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <button class="btn secondary">Actions ▾</button>
+        <button class="panel-toggle" id="ptoggle" onclick="togglePanel()" title="Toggle breakdown panel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.2" y="4.2" width="17.6" height="15.6" rx="3"/><path d="M14.8 4.2v15.6"/></svg>
+          <span class="badge">1</span>
+        </button>
+      </div>
+    </div>
+    <p class="meta-note" style="margin-bottom:20px;">AI powered insights on historical and projected energy consumption, carbon and costs. <a href="#" class="glink" style="font-size:12.5px;">Learn more</a></p>
+
+    <div class="page-grid" id="pagegrid">
+    <div class="primary">
+
+      <!-- Scope bar -->
+      <section>
+        <div class="toolbar" style="margin-bottom:0;">
+          <span class="fchip on">Last 90 and next 30 days (1 day avg) ▾</span>
+          <span class="fchip">All servers ▾</span>
+          <span class="spacer"></span>
+          <span class="meta-note">Jun 13 – Oct 10, 2026 (120 days) · 1 server analyzed · <a href="#" class="glink" style="font-size:12.5px;">90 servers</a> removed</span>
+        </div>
+      </section>
+
+      <!-- Small multiples -->
+      <section class="multiples" id="multiples"></section>
+
+      <!-- Detail: uncontained hero chart owned by the dynamic header -->
+      <section class="detail" id="detailcard">
+        <h2 class="table-title" style="font-size:22px; margin-bottom:2px; display:inline-block; border-radius:6px; padding:2px 8px; margin-left:-8px;" id="ctitle"></h2>
+        <div class="meta-note" style="margin-bottom:14px;">Collected Jun 13 – Sep 10, 2026 (90 days) · Projected Sep 11 – Oct 10, 2026 (30 days)</div>
+        <div class="chart-wrap"><svg id="chart" viewBox="0 0 900 230"></svg></div>
+        <div class="chart-legend" id="legend"></div>
+      </section>
+
+    </div>
+
+    <!-- Right rail: per-server detail replaces the one-row table -->
+    <aside class="rrail" id="rrail"></aside>
+    </div>
+  </main>
+</div>
+
+<script>
+const METRICS={
+co2:{unit:"kgCO2e",sym:"",big:"182",name:"Total estimated carbon emissions",cat:"Carbon",
+  sub:"138 kgCO2e collected total · 43.5 kgCO2e projected total",color:"var(--viz-2)",hex:"#009A71",
+  collAvg:"1.535",projAvg:"1.451",max:1.95,yTicks:[0.491,0.982,1.473,1.964],
+  min:"Minimum 0.845 kgCO2e",maxL:"Maximum 1.95 kgCO2e",
+  table:"Details — Estimated carbon emissions · CO2e",unitHdr:"(kgCO2e)",
+  row:["0.845","1.950","1.514","138.128","43.517","181.645"]},
+kwh:{unit:"kWh",sym:"",big:"412",name:"Total energy consumption",cat:"Energy",
+  sub:"313 kWh collected total · 98.6 kWh projected total",color:"var(--viz-1)",hex:"#0070F8",
+  collAvg:"3.478",projAvg:"3.287",max:4.418,yTicks:[1.113,2.226,3.339,4.452],
+  min:"Minimum 1.915 kWh",maxL:"Maximum 4.418 kWh",
+  table:"Details — Energy consumption · Wh",unitHdr:"(kWh)",
+  row:["1.915","4.418","3.430","313.026","98.619","411.645"]},
+usd:{unit:"USD",sym:"$ ",big:"66",name:"Total estimated cost",cat:"Cost",
+  sub:"$ 50 USD collected total · $ 16 USD projected total",color:"var(--viz-3)",hex:"#7764FC",
+  collAvg:"$ 0.56",projAvg:"$ 0.53",max:0.71,yTicks:[0.177,0.354,0.532,0.71],
+  min:"Minimum $ 0.31 USD",maxL:"Maximum $ 0.71 USD",
+  table:"Details — Estimated cost · USD",unitHdr:"(USD)",
+  row:["$ 0.31","$ 0.71","$ 0.55","$ 50.08","$ 15.78","$ 65.86"]}};
+const ORDER=["co2","kwh","usd"];
+const SHAPE=[0.75,0.74,0.76,0.75,0.73,0.74,0.75,0.76,0.74,0.75,0.73,0.72,0.74,0.75,0.76,0.75,0.74,0.73,0.75,0.76,0.74,0.75,0.73,0.74,0.75,0.74,0.76,0.75,0.74,0.75,0.73,0.74,0.76,0.75,0.74,0.30,0.74,0.75,0.76,0.75,0.74,0.75,0.73,0.75,0.74,0.76,0.75,0.74,0.75,0.73,0.74,0.75,0.76,0.74,0.75,0.74,0.73,0.75,0.76,0.75,0.74,0.75,0.73,0.74,0.75,0.76,0.10,0.74,0.75,0.76,0.75,0.74,0.95,0.96,0.94,0.95,0.96,0.95,0.94,0.96,0.95,0.94,0.95,0.75,0.74,0.75,0.76,0.74,0.75,0.74];
+const PROJ=Array.from({length:30},(_,i)=>i<10?0.94-0.002*i:0.72+0.001*i);
+const XLBL=["Jun 13","Jul 04","Jul 25","Aug 15","Sep 05","Sep 26"];
+let cur="co2";
+
+function spark(k){
+  const m=METRICS[k],W=300,H=52,x=i=>W*i/119,y=v=>H-5-(H-12)*v;
+  const p1="M"+SHAPE.map((v,i)=>`${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" L");
+  const p2="M"+PROJ.map((v,i)=>`${x(90+i).toFixed(1)},${y(v).toFixed(1)}`).join(" L");
+  return `<svg width="100%" height="${H}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+    <rect x="${x(89)}" y="0" width="${W-x(89)}" height="${H}" fill="#eef1f2" rx="3"/>
+    <path d="${p1}" fill="none" stroke="${m.hex}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="${p2}" fill="none" stroke="#8fa0a8" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round"/></svg>`;
+}
+function render(){
+  const m=METRICS[cur];
+  document.getElementById("multiples").innerHTML=ORDER.map(k=>{const t=METRICS[k];
+    // dashboard KPI anatomy: eyebrow · value · name (+ sparkline on unselected only)
+    return `<div class="mini ${k===cur?'cur':''}" onclick="setM('${k}')">
+      <div class="cat">${t.cat}</div>
+      <div class="value-row"><span class="value">${t.sym}${t.big}</span><span class="unit">${t.unit}</span></div>
+      <div class="name">${t.name}</div>
+      ${k===cur?'<div style="height:52px; display:flex; align-items:center;"><span style="font-size:12px; font-weight:600; color:var(--gl-green-dark);">Shown below ▾</span></div>':spark(k)}</div>`;}).join("");
+  const top=m.yTicks[3]*1.02,X0=52,X1=888,Y0=12,Y1=186,W=X1-X0,x=i=>X0+W*i/119,y=v=>Y1-(Y1-Y0)*v/top,sx=x(89);
+  let s=`<g stroke="#eceff0" stroke-width="1">`;
+  m.yTicks.forEach(t=>{s+=`<line x1="${X0}" y1="${y(t)}" x2="${X1}" y2="${y(t)}"/>`;});
+  s+=`</g>`;
+  m.yTicks.forEach(t=>{s+=`<text x="${X0-8}" y="${y(t)+4}" font-size="11" fill="#8fa0a8" text-anchor="end">${t}</text>`;});
+  s+=`<rect x="${sx}" y="${Y0}" width="${X1-sx}" height="${Y1-Y0}" fill="#eef1f2" opacity="0.6"/>`;
+  s+=`<line x1="${sx}" y1="${Y0}" x2="${sx}" y2="${Y1}" stroke="#8fa0a8" stroke-width="1.2" stroke-dasharray="3 4"/>`;
+  s+=`<text x="${sx+8}" y="${Y0+12}" font-size="11.5" fill="#606A70" font-weight="600">Projection begins Sep 11</text>`;
+  s+=`<line x1="${X0}" y1="${y(parseFloat(m.collAvg.replace('$',''))||m.max*0.79)}" x2="${sx}" y2="${y(parseFloat(m.collAvg.replace('$',''))||m.max*0.79)}" stroke="${m.hex}" stroke-width="1" stroke-dasharray="2 4" opacity="0.7"/>`;
+  s+=`<path d="M${SHAPE.map((v,i)=>`${x(i).toFixed(1)},${y(v*m.max).toFixed(1)}`).join(" L")}" fill="none" stroke="${m.hex}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`;
+  s+=`<path d="M${PROJ.map((v,i)=>`${x(90+i).toFixed(1)},${y(v*m.max).toFixed(1)}`).join(" L")}" fill="none" stroke="#8fa0a8" stroke-width="3" stroke-dasharray="5 5" stroke-linecap="round"/>`;
+  XLBL.forEach((l,i)=>{s+=`<text x="${X0+W*i/5*0.97}" y="212" font-size="11" fill="#8fa0a8">${l}</text>`;});
+  s+=`<text x="14" y="110" font-size="11" fill="#8fa0a8" transform="rotate(-90 14 110)">${m.unit}</text>`;
+  document.getElementById("chart").innerHTML=s;
+  document.getElementById("ctitle").textContent=m.name;
+  document.getElementById("legend").innerHTML=
+    `<span class="lg"><span class="sw" style="background:${m.hex}"></span>Collected · avg ${m.collAvg} ${m.unit}</span>
+     <span class="lg"><span class="sw" style="background:#8fa0a8"></span>Projected · avg ${m.projAvg} ${m.unit}</span>
+     <span class="lg">▼ ${m.min}</span><span class="lg">▲ ${m.maxL}</span>`;
+  document.getElementById("rrail").innerHTML=`
+    <div class="card flashcard">
+      <h3>Breakdown · ${m.unit}</h3>
+      <div class="kv"><span class="k">Collected total</span><span class="v">${m.row[3]}</span></div>
+      <div class="kv"><span class="k">Projected total</span><span class="v">${m.row[4]}</span></div>
+      <div class="kv"><span class="k">Total</span><span class="v">${m.row[5]}</span></div>
+      <div class="kv"><span class="k">Minimum day</span><span class="v">${m.row[0]}</span></div>
+      <div class="kv"><span class="k">Maximum day</span><span class="v">${m.row[1]}</span></div>
+      <div class="kv"><span class="k">Average day</span><span class="v">${m.row[2]}</span></div>
+    </div>
+    <div class="card" id="aggcard"></div>`;
+  renderAgg();
+  const d=document.getElementById("detailcard");
+  d.classList.remove("flash"); void d.offsetWidth; d.classList.add("flash");
+}
+function setM(k){cur=k;render();}
+
+/* Aggregate-by dimensions (from the table's "Aggregate by" dropdown).
+   One server in scope, so every dimension resolves to one bucket at 100%. */
+const AGG={
+  server:{label:"Server",rows:[{name:"WIN-L0JPUN8KB3",link:true}]},
+  model:{label:"Model",rows:[{name:"ProLiant DL360 Gen11",count:1}]},
+  generation:{label:"Generation",rows:[{name:"GEN_11",count:1}]},
+  processor:{label:"Processor",rows:[{name:"Intel Xeon-G 6426Y",count:1}]},
+  location:{label:"Location",rows:[{name:"Dublin, IE",count:1}]},
+  tags:{label:"Tag values",rows:[{name:"env: production",count:1}],search:true}};
+let curAgg="server";
+function renderAgg(){
+  const m=METRICS[cur],a=AGG[curAgg];
+  document.getElementById("aggcard").innerHTML=`
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px;">
+      <h3 style="margin:0;">By</h3>
+      <select onchange="setAgg(this.value)" style="font-size:12.5px; font-weight:600; color:var(--gl-ink); border:1px solid var(--line); border-radius:16px; padding:5px 10px; background:#fff; max-width:170px;">
+        ${Object.keys(AGG).map(k=>`<option value="${k}" ${k===curAgg?'selected':''}>${AGG[k].label}</option>`).join("")}
+      </select>
+    </div>
+    ${a.search?`<div style="display:flex; align-items:center; gap:8px; border:1px solid var(--line); border-radius:16px; padding:6px 12px; font-size:12.5px; color:var(--gl-ink-faint); background:#fff; margin-bottom:12px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3E4550" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.4"/><path d="M15.7 15.7l4.6 4.6"/></svg>Search tag keys</div>`:""}
+    ${a.rows.map(r=>`
+      <div class="kv" style="border-bottom:0; padding-bottom:2px;"><span class="k">${r.link?`<span class="tlink">${r.name}</span>`:r.name}${r.count?` <span style="color:var(--gl-ink-faint);">· ${r.count} server</span>`:""}</span><span class="v">${m.row[5]}</span></div>
+      <div style="display:flex; align-items:center; gap:10px; margin:2px 0 10px;">
+        <div class="progress" style="flex:1; width:auto;"><i style="width:100%; background:${m.hex}"></i></div>
+        <span style="font-size:12.5px; font-weight:600; color:var(--gl-ink-soft)">100%</span>
+      </div>`).join("")}
+    <div style="margin-top:6px;"><span class="glink">Open full table →</span></div>`;
+}
+function setAgg(k){curAgg=k;renderAgg();}
+function togglePanel(){
+  const g=document.getElementById("pagegrid");
+  g.classList.toggle("collapsed");
+  document.getElementById("ptoggle").classList.toggle("show-badge", g.classList.contains("collapsed"));
+}
+render();
+</script>
+<script src="/library-nav.js"></script>
+</body>
+</html>

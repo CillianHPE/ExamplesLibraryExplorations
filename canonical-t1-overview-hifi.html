@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T1 · Overview · Hi-fi</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon active" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Home</h1>
+      <button class="btn secondary">Customize</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- KPI strip -->
+        <section class="kpi-strip">
+          <div class="kpi-intro">
+            <div class="eyebrow">HPE GreenLake Intelligence</div>
+            <div class="title">Insights</div>
+            <span class="chip">✦ See more insights</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Risk &amp; Compliance</div>
+            <div class="name">Overall Score</div>
+            <div class="value-row"><span class="value">96%</span><span class="delta up">↑ 18%</span></div>
+            <div class="desc">Improved from 91% last quarter after Edge-Restricted and Backup-Readers policies were applied.</div>
+            <span class="glink">View compliance report →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Cost</div>
+            <div class="name">Savings</div>
+            <div class="value-row"><span class="value">$12.4K</span><span class="delta up">↑ 18%</span></div>
+            <div class="desc">Saved this month from rightsizing COM-Cluster-EU-South-01 and renewing Compute Ops Management capacity.</div>
+            <span class="glink">View savings breakdown →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Efficiency</div>
+            <div class="name">Resource Utilization</div>
+            <div class="value-row"><span class="value">68%</span><span class="delta down">↓ 4%</span></div>
+            <div class="desc">Average utilization across 385 compute nodes. 12 idle nodes identified in COM-Cluster-EU-South-01.</div>
+            <span class="glink">Optimize resources →</span>
+          </div>
+        </section>
+
+        <!-- Module cards -->
+        <section class="grid-3">
+          <div class="card">
+            <div class="card-head"><h2>Networking alerts</h2><span class="arrow">→</span></div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">DHCP timeout · Warehouse-IoT-07</div><div class="li-sub">18 devices · Chicago Warehouse</div></div></div>
+              <div class="li-meta">2 hours ago</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">VLAN mismatch · Edge-North-Fleet</div><div class="li-sub">15 devices · Frankfurt DC</div></div></div>
+              <div class="li-meta">Yesterday</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">802.1X auth failure · Retail-Edge-UK</div><div class="li-sub">10 users · London Office</div></div></div>
+              <div class="li-meta">3 days ago</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Devices</h2><span class="arrow">→</span></div>
+            <span class="big-number">542</span> <span class="big-number-sub">Total devices</span>
+            <div class="stack-bar">
+              <span style="flex:20; background:var(--c-blue)"></span>
+              <span style="flex:15; background:var(--c-green)"></span>
+              <span style="flex:15; background:var(--c-purple)"></span>
+              <span style="flex:10; background:var(--c-navy)"></span>
+              <span style="flex:10; background:var(--c-magenta)"></span>
+              <span style="flex:30; background:var(--c-grey)"></span>
+            </div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Warehouse-IoT-07</span><span class="pct">22% (120)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>Metro-IoT-NY</span><span class="pct">14% (77)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Office-IoT-Paris</span><span class="pct">11% (58)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-navy)"></span>Edge-North-Fleet</span><span class="pct">8% (45)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-magenta)"></span>Plant-Gateways-Munich</span><span class="pct">8% (41)</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-grey)"></span>Other device groups</span><span class="pct">37% (201)</span></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Current services</h2><span class="arrow">→</span></div>
+            <div class="list-item"><span class="tlink">Compute Ops Management</span><span class="li-meta">Compute</span></div>
+            <div class="list-item"><span class="tlink">Aruba Central</span><span class="li-meta">Networking</span></div>
+            <div class="list-item"><span class="tlink">Private Cloud Enterprise</span><span class="li-meta">Private Cloud</span></div>
+            <div class="list-item"><span class="tlink">Block Storage</span><span class="li-meta">Storage</span></div>
+            <div class="list-item"><span class="tlink">Backup and Recovery</span><span class="li-meta">Storage</span></div>
+          </div>
+        </section>
+
+        <!-- In-flight table -->
+        <section>
+          <h2 class="table-title">Migrations</h2>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Migration</th><th>Source</th><th>Target</th><th>Status</th><th>Progress</th><th class="num">Workloads</th><th>Owner</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">MIG-2024-0847</span></td><td>COM-Cluster-EU-West-02 · Paris Plant</td><td>Compute Ops Management</td><td><span class="pill red">Blocked</span></td><td><div class="progress"><i style="width:33%; background:var(--red)"></i></div></td><td class="num">40</td><td>Noah Becker</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">MIG-2024-0864</span></td><td>COM-Cluster-Analytics-B · Fort Collins DC</td><td>Morpheus Central</td><td><span class="pill amber">Validating</span></td><td><div class="progress"><i style="width:45%"></i></div></td><td class="num">64</td><td>Amelia Foster</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">MIG-2024-0871</span></td><td>COM-Cluster-Prod-A · Dublin HQ</td><td>Private Cloud Enterprise</td><td><span class="pill green">In progress</span></td><td><div class="progress"><i style="width:72%"></i></div></td><td class="num">128</td><td>Alex Morgan</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">MIG-2024-0851</span></td><td>COM-Cluster-EU-Central-01 · Frankfurt DC</td><td>Private Cloud Enterprise</td><td><span class="pill green">Complete</span></td><td><div class="progress"><i style="width:100%"></i></div></td><td class="num">96</td><td>Alex Morgan</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">MIG-2024-0859</span></td><td>COM-Cluster-Prod-B · New York Office</td><td>Compute Ops Management</td><td><span class="pill grey">Scheduled</span></td><td><div class="progress"><i style="width:5%"></i></div></td><td class="num">212</td><td>Mason Clark</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>GreenLake Status</h3>
+          <div class="status-banner"><span class="status-dot"></span> Operational <span style="margin-left:auto; color:var(--gl-ink-soft); line-height:0;" data-i="info"></span></div>
+          <div class="fine">No scheduled maintenance. Use <a href="#">GreenLake Service Health</a> to view other issues.</div>
+        </div>
+        <div class="card">
+          <h3>GreenLake Intelligence</h3>
+          <div class="fine">Your copilot for AI-ready operations.</div>
+          <div class="prompt-box"><span class="sp">✦</span> Ask GreenLake how to…</div>
+          <button class="btn secondary" style="padding:7px 16px;">Try it</button>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Quick actions</h3>
+          <ul class="qa-list">
+            <li><a href="#">Add devices</a></li>
+            <li><a href="#">Add service subscription</a></li>
+            <li><a href="#">Add users</a></li>
+            <li><a href="#">Assign roles</a></li>
+            <li><a href="#">Add location</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Learn</h3>
+          <div class="learn-item"><div class="lt">Explore GreenLake →</div><div class="ls">Learn more about what the GreenLake platform has to offer.</div></div>
+          <div class="learn-item"><div class="lt">What's New on HPE GreenLake →</div><div class="ls">See the latest release information and announcements.</div></div>
+          <div class="learn-item"><div class="lt">Test Drive HPE GreenLake ↗</div><div class="ls">Experience the edge-to-cloud. Try before you buy.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

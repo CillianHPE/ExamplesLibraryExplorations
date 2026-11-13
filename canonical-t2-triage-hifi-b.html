@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T2 · Triage · Var B · Support cases</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon active" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Support cases</h1>
+      <button class="btn secondary">＋ Open case</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Queue insights strip -->
+        <section class="kpi-strip">
+          <div class="kpi-intro">
+            <div class="eyebrow">HPE GreenLake Intelligence</div>
+            <div class="title">Insights</div>
+            <span class="chip">✦ Ask about my cases</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Queue</div>
+            <div class="name">Open cases</div>
+            <div class="value-row"><span class="value">91</span><span class="delta down">↑ 12 WoW</span></div>
+            <div class="desc">23 await customer response, 19 of them on logs or approvals from DemoComp owners.</div>
+            <span class="glink">View awaiting customer →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Urgency</div>
+            <div class="name">Severity 1–2</div>
+            <div class="value-row"><span class="value">7</span><span class="delta neutral">2 escalated</span></div>
+            <div class="desc">Response targets apply. 2 cases are with the HPE duty manager.</div>
+            <span class="glink">View critical cases →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Flow</div>
+            <div class="name">Closed this week</div>
+            <div class="value-row"><span class="value">18</span><span class="delta up">↑ 4 WoW</span></div>
+            <div class="desc">14 opened in the same period. The queue is shrinking for the first time this month.</div>
+            <span class="glink">View case trends →</span>
+          </div>
+        </section>
+
+        <!-- Filter bar + queue -->
+        <section>
+          <div class="qtabs">
+            <button class="qtab" id="qt-all" onclick="setQueueSeg('all')">All cases<span class="qn">91</span></button>
+            <button class="qtab on" id="qt-customer" onclick="setQueueSeg('customer')">Needs your action<span class="qn">41</span></button>
+            <button class="qtab" id="qt-hpe" onclick="setQueueSeg('hpe')">With HPE<span class="qn">31</span></button>
+            <button class="qtab" id="qt-validate" onclick="setQueueSeg('validate')">Fix to validate<span class="qn">17</span></button>
+            <button class="qtab" id="qt-esc" onclick="setQueueSeg('esc')">Escalated<span class="qn">2</span></button>
+          </div>
+          <div class="dv-toolbar">
+            <label class="dv-search"><span class="sic" data-i="search"></span><input type="text" placeholder="Search cases"></label>
+            <button class="dv-icon" id="cv-btn-table" title="Table view" onclick="setCaseView('table')"><span data-i="table"></span></button>
+            <button class="dv-icon active" id="cv-btn-list" title="List view" onclick="setCaseView('list')"><span data-i="list"></span></button>
+            <div class="dv-spacer"></div>
+            <button class="btn">Actions ▾</button>
+          </div>
+          <div class="dv-count">91 items</div>
+          <div id="cv-table" style="display:none;">
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Case ID</th><th>Product</th><th>Severity</th><th>Status</th><th>Opened</th><th>Owner</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr data-q="customer">
+                <td><span class="cb"></span></td><td><span class="tlink">53694182</span></td><td>Block Storage · Block-Resource-032</td><td><span class="pill red">Sev 1</span></td><td><span class="pill amber">Awaiting logs</span></td><td>Sep 9, 2026</td><td>Sophie Anderson</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Upload logs</button></td>
+              </tr>
+              <tr data-q="esc">
+                <td><span class="cb"></span></td><td><span class="tlink">53692841</span></td><td>Compute Ops Management · P55276-B21</td><td><span class="pill red">Sev 1</span></td><td><span class="pill red">Escalated</span></td><td>Sep 8, 2026</td><td>Mason Clark</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Join bridge</button></td>
+              </tr>
+              <tr data-q="customer">
+                <td><span class="cb"></span></td><td><span class="tlink">53690377</span></td><td>Aruba Central · Edge-North-Fleet</td><td><span class="pill amber">Sev 2</span></td><td><span class="pill amber">Customer response</span></td><td>Sep 7, 2026</td><td>William Taylor</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Respond</button></td>
+              </tr>
+              <tr data-q="hpe">
+                <td><span class="cb"></span></td><td><span class="tlink">53688710</span></td><td>Backup and Recovery · Backup-Resource-041</td><td><span class="pill amber">Sev 2</span></td><td><span class="pill grey">HPE investigating</span></td><td>Sep 6, 2026</td><td>Thomas Jackson</td>
+                <td><button class="btn toolbar" style="font-size:12px;">View</button></td>
+              </tr>
+              <tr data-q="hpe">
+                <td><span class="cb"></span></td><td><span class="tlink">53685299</span></td><td>Compute Ops Management · P28948-B21</td><td><span class="pill amber">Sev 3</span></td><td><span class="pill amber">Schedule needed</span></td><td>Sep 4, 2026</td><td>Ethan Brown</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Schedule</button></td>
+              </tr>
+              <tr data-q="validate">
+                <td><span class="cb"></span></td><td><span class="tlink">53682745</span></td><td>Aruba Central · Retail-Edge-UK</td><td><span class="pill grey">Sev 3</span></td><td><span class="pill green">Fix provided</span></td><td>Sep 3, 2026</td><td>Riley Chen</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Validate</button></td>
+              </tr>
+              <tr data-q="customer">
+                <td><span class="cb"></span></td><td><span class="tlink">53679126</span></td><td>Data Services · DSCC-Resource-051</td><td><span class="pill grey">Sev 4</span></td><td><span class="pill amber">Customer response</span></td><td>Aug 31, 2026</td><td>Jamie Patel</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Assign</button></td>
+              </tr>
+              <tr data-q="hpe">
+                <td><span class="cb"></span></td><td><span class="tlink">53676804</span></td><td>Block Storage · Block-Resource-017</td><td><span class="pill grey">Sev 3</span></td><td><span class="pill grey">HPE investigating</span></td><td>Aug 29, 2026</td><td>Olivia Martin</td>
+                <td><button class="btn toolbar" style="font-size:12px;">View</button></td>
+              </tr>
+              <tr data-q="customer">
+                <td><span class="cb"></span></td><td><span class="tlink">53673392</span></td><td>Compute Ops Management · P44231-B21</td><td><span class="pill grey">Sev 4</span></td><td><span class="pill amber">Customer response</span></td><td>Aug 27, 2026</td><td>Lucas Weber</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Respond</button></td>
+              </tr>
+              <tr data-q="validate">
+                <td><span class="cb"></span></td><td><span class="tlink">53670915</span></td><td>Aruba Central · Campus-West</td><td><span class="pill grey">Sev 4</span></td><td><span class="pill green">Fix provided</span></td><td>Aug 24, 2026</td><td>Ava Thompson</td>
+                <td><button class="btn toolbar" style="font-size:12px;">Validate</button></td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div id="cv-list">
+            <div class="list-item" data-q="customer">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title"><span class="tlink">53694182</span> · Volume latency spike on Block-Resource-032</div><div class="li-sub">Sev 1 · Awaiting logs · Opened Sep 9, 2026 · Sophie Anderson</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Upload logs</button>
+            </div>
+            <div class="list-item" data-q="esc">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title"><span class="tlink">53692841</span> · Cluster nodes unreachable after firmware update</div><div class="li-sub">Sev 1 · Escalated · Opened Sep 8, 2026 · Mason Clark</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Join bridge</button>
+            </div>
+            <div class="list-item" data-q="customer">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title"><span class="tlink">53690377</span> · Access points dropping clients in Edge-North-Fleet</div><div class="li-sub">Sev 2 · Customer response · Opened Sep 7, 2026 · William Taylor</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Respond</button>
+            </div>
+            <div class="list-item" data-q="hpe">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title"><span class="tlink">53688710</span> · Backup jobs failing overnight on Backup-Resource-041</div><div class="li-sub">Sev 2 · HPE investigating · Opened Sep 6, 2026 · Thomas Jackson</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">View</button>
+            </div>
+            <div class="list-item" data-q="hpe">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title"><span class="tlink">53685299</span> · Maintenance window needed for P28948-B21</div><div class="li-sub">Sev 3 · Schedule needed · Opened Sep 4, 2026 · Ethan Brown</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Schedule</button>
+            </div>
+            <div class="list-item" data-q="validate">
+              <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53682745</span> · Config drift on Retail-Edge-UK controllers</div><div class="li-sub">Sev 3 · Fix provided · Opened Sep 3, 2026 · Riley Chen</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Validate</button>
+            </div>
+            <div class="list-item" data-q="customer">
+              <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53679126</span> · Reporting discrepancy in DSCC-Resource-051</div><div class="li-sub">Sev 4 · Customer response · Opened Aug 31, 2026 · Jamie Patel</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Assign</button>
+            </div>
+            <div class="list-item" data-q="hpe">
+              <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53676804</span> · Intermittent path failover on Block-Resource-017</div><div class="li-sub">Sev 3 · HPE investigating · Opened Aug 29, 2026 · Olivia Martin</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">View</button>
+            </div>
+            <div class="list-item" data-q="customer">
+              <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53673392</span> · License count mismatch on P44231-B21</div><div class="li-sub">Sev 4 · Customer response · Opened Aug 27, 2026 · Lucas Weber</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Respond</button>
+            </div>
+            <div class="list-item" data-q="validate">
+              <div class="li-main"><div class="sev low"></div><div><div class="li-title"><span class="tlink">53670915</span> · Guest portal certificate expiring on Campus-West</div><div class="li-sub">Sev 4 · Fix provided · Opened Aug 24, 2026 · Ava Thompson</div></div></div>
+              <button class="btn toolbar" style="font-size:12px;">Validate</button>
+            </div>
+          </div>
+          <div class="pager">
+            <span class="pg-info">Showing 1–10 of 91 items</span>
+            <span class="pg-pp">Items per page <span class="sel">10 <span style="font-size:11px;">▾</span></span></span>
+            <button class="pg-btn" disabled>‹</button>
+            <button class="pg-btn on">1</button>
+            <button class="pg-btn">2</button>
+            <button class="pg-btn">3</button>
+            <button class="pg-btn">4</button>
+            <button class="pg-btn">5</button>
+            <span class="pg-ellip">…</span>
+            <button class="pg-btn">10</button>
+            <button class="pg-btn">›</button>
+          </div>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+            <div style="margin-bottom:14px;">
+              <h2 style="font-size:16px; margin:0;">Opened vs closed cases</h2>
+              <div class="fine" style="margin-top:3px;">Last 30 days</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+              <div style="font-size:30px; font-weight:700; color:var(--gl-heading); line-height:1.1;">91</div>
+              <span class="delta up" style="white-space:nowrap;">↓ 7 vs prior period</span>
+            </div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 220 92">
+                <defs>
+                  <linearGradient id="fillblue" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--c-blue)" stop-opacity="0.22"/>
+                    <stop offset="100%" stop-color="var(--c-blue)" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 42 C 30 46, 55 38, 85 42 S 140 34, 170 40 S 195 46, 212 42" fill="none" stroke="var(--gl-ink-soft)" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.6"/>
+                <path d="M0 34 C 25 32, 45 38, 70 36 S 115 44, 140 50 S 185 64, 210 68 L 210 90 L 0 90 Z" fill="url(#fillblue)"/>
+                <path d="M0 34 C 25 32, 45 38, 70 36 S 115 44, 140 50 S 185 64, 210 68" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="210" cy="68" r="3.5" fill="var(--c-blue)"/>
+                <text x="214" y="30" font-size="10" fill="var(--gl-ink-soft)" text-anchor="end">Prior period</text>
+                <text x="202" y="61" font-size="10.5" font-weight="600" fill="var(--gl-ink)" text-anchor="end">91</text>
+              </svg>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:6px;" class="fine"><span>Aug 16</span><span style="font-weight:600; color:var(--gl-ink);">Today</span></div>
+            <div class="fine" style="margin-top:12px; line-height:1.5;">65 opened, 72 closed. Backlog fell for the first time in 4 weeks.</div>
+          </div>
+        <div class="card">
+          <h3>SLA performance</h3>
+          <div class="sla-row">
+            <div>
+              <div class="sla-name">Sev 1 response time</div>
+              <div class="sla-val">14 min</div>
+              <div class="sla-meta">Average · target 15 min</div>
+            </div>
+            <span class="pill green">On target</span>
+          </div>
+          <div class="sla-row">
+            <div>
+              <div class="sla-name">Sev 2 response time</div>
+              <div class="sla-val">1.7 hr</div>
+              <div class="sla-meta">Average · target 4 hr</div>
+            </div>
+            <span class="pill green">On target</span>
+          </div>
+          <div class="sla-row">
+            <div>
+              <div class="sla-name">Resolved within SLA</div>
+              <div class="sla-val">91%</div>
+              <div class="sla-meta">Last 30 days · target 95%</div>
+            </div>
+            <span class="pill amber">Below target</span>
+          </div>
+          <div style="margin-top:16px;"><span class="glink">View SLA report →</span></div>
+        </div>
+        <div class="card">
+            <div style="margin-bottom:14px;">
+              <h2 style="font-size:16px; margin:0;">Open cases by service</h2>
+              <div class="fine" style="margin-top:3px;">Distribution view · 6 services</div>
+            </div>
+            <div style="display:flex; align-items:baseline; gap:8px; margin-bottom:16px;">
+              <div style="font-size:30px; font-weight:700; color:var(--gl-heading); line-height:1.1;">91</div>
+              <span class="fine">Open cases</span>
+            </div>
+            <div class="stack-bar" style="margin:0 0 14px;">
+              <span style="flex:34; background:var(--c-blue)"></span>
+              <span style="flex:21; background:var(--c-green)"></span>
+              <span style="flex:18; background:var(--c-purple)"></span>
+              <span style="flex:8; background:var(--c-navy)"></span>
+              <span style="flex:6; background:var(--c-magenta)"></span>
+              <span style="flex:4; background:var(--c-grey)"></span>
+            </div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-blue); flex-shrink:0;"></span>Compute Ops Management</span><span class="pct">37% (34)</span></div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-green); flex-shrink:0;"></span>Block Storage</span><span class="pct">23% (21)</span></div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-purple); flex-shrink:0;"></span>Aruba Central</span><span class="pct">20% (18)</span></div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-navy); flex-shrink:0;"></span>Private Cloud Business</span><span class="pct">9% (8)</span></div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-magenta); flex-shrink:0;"></span>Backup and Recovery</span><span class="pct">7% (6)</span></div>
+            <div class="legend-row"><span class="lg"><span style="width:10px; height:10px; border-radius:3px; background:var(--c-grey); flex-shrink:0;"></span>Other services</span><span class="pct">4% (4)</span></div>
+          </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script>
+function setCaseView(v) {
+  document.getElementById('cv-table').style.display = v === 'table' ? '' : 'none';
+  document.getElementById('cv-list').style.display = v === 'list' ? '' : 'none';
+  document.getElementById('cv-btn-table').classList.toggle('active', v === 'table');
+  document.getElementById('cv-btn-list').classList.toggle('active', v === 'list');
+}
+var qTotals = { all: 91, hpe: 31, customer: 41, validate: 17, esc: 2 };
+function setQueueSeg(seg) {
+  document.querySelectorAll('.qtab').forEach(function (t) { t.classList.toggle('on', t.id === 'qt-' + seg); });
+  var shown = 0;
+  document.querySelectorAll('[data-q]').forEach(function (r) {
+    var vis = seg === 'all' || r.dataset.q === seg;
+    r.style.display = vis ? '' : 'none';
+  });
+  document.querySelectorAll('#cv-table [data-q]').forEach(function (r) {
+    if (r.style.display !== 'none') shown++;
+  });
+  var total = qTotals[seg];
+  document.querySelector('.dv-count').textContent = total + ' items';
+  document.querySelector('.pg-info').textContent = 'Showing 1\u2013' + Math.min(shown, total) + ' of ' + total + ' items';
+}
+setQueueSeg('customer');
+</script>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

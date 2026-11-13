@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T3 · Analytics · Var B · Capacity planning</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon active" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Capacity planning</h1>
+      <button class="btn secondary">Export ▾</button>
+    </div>
+
+    <!-- single column: analytics gets full width -->
+    <div class="primary">
+
+      <!-- Scope bar -->
+      <section>
+        <div class="toolbar" style="margin-bottom:0;">
+          <span class="fchip on">Next 90 days ▾</span>
+          <span class="fchip">Scope: Block Storage + Compute Ops Management ▾</span>
+          <span class="fchip">Model: Linear forecast ▾</span>
+          <span class="fchip">Filters ▾</span>
+          <span class="spacer"></span>
+          <span style="font-size:12.5px; color:var(--gl-ink-soft);">Updated Sep 10, 2026 · 16:21</span>
+        </div>
+      </section>
+
+      <!-- Headline metrics -->
+      <section class="kpi-strip" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="kpi" style="border-left:0; padding-left:0;">
+          <div class="cat">Compute capacity</div>
+          <div class="name">Total capacity</div>
+          <div class="value-row"><span class="value">18.6</span><span style="font-size:14px; color:var(--gl-ink-soft); font-weight:600;">PB</span><span class="delta neutral">+1.2 PB planned</span></div>
+          <div class="desc">Usable capacity across Block Storage, File Storage, and Compute Ops Management clusters.</div>
+        </div>
+        <div class="kpi">
+          <div class="cat">Utilized</div>
+          <div class="name">Used capacity</div>
+          <div class="value-row"><span class="value">78%</span><span class="delta down">↑ 6 pts</span></div>
+          <div class="desc">Two systems are above the 85% warning threshold and COM-Cluster-Analytics-B is projected critical this quarter.</div>
+        </div>
+        <div class="kpi">
+          <div class="cat">Forecast</div>
+          <div class="name">Days-to-full</div>
+          <div class="value-row"><span class="value">54</span><span style="font-size:14px; color:var(--gl-ink-soft); font-weight:600;">days</span><span class="delta down">Oct 24</span></div>
+          <div class="desc">Earliest predicted exhaustion is Block Storage · COM-Cluster-Analytics-B at Fort Collins DC.</div>
+        </div>
+      </section>
+
+      <!-- Hero chart -->
+      <section>
+        <h2 class="table-title" style="font-size:20px;">Capacity forecast</h2>
+        <div class="chart-wrap">
+          <svg viewBox="0 0 900 260">
+            <g stroke="#eceff0" stroke-width="1">
+              <line x1="0" y1="42" x2="900" y2="42"/><line x1="0" y1="92" x2="900" y2="92"/>
+              <line x1="0" y1="142" x2="900" y2="142"/><line x1="0" y1="192" x2="900" y2="192"/>
+            </g>
+            <text x="0" y="24" font-size="11" fill="#8fa0a8">18 PB</text>
+            <text x="0" y="74" font-size="11" fill="#8fa0a8">15 PB</text>
+            <text x="0" y="124" font-size="11" fill="#8fa0a8">12 PB</text>
+            <text x="0" y="174" font-size="11" fill="#8fa0a8">9 PB</text>
+            <polygon points="40,185 105,176 170,166 235,158 300,148 365,137 430,126 495,112 560,96 625,82 690,66 690,220 40,220"
+              fill="rgba(1,169,130,0.08)"/>
+            <polyline points="40,185 105,176 170,166 235,158 300,148 365,137 430,126 495,112 560,96 625,82 690,66"
+              fill="none" stroke="var(--c-green)" stroke-width="3" stroke-linecap="round"/>
+            <polyline points="690,66 755,48 820,28 880,12"
+              fill="none" stroke="var(--c-green)" stroke-width="3" stroke-linecap="round" stroke-dasharray="8 6"/>
+            <polyline points="40,42 105,42 170,42 235,42 300,42 365,42 430,42 495,42 560,42 625,42 690,42 755,42 820,42 880,42"
+              fill="none" stroke="var(--c-blue)" stroke-width="3" stroke-linecap="round"/>
+            <line x1="812" y1="28" x2="812" y2="220" stroke="var(--red)" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <circle cx="812" cy="31" r="5" fill="var(--red)"/>
+            <text x="642" y="22" font-size="12" fill="var(--red)" font-weight="600">Projected full · Oct 24, 2026</text>
+            <text x="40" y="250" font-size="11" fill="#8fa0a8">Oct 2025</text>
+            <text x="318" y="250" font-size="11" fill="#8fa0a8">Mar 2026</text>
+            <text x="610" y="250" font-size="11" fill="#8fa0a8">Sep 2026</text>
+            <text x="812" y="250" font-size="11" fill="#8fa0a8">Forecast</text>
+          </svg>
+        </div>
+        <div class="chart-legend">
+          <span class="lg"><span class="sw" style="background:var(--c-green)"></span>Used capacity · 14.5 PB today</span>
+          <span class="lg"><span class="sw" style="background:var(--c-blue)"></span>Total capacity · 18.6 PB</span>
+          <span class="lg"><span class="sw" style="background:var(--c-green)"></span>Dashed forecast · +307 TB/week</span>
+        </div>
+      </section>
+
+      <!-- Breakdown cards -->
+      <section class="grid-2">
+        <div class="card">
+          <div class="card-head"><h2>Capacity by system</h2><span class="arrow">→</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>COM-Cluster-Analytics-B · Fort Collins DC · 18 nodes</span><span class="pct">91%</span></div>
+          <div class="meter"><i class="crit" style="width:91%"></i></div>
+          <div class="legend-row" style="margin-top:12px;"><span class="lg"><span class="dot" style="background:var(--amber)"></span>COM-Cluster-Prod-C · Chicago Warehouse · 29 nodes</span><span class="pct">86%</span></div>
+          <div class="meter"><i class="warn" style="width:86%"></i></div>
+          <div class="legend-row" style="margin-top:12px;"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>COM-Cluster-HPC-01 · Zurich Research · 40 nodes</span><span class="pct">73%</span></div>
+          <div class="meter"><i style="width:73%"></i></div>
+          <div class="legend-row" style="margin-top:12px;"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>COM-Cluster-US-West-01 · San Jose DC · 30 nodes</span><span class="pct">62%</span></div>
+          <div class="meter"><i style="width:62%"></i></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Growth rate by workload</h2><span class="arrow">→</span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-blue)"></span>Private Cloud AI datasets</span><span class="pct">+18.4 TB/day</span></div>
+          <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:92; background:var(--c-blue)"></span><span style="flex:8; background:var(--grey-bg)"></span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-purple)"></span>Backup and Recovery retention</span><span class="pct">+12.7 TB/day</span></div>
+          <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:64; background:var(--c-purple)"></span><span style="flex:36; background:var(--grey-bg)"></span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-green)"></span>Data Ops Manager logs</span><span class="pct">+8.2 TB/day</span></div>
+          <div class="stack-bar" style="margin:4px 0 12px;"><span style="flex:41; background:var(--c-green)"></span><span style="flex:59; background:var(--grey-bg)"></span></div>
+          <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-grey)"></span>File Storage shares</span><span class="pct">+4.6 TB/day</span></div>
+          <div class="stack-bar" style="margin:4px 0 0;"><span style="flex:23; background:var(--c-grey)"></span><span style="flex:77; background:var(--grey-bg)"></span></div>
+        </div>
+      </section>
+
+      <!-- Detail table -->
+      <section>
+        <h2 class="table-title" style="font-size:20px;">Arrays and clusters at risk</h2>
+        <table>
+          <thead>
+            <tr><th>Array / cluster</th><th>Platform</th><th class="num">Used</th><th class="num">Total</th><th class="num">Growth</th><th class="num">Days to full</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="tlink">Block Storage · COM-Cluster-Analytics-B · Fort Collins DC · 18 nodes</span></td><td>Block Storage</td><td class="num">3.28 PB</td><td class="num">3.60 PB</td><td class="num">18.4 TB/day</td><td class="num">18</td><td><span class="pill red">Critical</span></td></tr>
+            <tr><td><span class="tlink">File Storage · COM-Cluster-Prod-C · Chicago Warehouse · 29 nodes</span></td><td>File Storage</td><td class="num">2.15 PB</td><td class="num">2.50 PB</td><td class="num">9.1 TB/day</td><td class="num">39</td><td><span class="pill amber">Warning</span></td></tr>
+            <tr><td><span class="tlink">Compute Ops Management · COM-Cluster-HPC-01 · Zurich Research · 40 nodes</span></td><td>Compute Ops Management</td><td class="num">1.46 PB</td><td class="num">2.00 PB</td><td class="num">6.5 TB/day</td><td class="num">83</td><td><span class="pill amber">Watch</span></td></tr>
+            <tr><td><span class="tlink">Private Cloud Enterprise · COM-Cluster-US-West-01 · San Jose DC · 30 nodes</span></td><td>Private Cloud Enterprise</td><td class="num">0.74 PB</td><td class="num">1.20 PB</td><td class="num">2.8 TB/day</td><td class="num">164</td><td><span class="pill green">Healthy</span></td></tr>
+            <tr><td><span class="tlink">Private Cloud AI · COM-Cluster-Prod-A · Dublin HQ · 32 nodes</span></td><td>Private Cloud AI</td><td class="num">1.88 PB</td><td class="num">2.80 PB</td><td class="num">12.7 TB/day</td><td class="num">72</td><td><span class="pill amber">Watch</span></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

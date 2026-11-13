@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T1 · Overview · Canonical layout</title>
+<link rel="stylesheet" href="lofi-shared.css">
+<link rel="stylesheet" href="canonical.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="hicon"></div>
+  <div class="logo">greenlake</div>
+  <div class="workspace">North America IT Ops ▾</div>
+  <div class="search">Search</div>
+  <div class="header-icons"><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon active"></div><div class="ricon"></div><div class="ricon"></div>
+    <div class="ricon"></div><div class="ricon"></div><div class="ricon"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>T1 · Overview</h1>
+      <button class="btn">Customize 🔧</button>
+    </div>
+
+    <div class="tpl-purpose">
+      <b>Job of the page:</b> answer "Is anything wrong? How are we trending? What next?" in under 5 seconds.
+      Every region is a summary + one link deeper, never a working surface.
+      <b>Use for:</b> Home, service landing pages, workspace overviews.
+      <b>Secondary rail:</b> yes: platform layer (status, copilot, quick actions, learn).
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- A: KPI strip -->
+        <section class="section">
+          <div class="region uncontained h-md">
+            <div class="r-head">
+              <div class="r-code">A</div><div class="r-name">KPI strip</div>
+              <div class="r-tag">Uncontained · page-level content</div>
+            </div>
+            <div class="r-purpose">The 5-second answer: health, cost, efficiency at a glance.</div>
+            <div class="r-contains">Contains: 3–4 KPIs, each = category label + value + delta + one action link.</div>
+            <div class="r-rules">Rules: max 4 KPIs · ordered by urgency (risk → cost → efficiency) · divided by hairlines, never boxed · no charts here.</div>
+          </div>
+        </section>
+
+        <div class="gap-note">— 32px section gap —</div>
+
+        <!-- B: module cards -->
+        <section class="section">
+          <div class="grid-3">
+            <div class="region contained h-lg">
+              <div class="r-head"><div class="r-code">B</div><div class="r-name">Module card</div><div class="r-tag">Contained</div></div>
+              <div class="r-purpose">Summary of one domain (alerts, devices, subscriptions…).</div>
+              <div class="r-contains">Contains: title + drill-in arrow, then ONE of: list (≤4 rows) / big number + breakdown / count rollup.</div>
+              <div class="r-rules">Rules: 16px between cards · equal heights per row · whole card is a doorway, one destination.</div>
+            </div>
+            <div class="region contained h-lg">
+              <div class="r-head"><div class="r-code">B</div><div class="r-name">Module card</div><div class="r-tag">Contained</div></div>
+              <div class="r-purpose">2–6 cards per row set. Order: actionable → informational.</div>
+              <div class="r-contains">Most urgent domain sits left.</div>
+              <div class="r-rules">If a module needs interaction (filters, tabs), it's a page. Link to it instead.</div>
+            </div>
+            <div class="region contained h-lg">
+              <div class="r-head"><div class="r-code">B</div><div class="r-name">Module card</div><div class="r-tag">Contained</div></div>
+              <div class="r-purpose">Empty state = "All clear" confirmation, never a blank box.</div>
+              <div class="r-contains">&nbsp;</div>
+              <div class="r-rules">&nbsp;</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="gap-note">— 32px section gap —</div>
+
+        <!-- C: in-flight table -->
+        <section class="section">
+          <div class="region uncontained h-lg">
+            <div class="r-head">
+              <div class="r-code">C</div><div class="r-name">In-flight work table</div>
+              <div class="r-tag">Uncontained · full width</div>
+            </div>
+            <div class="r-purpose">What's currently in motion: migrations, deployments, orders.</div>
+            <div class="r-contains">Contains: section heading + table (≤8 rows) with status, progress, owner. Link to full list view.</div>
+            <div class="r-rules">Rules: tables sit directly on the page body, never inside a grey card · one table max on an Overview.</div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Secondary -->
+      <aside class="rrail">
+        <div class="region contained h-md">
+          <div class="r-head"><div class="r-code">D</div><div class="r-name">Platform status</div><div class="r-tag">Contained</div></div>
+          <div class="r-purpose">Is GreenLake itself healthy?</div>
+        </div>
+        <div class="region contained h-md">
+          <div class="r-head"><div class="r-code">E</div><div class="r-name">Copilot / Intelligence</div><div class="r-tag">Contained</div></div>
+          <div class="r-purpose">Prompt entry point. One per page, always in the rail.</div>
+        </div>
+        <div class="region uncontained h-md">
+          <div class="r-head"><div class="r-code">F</div><div class="r-name">Quick actions</div><div class="r-tag">Uncontained links</div></div>
+          <div class="r-contains">3–6 verb links ("Add devices"). Plain links, not cards.</div>
+        </div>
+        <div class="region uncontained h-md">
+          <div class="r-head"><div class="r-code">G</div><div class="r-name">Learn / What's new</div><div class="r-tag">Uncontained links</div></div>
+          <div class="r-rules">Rail rule: droppable below 1200px with zero operational loss. 64px from primary.</div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

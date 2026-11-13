@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Visualisation · Layouts</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<script src="/hifi-icons.js" defer></script>
+<style>
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 48px 40px 96px; }
+  .wrap h1 { margin-bottom: 8px; }
+  .intro { font-size: 15px; color: var(--gl-ink-soft); line-height: 1.6; margin-bottom: 12px; max-width: 720px; }
+  .crumb-nav { font-size: 13px; color: var(--gl-ink-soft); margin-bottom: 14px; }
+  .crumb-nav a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; }
+  .crumb-nav a:hover { text-decoration: underline; }
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
+  .sub-h { font-size: 12.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin: 32px 0 10px; }
+  .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 20px; max-width: 720px; }
+  .demo { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: #FFF; overflow-x: auto; }
+  .note { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.6; margin-top: 16px; max-width: 760px; }
+  .note code, .sec-sub code, td code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--gl-heading); background: var(--contained); border-radius: 4px; padding: 1px 6px; }
+  .note strong { color: var(--gl-heading); font-weight: 600; }
+
+  .layer-stack { display: flex; flex-direction: column; gap: 10px; max-width: 560px; }
+  .layer { border: 1.5px dashed #C9CDD1; border-radius: 8px; padding: 12px 14px; }
+  .layer .l-name { font-size: 13px; font-weight: 700; color: var(--gl-heading); display: flex; justify-content: space-between; gap: 12px; }
+  .layer .l-name a, .layer .l-name span { font-size: 12px; font-weight: 600; }
+  .layer .l-desc { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 3px; }
+  .layer.on { border-style: solid; border-color: var(--gl-green); background: #EDF6F2; }
+  .layer.sub { margin-left: 24px; }
+
+  .anatomy-card { background: var(--contained); border-radius: var(--radius); padding: 24px; max-width: 560px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+  .anatomy-zone { border: 1.5px dashed #C9CDD1; border-radius: 6px; padding: 14px; position: relative; }
+  .anatomy-zone .zone-lbl { position: absolute; top: -9px; left: 12px; background: var(--contained); padding: 0 6px; font-size: 10.5px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--gl-green-dark); }
+  .anatomy-zone.opt { border-color: #DDE1E4; }
+  .anatomy-zone.opt .zone-lbl::after { content: " · optional"; color: var(--gl-ink-faint); font-weight: 600; }
+  .anatomy-zone.mark { border-color: var(--gl-green); border-style: solid; }
+  .frame-hint { font-size: 12px; color: var(--gl-ink-faint); text-align: center; }
+  .anatomy-legend { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 20px; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .anatomy-legend .lg { display: flex; align-items: center; gap: 7px; }
+  .anatomy-legend .sw { width: 22px; height: 0; border-top: 1.5px dashed #C9CDD1; }
+  .anatomy-legend .sw.opt { border-top-color: #DDE1E4; }
+  .anatomy-legend .sw.mark { border-top: 1.5px solid var(--gl-green); }
+
+  .value-row { display: flex; }
+  .caption { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; }
+  .caption strong { color: var(--gl-heading); font-weight: 600; }
+  svg.spark { width: 100%; height: 72px; display: block; overflow: visible; }
+  .axis { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--gl-ink-soft); padding-top: 6px; }
+  .legend-inline { display: flex; gap: 14px; font-size: 12.5px; color: var(--gl-ink); flex-wrap: wrap; }
+  .legend-inline .lg { display: flex; align-items: center; gap: 6px; }
+  .legend-inline .sw { width: 14px; height: 3px; border-radius: 2px; background: var(--c-blue); }
+  .legend-inline .dash-sw { width: 14px; height: 0; border-top: 2px dashed var(--gl-ink-faint); }
+  .legend-inline .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend-inline .val { color: var(--gl-ink-soft); font-weight: 600; margin-left: 2px; font-variant-numeric: tabular-nums; }
+  .meter { height: 8px; background: var(--grey-bg); border-radius: 4px; overflow: hidden; margin-top: 0; position: relative; }
+  .meter i { display: block; height: 100%; background: var(--c-blue); }
+  .meter i.warn { background: var(--amber); }
+  .meter .tick { position: absolute; top: -3px; bottom: -3px; width: 0; border-left: 2px dashed var(--gl-ink-faint); }
+  .meter-row { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--gl-ink-soft); padding-top: 6px; }
+  .prop { display: flex; gap: 2px; height: 10px; border-radius: 2px; overflow: hidden; }
+  .prop i { display: block; height: 100%; min-width: 3px; }
+  .seg-bar { display: flex; gap: 2px; height: 12px; }
+  .seg-bar i { flex: 1; min-width: 0; border-radius: 1px; background: var(--ok); }
+  .seg-bar i.w { background: var(--amber); } .seg-bar i.c { background: var(--red); }
+  .donut-row { display: flex; align-items: center; gap: 20px; }
+  .donut { width: 96px; height: 96px; flex: none; border-radius: 50%; position: relative; }
+  .donut::after { content: attr(data-center); position: absolute; inset: 14px; background: var(--contained); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: var(--gl-heading); }
+  .legend-stack { flex: 1; min-width: 0; }
+  .legend-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 4px 0; }
+  .legend-row .lg { display: flex; align-items: center; gap: 8px; }
+  .legend-row .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend-row .pct { color: var(--gl-ink-soft); font-weight: 600; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  .hbars { display: flex; flex-direction: column; gap: 10px; }
+  .hbar { display: grid; grid-template-columns: 110px 1fr 56px; gap: 10px; align-items: center; font-size: 13px; }
+  .hbar .nm { color: var(--gl-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hbar .track { height: 10px; background: var(--grey-bg); border-radius: 2px; overflow: hidden; }
+  .hbar .track i { display: block; height: 100%; background: var(--c-blue); }
+  .hbar .v { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; font-size: 12.5px; }
+  .cols { display: flex; align-items: flex-end; gap: 4px; height: 72px; }
+  .cols i { flex: 1; background: var(--c-blue); border-radius: 2px 2px 0 0; }
+
+  .mark-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 24px; }
+  @media (max-width: 900px) { .mark-grid { grid-template-columns: 1fr; } }
+  .mark-entry .card { max-width: none; display: flex; flex-direction: column; gap: 14px; }
+  .mark-entry .card .title { font-size: 16px; font-weight: 700; color: var(--gl-heading); }
+  .mark-entry .card .scope { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 2px; }
+  .mark-entry .m-name { font-size: 14px; font-weight: 700; color: var(--gl-heading); margin: 14px 0 4px; display: flex; gap: 8px; align-items: baseline; }
+  .mark-entry .m-name .code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; color: var(--gl-green-dark); }
+  .mark-entry .m-q { font-size: 13px; font-style: italic; color: var(--gl-ink); margin: 0 0 8px; }
+  .mark-entry dl { display: grid; grid-template-columns: 90px 1fr; gap: 4px 12px; font-size: 12.5px; margin: 0; line-height: 1.5; }
+  .mark-entry dt { color: var(--gl-ink-soft); font-weight: 600; }
+  .mark-entry dd { margin: 0; color: var(--gl-ink); }
+
+  table.rules { font-size: 13px; }
+  table.rules th { font-size: 12.5px; }
+  table.rules td { vertical-align: top; line-height: 1.5; }
+  table.rules td:first-child { font-weight: 600; color: var(--gl-heading); white-space: nowrap; }
+  table.rules td.ev { color: var(--gl-ink-soft); font-size: 12.5px; }
+
+
+  /* value row box */
+  .vbox { display: inline-flex; align-items: center; gap: 4px; }
+  .vbox .num { font-size: 36px; font-weight: 500; letter-spacing: 0; line-height: 46px; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .vbox .num.sm { font-size: 28px; letter-spacing: -0.5px; }
+  .vbox .side { display: flex; flex-direction: column; gap: 0; align-items: flex-start; }
+  .vbox .side .unit { font-size: 12px; font-weight: 400; color: var(--gl-ink); line-height: 16px; margin: 0; }
+  .vbox .side > span:empty { height: 16px; }
+  .vbox .delta, .dopt .delta { display: inline-flex; align-items: center; gap: 6px; height: 20px; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: 500; color: var(--gl-heading); white-space: nowrap; line-height: 16px; }
+  .vbox.inline { align-items: baseline; } .vbox.inline .num { line-height: 1; }
+  .vbox.inline .unit { font-size: 12px; font-weight: 400; color: var(--gl-ink); }
+  .delta .ti { width: 14px; height: 14px; flex: none; }
+  .delta.amber { background: var(--amber-bg); }
+  .vbox .delta.plain, .dopt .delta.plain { padding: 0; height: 16px; background: none; }
+  .vbox-anat { display: grid; grid-template-columns: 260px 1fr; gap: 32px; align-items: center; }
+  .anat-notes { display: grid; gap: 8px; font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; }
+  .anat-notes b { color: var(--gl-heading); font-weight: 600; margin-right: 4px; }
+  .vcfg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 1000px) { .vcfg-grid { grid-template-columns: 1fr 1fr; } }
+  .vcfg { background: var(--contained); border-radius: var(--radius); padding: 18px; }
+  .vcfg.wide { grid-column: 1 / -1; }
+  .vcfg .lbl, .dopt .lbl { font-size: 11.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 14px; }
+  .vcfg .why, .dopt .why { font-size: 12px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 14px; }
+  .dopt-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  @media (max-width: 1100px) { .dopt-grid { grid-template-columns: repeat(3, 1fr); } }
+  .dopt { background: var(--contained); border-radius: var(--radius); padding: 18px; }
+  .dopt.rejected { opacity: .6; }
+  .dopt .pair { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    
+  .tabs { display: flex; gap: 8px; margin: 24px 0 32px; flex-wrap: wrap; }
+  .tabbtn { border: 1px solid var(--line); border-radius: 20px; background: #fff; padding: 8px 18px; font-size: 13px; font-weight: 600; color: var(--gl-ink-soft); cursor: pointer; font-family: inherit; }
+  .tabbtn.on { background: #EDF6F2; border-color: var(--gl-green-dark); box-shadow: inset 0 0 0 1px var(--gl-green-dark); color: var(--gl-heading); }
+  .pane { display: none; } .pane.on { display: block; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  @media (max-width: 1000px) { .two { grid-template-columns: 1fr; } }
+  ul.tight { margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; }
+  ul.tight.big { font-size: 13.5px; gap: 10px; }
+  ul.tight b { color: var(--gl-heading); font-weight: 600; margin-right: 6px; }
+  .opt-grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+  .opt-grid.one { grid-template-columns: 1fr; }
+  @media (max-width: 1000px) { .opt-grid.three { grid-template-columns: 1fr; } }
+  .opt { background: var(--contained); border-radius: var(--radius); padding: 18px; border: 1.5px solid transparent; }
+  .opt.is-rec { border-color: var(--gl-green); background: #EDF6F2; }
+  .opt.is-bad { opacity: .7; }
+  .opt .lbl { font-size: 11.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 14px; display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+  .tag { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+  .tag.rec { background: var(--gl-green-dark); color: #fff; }
+  .tag.no { background: var(--grey-bg); color: var(--gl-ink-soft); }
+  .opt .why { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 14px; }
+  .opt .demo-in { min-height: 46px; display: flex; align-items: center; }
+  .seq { display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
+  .seq .step .lbl { font-size: 11px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
+  .seq .arr { font-size: 22px; color: var(--gl-ink-faint); padding-bottom: 8px; }
+  .reco { background: var(--contained); border-radius: var(--radius); padding: 18px 20px; display: grid; gap: 8px; font-size: 13px; color: var(--gl-ink-soft); line-height: 1.5; }
+  .reco b { color: var(--gl-heading); font-weight: 600; margin-right: 6px; }
+  .vbox .side.one { justify-content: center; }
+  .vbox .unit.base { align-self: flex-end; font-size: 12px; color: var(--gl-ink); line-height: 16px; padding-bottom: 8px; margin-left: -2px; }
+  .dopt-grid.four { grid-template-columns: repeat(4, 1fr); }
+  .delta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 1000px) { .delta-grid { grid-template-columns: 1fr 1fr; } }
+  .dcell { background: var(--contained); border-radius: var(--radius); padding: 18px; }
+  .dcell .lbl { font-size: 11.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 10px; }
+  .dcell .why { font-size: 12px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 10px; }
+  .delta.plain { background: transparent; padding: 0; color: var(--gl-ink-soft); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Layouts</div>
+</header>
+
+<div class="wrap">
+  <div class="crumb-nav"><a href="/layouts/containers.html">Containers</a> · <a href="/layouts/content-header.html">Content header</a> · <a href="/layouts/widget.html">Widget</a> · Visualisation</div>
+  <h1>Visualisation</h1>
+  <p class="intro">What fills a widget body: one <strong>mark</strong> (the chart, number or bar) plus the <strong>furniture</strong> that makes it readable (value, unit, delta, axis, legend, caption). The <a href="/layouts/widget.html">Widget</a> spec owns the frame; this page owns the inside.</p>
+
+  <div class="tabs">
+    <button class="tabbtn on" onclick="setTab('over', this)">1 · Overview</button>
+    <button class="tabbtn" onclick="setTab('value', this)">2 · Value row</button>
+    <button class="tabbtn" onclick="setTab('furn', this)">3 · Furniture</button>
+    <button class="tabbtn" onclick="setTab('marks', this)">4 · Marks</button>
+    <button class="tabbtn" onclick="setTab('rules', this)">5 · Rules</button>
+  </div>
+
+  <!-- 1 OVERVIEW -->
+  <div class="pane on" id="pane-over">
+    <div class="two">
+      <div>
+        <div class="sec-h" style="margin-top:0">Where it sits</div>
+        <p class="sec-sub">One layer below the widget. The same visualisation reads identically in a W1 tile, a detail rail or an uncontained section.</p>
+    <div class="layer-stack">
+      <div class="layer"><div class="l-name">Container <a href="/layouts/containers.html">Containers</a></div><div class="l-desc">Grey surface, 12px radius, 24px padding.</div></div>
+      <div class="layer"><div class="l-name">Widget <a href="/layouts/widget.html">Widget</a></div><div class="l-desc">Container that reports. Header, scope, local controls, body slot, footer, states.</div></div>
+      <div class="layer"><div class="l-name">Widget type <a href="/widgets/index.html">Widget catalogue</a></div><div class="l-desc">The job (stat, trend, status list…). Each type names the visualisation it uses.</div></div>
+      <div class="layer on"><div class="l-name">Visualisation <span>this page</span></div><div class="l-desc">Fills the body slot. Mark + furniture, with fixed relative positions.</div></div>
+      <div class="layer sub"><div class="l-name">Mark</div><div class="l-desc">The encoding: big number, sparkline, meter, proportion bar, segments, donut, ranked bars, columns.</div></div>
+      <div class="layer sub"><div class="l-name">Furniture</div><div class="l-desc">Text and keys that make the mark readable: value, unit, delta, axis row, legend, caption.</div></div>
+    </div>
+
+        <p class="note"><strong>Boundary.</strong> Widget title and scope say what is measured and over what. Furniture never repeats it.</p>
+      </div>
+      <div>
+        <div class="sec-h" style="margin-top:0">Anatomy</div>
+        <p class="sec-sub">Five slots, top to bottom. Only the mark is mandatory; the others are optional but have one fixed position.</p>
+        <div class="demo">
+    <div class="anatomy-card">
+      <div class="frame-hint">Widget header and scope line sit above (owned by the Widget spec)</div>
+      <div class="anatomy-zone opt"><span class="zone-lbl">1 · Value row</span>
+        <div class="value-row"><div class="vbox"><span class="num">18.4</span><span class="side"><span class="delta down">↓ 2.1% vs yesterday</span><span class="unit">kW</span></span></div></div>
+      </div>
+      <div class="anatomy-zone mark"><span class="zone-lbl">2 · Mark</span>
+        <svg class="spark" viewBox="0 0 220 72" preserveAspectRatio="none">
+  <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-blue)" stop-opacity="0.22"/><stop offset="1" stop-color="var(--c-blue)" stop-opacity="0"/></linearGradient></defs>
+  <path d="M0,30 L40,36 L80,28 L120,40 L160,34 L200,44 L220,42 L220,70 L0,70Z" fill="url(#ga)"/>
+  <path d="M0,40 L220,40" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="1 4" stroke-linecap="round" vector-effect="non-scaling-stroke"/><path d="M0,30 L40,36 L80,28 L120,40 L160,34 L200,44 L220,42" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+  <path d="M220 42 h0.01" stroke="var(--c-blue)" stroke-width="12" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+</svg>
+      </div>
+      <div class="anatomy-zone opt"><span class="zone-lbl">3 · Axis row</span>
+        <div class="axis" style="padding-top:0;"><span>Yesterday · 18.8 kW</span><span>Now · 18.4 kW</span></div>
+      </div>
+      <div class="anatomy-zone opt"><span class="zone-lbl">4 · Legend</span>
+        <div class="legend-inline"><span class="lg"><span class="sw"></span>This period</span><span class="lg"><span class="dash-sw"></span>Prior period</span></div>
+      </div>
+      <div class="anatomy-zone opt"><span class="zone-lbl">5 · Caption</span>
+        <div class="caption">Below the 20 kW budget for the third day; the dip at 14:00 is the scheduled rack rebalance.</div>
+      </div>
+      <div class="frame-hint">Widget footer (drill link · freshness) sits below</div>
+    </div>
+
+        </div>
+        <ul class="tight">
+          <li><b>1 Value row</b> answer first: number, unit, delta. Omit when the mark carries its own values.</li>
+          <li><b>2 Mark</b> exactly one encoding. No text inside the plot (donut centre excepted).</li>
+          <li><b>3 Axis row</b> two endpoints as "label · value". Never a full tick axis.</li>
+          <li><b>4 Legend</b> only for two or more series or categories. Zero counts omitted.</li>
+          <li><b>5 Caption</b> one sentence of interpretation. The only slot allowed prose.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 VALUE ROW -->
+  <div class="pane" id="pane-value">
+    <div class="sec-h" style="margin-top:0">One box</div>
+    <p class="sec-sub">The number's 46px line box sets the height. Delta and unit form a 32px stack (two 16px lines, no gap) centred on it, 4px to the right. Missing pieces leave their line empty; nothing reflows.</p>
+    <div class="demo">
+      <div class="vbox-anat">
+        <div class="vbox "><span class="num">98</span><span class="side"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="unit">%</span></span></div>
+        <div class="anat-notes">
+          <div><b>Number</b> text/3xlarge/medium · 36/46 · color/text/strong</div>
+          <div><b>Delta</b> text/xsmall/medium · 12/16 · color/text/strong · 14px trend icon, 6px gap · uncontained by default; contained adds 2px/6px padding, 4px radius</div>
+          <div><b>Unit</b> text/xsmall/regular · 12/16 · color/text/default</div>
+          <div><b>Gaps</b> 4px number to stack · 0 inside the stack · nothing wraps</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-h">Stack order</div>
+    <p class="sec-sub">Which line does the unit take? Three ways to arrange the same three pieces.</p>
+    <div class="opt-grid three">
+      <div class="opt is-rec"><div class="lbl">S1 · Delta over unit<span class="tag rec">Recommended</span></div><div class="demo-in"><div class="vbox "><span class="num">98</span><span class="side"><span class="delta plain"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7% vs last month</span><span class="unit">%</span></span></div></div><div class="why">Unit sits low, beside the baseline, so "98" and "%" still read as one token. Delta floats above as an annotation. Matches the Figma component.</div></div>
+      <div class="opt"><div class="lbl">S2 · Unit over delta</div><div class="demo-in"><div class="vbox"><span class="num">98</span><span class="side"><span class="unit">%</span><span class="delta plain"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7% vs last month</span></span></div></div><div class="why">Unit at cap height reads like an exponent (98<sup>%</sup>). The delta drops to the baseline where a unit is expected.</div></div>
+      <div class="opt"><div class="lbl">S3 · Unit inline, delta beside</div><div class="demo-in"><div class="vbox"><span class="num">98</span><span class="unit base">%</span><span class="side one"><span class="delta plain"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7% vs last month</span></span></div></div><div class="why">Most natural read for the unit, but the row grows a third column and the delta position moves with unit width, so a strip of stats stops lining up.</div></div>
+    </div>
+
+    <div class="sec-h">When pieces are missing</div>
+    <p class="sec-sub">Same box, fewer pieces. The stack keeps its two lines so a strip of stats stays aligned.</p>
+    <div class="demo">
+      <div class="seq">
+        <div class="step"><div class="lbl">A · All three</div><div class="vbox "><span class="num">98</span><span class="side"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="unit">%</span></span></div></div><span class="arr">→</span>
+        <div class="step"><div class="lbl">B · No unit</div><div class="vbox "><span class="num">128</span><span class="side"><span class="delta neutral"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>+4 this quarter</span></span></div></div><span class="arr">→</span>
+        <div class="step"><div class="lbl">C · No delta</div><div class="vbox "><span class="num">3.4</span><span class="side"><span></span><span class="unit">PB</span></span></div></div><span class="arr">→</span>
+        <div class="step"><div class="lbl">D · Number only</div><div class="vbox "><span class="num">412</span></div></div>
+      </div>
+    </div>
+
+    <div class="sub-h">No unit: where does the delta go?</div>
+    <div class="opt-grid three">
+      <div class="opt is-rec"><div class="lbl">U1 · Keep the top line<span class="tag rec">Recommended</span></div><div class="demo-in"><div class="vbox "><span class="num">128</span><span class="side"><span class="delta neutral"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>+4 this quarter</span></span></div></div><div class="why">Bottom line stays empty. Deltas line up across a strip whether or not their neighbours have units. One rule, no exceptions.</div></div>
+      <div class="opt"><div class="lbl">U2 · Centre the delta alone</div><div class="demo-in"><div class="vbox"><span class="num">128</span><span class="side one"><span class="delta neutral"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>+4 this quarter</span></span></div></div><div class="why">Tidier as a single stat, but 8px off every other delta in a strip. Acceptable only for a lone value-only widget (M8).</div></div>
+      <div class="opt is-bad"><div class="lbl">U3 · Inline on the baseline<span class="tag no">Not this</span></div><div class="demo-in"><div class="vbox inline"><span class="num sm">128</span><span class="delta neutral"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>+4 this quarter</span></div></div><div class="why">Belongs to the compact inline row (E) only. Mixing it with stacked rows breaks the box.</div></div>
+    </div>
+
+    <div class="sub-h">No delta: where does the unit go?</div>
+    <div class="opt-grid three">
+      <div class="opt is-rec"><div class="lbl">N1 · Bottom line, top empty<span class="tag rec">Recommended</span></div><div class="demo-in"><div class="vbox "><span class="num">3.4</span><span class="side"><span></span><span class="unit">PB</span></span></div></div><div class="why">Unit keeps its baseline position. Top line stays empty; nothing is promoted into it.</div></div>
+      <div class="opt is-bad"><div class="lbl">N2 · Lift the unit to the top<span class="tag no">Not this</span></div><div class="demo-in"><div class="vbox"><span class="num">3.4</span><span class="side"><span class="unit">PB</span><span></span></span></div></div><div class="why">Exponent problem again, and the unit changes line depending on whether a delta exists.</div></div>
+      <div class="opt is-bad"><div class="lbl">N3 · Promote the denominator<span class="tag no">Not this</span></div><div class="demo-in"><div class="vbox "><span class="num">3.4</span><span class="side"><span class="delta plain">of 4.8 PB</span><span class="unit">PB</span></span></div></div><div class="why">Tempting for capacity, but "of 4.8 PB" is not a delta. Keep it in the axis row or caption; a meter shows the ratio.</div></div>
+    </div>
+
+    <div class="sub-h">E · Compact inline</div>
+    <div class="opt-grid one">
+      <div class="opt"><div class="lbl">Everything on one baseline · 28px number</div><div class="demo-in"><div class="vbox inline"><span class="num sm">18.4</span><span class="unit">kW</span><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>2.1% vs yesterday</span></div></div><div class="why">For W2 multi-stat grids and T5 wallboard tiles where height is scarce. Never mixed with stacked rows in the same strip.</div></div>
+    </div>
+
+    <div class="sec-h">Recommendation</div>
+    <div class="reco">
+      <div><b>Order</b> delta on the top line, unit on the bottom line (S1).</div>
+      <div><b>Slots are fixed</b> a missing unit or delta leaves its line empty (U1, N1). Never re-centre, never swap lines.</div>
+      <div><b>Inline</b> is a separate row type for compact tiles (E), not a fallback for missing pieces.</div>
+      <div><b>Denominators</b> go to the axis row or caption, never the delta slot.</div>
+    </div>
+
+    <div class="sec-h">Delta drawing · candidates</div>
+    <p class="sec-sub">Not yet locked. Each shown rising and falling; whichever wins uses the same 16px line (20px contained).</p>
+    <div class="dopt-grid">
+      <div class="dopt"><div class="lbl">1 · Ink + trend icon</div><div class="pair"><span class="delta plain"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta plain"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Direction only, no judgement. Quietest.</div></div>
+      <div class="dopt rejected"><div class="lbl">2 · Coloured text</div><div class="pair"><span class="delta plain" style="color:var(--ok)"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta plain" style="color:var(--red)"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Ruled out: colour in type, weak contrast at 12px.</div></div>
+      <div class="dopt"><div class="lbl">3 · Tinted pill + trend icon</div><div class="pair"><span class="delta up"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>7%</span><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l4 4 3-3 5 5"/><path d="M10 11h4V7"/></svg>7%</span></div><div class="why">Tint = judgement, icon = direction. Current spec.</div></div>
+      <div class="dopt"><div class="lbl">4 · Tinted pill + arrow</div><div class="pair"><span class="delta up">↑ 7%</span><span class="delta down">↓ 7%</span></div><div class="why">Same meaning, lighter glyph. 3 or 4, not both.</div></div>
+      <div class="dopt"><div class="lbl">5 · Amber pill · attention</div><div class="pair"><span class="delta amber"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>warning issues</span><span class="delta amber">14 unprotected</span></div><div class="why">Not a direction: an exception count.</div></div>
+    </div>
+    <p class="note">Open: <strong>pill or plain</strong> when a judgement exists; <strong>trend icon or arrow</strong> for direction.</p>
+
+    <div class="sec-h">Delta content</div>
+    <p class="sec-sub">What the delta says. Four situations, not styles.</p>
+    <div class="dopt-grid four">
+      <div class="dopt"><div class="lbl">Judged</div><div class="pair"><div class="vbox "><span class="num">71</span><span class="side"><span class="delta down"><svg class="ti" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l4-4 3 3 5-5"/><path d="M10 5h4v4"/></svg>2% vs last month</span><span class="unit">%</span></span></div></div><div class="why">Direction has a good side. Tint judges (up is bad for capacity).</div></div>
+      <div class="dopt"><div class="lbl">Neutral</div><div class="pair"><div class="vbox "><span class="num">128</span><span class="side"><span class="delta neutral">+4 this quarter</span></span></div></div><div class="why">No good or bad side. Grey, no icon.</div></div>
+      <div class="dopt"><div class="lbl">Exception count</div><div class="pair"><div class="vbox "><span class="num">98</span><span class="side"><span class="delta amber">14 unprotected</span><span class="unit">%</span></span></div></div><div class="why">The gap matters more than the trend.</div></div>
+      <div class="dopt"><div class="lbl">No comparison</div><div class="pair"><div class="vbox "><span class="num">3.4</span><span class="side"><span></span><span class="unit">PB</span></span></div></div><div class="why">No prior period, no delta. The denominator goes below.</div></div>
+    </div>
+  </div>
+
+  <!-- 3 FURNITURE -->
+  <div class="pane" id="pane-furn">
+    <div class="sec-h" style="margin-top:0">Furniture rules</div>
+    <p class="sec-sub">Where each piece lives, relative to the mark, and how it is written.</p>
+    <table class="rules">
+      <thead><tr><th>Furniture</th><th>Position</th><th>Rule</th><th>Copy</th></tr></thead>
+      <tbody>
+        <tr><td>Value</td><td>Value row, leading</td><td>36/46 medium, color/text/strong. One value per visualisation.</td><td>"18.4", "71%"</td></tr>
+        <tr><td>Unit</td><td>Bottom line of the stack</td><td>12/16 regular, color/text/default. Repeated in axis-row values.</td><td>"kW", "PB"</td></tr>
+        <tr><td>Delta</td><td>Top line of the stack</td><td>12/16 medium, ink. Tint carries judgement; text stays ink. None without a prior period.</td><td>"↑ 2% vs last month"</td></tr>
+        <tr><td>Axis row</td><td>Under the mark, full width</td><td>Two endpoints justified to the mark's edges. Optional centre label for a threshold.</td><td>"1 Sep · 3.1 PB" ··· "Today · 3.4 PB"</td></tr>
+        <tr><td>Legend</td><td>Below the mark</td><td>Inline swatches for series; stacked rows with values for parts of a whole. Status order. Zero counts omitted.</td><td>"● Critical 2"</td></tr>
+        <tr><td>Caption</td><td>Last slot, full width</td><td>One sentence, ink-soft. Interprets or names the top exception. Never restates the value.</td><td>"14 volumes have no snapshot schedule."</td></tr>
+        <tr><td>Threshold</td><td>Dashed line in the mark, named in the axis row</td><td>2px <code>var(--line)</code>, "1 4" dasharray. Legend entry only if it is a series.</td><td>"Threshold · 90%"</td></tr>
+        <tr><td>Status dot</td><td>Leading the row label</td><td>10px circle. The only colour carrier for status; the word stays ink.</td><td>"● Object storage"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4 MARKS -->
+  <div class="pane" id="pane-marks">
+    <div class="sec-h" style="margin-top:0">Choosing a mark</div>
+    <p class="sec-sub">Pick by the question, then check the data has the shape. If not, fall to the degenerate case.</p>
+  <div class="demo" style="padding:0; border:0;">
+    <table class="rules">
+      <thead><tr><th>Question</th><th>Data shape needed</th><th>Mark</th><th>Used by</th></tr></thead>
+      <tbody>
+        <tr><td>Where is it, which way is it going?</td><td>Continuous measure over time</td><td>M1 Stat with sparkline</td><td class="ev">W1 Stat, W3 Trend</td></tr>
+        <tr><td>How full, how close to the limit?</td><td>Value with a known capacity or threshold</td><td>M2 Meter</td><td class="ev">W1 Stat (capacity), W13 Deadline</td></tr>
+        <tr><td>How is the whole split?</td><td>Counts in 2 to 5 categories, total matters</td><td>M3 Donut with legend</td><td class="ev">W5 Distribution</td></tr>
+        <tr><td>What share is in each state?</td><td>Counts by status, total need not be stated</td><td>M4 Proportion bar</td><td class="ev">W7 Status list (estate rows)</td></tr>
+        <tr><td>Has it been reliable?</td><td>State per whole time unit</td><td>M5 Uptime segments</td><td class="ev">W7 Status list (service rows)</td></tr>
+        <tr><td>Which is biggest?</td><td>3 to 8 named items with one measure</td><td>M6 Ranked bars</td><td class="ev">W6 Ranked table, W9 Top N</td></tr>
+        <tr><td>How much per interval?</td><td>Counts per bucket</td><td>M7 Columns</td><td class="ev">W3 Trend (events), W8 Exception</td></tr>
+        <tr><td>What is the number?</td><td>One value, optional comparison</td><td>M8 Value only</td><td class="ev">W1 Stat, W2 Multi-stat, any degenerate case</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+
+    <div class="sec-h">Mark catalogue</div>
+    <p class="sec-sub">Eight marks cover every canonical widget type.</p>
+  <div class="mark-grid">
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Power draw</div><div class="scope">Last 24 hours · 42 servers</div></div>
+        <div class="value-row"><div class="vbox"><span class="num">18.4</span><span class="side"><span class="delta down">↓ 2.1% vs yesterday</span><span class="unit">kW</span></span></div></div>
+        <div><svg class="spark" viewBox="0 0 220 72" preserveAspectRatio="none">
+  <defs><linearGradient id="gm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-blue)" stop-opacity="0.22"/><stop offset="1" stop-color="var(--c-blue)" stop-opacity="0"/></linearGradient></defs>
+  <path d="M0,30 L40,36 L80,28 L120,40 L160,34 L200,44 L220,42 L220,70 L0,70Z" fill="url(#gm1)"/>
+  <path d="M0,30 L40,36 L80,28 L120,40 L160,34 L200,44 L220,42" fill="none" stroke="var(--c-blue)" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+  <path d="M220 42 h0.01" stroke="var(--c-blue)" stroke-width="12" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+</svg><div class="axis"><span>Yesterday · 18.8 kW</span><span>Now · 18.4 kW</span></div></div>
+      </div>
+      <div class="m-name"><span class="code">M1</span>Stat with sparkline</div>
+      <p class="m-q">Is this metric where it should be, and which way is it heading?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Value row (value, unit, delta), axis row. Legend only if a dashed prior period is drawn.</dd>
+        <dt>Degenerate</dt><dd>Flat series: still draw it; a flat line is the fact. Missing prior period: drop the delta, keep the value.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Capacity</div><div class="scope">All systems</div></div>
+        <div class="value-row"><div class="vbox"><span class="num">71</span><span class="side"><span></span><span class="unit">%</span></span></div></div>
+        <div><div class="meter"><i class="warn" style="width:71%"></i><span class="tick" style="left:90%"></span></div><div class="meter-row"><span>0</span><span>Threshold · 90%</span><span>3.4 of 4.8 PB</span></div></div>
+        <div class="caption">At current growth, 90% is reached in about 9 months.</div>
+      </div>
+      <div class="m-name"><span class="code">M2</span>Meter</div>
+      <p class="m-q">How full is it, and how close to the limit?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Value row, axis row (0 · threshold · capacity), caption for the projection.</dd>
+        <dt>Rule</dt><dd>Fill colour is the only semantic colour; the value text stays ink. Track is <code>--grey-bg</code>.</dd>
+        <dt>Degenerate</dt><dd>0% or 100%: draw the meter anyway; the empty or full track is the message.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Environment health</div><div class="scope">128 systems · 4 regions</div></div>
+        <div class="donut-row">
+          <div class="donut" style="background: conic-gradient(var(--red) 0 1.6%, var(--amber) 1.6% 5.5%, var(--ok) 5.5% 100%);" data-center="128"></div>
+          <div class="legend-stack">
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">2</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">5</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy</span><span class="pct">121</span></div>
+          </div>
+        </div>
+        <div class="caption">2 critical: controller failover on Array-DAL-04, degraded drive set on Array-FRA-11.</div>
+      </div>
+      <div class="m-name"><span class="code">M3</span>Donut with legend</div>
+      <p class="m-q">How is the population split, and what is the total?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Total in the donut centre. Stacked legend with counts beside it. Caption names the exception.</dd>
+        <dt>Rule</dt><dd>Legend order equals slice order from 12 o'clock. Zero-count statuses are omitted from the legend.</dd>
+        <dt>Degenerate</dt><dd>All one status: do not draw a solid green ring. Fall back to M8 ("128 · All healthy") with a status dot.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Volumes</div><div class="scope">1,842 · online, thresholds, latency</div></div>
+        <div><span class="prop"><i style="flex:33;background:var(--amber)"></i><i style="flex:1809;background:var(--ok)"></i></span></div>
+        <div class="legend-inline"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning<span class="val">33</span></span><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy<span class="val">1,809</span></span></div>
+      </div>
+      <div class="m-name"><span class="code">M4</span>Proportion bar</div>
+      <p class="m-q">What share of this group is in each state?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Value-bearing legend beneath, or the exception count right-aligned when the bar sits in a list row.</dd>
+        <dt>Rule</dt><dd>Segments in status order, worst first, 2px gaps, 3px minimum width so a single failure stays visible.</dd>
+        <dt>Degenerate</dt><dd>One colour: do not draw. A bar with no split repeats the text. Use the quiet row treatment.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Object storage</div><div class="scope">Last 30 days · daily · EU-West</div></div>
+        <div><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="c"></i><i class="w"></i><i class="w"></i></span><div class="axis"><span>22 Aug</span><span>Today</span></div></div>
+        <div class="legend-inline"><span class="lg"><span class="dot" style="background:var(--red)"></span>Outage</span><span class="lg"><span class="dot" style="background:var(--amber)"></span>Degraded</span><span class="lg"><span class="dot" style="background:var(--ok)"></span>Operational</span></div>
+      </div>
+      <div class="m-name"><span class="code">M5</span>Uptime segments</div>
+      <p class="m-q">Has this been reliable over the period?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Axis row with the period endpoints. Legend once per widget, not per row. Hover gives date and duration.</dd>
+        <dt>Rule</dt><dd>One segment per whole unit, newest right, colour = worst state in that unit. Never encodes a percentage.</dd>
+        <dt>Degenerate</dt><dd>All operational: still draw it. Thirty clean segments say "no incident in 30 days", which the state word does not.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Top consumers</div><div class="scope">By capacity used · this month</div></div>
+        <div class="hbars">
+          <div class="hbar"><span class="nm">Finance-Prod</span><span class="track"><i style="width:100%"></i></span><span class="v">812 TB</span></div>
+          <div class="hbar"><span class="nm">Analytics</span><span class="track"><i style="width:71%"></i></span><span class="v">576 TB</span></div>
+          <div class="hbar"><span class="nm">VDI</span><span class="track"><i style="width:44%"></i></span><span class="v">358 TB</span></div>
+          <div class="hbar"><span class="nm">Backup landing</span><span class="track"><i style="width:31%"></i></span><span class="v">251 TB</span></div>
+          <div class="hbar"><span class="nm">Other · 14</span><span class="track"><i style="width:22%;background:var(--c-grey)"></i></span><span class="v">180 TB</span></div>
+        </div>
+      </div>
+      <div class="m-name"><span class="code">M6</span>Ranked bars</div>
+      <p class="m-q">Who or what is biggest, and by how much?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Label left, value right on every row; no axis row, no legend. Bars are relative to the top row, not to a total.</dd>
+        <dt>Rule</dt><dd>Single hue for like-for-like comparison. Colour changes only when the row is the page subject or is "Other".</dd>
+        <dt>Degenerate</dt><dd>Fewer than three rows: use a key-value list; ranking needs a field to rank.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Alerts raised</div><div class="scope">Last 14 days · daily</div></div>
+        <div class="value-row"><div class="vbox"><span class="num">37</span><span class="side"><span class="delta up">↓ 18% vs prior 14 days</span></span></div></div>
+        <div><div class="cols"><i style="height:40%"></i><i style="height:55%"></i><i style="height:30%"></i><i style="height:70%"></i><i style="height:45%"></i><i style="height:20%"></i><i style="height:25%"></i><i style="height:60%"></i><i style="height:35%"></i><i style="height:15%"></i><i style="height:30%"></i><i style="height:50%"></i><i style="height:20%"></i><i style="height:28%"></i></div><div class="axis"><span>8 Sep</span><span>Today</span></div></div>
+      </div>
+      <div class="m-name"><span class="code">M7</span>Columns</div>
+      <p class="m-q">How much happened in each interval?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Value row with the period total and delta. Axis row endpoints. Legend only when stacked by category.</dd>
+        <dt>Rule</dt><dd>Use for counts and discrete events; use a sparkline for continuous measures. 4px gaps, 2px top radius, no value labels on bars.</dd>
+        <dt>Degenerate</dt><dd>All zero: show the total "0" and a caption; no ghost bars.</dd>
+      </dl>
+    </div>
+
+    <div class="mark-entry">
+      <div class="card"><div><div class="title">Host connectivity</div><div class="scope">412 hosts · path redundancy</div></div>
+        <div class="value-row"><div class="vbox"><span class="num">412</span><span class="side"><span class="delta neutral">All healthy</span></span></div></div>
+        <div class="caption">Every host has at least two active paths. Last single-path event: 14 Aug, resolved in 22 min.</div>
+      </div>
+      <div class="m-name"><span class="code">M8</span>Value only</div>
+      <p class="m-q">What is the number right now?</p>
+      <dl>
+        <dt>Furniture</dt><dd>Value row and caption. Nothing else.</dd>
+        <dt>Rule</dt><dd>This is the fallback every other mark degenerates to when its data collapses. It is not a lesser mark; a widget that only needs a number should use it on purpose.</dd>
+        <dt>Degenerate</dt><dd>None. If the value itself is unavailable, the widget's no-data state takes over.</dd>
+      </dl>
+    </div>
+  </div>
+
+
+  </div>
+
+  <!-- 5 RULES -->
+  <div class="pane" id="pane-rules">
+    <div class="sec-h" style="margin-top:0">Rules carried from elsewhere</div>
+    <ul class="tight big">
+      <li><b>Colour</b> text is always ink. Semantic colour lives in fills, dots, pills and marks. Single series <code>--c-blue</code>; status <code>--red / --amber / --ok / --unknown</code>.</li>
+      <li><b>Zero counts</b> never listed in a legend.</li>
+      <li><b>Status order</b> critical → warning → ok → unknown.</li>
+      <li><b>One mark per visualisation</b>, one visualisation per widget body.</li>
+      <li><b>Copy</b> fragments join with " · ". No spaced em dashes.</li>
+    </ul>
+  </div>
+
+<script>
+function setTab(id, btn) {
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tabbtn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pane-'+id).classList.add('on'); btn.classList.add('on');
+  history.replaceState(null,'','#'+id);
+}
+(function(){ const h=location.hash.slice(1); const b=[...document.querySelectorAll('.tabbtn')].find(x=>x.getAttribute('onclick').includes("'"+h+"'")); if(b) setTab(h,b); })();
+</script>
+
+</div>
+
+<script src="/livereload.js"></script>
+<script src="/library-nav.js"></script>
+</body>
+</html>

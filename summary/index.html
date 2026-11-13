@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Summary sections</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<link rel="stylesheet" href="summary.css">
+</head>
+<body>
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Summary sections</div>
+</header>
+<div class="wrap">
+  <h1>Summary sections</h1>
+  <p class="intro">Most overview pages open with a few lines that say what matters before the widgets do. There are three shapes, and each has three jobs. Pick by asking what the reader came to do; the shape follows. The research and critique behind this is on the <a href="/summary-section-options.html" style="color:var(--gl-green-dark);font-weight:600;text-decoration:none">exploration page</a>.</p>
+
+  <div class="sec-h">Pick a shape</div>
+  <p class="sec-sub">Three questions, in order.</p>
+  <div class="dgrid">
+    <div><h4>1 · Read or work?</h4><p>Is the reader here to understand the state of things, or to do something about it? Read: <b>Digest</b>. Work: a list or cards.</p></div>
+    <div><h4>2 · Facts or tasks?</h4><p>Are the items things that are true (a gap, a date), or things to finish (renew, enforce)? Facts: <b>Findings list</b>. Tasks: <b>Cards</b>.</p></div>
+    <div><h4>3 · Does the list end?</h4><p>A fixed set that completes is a checklist or steps. An open set that refills is triage, deadlines, actions or opportunities.</p></div>
+  </div>
+
+  <div class="sec-h">The three shapes</div>
+  <div class="fam">
+    <a href="digest.html"><h2>S1 · Digest</h2><p class="q">"Tell me how things stand."</p><p>Sentences with a status dot or trend icon. For reading. Never dismissible; hides or regenerates.</p><ul><li>S1a Status digest</li><li>S1b Change digest</li><li>S1c Generated narrative</li></ul><span class="open">Open spec</span></a>
+    <a href="findings.html"><h2>S2 · Findings list</h2><p class="q">"Show me what needs doing."</p><p>Rows with a pill or tick and one action each. The default for overview pages. Dismiss per row, never critical.</p><ul><li>S2a Triage list</li><li>S2b Deadline list</li><li>S2c Progress checklist</li></ul><span class="open">Open spec</span></a>
+    <a href="cards.html"><h2>S3 · Recommendation cards</h2><p class="q">"Do these things."</p><p>One card per task with its own controls. Three or fewer. Room for a consequence or benefit and a quiet second action.</p><ul><li>S3a Action cards</li><li>S3b Opportunity cards</li><li>S3c Getting-started steps</li></ul><span class="open">Open spec</span></a>
+  </div>
+
+  <div class="sec-h">Shared anatomy</div>
+  <p class="sec-sub">Every summary section is an instance of the <b>Container</b> component (Sales Cockpit · Container). The variants below only change what goes in the Body. Toggle each example between the two container props.</p>
+  <table class="mtab">
+    <tr><th>Part</th><th>Spec</th><th>Token / value</th></tr>
+    <tr><td>Prop · Contained</td><td>Grey surface with padding. Use when the section needs to read as a module against other content on the page, or sits in a dashboard column.</td><td>bg <code>#F7F7F7</code> · radius 12 · padding 24</td></tr>
+    <tr><td>Prop · Uncontained</td><td>No surface, no padding. Use on the page body where the section is the content (lists and card rows are usually uncontained).</td><td>bg none · padding 0 · same regions and gaps</td></tr>
+    <tr><td>1 · Content header</td><td>Leading and Trailing side by side, vertically centred, gap 12. Always present.</td><td>row · gap 12 · align center</td></tr>
+    <tr><td>1a · Leading: heading</td><td>H2 by default. Names the <b>job</b> ("Needs attention", "Coming up"), never the shape ("Summary", "Insights" aside). Optional count pill after the heading.</td><td>Heading 24/32 <code>--gl-heading</code> · count pill 24h, 0 8, r12, <code>--grey-bg</code>, 13/600 · wrapper padding 2 0</td></tr>
+    <tr><td>1b · Leading: subtitle</td><td>Optional. One line under the heading: what was checked, the population, and when. Middot separators.</td><td>14/20 <code>--gl-ink</code> · gap 2 under heading</td></tr>
+    <tr><td>1c · Trailing</td><td>Actions for the whole section, at most two. A <b>link</b> when it takes you to a page ("View all"); a <b>button</b> when it acts on the section in place (collapse chevron, "Regenerate", "Show dismissed (n)"). Never an X on the section when any item is critical.</td><td>slot 36×36 min · link 13/600 <code>--gl-green-dark</code> · button 13/600 <code>--gl-heading</code>, 6 12, r16 · quiet button <code>--gl-ink-soft</code> 13/500 · gap 16</td></tr>
+    <tr><td>2 · Body</td><td>The only region that changes per variant: sentences, rows, or cards.</td><td>Body text 14/400 <code>--gl-ink</code> · lead 14/600 <code>--gl-heading</code> · reason 12.5 <code>--gl-ink-soft</code> · link 13/600 <code>--gl-green-dark</code></td></tr>
+    <tr><td>3 · Footer (optional)</td><td>Source or comparison point left, feedback or "View all" right. Digests use it; lists and cards rarely do.</td><td>14/20 <code>--gl-ink</code> · no hairline</td></tr>
+    <tr><td>Region gap</td><td>Header, Body and Footer stack in one column.</td><td>gap 24 between regions · frame width 800 (min 640) · section gap 32 on the page</td></tr>
+    <tr><td>Status marks</td><td>Colour never in text. Dot for digests, pill for lists and cards. Order critical → warning → ok → unknown.</td><td>Dot 10 r5 · pill 20h, 2 6, r4, 12/500, bg <code>--red-bg</code> / <code>--amber-bg</code> / <code>--ok-bg</code> / <code>--unknown-bg</code> / <code>--grey-bg</code></td></tr>
+  </table>
+
+  <div class="sec-h">Rules that hold across all nine</div>
+  <div class="dgrid">
+    <div><h4>Copy</h4><ul><li>Title names the job, not the shape.</li><li>Subject leads every line; the figure is in it and bold.</li><li>Actions are verb-first. Links navigate to a page; buttons act in place (hide, dismiss, regenerate, mark done). Never an instruction written as prose.</li><li>"All" when a count is the whole population. Abbreviations spelled out.</li></ul></div>
+    <div><h4>Dismissal</h4><ul><li>Per item, not per section, unless every item is optional.</li><li>Critical is never dismissible. It leaves when fixed.</li><li>Dismissed goes somewhere: "Show dismissed (n)".</li><li>Sections that describe state offer "Hide", which collapses to the header.</li><li><a href="leaving.html">Collapse, dismiss, or neither</a>: the three behaviours, live.</li></ul></div>
+    <div><h4>Placement</h4><ul><li>One summary section per page, under the content header, above the stat strip. 32px to each.</li><li>If two jobs compete, the critical one takes the slot and the other moves to the rail.</li><li>Uncontained on the body; grey container inside a dashboard column.</li></ul></div>
+  </div>
+</div>
+<script src="/livereload.js"></script>
+<script src="/library-nav.js"></script>
+</body>
+</html>

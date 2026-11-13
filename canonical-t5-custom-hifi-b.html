@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T5 · Custom board · Var B · Executive</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  .bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: minmax(160px, auto); gap: var(--gap-container); }
+  .span-2 { grid-column: span 2; }
+  .tall { grid-row: span 2; }
+  @media (max-width: 1050px) { .bento { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) { .bento { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } }
+
+  .views { display: flex; gap: 26px; border-bottom: 1px solid var(--line); margin-bottom: var(--gap-section); }
+  .view-tab { font-size: 14.5px; font-weight: 600; color: var(--gl-ink-soft); padding: 10px 2px; cursor: pointer; }
+  .view-tab.on { color: var(--gl-ink); border-bottom: 3px solid var(--gl-green); }
+  .view-tab.add { color: var(--gl-green-dark); }
+
+  .greet { font-size: 32px; font-weight: 700; letter-spacing: -0.3px; }
+  .greet-sub { font-size: 14px; color: var(--gl-ink-soft); margin-top: 4px; }
+
+  .widget { position: relative; }
+  .widget .grip { position: absolute; top: 14px; right: 44px; color: var(--gl-ink-faint); font-size: 13px; letter-spacing: 2px; cursor: grab; opacity: 0; }
+  .widget:hover .grip { opacity: 1; }
+
+  .ghost-tile { border: 1.5px dashed var(--gl-ink-faint); border-radius: var(--radius); background: #fff;
+    display: flex; flex-direction: column; gap: 6px; align-items: center; justify-content: center;
+    color: var(--gl-ink-soft); font-size: 14px; font-weight: 600; cursor: pointer; }
+  .ghost-tile:hover { border-color: var(--gl-green); color: var(--gl-green-dark); }
+  .ghost-tile .plus { font-size: 26px; color: var(--gl-green); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon active" data-i="panel"></div>
+    <div class="ricon" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head" style="margin-bottom: 20px;">
+      <div>
+        <div class="greet">Good morning, Henry</div>
+        <div class="greet-sub">henry.walker@democomp.com · DemoComp board pack closes in 5 days · 18-country estate review</div>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn secondary">＋ Add widget</button>
+        <button class="btn primary">Edit</button>
+      </div>
+    </div>
+
+    <div class="views">
+      <span class="view-tab on">Monthly review</span>
+      <span class="view-tab">Board pack</span>
+      <span class="view-tab add">＋ New view</span>
+    </div>
+
+    <div class="bento">
+
+
+      <!-- KPI: total spend -->
+      <div class="card widget">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:10px;"><h2 style="font-size:15px;">Consumption Analytics spend</h2><span class="arrow">→</span></div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:30px; font-weight:700;">€4.82M</span><span class="delta down">↑ 6% vs budget</span>
+        </div>
+        <div class="fine" style="margin-top:8px;">September month-to-date across DemoComp global manufacturing and logistics.</div>
+      </div>
+
+      <!-- KPI: savings -->
+      <div class="card widget">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:10px;"><h2 style="font-size:15px;">Realized savings</h2><span class="arrow">→</span></div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:30px; font-weight:700;">€318K</span><span class="delta up">↑ 14%</span>
+        </div>
+        <div class="fine" style="margin-top:8px;">Run-rate reduction from rightsizing COM clusters and Block Storage.</div>
+      </div>
+
+      <!-- Spend trend: 2x1 -->
+      <div class="card widget span-2">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:8px;"><h2 style="font-size:15px;">Consumption Analytics vs budget · Sep 2026</h2><span class="arrow">→</span></div>
+        <div style="display:flex; align-items:baseline; gap:10px; margin-bottom:6px;">
+          <span style="font-size:24px; font-weight:700;">€161K</span>
+          <span class="fine">daily avg</span>
+          <span class="delta neutral">Budget €152K</span>
+        </div>
+        <div class="chart-wrap">
+          <svg viewBox="0 0 400 60">
+            <polyline points="0,42 50,40 100,36 150,34 200,28 250,31 300,24 350,22 400,19" fill="none" stroke="var(--c-blue)" stroke-width="2.5" stroke-linecap="round"/>
+            <polyline points="0,39 50,39 100,38 150,38 200,37 250,37 300,36 350,36 400,35" fill="none" stroke="var(--amber)" stroke-width="2" stroke-dasharray="4 4"/>
+          </svg>
+        </div>
+        <div class="chart-legend"><span class="lg"><span class="sw" style="background:var(--c-blue)"></span>Actual</span><span class="lg"><span class="sw" style="background:var(--amber)"></span>Budget</span></div>
+      </div>
+
+      <!-- Service health summary: 2x2 -->
+      <div class="card widget span-2 tall">
+        <span class="grip">⠿</span>
+        <div class="card-head"><h2>Service health summary</h2><span class="arrow">→</span></div>
+        <div class="list-item">
+          <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Block Storage</div><div class="li-sub">Block-Resource-034 replication pair at São Paulo DC behind Disaster-Recovery-Operators</div></div></div>
+          <span class="pill amber">Degraded</span>
+        </div>
+        <div class="list-item">
+          <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Private Cloud Enterprise</div><div class="li-sub">Dublin HQ and Frankfurt DC namespaces</div></div></div>
+          <span class="pill green">Healthy</span>
+        </div>
+        <div class="list-item">
+          <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Compute Ops Management</div><div class="li-sub">385 nodes across 17 clusters</div></div></div>
+          <span class="pill green">Healthy</span>
+        </div>
+        <div class="list-item">
+          <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Aruba Central</div><div class="li-sub">542 devices across 12 device groups</div></div></div>
+          <span class="pill green">Healthy</span>
+        </div>
+        <div style="margin-top:10px;"><span class="glink">Open executive health report →</span></div>
+      </div>
+
+      <!-- Sustainability KPI -->
+      <div class="card widget">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:10px;"><h2 style="font-size:15px;">Emissions</h2><span class="arrow">→</span></div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:30px; font-weight:700;">41.8 t</span><span class="delta up">↓ 9%</span>
+        </div>
+        <div class="fine" style="margin-top:8px;">CO2e this quarter from HPE Sustainability Insight Center.</div>
+      </div>
+
+      <!-- Compliance KPI -->
+      <div class="card widget">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:10px;"><h2 style="font-size:15px;">Compliance score</h2><span class="arrow">→</span></div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:30px; font-weight:700;">94%</span><span class="delta neutral">Audit ready</span>
+        </div>
+        <div class="fine" style="margin-top:8px;">12 exceptions remain across PCI-Workloads-Only and Finance-Read-Only.</div>
+      </div>
+
+      <!-- Exec summary: 2x1 -->
+      <div class="card widget span-2">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:6px;"><h2 style="font-size:15px;">GreenLake Intelligence · Exec summary</h2><span class="arrow">→</span></div>
+        <div class="fine">✦ DemoComp operates across 18 countries and 200+ distribution centers; availability is on target, but Fort Collins AI capacity and São Paulo DR replication are driving September spend 6% over plan. Three commitment changes could recover €214K this quarter.</div>
+        <div class="prompt-box"><span class="sp">✦</span> Draft board-pack summary…</div>
+      </div>
+
+      <!-- Contract renewals -->
+      <div class="card widget">
+        <span class="grip">⠿</span>
+        <div class="card-head" style="margin-bottom:8px;"><h2 style="font-size:15px;">Service renewals</h2><span class="arrow">→</span></div>
+        <div class="list-item" style="padding:9px 0;"><span class="li-title">Expiring ≤ 30 days</span><span class="pill red">2</span></div>
+        <div class="list-item" style="padding:9px 0;"><span class="li-title">Expiring ≤ 90 days</span><span class="pill amber">11</span></div>
+        <div class="fine" style="margin-top:8px;">Largest renewal: HPE GreenLake Flex Solutions for edge sites · Sep 28.</div>
+      </div>
+
+      <!-- Ghost add slot -->
+      <div class="ghost-tile">
+        <span class="plus">＋</span>
+        Add widget
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

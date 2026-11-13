@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Widget catalogue · Examples library</title>
+<link rel="stylesheet" href="/hifi-shared.css">
+<script src="/hifi-icons.js" defer></script>
+<style>
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 48px 40px 96px; }
+  .wrap h1 { margin-bottom: 8px; }
+  .intro { font-size: 15px; color: var(--gl-ink-soft); max-width: 720px; line-height: 1.6; margin-bottom: 20px; }
+  .intro a { font-weight: 600; }
+  .crumb-nav { font-size: 13px; color: var(--gl-ink-soft); margin-bottom: 14px; }
+  .crumb-nav a { color: var(--gl-green-dark); font-weight: 600; text-decoration: none; }
+
+  .sec-h { font-size: 17px; font-weight: 700; color: var(--gl-heading); margin: 48px 0 6px; }
+  .sec-sub { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.55; margin: 0 0 20px; max-width: 720px; }
+  .note { font-size: 13px; color: var(--gl-ink-soft); line-height: 1.6; margin-top: 16px; max-width: 760px; }
+  .note strong { color: var(--gl-heading); font-weight: 600; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--gl-heading); background: var(--contained); border-radius: 4px; padding: 1px 6px; }
+
+  /* family F */
+  .dg p { font-size: 14px; line-height: 1.5; color: var(--gl-ink); margin: 0 0 14px; }
+  .dg-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.6; }
+  .dg-strip b { font-size: 20px; font-weight: 700; color: var(--gl-heading); margin-right: 4px; }
+  .cntx { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--grey-bg); font-size: 11px; font-weight: 600; color: var(--gl-heading); vertical-align: 3px; margin-left: 4px; }
+  .alist .ar { display: grid; grid-template-columns: auto minmax(0,1fr) auto; gap: 10px; align-items: start; padding: 10px 0; border-top: 1px solid var(--contained-line); font-size: 13px; }
+  .alist .ar:first-child { border-top: 0; padding-top: 0; }
+  .alist .ar .pill { justify-self: start; font-size: 11px; white-space: nowrap; }
+  .alist .al { display: block; font-weight: 600; color: var(--gl-heading); line-height: 1.3; }
+  .alist .as { display: block; font-size: 12px; color: var(--gl-ink-soft); }
+  .alist .glink, .rc .glink { font-size: 12.5px; white-space: nowrap; }
+  .afoot { margin-top: 12px; font-size: 12.5px; }
+  .rcx { display: grid; gap: 12px; }
+  .rc { background: #fff; border-radius: 10px; padding: 14px; display: grid; gap: 4px; font-size: 13px; }
+  .rc .pill { justify-self: start; font-size: 11px; margin-bottom: 4px; }
+  .rc .rl { font-weight: 600; color: var(--gl-heading); }
+  .rc .rs { font-size: 12px; color: var(--gl-ink-soft); }
+  .rc .ra { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+  .rc .xb { appearance: none; border: 0; background: none; color: var(--gl-ink-soft); cursor: pointer; font-size: 12px; width: 24px; height: 24px; border-radius: 6px; }
+  .rc .xb:hover { background: rgba(0,0,0,0.06); }
+  /* family index */
+  .fam-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  @media (max-width: 1000px) { .fam-grid { grid-template-columns: repeat(2, 1fr); } }
+  .fam { background: var(--contained); border-radius: var(--radius); padding: 20px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 6px; }
+  .fam:hover { background: #F0F1F2; }
+  .fam .tag { font-size: 11.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gl-ink-weak); }
+  .fam h2 { font-size: 17px; font-weight: 700; color: var(--gl-heading); }
+  .fam p { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; }
+  .fam .q { font-size: 13px; font-weight: 600; color: var(--gl-heading); font-style: italic; }
+
+  /* table overview */
+  table.ov { font-size: 12.5px; }
+  table.ov th { font-size: 12px; }
+  table.ov td { vertical-align: top; line-height: 1.45; }
+  table.ov td.code { font-weight: 700; color: var(--gl-heading); white-space: nowrap; }
+  table.ov td a { font-weight: 600; }
+
+  /* entry */
+  .fam-h { font-size: 12.5px; font-weight: 700; color: var(--gl-ink-soft); text-transform: uppercase; letter-spacing: 0.05em; margin: 56px 0 12px; padding-top: 24px; border-top: 1px solid var(--line); }
+  .entry { display: grid; grid-template-columns: 360px 1fr; gap: 32px; padding: 24px 0 32px; border-bottom: 1px solid var(--line); }
+  @media (max-width: 900px) { .entry { grid-template-columns: 1fr; } }
+  .entry .ex { align-self: start; }
+  .entry .card { max-width: none; }
+  .entry .tag { font-size: 11.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--gl-ink-weak); }
+  .entry h2 { font-size: 21px; font-weight: 700; color: var(--gl-heading); margin: 2px 0 8px; }
+  .entry .job { font-size: 16px; line-height: 1.4; font-weight: 600; color: var(--gl-heading); margin: 0 0 10px; }
+  .entry .job::before { content: "\201C"; } .entry .job::after { content: "\201D"; }
+  .entry .desc { font-size: 13.5px; color: var(--gl-ink-soft); line-height: 1.55; margin-bottom: 16px; }
+  .spec { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 24px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .spec h3 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gl-ink-weak); margin-bottom: 4px; }
+  .spec p { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; }
+  .spec p a { font-weight: 600; }
+  .spec .full { grid-column: 1 / -1; }
+  .sizes { display: inline-flex; gap: 6px; vertical-align: middle; }
+  .sz { font-size: 11px; font-weight: 700; color: var(--gl-heading); border: 1px solid var(--line); border-radius: 10px; padding: 1px 8px; background: #fff; }
+  .sz.off { color: var(--gl-ink-faint); text-decoration: line-through; border-style: dashed; }
+
+  /* widget bits */
+  .card-head h2 { font-size: 16px; margin: 0; }
+  .hgroup .scope { font-size: 12.5px; color: var(--gl-ink-soft); margin-top: 2px; }
+  .kebab { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; color: var(--gl-ink); }
+  .w-foot { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; padding-top: 16px; }
+  .w-foot .tlink { font-size: 12.5px; }
+  .w-foot .fresh { color: var(--gl-ink-soft); }
+  .legend-inline { display: flex; gap: 14px; font-size: 12.5px; color: var(--gl-ink); padding-top: 12px; flex-wrap: wrap; }
+  .legend-inline .lg { display: flex; align-items: center; gap: 6px; }
+  .legend-inline .sw { width: 14px; height: 3px; border-radius: 2px; background: var(--c-blue); }
+  .legend-inline .dash-sw { width: 14px; height: 0; border-top: 2px dashed var(--gl-ink-faint); }
+  .axis { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--gl-ink-soft); padding-top: 6px; }
+  svg.spark { width: 100%; height: 72px; display: block; }
+  .value-row { display: flex; align-items: center; gap: 10px; }
+  .cluster { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; }
+  .cluster .c-lbl { font-size: 12.5px; color: var(--gl-ink-soft); }
+  .cluster .c-val { font-size: 24px; font-weight: 700; color: var(--gl-heading); letter-spacing: -0.4px; line-height: 1.15; margin: 2px 0; }
+  .cluster .c-cap { font-size: 12px; color: var(--gl-ink-soft); }
+  .hbar { display: flex; flex-direction: column; gap: 10px; }
+  .hbar .r { display: grid; grid-template-columns: 96px 1fr 40px; gap: 10px; align-items: center; font-size: 12.5px; }
+  .hbar .r .n { color: var(--gl-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hbar .r .b { height: 10px; background: var(--grey-bg); border-radius: 3px; overflow: hidden; }
+  .hbar .r .b i { display: block; height: 100%; background: var(--c-blue); border-radius: 3px; }
+  .hbar .r .v { text-align: right; font-weight: 600; color: var(--gl-heading); font-variant-numeric: tabular-nums; }
+  .donut-row { display: flex; align-items: center; gap: 20px; }
+  .donut { width: 96px; height: 96px; flex: none; }
+  .legend-col { flex: 1; display: flex; flex-direction: column; }
+  .meter-lbl { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--gl-ink-soft); }
+  .meter-lbl b { color: var(--gl-heading); font-weight: 600; }
+  .meter { margin-top: 8px; height: 8px; border-radius: 4px; position: relative; }
+  .meter .thr { position: absolute; top: -4px; width: 2px; height: 16px; background: var(--gl-ink-faint); }
+  .st-list { display: flex; flex-direction: column; }
+  .st-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--contained-line); font-size: 13px; }
+  .st-row:last-child { border-bottom: 0; }
+  .st-row .sd { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  .st-row .nm { flex: 1; color: var(--gl-ink); }
+  .st-row .stt { color: var(--gl-ink-soft); font-size: 12.5px; }
+  /* uptime list: fixed columns so dots, names, bars and states share one axis */
+  .st-row.up { display: grid; grid-template-columns: 10px 1fr 92px 76px; gap: 10px; align-items: center; }
+  .st-row.up .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+  .st-row.up .stt { text-align: right; white-space: nowrap; line-height: 1.2; }
+  .seg-bar { display: flex; gap: 1px; height: 12px; }
+  .seg-bar i { flex: 1; min-width: 0; border-radius: 1px; background: var(--ok); }
+  .seg-bar i.w { background: var(--amber); } .seg-bar i.c { background: var(--red); }
+  .sev-row { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 10px; }
+  .mini-tbl { width: 100%; font-size: 12.5px; }
+  .mini-tbl th { font-size: 11.5px; padding: 6px 0; border-bottom: 1.5px solid var(--gl-ink-soft); }
+  .mini-tbl td { padding: 8px 0; border-bottom: 1px solid var(--contained-line); }
+  .mini-tbl td.num, .mini-tbl th.num { text-align: right; }
+  .mini-tbl tr:hover td { background: transparent; }
+  .feed { display: flex; flex-direction: column; }
+  .feed .f { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--contained-line); font-size: 12.5px; }
+  .feed .f:last-child { border-bottom: 0; }
+  .feed .f .t { color: var(--gl-ink-soft); white-space: nowrap; flex: 0 0 56px; }
+  .feed .f .m { color: var(--gl-ink); }
+  .feed .f .m b { font-weight: 600; color: var(--gl-heading); }
+  .hm { display: grid; grid-template-columns: 34px repeat(7, 1fr); gap: 3px; font-size: 10.5px; color: var(--gl-ink-soft); }
+  .hm .lb { display: flex; align-items: center; }
+  .hm .cl { height: 18px; border-radius: 3px; background: var(--c-blue); }
+  .hm .hd { text-align: center; }
+  .callout { display: flex; gap: 12px; }
+  .callout .ic { width: 32px; height: 32px; border-radius: 50%; flex: none; background: var(--info-bg); display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--info); }
+  .callout .h { font-size: 14px; font-weight: 600; color: var(--gl-heading); line-height: 1.4; }
+  .callout .p { font-size: 12.5px; color: var(--gl-ink-soft); line-height: 1.5; margin-top: 4px; }
+  .callout .acts { display: flex; gap: 8px; margin-top: 12px; }
+  .ring-row { display: flex; align-items: center; gap: 20px; }
+  .ring { width: 88px; height: 88px; flex: none; }
+  .ring-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; flex: 1; }
+  .ring-stats .l { font-size: 11.5px; color: var(--gl-ink-soft); }
+  .ring-stats .v { font-size: 15px; font-weight: 700; color: var(--gl-heading); }
+  .links { display: flex; flex-direction: column; }
+  .links a { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--contained-line); font-size: 13.5px; font-weight: 600; color: var(--gl-heading); text-decoration: none; }
+  .links a:last-child { border-bottom: 0; }
+  .links a span { color: var(--gl-ink-soft); font-weight: 400; font-size: 13px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="/greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">Examples library · Widgets</div>
+</header>
+
+<div class="wrap">
+  <div class="crumb-nav"><a href="/layouts/widget.html">Widget anatomy</a> · Catalogue</div>
+  <h1>Widget catalogue</h1>
+  <p class="intro">Seventeen canonical widget types in six families, each defined by the question it answers rather than the chart it draws. Every type uses the shared <a href="/layouts/widget.html">widget anatomy</a>, maps to a source page (T1–T5, D1–D5), and states when it fits and when it does not. Pick the type from the viewer's question first; the visualisation follows.</p>
+
+  <div class="fam-grid">
+    <a class="fam" href="#measure"><span class="tag">Family A</span><h2>Measure</h2><span class="q">"Where is this number, and which way is it going?"</span><p>W1 Stat · W2 Stat cluster · W3 Trend</p></a>
+    <a class="fam" href="#compose"><span class="tag">Family B</span><h2>Compose</h2><span class="q">"What is it made of, and how do the parts compare?"</span><p>W4 Comparison · W5 Distribution · W6 Capacity</p></a>
+    <a class="fam" href="#monitor"><span class="tag">Family C</span><h2>Monitor</h2><span class="q">"What is healthy, what is not, and what needs me?"</span><p>W7 Status list · W8 Exception · W9 Ranked table</p></a>
+    <a class="fam" href="#explain"><span class="tag">Family D</span><h2>Explain</h2><span class="q">"What happened, where does it concentrate, and why?"</span><p>W10 Activity · W11 Heatmap · W12 Insight</p></a>
+    <a class="fam" href="#act"><span class="tag">Family E</span><h2>Act</h2><span class="q">"Am I on track, and where do I go next?"</span><p>W13 Goal · W14 Quick actions</p></a>
+    <a class="fam" href="#summarise"><span class="tag">Family F</span><h2>Summarise</h2><span class="q">"Tell me the state of things, and what to do about it."</span><p>W15 Digest · W16 Actionable list · W17 Recommendation cards</p></a>
+  </div>
+
+  <div class="sec-h">At a glance</div>
+  <p class="sec-sub">Workhorse visualisation, allowed sizes on a T5 grid, and where the full data lives. Sizes follow the T5 rule: 1×1, 2×1, 2×2 only.</p>
+  <table class="ov">
+    <tr><th>Type</th><th>Viewer question</th><th>Workhorse viz</th><th>Sizes</th><th>Drills to</th><th>Card gallery</th></tr>
+    <tr><td class="code"><a href="#w1">W1 Stat</a></td><td>Is this metric where it should be?</td><td>Big number + delta pill, optional sparkline</td><td>1×1</td><td>T3 chart · T4 detail</td><td><a href="/card-gallery.html#trend">Show a trend</a></td></tr>
+    <tr><td class="code"><a href="#w2">W2 Stat cluster</a></td><td>What are the headline figures?</td><td>2×2 label / value / caption grid</td><td>2×1 · 2×2</td><td>T1 KPI strip · T3</td><td>—</td></tr>
+    <tr><td class="code"><a href="#w3">W3 Trend</a></td><td>How is this changing over time?</td><td>Line or area, dashed prior period</td><td>2×1 · 2×2</td><td>T3 analytics · D4</td><td><a href="/card-gallery.html#trend">Show a trend</a></td></tr>
+    <tr><td class="code"><a href="#w4">W4 Comparison</a></td><td>Which is biggest, and by how much?</td><td>Horizontal bars, ranked; grouped or stacked columns</td><td>2×1 · 2×2</td><td>T3 · D1 sorted</td><td>—</td></tr>
+    <tr><td class="code"><a href="#w5">W5 Distribution</a></td><td>What is it made of?</td><td>Donut with centre total, or stack bar + legend rows</td><td>1×1 · 2×1</td><td>D1 filtered by segment</td><td><a href="/card-gallery.html#distribution">Summarise a distribution</a></td></tr>
+    <tr><td class="code"><a href="#w6">W6 Capacity</a></td><td>How close to the limit?</td><td>Meter used / total with threshold tick</td><td>1×1</td><td>T4 detail · budget</td><td>—</td></tr>
+    <tr><td class="code"><a href="#w7">W7 Status list</a></td><td>What is up and what is down?</td><td>Rows: dot · name · state, optional uptime segments</td><td>2×1 · 2×2</td><td>D1 filtered · T4</td><td>—</td></tr>
+    <tr><td class="code"><a href="#w8">W8 Exception</a></td><td>What needs me now?</td><td>Count by severity + top items</td><td>1×1 · 2×1</td><td>T2 triage queue</td><td><a href="/card-gallery.html#exception">Report an exception</a></td></tr>
+    <tr><td class="code"><a href="#w9">W9 Ranked table</a></td><td>Who are the top or bottom N?</td><td>≤6-row table, bar-in-cell</td><td>2×1 · 2×2</td><td>D1 inventory table</td><td>—</td></tr>
+    <tr><td class="code"><a href="#w10">W10 Activity</a></td><td>What happened recently?</td><td>Rows: relative time · actor · event</td><td>1×1 · 2×2</td><td>D3 event stream</td><td>—</td></tr>
+    <tr><td class="code"><a href="#w11">W11 Heatmap</a></td><td>Where or when does it concentrate?</td><td>Cell grid (time × time, risk matrix) or map</td><td>2×2</td><td>D4 explorer · D5 map</td><td>—</td></tr>
+    <tr><td class="code"><a href="#w12">W12 Insight</a></td><td>Why is this happening, and what should I do?</td><td>Callout: finding · evidence · one action</td><td>1×1 · 2×1</td><td>T3 chart or T4 object</td><td><a href="/card-gallery.html#insight">Explain an insight</a></td></tr>
+    <tr><td class="code"><a href="#w13">W13 Goal</a></td><td>Am I on track, and how long is left?</td><td>Progress ring or date countdown + target stats</td><td>1×1</td><td>T4 subscription · target</td><td><a href="/card-gallery.html#deadline">Prompt a deadline</a></td></tr>
+    <tr><td class="code"><a href="#w14">W14 Quick actions</a></td><td>Where do I go next?</td><td>Link list, ≤6 rows</td><td>1×1</td><td>Anywhere</td><td>—</td></tr>
+    <tr><td class="code"><a href="#w15">W15 Digest</a></td><td>How are things, in one breath?</td><td>Stat strip or 2 to 4 plain sentences, one link</td><td>2×1 · full-width section</td><td>T1 overview · T3</td><td><a href="/summary/digest.html">Digest spec</a></td></tr>
+    <tr><td class="code"><a href="#w16">W16 Actionable list</a></td><td>What needs doing, worst or soonest first?</td><td>Rows: marker · lead + reason · one verb; capped at 5</td><td>2×1 · 2×2 · full-width section</td><td>T2 triage · D1 filtered</td><td><a href="/summary/findings.html">Findings spec</a></td></tr>
+    <tr><td class="code"><a href="#w17">W17 Recommendation cards</a></td><td>What could I improve, and is it worth it?</td><td>2 to 3 cards: finding · evidence · action · dismiss</td><td>2×2 · full-width section</td><td>T4 object · setup flow</td><td><a href="/summary/cards.html">Cards spec</a></td></tr>
+  </table>
+  <div class="note"><strong>Seventeen types is the full vocabulary, not a target for any one page.</strong> A T1 overview typically uses four or five types. If a widget cannot be named from this list, it is either two widgets or a page.</div>
+
+  <!-- ============ A · MEASURE ============ -->
+  <div class="fam-h" id="measure">Family A · Measure</div>
+
+  <div class="entry" id="w1">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Power draw</h2><div class="scope">Last 24 hours · 42 servers</div></div><span class="arrow">→</span></div>
+        <div class="value-row"><span class="big-number" style="font-size:36px;">18.4 kW</span><span class="delta down">↓ 2.1%</span></div>
+        <svg class="spark" viewBox="0 0 220 72" preserveAspectRatio="none">
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-blue)" stop-opacity="0.22"/><stop offset="1" stop-color="var(--c-blue)" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0,30 L40,36 L80,28 L120,40 L160,34 L200,44 L220,42 L220,72 L0,72Z" fill="url(#g1)"/>
+          <path d="M0,30 L40,36 L80,28 L120,40 L160,34 L200,44 L220,42" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+          <circle cx="220" cy="42" r="6" fill="var(--c-blue)" transform="translate(-6 0)"/>
+        </svg>
+        <div class="axis"><span>Yesterday · 18.8 kW</span><span>Now · 18.4 kW</span></div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W1 · Measure</span>
+      <h2>Stat</h2>
+      <p class="job">Is this metric where it should be?</p>
+      <p class="desc">One number, its direction, and just enough shape to trust it. The most common widget on every product surveyed. The sparkline is optional; the delta is required.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Big number with unit, delta pill vs prior period, 72px sparkline per the <a href="/card-gallery.html#trend">sparkline spec</a>. Axis row "date · value".</p></div>
+        <div><h3>Controls</h3><p>Header trailing arrow drills to the T3 chart. No local controls. Scope line states period and population.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz">1×1</span><span class="sz off">2×1</span><span class="sz off">2×2</span></span> Wider stats become W3.</p></div>
+        <div><h3>Source</h3><p>T3 analytics metric or T4 detail attribute; on T1 the same figure appears in the KPI strip.</p></div>
+        <div><h3>Use when</h3><p>One figure carries the decision and has a meaningful prior period.</p></div>
+        <div><h3>Not when</h3><p>The number has no comparison (use W2 caption instead), or the trend shape is the point (W3).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w2">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Cost and usage</h2><div class="scope">Month to date · all workspaces</div></div><span class="kebab">⋮</span></div>
+        <div class="cluster">
+          <div><div class="c-lbl">Current month</div><div class="c-val">$41,280</div><div class="c-cap">Through 18 Sep</div></div>
+          <div><div class="c-lbl">Forecast</div><div class="c-val">$68,900</div><div class="c-cap">↑ 4% vs Aug</div></div>
+          <div><div class="c-lbl">Last month</div><div class="c-val">$66,140</div><div class="c-cap">Closed 31 Aug</div></div>
+          <div><div class="c-lbl">Credits remaining</div><div class="c-val">1,240</div><div class="c-cap">Expire 30 Nov</div></div>
+        </div>
+        <div class="w-foot"><span class="tlink">View cost report</span><span class="fresh">Updated 06:00</span></div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W2 · Measure</span>
+      <h2>Stat cluster</h2>
+      <p class="job">What are the headline figures?</p>
+      <p class="desc">Two to four related stats that only make sense together (current, forecast, previous, remaining). The widget form of the T1 KPI strip, for boards where the strip is not available.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>2×2 grid of label / value / caption. Captions carry the comparison in words; no sparklines.</p></div>
+        <div><h3>Controls</h3><p>Kebab in header; drill link in footer left, freshness right.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz">2×1</span><span class="sz">2×2</span></span></p></div>
+        <div><h3>Source</h3><p>T1 KPI strip or T3 report header.</p></div>
+        <div><h3>Use when</h3><p>Figures share a unit and a story; the viewer reads them as one sentence.</p></div>
+        <div><h3>Not when</h3><p>Stats are unrelated (four W1s), or one dominates (W1 with the rest as caption).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w3">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Storage consumed</h2><div class="scope">Last 30 days · 6 arrays</div></div><span class="arrow">→</span></div>
+        <svg class="spark" viewBox="0 0 220 72" preserveAspectRatio="none" style="height:96px;">
+          <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--c-blue)" stop-opacity="0.22"/><stop offset="1" stop-color="var(--c-blue)" stop-opacity="0"/></linearGradient></defs>
+          <path d="M0,48 L30,46 L60,40 L90,38 L120,30 L150,28 L180,20 L220,14 L220,72 L0,72Z" fill="url(#g3)"/>
+          <path d="M0,48 L30,46 L60,40 L90,38 L120,30 L150,28 L180,20 L220,14" fill="none" stroke="var(--c-blue)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+          <path d="M0,56 L40,54 L80,50 L120,46 L160,42 L220,38" fill="none" stroke="var(--gl-ink-faint)" stroke-width="1.5" stroke-dasharray="1 4" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="axis"><span>19 Aug · 412 TB</span><span>18 Sep · 486 TB</span></div>
+        <div class="legend-inline"><span class="lg"><span class="sw"></span>This period</span><span class="lg"><span class="dash-sw"></span>Prior period</span></div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W3 · Measure</span>
+      <h2>Trend</h2>
+      <p class="job">How is this changing over time?</p>
+      <p class="desc">The shape of the line carries the message, so it gets the whole body. One series, or one series against its prior period; the axis row stands in for a y-axis and the endpoint value stands in for a tooltip.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Line or area time series, blue current, dashed prior period. Up to three series before it becomes a D4 explorer.</p></div>
+        <div><h3>Controls</h3><p>Legend below, entries toggle series. Optional metric tabs in the local-controls zone when one chart serves several measures. Period comes from the page.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz">2×1</span><span class="sz">2×2</span></span></p></div>
+        <div><h3>Source</h3><p>T3 analytics page; D4 explorer for the full series set.</p></div>
+        <div><h3>Use when</h3><p>Shape, slope, or seasonality matters more than the current value.</p></div>
+        <div><h3>Not when</h3><p>Only the latest figure matters (W1), or categories rather than time are on the x-axis (W4).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ B · COMPOSE ============ -->
+  <div class="fam-h" id="compose">Family B · Compose</div>
+
+  <div class="entry" id="w4">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Spend by service</h2><div class="scope">Month to date</div></div><span class="kebab">⋮</span></div>
+        <div class="hbar">
+          <div class="r"><span class="n">Compute</span><span class="b"><i style="width:88%"></i></span><span class="v">$21k</span></div>
+          <div class="r"><span class="n">Storage</span><span class="b"><i style="width:52%"></i></span><span class="v">$12k</span></div>
+          <div class="r"><span class="n">Networking</span><span class="b"><i style="width:24%"></i></span><span class="v">$5.7k</span></div>
+          <div class="r"><span class="n">Backup</span><span class="b"><i style="width:11%"></i></span><span class="v">$2.6k</span></div>
+        </div>
+        <div class="w-foot"><span class="tlink">View all 11 services</span><span class="fresh"></span></div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W4 · Compose</span>
+      <h2>Comparison</h2>
+      <p class="job">Which is biggest, and by how much?</p>
+      <p class="desc">Categories side by side. Horizontal ranked bars are the default because labels stay readable; grouped or stacked columns only when a second dimension (period, status) is essential.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Ranked horizontal bars, value right-aligned, ≤6 rows. Single colour unless status is the second dimension.</p></div>
+        <div><h3>Controls</h3><p>Optional Group by or Sort select in the local-controls zone. Footer drill names the remainder ("View all 11 services").</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz">2×1</span><span class="sz">2×2</span></span></p></div>
+        <div><h3>Source</h3><p>T3 analytics breakdown; D1 inventory sorted by the measure.</p></div>
+        <div><h3>Use when</h3><p>The viewer ranks or picks between named categories.</p></div>
+        <div><h3>Not when</h3><p>Categories sum to a meaningful whole (W5), or rows need more than one figure (W9).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w5">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Devices by status</h2><div class="scope">542 devices</div></div><span class="arrow">→</span></div>
+        <div class="donut-row">
+          <svg class="donut" viewBox="0 0 42 42">
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--grey-bg)" stroke-width="6"/>
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--red)" stroke-width="6" stroke-dasharray="4 96" stroke-dashoffset="25"/>
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--amber)" stroke-width="6" stroke-dasharray="14 86" stroke-dashoffset="21"/>
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--ok)" stroke-width="6" stroke-dasharray="74 26" stroke-dashoffset="7"/>
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--unknown)" stroke-width="6" stroke-dasharray="8 92" stroke-dashoffset="-67"/>
+            <text x="21" y="23.5" text-anchor="middle" font-size="9" font-weight="700" fill="var(--gl-heading)">542</text>
+          </svg>
+          <div class="legend-col">
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">22</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">76</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy</span><span class="pct">401</span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--unknown)"></span>Unknown</span><span class="pct">43</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W5 · Compose</span>
+      <h2>Distribution</h2>
+      <p class="job">What is it made of?</p>
+      <p class="desc">Parts of a whole where the whole is the headline. Donut with the total in the centre for ≤5 segments; a stack bar with legend rows when the widget is short or the segments are ordered.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Donut + legend rows with counts (never percentages alone), or <code>.stack-bar</code> + <code>.legend-row</code>. Status order critical → warning → ok → unknown; zero-count segments omitted.</p></div>
+        <div><h3>Controls</h3><p>Legend rows are the drill: each filters the D1 table by segment. Header arrow opens the unfiltered table.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz">1×1</span><span class="sz">2×1</span><span class="sz off">2×2</span></span></p></div>
+        <div><h3>Source</h3><p>D1 inventory table filtered by the segment attribute.</p></div>
+        <div><h3>Use when</h3><p>Segments are exhaustive and sum to a total the viewer recognises.</p></div>
+        <div><h3>Not when</h3><p>More than five segments (W4 ranked), or segments do not sum (W4).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w6">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Capacity</h2><div class="scope">Array PROD-03</div></div><span class="arrow">→</span></div>
+        <div class="value-row"><span class="big-number" style="font-size:36px;">71%</span><span class="pill amber">Above 70% threshold</span></div>
+        <div class="meter-lbl" style="margin-top:10px;"><span><b>142 TB</b> used</span><span>of 200 TB</span></div>
+        <div class="meter"><i class="warn" style="width:71%"></i><span class="thr" style="left:70%"></span></div>
+        <div class="w-foot"><span class="tlink">Plan expansion</span><span class="fresh">Full in ~41 days</span></div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W6 · Compose</span>
+      <h2>Capacity</h2>
+      <p class="job">How close to the limit?</p>
+      <p class="desc">Used against a fixed total with a threshold the viewer cares about: storage, licence seats, budget, credits. A linear meter beats a gauge: it reads at a glance, aligns with neighbours, and shows the threshold as a tick.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Percentage headline, verdict pill, "used of total" line, <code>.meter</code> with threshold tick. Bar colour follows the verdict (ok / warn / crit); text never does.</p></div>
+        <div><h3>Controls</h3><p>Footer left is the remedial action link ("Plan expansion", "Adjust budget"); footer right the projection ("Full in ~41 days").</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz">1×1</span><span class="sz off">2×1</span><span class="sz off">2×2</span></span></p></div>
+        <div><h3>Source</h3><p>T4 detail of the constrained object; budget page for spend.</p></div>
+        <div><h3>Use when</h3><p>There is a hard or agreed ceiling and a threshold that triggers action.</p></div>
+        <div><h3>Not when</h3><p>There is no ceiling (W1), or several objects need comparing (W7 or W9 with bar-in-cell).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ C · MONITOR ============ -->
+  <div class="fam-h" id="monitor">Family C · Monitor</div>
+
+  <div class="entry" id="w7">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Service health</h2><div class="scope">Last 30 days · daily</div></div><span class="arrow">→</span></div>
+        <div class="st-list">
+          <div class="st-row up"><span class="sd" style="background:var(--red)"></span><span class="nm">Object storage</span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="c"></i><i class="c"></i><i class="c"></i></span><span class="stt">Degraded</span></div>
+          <div class="st-row up"><span class="sd" style="background:var(--amber)"></span><span class="nm">Identity</span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="w"></i><i class="w"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Maintenance</span></div>
+          <div class="st-row up"><span class="sd" style="background:var(--ok)"></span><span class="nm">Compute Ops</span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
+          <div class="st-row up"><span class="sd" style="background:var(--ok)"></span><span class="nm">Data Services</span><span class="seg-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span class="stt">Operational</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W7 · Monitor</span>
+      <h2>Status list</h2>
+      <p class="job">What is up and what is down?</p>
+      <p class="desc">A short roll of named things each with one state. Sorted by severity, so when everything is fine the eye can stop at the first row. Uptime bars add 30 days of history without a chart; hover a segment for the day and duration.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>≤6 rows: status dot · name · optional uptime bar · state word. Uptime bar = one segment per whole time unit (30 for 30 days, 24 for 24 hours), newest right; segment colour is the worst state in that unit, never a percentage. Scope line names the unit ("Last 30 days · daily"). Status order critical → warning → ok → unknown. Overflow becomes "+ 4 more" in the footer.</p></div>
+        <div><h3>Controls</h3><p>Header arrow to the full status page or D1 filtered to these objects. Rows are links to T4.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz">2×1</span><span class="sz">2×2</span></span></p></div>
+        <div><h3>Source</h3><p>D1 inventory with status column; T4 object detail per row.</p></div>
+        <div><h3>Use when</h3><p>The viewer watches a fixed, nameable set of things.</p></div>
+        <div><h3>Not when</h3><p>Only the count matters (W8), or the set is large and anonymous (W5 distribution).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w8">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Needs attention</h2><div class="scope">Open · 42 servers</div></div><span class="arrow">→</span></div>
+        <span class="big-number" style="font-size:36px;">7</span>
+        <div class="sev-row"><span class="pill red">3 critical</span><span class="pill amber">4 warning</span></div>
+        <div class="st-list" style="margin-top:14px;">
+          <div class="st-row"><span class="sd" style="background:var(--red)"></span><span class="nm">rack-04 · PSU failure</span><span class="stt">12 min</span></div>
+          <div class="st-row"><span class="sd" style="background:var(--red)"></span><span class="nm">edge-cluster-9 · Unreachable</span><span class="stt">38 min</span></div>
+          <div class="st-row"><span class="sd" style="background:var(--red)"></span><span class="nm">srv-1182 · Thermal</span><span class="stt">1 h</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W8 · Monitor</span>
+      <h2>Exception</h2>
+      <p class="job">What needs me now?</p>
+      <p class="desc">Count of things wrong, split by severity, with the worst few named. The whole widget is a door into the T2 triage queue. When nothing is wrong it shows the all-clear state and stays on the board.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Big count, severity pills in status order (zero counts omitted), then ≤3 top items with age. Canonical form in <a href="/card-gallery.html#exception">Report an exception</a>.</p></div>
+        <div><h3>Controls</h3><p>Header arrow to T2. Pills filter T2 by severity. No kebab: nothing here is secondary.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz">1×1</span><span class="sz">2×1</span><span class="sz off">2×2</span></span> 1×1 drops the item list.</p></div>
+        <div><h3>Source</h3><p>T2 triage / work queue.</p></div>
+        <div><h3>Use when</h3><p>Items have severity and an owner who must act.</p></div>
+        <div><h3>Not when</h3><p>Items are informational (W10), or the set is fixed and mostly healthy (W7).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w9">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Top consumers</h2><div class="scope">By CPU · last hour</div></div><span class="kebab">⋮</span></div>
+        <table class="mini-tbl">
+          <tr><th>Server</th><th>Site</th><th class="num">CPU</th></tr>
+          <tr><td class="tlink">srv-0412</td><td>Frankfurt</td><td class="num">96%</td></tr>
+          <tr><td class="tlink">srv-1177</td><td>Dublin</td><td class="num">91%</td></tr>
+          <tr><td class="tlink">srv-0088</td><td>Frankfurt</td><td class="num">88%</td></tr>
+          <tr><td class="tlink">srv-2301</td><td>Austin</td><td class="num">84%</td></tr>
+        </table>
+        <div class="w-foot"><span class="tlink">View all 42 servers</span><span class="fresh">1–4 of 42</span></div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W9 · Monitor</span>
+      <h2>Ranked table</h2>
+      <p class="job">Who are the top or bottom N?</p>
+      <p class="desc">A preview of the D1 table, pre-sorted by the measure that matters, cut at the rows that fit. The widget does not scroll; the footer states how much more there is and links to it.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Table with ≤3 columns and ≤6 rows; first column is the object link, last is the ranking measure, optionally as bar-in-cell. Header row uses the table spec, at 12.5px.</p></div>
+        <div><h3>Controls</h3><p>Optional Sort select in local controls. Footer: "View all N" left, "1–4 of 42" right. Kebab for Download data.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz">2×1</span><span class="sz">2×2</span></span> 2×1 = 4 rows, 2×2 = 6 rows.</p></div>
+        <div><h3>Source</h3><p>D1 inventory table with the same sort applied.</p></div>
+        <div><h3>Use when</h3><p>Rows need two or three attributes to be recognisable and comparable.</p></div>
+        <div><h3>Not when</h3><p>One figure per row is enough (W4), or the viewer needs to filter or act in bulk (send them to D1).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ D · EXPLAIN ============ -->
+  <div class="fam-h" id="explain">Family D · Explain</div>
+
+  <div class="entry" id="w10">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><h2>Recent activity</h2><span class="arrow">→</span></div>
+        <div class="feed">
+          <div class="f"><span class="t">2 min</span><span class="m"><b>Firmware update</b> completed on rack-04</span></div>
+          <div class="f"><span class="t">14 min</span><span class="m"><b>A. Okafor</b> changed the alert policy for Frankfurt</span></div>
+          <div class="f"><span class="t">1 h</span><span class="m"><b>Config drift</b> detected on edge-cluster-9</span></div>
+          <div class="f"><span class="t">3 h</span><span class="m"><b>Subscription</b> GL-8821 renewed for 12 months</span></div>
+          <div class="f"><span class="t">Yesterday</span><span class="m"><b>New device</b> srv-2318 onboarded to Austin</span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W10 · Explain</span>
+      <h2>Activity</h2>
+      <p class="job">What happened recently?</p>
+      <p class="desc">Newest first, relative time, one line per event. It provides context rather than alerting, and because nothing here demands action it uses no status colour or pills.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>≤6 rows: relative time · bold subject · plain event. Absolute time on hover. No icons unless the event type matters.</p></div>
+        <div><h3>Controls</h3><p>Header arrow to D3. No local filters; if the viewer needs to filter, they need D3.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz">1×1</span><span class="sz off">2×1</span><span class="sz">2×2</span></span> Extra height adds rows; extra width adds nothing.</p></div>
+        <div><h3>Source</h3><p>D3 faceted event stream.</p></div>
+        <div><h3>Use when</h3><p>Order in time is the organising idea and events are heterogeneous.</p></div>
+        <div><h3>Not when</h3><p>Events need triage (W8), or they are homogeneous counts over time (W3).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w11">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Alert volume</h2><div class="scope">By hour · last 7 days</div></div><span class="kebab">⋮</span></div>
+        <div class="hm">
+          <span></span><span class="hd">M</span><span class="hd">T</span><span class="hd">W</span><span class="hd">T</span><span class="hd">F</span><span class="hd">S</span><span class="hd">S</span>
+          <span class="lb">00</span><i class="cl" style="opacity:.15"></i><i class="cl" style="opacity:.1"></i><i class="cl" style="opacity:.15"></i><i class="cl" style="opacity:.1"></i><i class="cl" style="opacity:.12"></i><i class="cl" style="opacity:.08"></i><i class="cl" style="opacity:.08"></i>
+          <span class="lb">06</span><i class="cl" style="opacity:.35"></i><i class="cl" style="opacity:.4"></i><i class="cl" style="opacity:.3"></i><i class="cl" style="opacity:.45"></i><i class="cl" style="opacity:.3"></i><i class="cl" style="opacity:.12"></i><i class="cl" style="opacity:.1"></i>
+          <span class="lb">12</span><i class="cl" style="opacity:.7"></i><i class="cl" style="opacity:.95"></i><i class="cl" style="opacity:.8"></i><i class="cl" style="opacity:.9"></i><i class="cl" style="opacity:.6"></i><i class="cl" style="opacity:.2"></i><i class="cl" style="opacity:.15"></i>
+          <span class="lb">18</span><i class="cl" style="opacity:.5"></i><i class="cl" style="opacity:.55"></i><i class="cl" style="opacity:.6"></i><i class="cl" style="opacity:.5"></i><i class="cl" style="opacity:.4"></i><i class="cl" style="opacity:.15"></i><i class="cl" style="opacity:.12"></i>
+        </div>
+        <div class="legend-inline"><span class="lg"><span class="sw" style="opacity:.15"></span>Fewer</span><span class="lg"><span class="sw"></span>More</span></div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W11 · Explain</span>
+      <h2>Heatmap</h2>
+      <p class="job">Where or when does it concentrate?</p>
+      <p class="desc">Two dimensions and an intensity: hour × weekday, impact × likelihood, region × service, or a map. Viewers read the overall pattern first and individual cells on hover.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Cell grid with single-hue ramp (blue), row and column labels, gradient legend below. Risk matrices use the status ramp instead. Maps use <a href="/data-collection/map-view.html">D5</a> conventions.</p></div>
+        <div><h3>Controls</h3><p>Optional Table / Heatmap segmented toggle in local controls. Kebab: Download data. Cells drill to D4 or D5 with both dimensions applied.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz off">2×1</span><span class="sz">2×2</span></span> Smaller sizes lose the row and column labels.</p></div>
+        <div><h3>Source</h3><p>D4 analytics explorer; D5 map for spatial.</p></div>
+        <div><h3>Use when</h3><p>Two categorical or time dimensions and the viewer looks for hot spots.</p></div>
+        <div><h3>Not when</h3><p>One dimension would do (W3 or W4), or exact values matter (W9).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w12">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><h2>Insight</h2><span class="kebab">⋮</span></div>
+        <div class="callout">
+          <span class="ic">✦</span>
+          <div>
+            <div class="h">Frankfurt storage will hit 90% in 6 weeks at the current growth rate</div>
+            <div class="p">Consumption rose 18 TB per week over the last 30 days, up from 11 TB. Two arrays account for 80% of the increase.</div>
+            <div class="acts"><button class="btn secondary">Review arrays</button><button class="btn">Dismiss</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W12 · Explain</span>
+      <h2>Insight</h2>
+      <p class="job">Why is this happening, and what should I do?</p>
+      <p class="desc">A finding in a sentence, the evidence in another, and one thing to do about it. Generated or curated, it is the only widget where prose leads. It is dismissible because insights go stale.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Icon · headline (the finding, with the number in it) · evidence line · up to two actions, secondary and default. Canonical form in <a href="/card-gallery.html#insight">Explain an insight</a>.</p></div>
+        <div><h3>Controls</h3><p>Kebab: Copy link, Dismiss, Hide this kind. Action buttons in the body, never primary.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz">1×1</span><span class="sz">2×1</span><span class="sz off">2×2</span></span></p></div>
+        <div><h3>Source</h3><p>The T3 chart or T4 object the evidence came from.</p></div>
+        <div><h3>Use when</h3><p>The system knows something the viewer would not see from the raw widgets.</p></div>
+        <div><h3>Not when</h3><p>The message is a threshold breach (W8 or W6), or a permanent explanation (put it in the ⓘ tooltip).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ E · ACT ============ -->
+  <div class="fam-h" id="act">Family E · Act</div>
+
+  <div class="entry" id="w13">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Migration progress</h2><div class="scope">Wave 3 · due 30 Nov</div></div><span class="arrow">→</span></div>
+        <div class="ring-row">
+          <svg class="ring" viewBox="0 0 42 42">
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--grey-bg)" stroke-width="5"/>
+            <circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--c-blue)" stroke-width="5" stroke-dasharray="62 38" stroke-dashoffset="25" stroke-linecap="round"/>
+            <text x="21" y="23.5" text-anchor="middle" font-size="9.5" font-weight="700" fill="var(--gl-heading)">62%</text>
+          </svg>
+          <div class="ring-stats">
+            <div><div class="l">Migrated</div><div class="v">186 of 300</div></div>
+            <div><div class="l">Days left</div><div class="v">73</div></div>
+            <div><div class="l">Required pace</div><div class="v">1.6 / day</div></div>
+            <div><div class="l">Current pace</div><div class="v">2.1 / day</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W13 · Act</span>
+      <h2>Goal</h2>
+      <p class="job">Am I on track, and how long is left?</p>
+      <p class="desc">Progress against a target with a date. Combines a ring or countdown with the four numbers that make "on track" checkable: done of total, time left, required pace, current pace.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Progress ring with percentage, or big countdown ("73 days") when the date matters more than the count. 2×2 stat grid alongside. Deadline form in <a href="/card-gallery.html#deadline">Prompt a deadline</a>.</p></div>
+        <div><h3>Controls</h3><p>Header arrow to the object or programme (T4). Footer optional: the remedial link when behind pace.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz">1×1</span><span class="sz off">2×1</span><span class="sz off">2×2</span></span></p></div>
+        <div><h3>Source</h3><p>T4 detail (subscription, project, migration wave).</p></div>
+        <div><h3>Use when</h3><p>There is an agreed target and a date.</p></div>
+        <div><h3>Not when</h3><p>The limit is a ceiling to stay under (W6), or there is no date (W1).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w14">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><h2>Quick actions</h2></div>
+        <div class="links">
+          <a href="#">Add devices <span>→</span></a>
+          <a href="#">Invite a user <span>→</span></a>
+          <a href="#">Open a support case <span>→</span></a>
+          <a href="#">Download audit log <span>→</span></a>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W14 · Act</span>
+      <h2>Quick actions</h2>
+      <p class="job">Where do I go next?</p>
+      <p class="desc">The one non-reporting widget. A short list of destinations or starts, for boards where the page has no secondary rail to hold them. Every product surveyed has one, usually as an uncontained link list in a rail.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>≤6 link rows, verb-first labels, trailing arrow. No icons, no descriptions.</p></div>
+        <div><h3>Controls</h3><p>No header or footer controls; each row is itself the action. The header trailing slot stays empty.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz">1×1</span><span class="sz off">2×1</span><span class="sz off">2×2</span></span></p></div>
+        <div><h3>Source</h3><p>Any page; the destination list is per persona.</p></div>
+        <div><h3>Use when</h3><p>A T5 board replaces the T1 secondary rail and needs its entry points back.</p></div>
+        <div><h3>Not when</h3><p>The page already has a rail or a primary action for the task; a widget never carries <code>.btn.primary</code>.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ F · SUMMARISE ============ -->
+  <div class="fam-h" id="summarise">Family F · Summarise</div>
+  <p class="sec-sub" style="margin-top:-4px">Summary sections double as widgets. On a T1 or T4 page they are full-width, uncontained sections using the <a href="/summary/index.html">Container anatomy</a>; on a T5 board the same content fits a 2×1 or 2×2 card. Full specs, variants and Figma notes live under <a href="/summary/index.html">Summary sections</a>; the entries here fix the widget-sized form.</p>
+
+  <div class="entry" id="w15">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>This week</h2><div class="scope">Generated Mon 10 Nov · 15 workspaces</div></div><span class="arrow">→</span></div>
+        <div class="dg">
+          <p>All 542 devices reported in the last 24 hours. Compute Ops Management on Alpha Bank expires in 4 days with auto-renew off. Spend is tracking 6% under last month.</p>
+        </div>
+        <div class="dg-strip">
+          <span><b>542</b> devices<br><span class="pill green">Reporting</span></span>
+          <span><b>1</b> expiring<br><span class="pill red">4 days</span></span>
+          <span><b>−6%</b> spend<br><span class="pill grey">vs Oct</span></span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W15 · Summarise</span>
+      <h2>Digest</h2>
+      <p class="job">How are things, in one breath?</p>
+      <p class="desc">Two to four plain sentences, or a strip of three to five stats, that let the reader decide whether to read the rest of the page. Nothing in it is a control except one link to the full report. Variants S1a Stat strip, S1b Narrative, S1c Insight live in the <a href="/summary/digest.html">Digest spec</a>.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Sentences in ink only (no colour in type), each naming a number and a subject; or stat tiles value / label / pill. Max four sentences or five stats.</p></div>
+        <div><h3>Controls</h3><p>Header arrow or "View report" link. Chevron collapse when the section is long. Regenerate as a <code>.tbtn</code> on insight digests. Never dismissible.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz">2×1</span><span class="sz off">2×2</span></span> Full-width section on T1 and T4.</p></div>
+        <div><h3>Source</h3><p>T1 overview; T3 report; the page it summarises.</p></div>
+        <div><h3>Use when</h3><p>The page has more than one section and the reader needs a reason to scroll, or to leave.</p></div>
+        <div><h3>Not when</h3><p>The items need acting on individually (W16) or the figures already sit in a KPI strip (W2).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w16">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Coming up <span class="cntx">20</span></h2><div class="scope">Next 90 days · 15 workspaces</div></div><span class="arrow">→</span></div>
+        <div class="alist">
+          <div class="ar"><span class="pill red">Overdue</span><span><span class="al">Aruba Central lapsed for Harbour Trust</span><span class="as">12 access points unlicensed</span></span><a class="glink" href="#">Renew</a></div>
+          <div class="ar"><span class="pill red">In 4 days</span><span><span class="al">Compute Ops expires on Alpha Bank</span><span class="as">240 devices · auto-renew off</span></span><a class="glink" href="#">Renew</a></div>
+          <div class="ar"><span class="pill amber">In 11 days</span><span><span class="al">TLS certificate expires on api</span><span class="as">Used by 3 integrations</span></span><a class="glink" href="#">Replace</a></div>
+          <div class="ar"><span class="pill amber">In 23 days</span><span><span class="al">Private Cloud renews for Alpha Bank</span><span class="as">Auto-renew on</span></span><span></span></div>
+        </div>
+        <div class="afoot"><a class="glink" href="#">Show 16 more</a></div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W16 · Summarise</span>
+      <h2>Actionable list</h2>
+      <p class="job">What needs doing, worst or soonest first?</p>
+      <p class="desc">A short list where every row is a thing with a reason and, where one exists, a single verb. Ranked by severity (triage), date (deadline) or fixed order (checklist). Variants S2a, S2b, S2c, three row-interaction patterns and the volume rule live in the <a href="/summary/findings.html">Findings spec</a>.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Rows: marker (severity or countdown pill, tick, or urgency glyph) · bold lead + one-line reason · action slot. Hairlines between rows only. Card rows (grey tiles) only on an uncontained section with five or fewer items.</p></div>
+        <div><h3>Controls</h3><p>Action slot: link when it navigates, <code>.tbtn</code> when it acts in place, kebab for dismiss or snooze (never on critical), empty when there is nothing to do. Or the whole row is the link with a trailing chevron; never both in one list. Header: count pill, "View all" link, "Show dismissed (n)".</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz">2×1</span><span class="sz">2×2</span></span> 2×1 shows 3 rows, 2×2 shows 5. Full-width section on T1, T2, T4.</p></div>
+        <div><h3>Volume</h3><p>0: one line. 1 to 5: all rows. 6 to 12: five + "Show n more". 13 to 30: group by window, far group folded. 30+: roll up to one row per window. Header count is always the full total; critical never behind a fold.</p></div>
+        <div><h3>Use when</h3><p>Items have an owner and a next step, and the order carries meaning.</p></div>
+        <div><h3>Not when</h3><p>Items are a fixed set that is mostly healthy (W7), a count is enough (W8), or nothing in the list can be acted on (W10).</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="entry" id="w17">
+    <div class="ex">
+      <div class="card">
+        <div class="card-head"><div class="hgroup"><h2>Recommended</h2><div class="scope">Based on the last 30 days</div></div><span class="kebab">⋮</span></div>
+        <div class="rcx">
+          <div class="rc"><span class="pill amber">Save ~$1,900/mo</span><span class="rl">Right-size 6 idle instances</span><span class="rs">Under 5% CPU for 30 days in Optima Bank</span><span class="ra"><a class="glink" href="#">Review instances</a><button class="xb" aria-label="Dismiss">✕</button></span></div>
+          <div class="rc"><span class="pill grey">Security</span><span class="rl">Turn on MFA for 3 admin accounts</span><span class="rs">Northline, Pinecrest, Coastal Credit</span><span class="ra"><a class="glink" href="#">Set policy</a><button class="xb" aria-label="Dismiss">✕</button></span></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <span class="tag">W17 · Summarise</span>
+      <h2>Recommendation cards</h2>
+      <p class="job">What could I improve, and is it worth it?</p>
+      <p class="desc">Two or three cards, each a finding with evidence, the size of the prize, one action and a way to say no. Optional by definition, so every card is dismissible and the section removes itself when empty. Variants S3a Setup, S3b Optimise, S3c Insight live in the <a href="/summary/cards.html">Cards spec</a>.</p>
+      <div class="spec">
+        <div><h3>Body</h3><p>Card: value or category pill · lead as an imperative · one line of evidence · action row. White cards inside a contained section, grey tiles on an uncontained one. Max three visible.</p></div>
+        <div><h3>Controls</h3><p>Per card: one link or <code>.tbtn</code>, plus ✕ dismiss (undo 6s, recoverable from "Show dismissed (n)"). Section kebab: Show dismissed, Turn off recommendations. Never a <code>.btn.primary</code>.</p></div>
+        <div><h3>Sizes</h3><p><span class="sizes"><span class="sz off">1×1</span><span class="sz off">2×1</span><span class="sz">2×2</span></span> Full-width section on T1 and T4, cards side by side.</p></div>
+        <div><h3>Source</h3><p>T4 object detail; setup or policy flow the card links to.</p></div>
+        <div><h3>Use when</h3><p>The action is optional and you can state what the reader gains.</p></div>
+        <div><h3>Not when</h3><p>The action is required (W16 checklist) or there is no evidence beyond "best practice".</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-h">How this fits the container architecture</div>
+  <p class="sec-sub">Page → Section → Container → Widget → Widget type. The catalogue only adds the last layer.</p>
+  <div class="note" style="margin-top:0;">
+    <strong>Containers</strong> say what earns grey and how padding works. <strong>Content header</strong> says what a title row is. <strong>Widget</strong> adds the scope line, legend, footer, edit chrome, and states that every reporting container needs. <strong>Widget types</strong> say which body goes inside for which question. The <a href="/card-gallery.html">card gallery</a> remains the place where presentation variants and states of a type are worked through in detail; W1, W3, W5, W8, W12 and W13 link to their gallery job. A T1 overview is a fixed arrangement of these types; a T5 board is a viewer-chosen one; a T4 detail rail borrows W1, W6 and W10.
+  </div>
+</div>
+
+<script src="/library-nav.js"></script>
+<script src="/livereload.js"></script>
+</body>
+</html>

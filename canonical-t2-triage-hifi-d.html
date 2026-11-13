@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T2 · Triage · Var D · Security findings</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon active" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Security findings</h1>
+      <button class="btn secondary">＋ Create exception</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Attention banner -->
+        <section>
+          <div class="attn">
+            <div>
+              <div class="txt"><span class="n">9 critical findings</span> need review</div>
+              <div class="sub">4 externally reachable Aruba Central scopes · 3 findings exceed PCI DSS remediation targets</div>
+            </div>
+            <button class="btn primary">Review</button>
+          </div>
+        </section>
+
+        <!-- Filter bar + queue -->
+        <section>
+          <div class="toolbar">
+            <div class="search-sm">⌕ Search findings</div>
+            <span class="fchip on">All open (64)</span>
+            <span class="fchip">Critical (9)</span>
+            <span class="fchip">High (22)</span>
+            <span class="fchip">Exception requested (6)</span>
+            <span class="fchip">Filters ▾</span>
+            <span class="spacer"></span>
+            <span class="fchip">Bulk actions ▾</span>
+          </div>
+          <div class="count-note">64 open findings · sorted by severity, then first seen</div>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Finding</th><th>CVE</th><th>Severity</th><th>Affected assets</th><th>First seen</th><th>Status</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">COM-Cluster-Analytics-B iLO exposure</span></td><td>CVE-2026-42117</td><td><span class="pill red">Critical</span></td><td>18 analytics nodes</td><td>Sep 9, 2026</td><td><span class="pill amber">Review needed · Grace Thompson</span></td>
+                <td><button class="btn toolbar" style="font-size:12px;">Review</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">Edge-North-Fleet AOS-CX exposure</span></td><td>CVE-2026-39802</td><td><span class="pill red">Critical</span></td><td>45 devices</td><td>Sep 8, 2026</td><td><span class="pill red">Overdue · Liam Oconnor</span></td>
+                <td><button class="btn toolbar" style="font-size:12px;">Remediate</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">Block Storage management TLS weakness</span></td><td>CVE-2026-37714</td><td><span class="pill amber">High</span></td><td>Block-Resource-032 · Dublin HQ</td><td>Sep 6, 2026</td><td><span class="pill grey">Planned · Sophie Anderson</span></td>
+                <td><button class="btn toolbar" style="font-size:12px;">View</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">Default SNMP community detected</span></td><td>—</td><td><span class="pill amber">High</span></td><td>Retail-Edge-UK · 36 devices</td><td>Sep 4, 2026</td><td><span class="pill amber">Exception requested · Grace Thompson</span></td>
+                <td><button class="btn toolbar" style="font-size:12px;">Decide</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">Manufacturing-IoT-Access protocol exposure</span></td><td>—</td><td><span class="pill amber">Medium</span></td><td>Plant-Gateways-Munich · 41 devices</td><td>Sep 2, 2026</td><td><span class="pill grey">Assigned · Liam Oconnor</span></td>
+                <td><button class="btn toolbar" style="font-size:12px;">Track</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">ReadOnly-AllScopes audit gap</span></td><td>—</td><td><span class="pill grey">Medium</span></td><td>COM-Cluster-Prod-A · 32 nodes</td><td>Aug 28, 2026</td><td><span class="pill green">Fix staged · Grace Thompson</span></td>
+                <td><button class="btn toolbar" style="font-size:12px;">Validate</button></td>
+              </tr>
+              <tr>
+                <td><span class="cb"></span></td><td><span class="tlink">Dublin HQ management certificate expiring</span></td><td>—</td><td><span class="pill grey">Low</span></td><td>2XK4521ABC, 2XK4522DEF</td><td>Aug 24, 2026</td><td><span class="pill grey">Backlog · Mason Clark</span></td>
+                <td><button class="btn toolbar" style="font-size:12px;">Assign</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Supporting summaries -->
+        <section class="grid-3">
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">Findings by severity</h2></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">9</span></div>
+            <div class="stack-bar" style="margin:4px 0 10px;"><span style="flex:9; background:var(--red)"></span><span style="flex:55; background:var(--grey-bg)"></span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>High</span><span class="pct">22</span></div>
+            <div class="stack-bar" style="margin:4px 0 10px;"><span style="flex:22; background:var(--amber)"></span><span style="flex:42; background:var(--grey-bg)"></span></div>
+            <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--c-grey)"></span>Medium / low</span><span class="pct">33</span></div>
+            <div class="stack-bar" style="margin:4px 0 0;"><span style="flex:33; background:var(--c-grey)"></span><span style="flex:31; background:var(--grey-bg)"></span></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">Mean time to remediate</h2></div>
+            <div class="chart-wrap">
+              <svg viewBox="0 0 220 70">
+                <polyline points="0,24 31,27 62,34 93,36 124,41 155,43 186,48 220,50" fill="none" stroke="var(--gl-green)" stroke-width="2.5" stroke-linecap="round"/>
+                <polyline points="0,18 31,20 62,22 93,25 124,28 155,30 186,31 220,34" fill="none" stroke="var(--c-grey)" stroke-width="2" stroke-dasharray="4 4"/>
+              </svg>
+            </div>
+            <div class="chart-legend">
+              <span class="lg"><span class="sw" style="background:var(--gl-green)"></span>8.6 days</span>
+              <span class="lg"><span class="sw" style="background:var(--c-grey)"></span>12.1 target</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2 style="font-size:16px;">Top affected groups</h2></div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev crit"></div><div><div class="li-title">COM-Cluster-Analytics-B</div><div class="li-sub">3 critical · 9 high</div></div></div>
+              <div class="li-count">18</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">Edge-North-Fleet</div><div class="li-sub">2 critical · 19 high</div></div></div>
+              <div class="li-count">45</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">COM-Cluster-HPC-01</div><div class="li-sub">7 high · Zurich Research window approved</div></div></div>
+              <div class="li-count">40</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>Compliance frameworks</h3>
+          <div class="kv"><span class="k">PCI DSS 4.0</span><span class="v">3 overdue</span></div>
+          <div class="kv"><span class="k">CIS Controls v8</span><span class="v">91% ✓</span></div>
+          <div class="kv"><span class="k">NIST 800-53</span><span class="v">87%</span></div>
+          <div class="kv"><span class="k">ISO 27001</span><span class="v">On track</span></div>
+        </div>
+        <div class="card">
+          <h3>Remediation targets</h3>
+          <div class="li-title" style="margin-bottom:2px;">Critical findings</div>
+          <div class="fine">Target: remediate within 7 days. 2 findings currently at risk.</div>
+          <div class="meter"><i class="crit" style="width:64%"></i></div>
+          <div class="li-title" style="margin:14px 0 2px;">High findings</div>
+          <div class="fine">Target: remediate within 30 days. 19 of 22 on schedule.</div>
+          <div class="meter"><i style="width:86%"></i></div>
+          <div style="margin-top:14px;"><span class="glink">Open remediation plan →</span></div>
+        </div>
+        <div>
+          <h3 style="font-size:18px; font-weight:700; margin-bottom:4px;">Quick actions</h3>
+          <ul class="qa-list">
+            <li><a href="#">Assign remediation owner</a></li>
+            <li><a href="#">Approve exception</a></li>
+            <li><a href="#">Export compliance evidence</a></li>
+            <li><a href="#">Create patch campaign</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

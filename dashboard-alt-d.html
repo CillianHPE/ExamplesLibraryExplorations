@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GreenLake Home · Alt D: Bento</title>
+<link rel="stylesheet" href="lofi-shared.css">
+<style>
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+    gap: var(--gap-container);
+  }
+  .span-2 { grid-column: span 2; }
+  .tall { grid-row: span 2; }
+  @media (max-width: 1000px) { .bento { grid-template-columns: 1fr; } .span-2 { grid-column: span 1; } }
+</style>
+</head>
+<body>
+
+
+<header class="header">
+  <div class="hicon"></div>
+  <div class="logo">greenlake</div>
+  <div class="workspace">North America IT Ops ▾</div>
+  <div class="search">Search</div>
+  <div class="header-icons"><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div><div class="hicon"></div></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon active"></div><div class="ricon"></div><div class="ricon"></div>
+    <div class="ricon"></div><div class="ricon"></div><div class="ricon"></div>
+    <div class="ricon"></div><div class="ricon"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Home</h1>
+      <button class="btn">Customize 🔧</button>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- Section 1: bento grid — everything contained, one modular section -->
+        <section class="section">
+          <div class="zone-label">Section 1 · Bento grid · all contained, 16px gaps, mixed spans</div>
+          <div class="bento">
+
+            <!-- Hero insight: 2 wide -->
+            <div class="card span-2">
+              <div class="kpi-cat">GreenLake Copilot · Insight of the day</div>
+              <div class="kpi-name" style="font-size:19px; margin-top:4px;">You could save $12.4K this month</div>
+              <div class="kpi-desc">6 rightsizing actions and 2 reserved-capacity renewals identified across your compute servers.</div>
+              <span class="chip">✦ See more insights</span>
+            </div>
+
+            <!-- KPI tiles: 1x1 each -->
+            <div class="card">
+              <div class="kpi-cat">Risk &amp; Compliance</div>
+              <div class="kpi-value-row" style="margin-top:8px;"><span class="kpi-value">96%</span><span class="delta">↑ 18%</span></div>
+              <span class="kpi-link">View report →</span>
+            </div>
+            <div class="card">
+              <div class="kpi-cat">Efficiency</div>
+              <div class="kpi-value-row" style="margin-top:8px;"><span class="kpi-value">68%</span><span class="delta">↓ 4%</span></div>
+              <span class="kpi-link">Optimize →</span>
+            </div>
+
+            <!-- Alerts: tall, 2 rows -->
+            <div class="card span-2 tall">
+              <div class="card-head"><h2>Alerts</h2><div class="arrow">→</div></div>
+              <div class="list-item">
+                <div class="li-main"><div class="sev"></div><div><div class="li-title">DHCP time out</div><div class="li-sub">18 devices affected</div></div></div>
+                <div class="li-meta">2 hours ago</div>
+              </div>
+              <div class="list-item">
+                <div class="li-main"><div class="sev"></div><div><div class="li-title">VLAN mismatch</div><div class="li-sub">15 switches</div></div></div>
+                <div class="li-meta">Yesterday</div>
+              </div>
+              <div class="list-item">
+                <div class="li-main"><div class="sev"></div><div><div class="li-title">802.1X auth failure</div><div class="li-sub">10 users denied</div></div></div>
+                <div class="li-meta">3 days ago</div>
+              </div>
+              <div class="list-item">
+                <div class="li-main"><div class="sev"></div><div><div class="li-title">Firmware drift</div><div class="li-sub">6 servers below baseline</div></div></div>
+                <div class="li-meta">4 days ago</div>
+              </div>
+            </div>
+
+            <!-- Devices: 2 wide -->
+            <div class="card span-2">
+              <div class="card-head"><h2>Devices</h2><div class="arrow">→</div></div>
+              <span class="big-number">204</span> <span class="big-number-sub">Total devices</span>
+              <div class="bar"><span style="flex:41"></span><span style="flex:31"></span><span style="flex:31"></span><span style="flex:20"></span></div>
+            </div>
+
+            <!-- Subscriptions -->
+            <div class="card">
+              <div class="card-head"><h2 style="font-size:16px;">Subscriptions</h2><div class="arrow">→</div></div>
+              <div class="list-item"><div class="li-title">≤ 30 days</div><div class="li-count">4</div></div>
+              <div class="list-item"><div class="li-title">≤ 90 days</div><div class="li-count">26</div></div>
+            </div>
+
+            <!-- Sustainability -->
+            <div class="card">
+              <div class="card-head"><h2 style="font-size:16px;">Sustainability</h2><div class="arrow">→</div></div>
+              <div class="li-sub">Energy cost</div>
+              <div style="font-size:22px; font-weight:700;">$48.7K</div>
+              <div class="spark"></div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Section 2: table -->
+        <section class="section">
+          <div class="zone-label">Section 2 · In-flight work · uncontained table, 32px above</div>
+          <h2 class="table-title">Migrations</h2>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Migration</th><th>Source</th><th>Target</th><th>Status</th><th>Progress</th><th class="num">Workloads</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">MIG-2024-0871</span></td><td>On-prem DC · Austin</td><td>Private Cloud</td><td><span class="status-pill">In progress</span></td><td><div class="progress"><i style="width:72%"></i></div></td><td class="num">128</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">MIG-2024-0864</span></td><td>VMware Cluster B</td><td>Morpheus VME</td><td><span class="status-pill">Validating</span></td><td><div class="progress"><i style="width:45%"></i></div></td><td class="num">64</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">MIG-2024-0859</span></td><td>AWS us-east-1</td><td>GreenLake Compute</td><td><span class="status-pill">Scheduled</span></td><td><div class="progress"><i style="width:5%"></i></div></td><td class="num">212</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div class="card">
+          <h3>GreenLake Status</h3>
+          <div class="status-banner"><span class="status-dot"></span> Operational</div>
+          <div class="fine">No scheduled maintenance. Use <u>GreenLake Service Health</u> to view other issues.</div>
+        </div>
+        <div class="card">
+          <h3>GreenLake Intelligence</h3>
+          <div class="fine">Your copilot for AI-ready operations.</div>
+          <div class="prompt-box">✦ Ask GreenLake how to…</div>
+          <span class="chip">Try it now</span>
+        </div>
+        <div>
+          <h3 style="font-size:18px; margin-bottom:6px;">Quick actions</h3>
+          <ul class="qa-list"><li>Add devices</li><li>Add service subscription</li><li>Add users</li><li>Assign roles</li></ul>
+        </div>
+        <div>
+          <h3 style="font-size:18px; margin-bottom:6px;">Learn</h3>
+          <div class="learn-item"><div class="lt">Explore GreenLake →</div><div class="ls">Learn more about the platform.</div></div>
+          <div class="learn-item"><div class="lt">What's New →</div><div class="ls">Latest releases and announcements.</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Servers · Inventory table · Hi-fi</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  /* triage strip */
+  .triage { display:grid; grid-template-columns:1fr 1fr 1fr; gap:var(--gap-container); margin-bottom:var(--gap-section); }
+  .tri-card { background:var(--contained); border-radius:var(--radius); padding:18px 22px; }
+  .tri-card h2 { font-size:15px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+  .tri-total { font-size:26px; font-weight:700; color:var(--gl-heading); margin-bottom:2px; }
+  .tri-total span { font-size:13px; font-weight:400; color:var(--gl-ink-soft); margin-left:6px; }
+  .stackbar { display:flex; height:12px; border-radius:6px; overflow:hidden; margin:10px 0 12px; }
+  .stackbar i { display:block; height:100%; }
+  .tri-legend { flex:1; min-width:0; }
+  .tri-row { display:flex; justify-content:space-between; align-items:center; font-size:12.5px; padding:3px 0; cursor:pointer; }
+  .tri-row:hover .lbl { text-decoration:underline; }
+  .tri-row .lg { display:flex; align-items:center; gap:7px; }
+  .tri-row .n { font-weight:700; }
+  .sq { width:10px; height:10px; border-radius:2px; flex:none; }
+  .attn-row { display:flex; justify-content:space-between; align-items:center; font-size:13px; padding:6px 0; cursor:pointer; }
+  .attn-row:hover .lbl { text-decoration:underline; }
+  .attn-row .n { font-weight:700; }
+  /* page-level secondary area (like Overview): full-height right column, toggled from the page head */
+  .content { display:grid; grid-template-columns:1fr 300px; gap:var(--gap-primary-secondary); align-items:start; }
+  .content.collapsed { grid-template-columns:1fr; }
+  .content.collapsed .sec-col { display:none; }
+  .main-col { min-width:0; }
+  .main-col .table-scroll { overflow-x:auto; }
+  .sec-col { display:flex; flex-direction:column; gap:var(--gap-section); min-width:0; }
+  .act-rail { background:var(--contained); border-radius:var(--radius); padding:20px 22px; }
+  .act-rail h3 { font-size:16px; font-weight:700; margin-bottom:4px; display:flex; align-items:baseline; justify-content:space-between; }
+  .act-rail h3 .glink { font-size:12.5px; font-weight:600; }
+  .act-item { padding:12px 0; border-bottom:1px solid var(--contained-line); cursor:pointer; border-radius:6px; }
+  .act-item:hover { background:rgba(0,0,0,0.035); margin:0 -8px; padding-left:8px; padding-right:8px; }
+  .act-item:hover .t { text-decoration:underline; }
+  .act-item:last-child { border-bottom:0; }
+  .act-item .t { font-size:13.5px; font-weight:700; }
+  .act-item .s { font-size:12px; color:var(--gl-ink-soft); margin-top:2px; line-height:1.45; }
+  .act-item .d { font-size:11.5px; color:var(--gl-ink-faint); margin-top:3px; }
+  /* panel toggle button in page head */
+  .panel-toggle { width:40px; height:40px; border-radius:50%; border:2px solid var(--gl-green); background:#fff; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center; color:var(--gl-green-deep); position:relative; }
+  .panel-toggle:hover { background:var(--mint-bg); }
+  .panel-toggle svg { width:18px; height:18px; }
+  .panel-toggle .badge { position:absolute; top:-5px; right:-5px; background:var(--red); color:#fff; font-size:10.5px; font-weight:700;
+    border-radius:9px; padding:1px 6px; display:none; }
+  .panel-toggle.show-badge .badge { display:block; }
+  /* health cell */
+  .hsq { width:11px; height:11px; border-radius:2px; display:inline-block; }
+  .hdr-actions { display:flex; gap:10px; align-items:center; }
+  .pager { display:flex; align-items:center; gap:6px; margin-top:16px; font-size:13px; justify-content:flex-end; }
+  .pager .pbtn { min-width:32px; height:32px; border-radius:8px; border:1px solid transparent; background:transparent; font-size:13px; font-weight:600;
+    color:var(--gl-ink); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; }
+  .pager .pbtn:hover { background:rgba(0,0,0,0.05); }
+  .pager .pbtn.on { background:var(--gl-heading); color:#fff; }
+  .pager .pbtn:disabled { color:var(--gl-ink-faint); cursor:default; background:transparent; }
+  .pager .range { color:var(--gl-ink-soft); margin-right:12px; }
+  table { table-layout:auto; }
+  td, th { white-space:nowrap; }
+</style>
+
+</head>
+<body>
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="GreenLake by HPE"></div>
+  <div class="workspace">HPECC_Partner</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon active" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page" style="max-width:none;">
+    <div class="page-head">
+      <h1>Servers</h1>
+      <div style="display:flex; gap:12px; align-items:center;">
+        <button class="btn primary">Add server</button>
+        <button class="panel-toggle" id="ptoggle" onclick="toggleRail()" title="Toggle activity panel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.2" y="4.2" width="17.6" height="15.6" rx="3"/><path d="M14.8 4.2v15.6"/></svg>
+          <span class="badge">3</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="content" id="content">
+      <div class="main-col">
+
+    <!-- Triage strip -->
+    <section class="triage">
+      <div class="tri-card">
+        <h2>Servers health status</h2>
+        <div class="tri-total">91<span>servers</span></div>
+        <div class="stackbar">
+          <i style="width:1.1%; background:var(--amber)"></i><i style="width:4.4%; background:var(--ok)"></i><i style="width:71.4%; background:#5b6a72"></i><i style="width:23.1%; background:#c7ced2"></i>
+        </div>
+        <div class="tri-legend">
+            <div class="tri-row"><span class="lg"><span class="sq" style="background:var(--red)"></span><span class="lbl">Critical</span></span><span class="n">0</span></div>
+            <div class="tri-row"><span class="lg"><span class="sq" style="background:var(--amber)"></span><span class="lbl">Warning</span></span><span class="n">1</span></div>
+            <div class="tri-row"><span class="lg"><span class="sq" style="background:var(--ok)"></span><span class="lbl">OK</span></span><span class="n">4</span></div>
+            <div class="tri-row"><span class="lg"><span class="sq" style="background:#5b6a72"></span><span class="lbl">Unknown</span></span><span class="n">65</span></div>
+            <div class="tri-row"><span class="lg"><span class="sq" style="background:#c7ced2"></span><span class="lbl">Disabled</span></span><span class="n">21</span></div>
+        </div>
+      </div>
+      <div class="tri-card">
+        <h2>Servers security status</h2>
+        <div class="tri-total">91<span>servers</span></div>
+        <div class="stackbar">
+          <i style="width:18.7%; background:var(--red)"></i><i style="width:1.1%; background:var(--amber)"></i><i style="width:80.2%; background:#5b6a72"></i>
+        </div>
+        <div class="tri-legend">
+            <div class="tri-row"><span class="lg"><span class="sq" style="background:var(--red)"></span><span class="lbl">At risk</span></span><span class="n">17</span></div>
+            <div class="tri-row"><span class="lg"><span class="sq" style="background:var(--amber)"></span><span class="lbl">Ignore risk</span></span><span class="n">1</span></div>
+            <div class="tri-row"><span class="lg"><span class="sq" style="background:var(--ok)"></span><span class="lbl">OK</span></span><span class="n">0</span></div>
+            <div class="tri-row"><span class="lg"><span class="sq" style="background:#5b6a72"></span><span class="lbl">Unknown</span></span><span class="n">73</span></div>
+        </div>
+      </div>
+      <div class="tri-card">
+        <h2>Needs attention</h2>
+        <div class="attn-row"><span class="lbl">Servers not connected</span><span class="n">73</span></div>
+        <div class="attn-row"><span class="lbl">Servers not activated</span><span class="n">12</span></div>
+        <div class="attn-row"><span class="lbl">Subscription required</span><span class="n">12</span></div>
+        <div class="attn-row"><span class="lbl">Expired support</span><span class="n">29</span></div>
+        <div class="attn-row"><span class="lbl">Servers with alerts</span><span class="n">8</span></div>
+      </div>
+    </section>
+
+    <!-- Table -->
+    <div>
+        <div class="toolbar" style="margin-top:var(--gap-section);">
+          <div class="search-sm"><span class="sic" data-i="search"></span>Search server attributes</div>
+          <span class="fchip">All servers ▾</span>
+          <span class="fchip">Filters</span>
+          <span class="fchip">Columns</span>
+          <span class="spacer"></span>
+          <button class="btn secondary">Export servers</button>
+          <button class="btn toolbar">Actions ▾</button>
+        </div>
+        <div class="count-note" id="countnote"></div>
+        <div class="table-scroll">
+        <table>
+          <thead><tr>
+            <th><span class="cb"></span></th><th>Health ↓</th><th>Name</th><th>Serial</th><th>State</th><th>Baseline</th><th>Group</th><th>Power</th><th>Model</th>
+          </tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        </div>
+        <div class="pager" id="pager"></div>
+      </div>
+      </div><!-- /main-col -->
+
+      <!-- Secondary content area (collapsible, like Overview) -->
+      <aside class="sec-col" id="seccol">
+        <div class="act-rail">
+          <h3>Activity <span class="glink">View all (247) →</span></h3>
+          <div class="act-item"><div class="t">Collect hardware inventory</div><div class="s">Inventory collection failed for 4 servers</div><div class="d">9/12/2026 11:36:05 AM</div></div>
+          <div class="act-item"><div class="t">Servers connected</div><div class="s">2 servers connected</div><div class="d">9/12/2026 4:38:39 AM</div></div>
+          <div class="act-item"><div class="t">Servers disconnected</div><div class="s">2 servers disconnected from Compute Ops Management</div><div class="d">9/12/2026 4:30:23 AM</div></div>
+          <div class="act-item"><div class="t">Firmware update completed</div><div class="s">Baseline 2026.04.00 applied to 3 servers</div><div class="d">9/10/2026 2:12:48 PM</div></div>
+          <div class="act-item"><div class="t">Server added</div><div class="s">WIN-A8LL69AS3JF onboarded to group Production</div><div class="d">9/9/2026 9:04:17 AM</div></div>
+          <div class="act-item"><div class="t">iLO security alert</div><div class="s">Default credentials detected on 1 server</div><div class="d">9/8/2026 6:47:52 PM</div></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script>
+/* ---- data: 91 servers, generated to mirror the real page mix ---- */
+const MODELS=["ProLiant DL360 Gen10","ProLiant DL380 Gen10","ProLiant DL385 Gen10","ProLiant DL325 Gen10","ProLiant DL360 Gen11","ProLiant DL380 Gen11","ProLiant DL345 Gen11","HPE ProLiant Compute","ProLiant DL560 Gen11","ProLiant ML350 Gen10","Alletra Storage Server","--"];
+const NAMES=["--","localhost","localhost.localdo...","WIN-QLGIGTJ8A...","myhost","WIN-62IRJI4RB6N","host is unnamed","linux-oidx","WIN-QKGBLSL9O...","WIN-M1G3MSIKC...","WIN-A8LL69AS3JF","BB-PROV-85784","srcefd8a81b4","WIN-84TLIR9SUS4","vegonmya2f.opti..."];
+const GROUPS=["--","ABC","stage","Prod","os-testing","bios","Group02","SN_HBA_SC","Microserver_V2"];
+function seri(i){const p=["CN","SGH","B821PP","7CE","MXQ","SWIT","VL9CNP","2M28"];const pre=p[i%p.length];return pre+String(1000000+i*7919).slice(0,7-Math.min(pre.length,4));}
+const ROWS=[];
+for(let i=0;i<91;i++){
+  let health,state,power;
+  if(i===0){health="warn";state="Connected";power="On";}
+  else if(i>=87){health="ok";state="Connected";power="On";}
+  else if(i%13===5){health="unknown";state="Not activated";power="Unknown";}
+  else if(i%17===3){health="disabled";state="Subscription required";power="Unknown";}
+  else {health="unknown";state="Not connected";power=i%9===0?"Off":(i%23===0?"Reset":"On");}
+  ROWS.push({
+    health,
+    name:i===0?"WIN-LOJPUN18KB3":NAMES[i%NAMES.length],
+    serial:i===0?"SGH333VDJL":seri(i),
+    state,
+    baseline:i%11===4?(60+i%40)+"% of 2026.03.0...":"--",
+    group:i===0?"SN_HBA_SC":GROUPS[i%GROUPS.length],
+    power,
+    model:i===0?"ProLiant DL345 Gen11":MODELS[i%MODELS.length]});
+}
+const HC={ok:"var(--ok)",warn:"var(--amber)",crit:"var(--red)",unknown:"#5b6a72",disabled:"#c7ced2"};
+const HICON={warn:'<span style="display:inline-block;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:11px solid var(--amber);"></span>'};
+const PAGE=20; let page=1;
+function renderTable(){
+  const total=ROWS.length, pages=Math.ceil(total/PAGE);
+  const start=(page-1)*PAGE, rows=ROWS.slice(start,start+PAGE);
+  document.getElementById("countnote").textContent=total+" items";
+  document.getElementById("tbody").innerHTML=rows.map(r=>`<tr>
+    <td><span class="cb"></span></td>
+    <td>${r.health==="warn"?HICON.warn:`<span class="hsq" style="background:${HC[r.health]}"></span>`}</td>
+    <td>${r.name==="--"?'<span style="color:var(--gl-ink-faint)">--</span>':`<span class="tlink">${r.name}</span>`}</td>
+    <td>${r.serial}</td><td>${r.state}</td>
+    <td>${r.baseline==="--"?'<span style="color:var(--gl-ink-faint)">--</span>':r.baseline}</td>
+    <td>${r.group==="--"?'<span style="color:var(--gl-ink-faint)">--</span>':r.group}</td>
+    <td>${r.power}</td>
+    <td>${r.model==="--"?'<span style="color:var(--gl-ink-faint)">--</span>':r.model}</td></tr>`).join("");
+  let p=`<span class="range">${start+1}–${Math.min(start+PAGE,total)} of ${total}</span>`;
+  p+=`<button class="pbtn" onclick="go(${page-1})" ${page===1?"disabled":""}>‹</button>`;
+  for(let i=1;i<=pages;i++) p+=`<button class="pbtn ${i===page?'on':''}" onclick="go(${i})">${i}</button>`;
+  p+=`<button class="pbtn" onclick="go(${page+1})" ${page===pages?"disabled":""}>›</button>`;
+  document.getElementById("pager").innerHTML=p;
+}
+function go(n){const pages=Math.ceil(ROWS.length/PAGE); if(n<1||n>pages)return; page=n; renderTable(); document.querySelector(".main-col").scrollIntoView({behavior:"smooth",block:"start"});}
+function toggleRail(){
+  const c=document.getElementById("content");
+  c.classList.toggle("collapsed");
+  // unread badge on the toggle only while the panel is hidden
+  document.getElementById("ptoggle").classList.toggle("show-badge", c.classList.contains("collapsed"));
+}
+renderTable();
+</script>
+<script src="/library-nav.js"></script>
+</body>
+</html>

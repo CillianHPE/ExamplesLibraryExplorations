@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>T1 · Overview · Var B · Compute</title>
+<link rel="stylesheet" href="hifi-shared.css">
+<script src="hifi-icons.js" defer></script>
+<style>
+  /* ---- Page-local restyle to match GreenLake mock (T1-B only) ---- */
+
+  /* Global header: taller, squared centered search */
+  .header { height: 76px; gap: 26px; padding: 0 28px; border-bottom: 1px solid #D4D8DB; }
+  .logo { font-size: 24px; }
+  .search { flex: 0 1 500px; height: 46px; border-radius: 10px; border: 1px solid #606A70; font-size: 15px; margin: 0 auto; }
+  .header-icons { margin-left: 0; gap: 24px; font-size: 17px; }
+
+  /* Floating side rail with background */
+  .shell { padding: 20px 8px 0 20px; gap: 12px; }
+  .rail { background: #F7F7F7; border-right: 0; border-radius: 14px; width: 88px; padding: 22px 0;
+    gap: 16px; min-height: 0; height: calc(100vh - 116px); position: sticky; top: 96px; }
+  .ricon { font-size: 18px; color: #3c4a52; }
+  .ricon:hover { background: #D4D8DB; }
+  .ricon.active { background: transparent; color: var(--gl-ink); }
+
+  .page { padding: 26px 28px 80px 32px; }
+
+  /* Page head */
+  h1 { font-size: 42px; letter-spacing: -0.6px; }
+  .page-head { margin-bottom: 44px; }
+  .btn, .btn.secondary { background: rgba(0,0,0,0.04); border: 0; padding: 12px 24px; font-size: 15px; border-radius: 24px; }
+  .iconbtn { width: 44px; height: 44px; border: 1.5px solid var(--gl-green-deep); border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 17px; color: var(--gl-green-deep); cursor: pointer; }
+
+  /* KPI strip */
+  .kpi-intro .eyebrow { font-size: 14px; }
+  .kpi-intro .title { font-size: 30px; }
+  .kpi .cat { font-size: 14px; }
+  .kpi .name { font-size: 17px; }
+  .kpi .value { font-size: 40px; }
+  .kpi .desc { font-size: 13.5px; }
+  .delta { font-size: 13px; }
+  .delta.down { background: var(--grey-bg); color: var(--gl-ink-soft); }
+  .glink { font-size: 15px; }
+  .chip { background: #efefef; font-size: 13.5px; padding: 8px 16px; }
+
+  /* Cards */
+  .card { border-radius: 16px; padding: 28px; }
+  .card-head { padding-bottom: 24px; }
+  .card-head h2 { font-size: 26px; letter-spacing: -0.3px; }
+  .card-head .arrow { font-size: 22px; }
+  .list-item { padding: 15px 0; }
+  .li-title { font-size: 16px; }
+  .li-sub { font-size: 13.5px; }
+  .li-meta { font-size: 13px; }
+  .big-number { font-size: 56px; }
+  .big-number-sub { font-size: 14px; }
+  .legend-row { font-size: 14px; padding: 7px 0; }
+  .dot { width: 13px; height: 13px; border-radius: 4px; }
+  .meter { height: 8px; }
+
+  /* Table */
+  .table-title { font-size: 30px; letter-spacing: -0.3px; }
+  th { font-size: 14px; border-bottom: 1px solid var(--line); }
+  td { padding: 16px 14px; font-size: 15px; }
+
+  /* Right rail — no cards, plain sections */
+  .rrail { gap: 44px; }
+  .rrail .sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .rrail .sec-head h3 { font-size: 26px; font-weight: 700; letter-spacing: -0.3px; }
+  .rrail .sec-head .edit { color: var(--gl-ink); font-size: 16px; cursor: pointer; }
+  .qa-list li { padding: 11px 0; }
+  .qa-list a { font-size: 16px; text-decoration: underline; }
+  .rrail .learn-item { display: flex; justify-content: space-between; gap: 12px; padding: 15px 0; }
+  .rrail .learn-item .lt { font-size: 16px; }
+  .rrail .learn-item .ls { font-size: 13.5px; margin-top: 3px; }
+  .rrail .learn-item .more { color: var(--gl-ink-soft); font-size: 18px; cursor: pointer; flex: none; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="burger"><span></span><span></span><span></span></div>
+  <div class="logo"><img src="greenlake-logo.svg" alt="HPE"></div>
+  <div class="workspace">DemoComp Industries</div>
+  <div class="search"><span class="sic" data-i="search"></span>Search</div>
+  <div class="header-icons"><span class="hicon spark" data-i="sparkle"></span><span class="hicon" data-i="bell"></span><span class="hicon" data-i="help"></span><span class="hicon" data-i="chat"></span><span class="hicon" data-i="user"></span></div>
+</header>
+
+<div class="shell">
+  <nav class="rail">
+    <div class="ricon" data-i="panel"></div>
+    <div class="ricon active" data-i="cube"></div>
+    <div class="ricon" data-i="terminal"></div>
+    <div class="ricon" data-i="grid"></div>
+    <div class="ricon" data-i="plusbadge"></div>
+    <div class="ricon" data-i="database"></div>
+    <div class="ricon" data-i="layers"></div>
+    <div class="ricon" data-i="broadcast"></div>
+  </nav>
+
+  <main class="page">
+    <div class="page-head">
+      <h1>Compute Ops Management</h1>
+      <div style="display:flex; gap:14px; align-items:center;">
+        <button class="btn">Customize</button>
+        <span class="iconbtn">◫</span>
+      </div>
+    </div>
+
+    <div class="page-grid">
+      <div class="primary">
+
+        <!-- KPI strip -->
+        <section class="kpi-strip">
+          <div class="kpi-intro">
+            <div class="eyebrow">Compute</div>
+            <div class="title">Health</div>
+            <span class="chip">✦ Ask about my servers</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Availability</div>
+            <div class="name">Servers online</div>
+            <div class="value-row"><span class="value">378</span><span class="delta neutral">of 385</span></div>
+            <div class="desc">7 nodes offline: 4 in planned maintenance, 3 unreachable and need investigation.</div>
+            <span class="glink">View offline servers →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Lifecycle</div>
+            <div class="name">Firmware compliance</div>
+            <div class="value-row"><span class="value">87%</span><span class="delta down">↓ 6%</span></div>
+            <div class="desc">50 nodes below the P55276-B21 2026.04 baseline after last month's advisory.</div>
+            <span class="glink">Schedule updates →</span>
+          </div>
+          <div class="kpi">
+            <div class="cat">Efficiency</div>
+            <div class="name">Avg utilization</div>
+            <div class="value-row"><span class="value">61%</span><span class="delta up">↑ 3%</span></div>
+            <div class="desc">CPU across 17 clusters, trailing 7 days. Peak window 14:00–17:00 UTC.</div>
+            <span class="glink">View utilization →</span>
+          </div>
+        </section>
+
+        <!-- Module cards -->
+        <section class="grid-3">
+          <div class="card">
+            <div class="card-head"><h2>Server health</h2><span class="arrow">→</span></div>
+            <div class="donut-wrap">
+              <div class="donut" style="background: conic-gradient(var(--red) 0 4%, var(--amber) 4% 12%, var(--ok) 12% 100%);" data-center="385"></div>
+              <div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--red)"></span>Critical</span><span class="pct">15</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--amber)"></span>Warning</span><span class="pct">31</span></div>
+                <div class="legend-row"><span class="lg"><span class="dot" style="background:var(--ok)"></span>Healthy</span><span class="pct">339</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Firmware baseline</h2><span class="arrow">→</span></div>
+            <div class="li-title" style="margin-bottom:2px;">P55276-B21 · 2026.04 baseline</div>
+            <div class="fine">136 of 144 compliant</div>
+            <div class="meter"><i style="width:88%"></i></div>
+            <div class="li-title" style="margin:14px 0 2px;">P28948-B21 · 2025.10 baseline</div>
+            <div class="fine">91 of 109 compliant</div>
+            <div class="meter"><i class="warn" style="width:81%"></i></div>
+            <div style="margin-top:16px;"><span class="glink">Review 50 pending updates →</span></div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Active jobs</h2><span class="arrow">→</span></div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev warn"></div><div><div class="li-title">BIOS config apply · COM-Cluster-Edge-UK-01</div><div class="li-sub">12 nodes · London Office</div></div></div>
+              <div class="li-meta">2 failed</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">Firmware update · COM-Cluster-Prod-A</div><div class="li-sub">32 nodes · Dublin HQ</div></div></div>
+              <div class="li-meta">Running</div>
+            </div>
+            <div class="list-item">
+              <div class="li-main"><div class="sev ok"></div><div><div class="li-title">iLO security patch · P55276-B21</div><div class="li-sub">58 nodes · Dublin HQ and Frankfurt DC</div></div></div>
+              <div class="li-meta">Queued</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Uncontained table -->
+        <section>
+          <h2 class="table-title">Servers needing attention</h2>
+          <table>
+            <thead>
+              <tr><th><span class="cb"></span></th><th>Server</th><th>Model</th><th>Location</th><th>Health</th><th>Firmware</th><th class="num">Power (W)</th><th>Last seen</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">2XK4521ABC</span></td><td>P55276-B21 · prod tier1</td><td>Dublin HQ · COM-Cluster-Prod-A</td><td><span class="pill red">Critical</span></td><td><span class="pill amber">Behind</span></td><td class="num">412</td><td>2 min ago</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">5RQ2456STU</span></td><td>P55276-B21 · prod tier2</td><td>Frankfurt DC · COM-Cluster-EU-Central-01</td><td><span class="pill red">Critical</span></td><td><span class="pill green">Current</span></td><td class="num">388</td><td>5 min ago</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">4NP9123MNO</span></td><td>P43358-B21 · dev</td><td>London Office · COM-Cluster-Edge-UK-01</td><td><span class="pill amber">Warning</span></td><td><span class="pill amber">Behind</span></td><td class="num">265</td><td>1 min ago</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">3MJ7834GHI</span></td><td>P28948-B21 · analytics gpu-enabled</td><td>Fort Collins DC · COM-Cluster-Analytics-B</td><td><span class="pill amber">Warning</span></td><td><span class="pill green">Current</span></td><td class="num">1,240</td><td>Just now</td></tr>
+              <tr><td><span class="cb"></span></td><td><span class="tlink">9YP1012NOP</span></td><td>P28948-B21 · research hpc</td><td>Zurich Research · COM-Cluster-HPC-01</td><td><span class="pill grey">Unreachable</span></td><td>—</td><td class="num">—</td><td>3 days ago</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+      </div>
+
+      <aside class="rrail">
+        <div>
+          <div class="sec-head"><h3>Quick actions</h3><span class="edit">✎</span></div>
+          <ul class="qa-list">
+            <li><a href="#">Add servers</a></li>
+            <li><a href="#">Create firmware baseline</a></li>
+            <li><a href="#">Schedule update window</a></li>
+            <li><a href="#">Run carbon report</a></li>
+            <li><a href="#">Configure alert rules</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="sec-head"><h3>Activity</h3></div>
+          <div class="learn-item"><div><div class="lt">Firmware update · COM-Cluster-Prod-A started</div><div class="ls">32 nodes · Dublin HQ · Mason Clark · 24 min ago</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">Server 2XK4521ABC went critical</div><div class="ls">Memory DIMM fault on P55276-B21 at Dublin HQ · 2 hours ago</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">COM-Cluster-Edge-UK-01 added to workspace</div><div class="ls">12 nodes · London Office · onboarded by Ava Williams · 5 hours ago</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">BIOS config apply · COM-Cluster-Edge-UK-01 failed</div><div class="ls">2 of 12 nodes · London Office · retry scheduled · Yesterday</div></div><span class="more">⋯</span></div>
+          <div class="learn-item"><div><div class="lt">Baseline P55276-B21 2026.04 published</div><div class="ls">Applied to 3 server groups by Amelia Foster · Yesterday</div></div><span class="more">⋯</span></div>
+          <button class="btn secondary" style="margin-top:14px;">Show more</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<script src="library-nav.js"></script>
+<script src="livereload.js"></script>
+</body>
+</html>
